@@ -1,0 +1,28 @@
+@use "@/assets/styles/mixins";
+
+.top_header__images {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  height: 100%;
+
+  @include mixins.respond-to("small") {
+    width: calc(80 * 0.25vw);
+  }
+
+  @include mixins.respond-to("medium") {
+    width: calc(60 * 0.25vw);
+  }
+
+  @include mixins.respond-to("large") {
+    width: calc(50 * 0.25vw);
+  }
+
+  @include mixins.respond-to("xlarge") {
+    width: calc(50 * 0.25vw);
+  }
+
+  @include mixins.respond-to("xxlarge") {
+    width: calc(40 * 0.25vw);
+  }
+}
