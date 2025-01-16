@@ -8,8 +8,10 @@
 
   @include mixins.respond-to("small") {
     border: 1px solid #c6c6c6;
-    min-width: calc(40 * 0.25vw);
-    min-height: calc(40 * 0.25vw);
+    align-self: center;
+    min-width: calc(50 * 0.25vw);
+    max-height: calc(50 * 0.25vw);
+    min-height: calc(50 * 0.25vw);
   }
 
   @include mixins.respond-to("medium") {

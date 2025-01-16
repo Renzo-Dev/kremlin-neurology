@@ -8,13 +8,12 @@
       class="buttonPrev button-swiper"
     />
     <swiper
-      class="swiper-container"
       @swiper="onSwiperInit"
       @slideChange="updateButtonVisibility"
       :breakpoints="breakpoints"
     >
       <swiper-slide v-for="(slide, index) in slides" :key="index">
-        <router-link class="swiper-slide" :to="slide.route"
+        <router-link class="swiper-slide__link" :to="slide.route"
           >{{ slide.title }}
         </router-link>
       </swiper-slide>

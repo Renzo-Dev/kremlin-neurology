@@ -19,10 +19,10 @@
   }
 
   @include mixins.respond-to("xlarge") {
-    width: calc(50 * 0.25vw);
+    width: calc(30 * 0.25vw);
   }
 
   @include mixins.respond-to("xxlarge") {
-    width: calc(40 * 0.25vw);
+    width: calc(30 * 0.25vw);
   }
 }
