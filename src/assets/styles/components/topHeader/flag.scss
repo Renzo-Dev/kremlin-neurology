@@ -1,4 +1,4 @@
-@use "@/assets/styles/mixins" as mixins;
+@use '@/assets/styles/mixins' as mixins;
 
 #flag {
   position: relative;
@@ -6,7 +6,7 @@
   background: #fff;
   overflow: hidden;
 
-  @include mixins.respond-to("small") {
+  @include mixins.respond-to('small') {
     border: 1px solid #c6c6c6;
     align-self: center;
     min-width: calc(50 * 0.25vw);
@@ -14,25 +14,25 @@
     min-height: calc(50 * 0.25vw);
   }
 
-  @include mixins.respond-to("medium") {
+  @include mixins.respond-to('medium') {
     border: 1px solid #c6c6c6;
     min-width: calc(35 * 0.25vw);
     min-height: calc(35 * 0.25vw);
   }
 
-  @include mixins.respond-to("large") {
+  @include mixins.respond-to('large') {
     border: 1px solid #c6c6c6;
     min-width: calc(30 * 0.25vw);
     min-height: calc(30 * 0.25vw);
   }
 
-  @include mixins.respond-to("xlarge") {
+  @include mixins.respond-to('xlarge') {
     border: 1px solid #c6c6c6;
     min-width: calc(25 * 0.25vw);
     min-height: calc(25 * 0.25vw);
   }
 
-  @include mixins.respond-to("xxlarge") {
+  @include mixins.respond-to('xxlarge') {
     border: 1px solid #c6c6c6;
     min-width: calc(22 * 0.25vw);
     min-height: calc(22 * 0.25vw);

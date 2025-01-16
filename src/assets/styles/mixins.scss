@@ -1,13 +1,13 @@
 // src/assets/styles/mixins.scss
 
-@use "sass:map";
+@use 'sass:map';
 
 $breakpoints: (
-  "small": 320px,
-  "medium": 768px,
-  "large": 1024px,
-  "xlarge": 1280px,
-  "xxlarge": 1440px,
+  'small': 320px,
+  'medium': 768px,
+  'large': 1024px,
+  'xlarge': 1280px,
+  'xxlarge': 1440px,
 );
 
 @mixin respond-to($breakpoint) {

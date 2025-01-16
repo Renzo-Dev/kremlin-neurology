@@ -8,10 +8,10 @@
 </template>
 
 <script setup>
-import topHeader from "@/components/topHeader/topHeader.vue";
+import topHeader from '@/components/topHeader/topHeader.vue'
 </script>
 
 <style lang="scss">
-@use "@/assets/styles/app.scss";
-@use "@/assets/styles/reset.css";
+@use '@/assets/styles/app.scss';
+@use '@/assets/styles/reset.css';
 </style>

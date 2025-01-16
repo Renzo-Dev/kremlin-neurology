@@ -7,10 +7,10 @@
 
 <script lang="js">
 export default {
-  name: "Flag",
-};
+  name: 'Flag',
+}
 </script>
 
 <style scoped lang="scss">
-@use "@/assets/styles/components/topHeader/flag";
+@use '@/assets/styles/components/topHeader/flag';
 </style>

@@ -12,10 +12,10 @@
 
 <script lang="js">
 export default {
-  name: "topHeader__Context",
-};
+  name: 'topHeader__Context',
+}
 </script>
 
 <style scoped lang="scss">
-@use "@/assets/styles/components/topHeader/topHeader__context";
+@use '@/assets/styles/components/topHeader/topHeader__context';
 </style>

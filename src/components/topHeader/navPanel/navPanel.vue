@@ -30,35 +30,35 @@
 </template>
 
 <script lang="js">
-import "swiper/swiper-bundle.css";
-import { Swiper, SwiperSlide } from "swiper/vue";
-import { onMounted, ref } from "vue";
+import 'swiper/swiper-bundle.css'
+import { Swiper, SwiperSlide } from 'swiper/vue'
+import { onMounted, ref } from 'vue'
 
 export default {
-  name: "navPanel",
+  name: 'navPanel',
   components: {
     Swiper,
     SwiperSlide,
   },
   setup() {
-    const swiper = ref(null);
-    const nextButton = ref(null);
-    const prevButton = ref(null);
+    const swiper = ref(null)
+    const nextButton = ref(null)
+    const prevButton = ref(null)
 
     const slides = [
-      { title: "Обучение", route: "Learning" },
-      { title: "История", route: "History" },
-      { title: "Научная работа", route: "Research" },
-      { title: "Библиотека", route: "Library" },
-      { title: "Клиентская база", route: "ClientBase" },
-      { title: "Ежегодные конференции ▼", route: "AnnualConferences" },
+      { title: 'Обучение', route: 'Learning' },
+      { title: 'История', route: 'History' },
+      { title: 'Научная работа', route: 'Research' },
+      { title: 'Библиотека', route: 'Library' },
+      { title: 'Клиентская база', route: 'ClientBase' },
+      { title: 'Ежегодные конференции ▼', route: 'AnnualConferences' },
       {
         title: 'Научный кружок "Школа молодых неврологов"',
-        route: "YoungNeurologists",
+        route: 'YoungNeurologists',
       },
-      { title: "Новости и обновления", route: "NewsUpdates" },
-      { title: "Контактная информация", route: "ContactInfo" },
-    ];
+      { title: 'Новости и обновления', route: 'NewsUpdates' },
+      { title: 'Контактная информация', route: 'ContactInfo' },
+    ]
     const breakpoints = {
       300: {
         slidesPerView: 2,
@@ -84,28 +84,28 @@ export default {
         slidesPerView: 10,
         spaceBetween: 50,
       },
-    };
+    }
 
     onMounted(() => {
-      updateButtonVisibility();
-    });
+      updateButtonVisibility()
+    })
 
-    const onSwiperInit = (instance) => {
-      swiper.value = instance;
-    };
+    const onSwiperInit = instance => {
+      swiper.value = instance
+    }
 
     const updateButtonVisibility = () => {
       if (swiper.value.isEnd) {
-        nextButton.value.style.visibility = "hidden";
+        nextButton.value.style.visibility = 'hidden'
       } else {
-        nextButton.value.style.visibility = "visible";
+        nextButton.value.style.visibility = 'visible'
       }
       if (swiper.value.isBeginning) {
-        prevButton.value.style.visibility = "hidden";
+        prevButton.value.style.visibility = 'hidden'
       } else {
-        prevButton.value.style.visibility = "visible";
+        prevButton.value.style.visibility = 'visible'
       }
-    };
+    }
 
     return {
       breakpoints,
@@ -115,11 +115,11 @@ export default {
       slides,
       onSwiperInit,
       updateButtonVisibility,
-    };
+    }
   },
-};
+}
 </script>
 
 <style scoped lang="scss">
-@use "@/assets/styles/components/navPanel";
+@use '@/assets/styles/components/navPanel';
 </style>

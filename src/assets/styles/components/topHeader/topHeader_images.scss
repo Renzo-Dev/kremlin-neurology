@@ -1,4 +1,4 @@
-@use "@/assets/styles/mixins";
+@use '@/assets/styles/mixins';
 
 .top_header__images {
   display: flex;
@@ -6,23 +6,23 @@
   justify-content: center;
   height: 100%;
 
-  @include mixins.respond-to("small") {
+  @include mixins.respond-to('small') {
     width: calc(80 * 0.25vw);
   }
 
-  @include mixins.respond-to("medium") {
+  @include mixins.respond-to('medium') {
     width: calc(60 * 0.25vw);
   }
 
-  @include mixins.respond-to("large") {
+  @include mixins.respond-to('large') {
     width: calc(50 * 0.25vw);
   }
 
-  @include mixins.respond-to("xlarge") {
+  @include mixins.respond-to('xlarge') {
     width: calc(30 * 0.25vw);
   }
 
-  @include mixins.respond-to("xxlarge") {
+  @include mixins.respond-to('xxlarge') {
     width: calc(30 * 0.25vw);
   }
 }

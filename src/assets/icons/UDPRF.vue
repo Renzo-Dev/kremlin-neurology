@@ -875,12 +875,12 @@
 
 <script lang="js">
 export default {
-  name: "UDPRF",
-};
+  name: 'UDPRF',
+}
 </script>
 
 <style lang="scss" scoped>
-@use "@/assets/styles/mixins";
+@use '@/assets/styles/mixins';
 
 .gerb_udprf {
   width: 100%;

@@ -1,4 +1,4 @@
-@use "@/assets/styles/mixins";
+@use '@/assets/styles/mixins';
 
 .nav-panel {
   display: flex;
@@ -11,9 +11,9 @@
   .swiper {
     display: flex;
 
-    @include mixins.respond-to("small") {
+    @include mixins.respond-to('small') {
     }
-    @include mixins.respond-to("xxlarge") {
+    @include mixins.respond-to('xxlarge') {
       padding: calc(2 * 0.25vw) 0;
     }
 
@@ -41,9 +41,9 @@
         text-align: center;
         text-decoration: none;
 
-        @include mixins.respond-to("small") {
+        @include mixins.respond-to('small') {
         }
-        @include mixins.respond-to("xxlarge") {
+        @include mixins.respond-to('xxlarge') {
           font-size: calc(4 * 0.27vw);
         }
       }
@@ -57,16 +57,16 @@
 
   .buttonPrev {
     visibility: hidden;
-    margin-right: 30px;
+    margin-right: calc(4 * 0.25vw);
   }
 
   .buttonNext {
-    margin-left: 30px;
+    margin-left: calc(4 * 0.25vw);
   }
 
   .button-swiper {
     align-self: center;
-    height: calc(2 * 1vw);
+    height: calc(8 * 0.25vw);
     border: none;
     z-index: 9999999;
     outline: none;
