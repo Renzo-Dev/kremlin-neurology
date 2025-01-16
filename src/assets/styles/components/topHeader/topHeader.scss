@@ -11,37 +11,7 @@
 
   .top_header_content {
     display: flex;
-    width: auto;
-    justify-content: space-between;
-
-    @include mixins.respond-to('small') {
-      padding: calc(5 * 0.25vw) calc(2 * 0.25vw);
-      height: auto;
-      max-height: calc(70 * 0.25vw);
-    }
-
-    @include mixins.respond-to('medium') {
-      padding: calc(3 * 0.25vw);
-      height: calc(45 * 0.25vw);
-      max-height: calc(45 * 0.25vw);
-    }
-
-    @include mixins.respond-to('large') {
-      padding: calc(2 * 0.25vw);
-      height: calc(35 * 0.25vw);
-      max-height: calc(35 * 0.25vw);
-    }
-
-    @include mixins.respond-to('xlarge') {
-      padding: calc(2 * 0.25vw);
-      height: calc(30 * 0.25vw);
-      max-height: calc(30 * 0.25vw);
-    }
-
-    @include mixins.respond-to('xxlarge') {
-      padding: calc(2 * 0.25vw);
-      height: calc(27 * 0.25vw);
-      max-height: calc(27 * 0.25vw);
-    }
+    width: 100%;
+    align-items: center;
   }
 }

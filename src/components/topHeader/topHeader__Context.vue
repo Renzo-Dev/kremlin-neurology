@@ -1,13 +1,11 @@
 <template>
-  <div class="top_header__context">
-    <router-link class="link" :to="{ name: 'home' }">
-      <div class="context">Кафедра неврологии Официальный сайт</div>
-      <div class="context">
-        ФГБУ ДПО "Центральная государственная медицинская академия" УД
-        Президента РФ
-      </div>
-    </router-link>
-  </div>
+  <router-link class="top_header__context_link" :to="{ name: 'home' }">
+    <div class="context">Кафедра неврологии Официальный сайт</div>
+    <div class="context">
+      ФГБУ ДПО "Центральная государственная медицинская академия" УД Президента
+      РФ
+    </div>
+  </router-link>
 </template>
 
 <script lang="js">

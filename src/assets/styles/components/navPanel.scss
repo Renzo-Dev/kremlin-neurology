@@ -1,76 +1,125 @@
 @use '@/assets/styles/mixins';
 
 .nav-panel {
-  display: flex;
   width: 100%;
-  height: calc(15 * 0.25vw);
-  background-color: white;
-  border-top: 2px solid #c5c5c5;
-  border-bottom: 2px solid #c5c5c5;
-
-  .swiper {
-    display: flex;
-
-    @include mixins.respond-to('small') {
-    }
-    @include mixins.respond-to('xxlarge') {
-      padding: calc(2 * 0.25vw) 0;
-    }
-
-    .swiper-slide {
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background-color: #d7d7d7;
-      border-radius: 7px;
-      font-family: Arial, sans-serif;
-      transition: background-color 200ms ease-in-out;
-
-      &:hover {
-        background-color: #b0b0b0;
-      }
-
-      .swiper-slide__link {
-        color: black;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 100%;
-        width: 100%;
-        text-align: center;
-        text-decoration: none;
-
-        @include mixins.respond-to('small') {
-        }
-        @include mixins.respond-to('xxlarge') {
-          font-size: calc(4 * 0.27vw);
-        }
-      }
-    }
-  }
-
-  .buttonPrev:active,
-  .buttonNext:active {
-    opacity: 50%;
-  }
-
-  .buttonPrev {
-    visibility: hidden;
-    margin-right: calc(4 * 0.25vw);
-  }
-
-  .buttonNext {
-    margin-left: calc(4 * 0.25vw);
-  }
-
-  .button-swiper {
-    align-self: center;
-    height: calc(8 * 0.25vw);
-    border: none;
-    z-index: 9999999;
-    outline: none;
-    cursor: pointer;
-    transition: 100ms ease-in-out;
-  }
+  height: 100px;
+  background-color: brown;
 }
+
+//display: flex;
+//width: 100%;
+//          background-color: white;
+//border-top: 2px solid #c5c5c5;
+//border-bottom: 2px solid #c5c5c5;
+//
+//@include mixins.respond-to('small') {
+//  //height: calc(40 * 0.25vw);
+//}
+//
+//.swiper {
+//  display: flex;
+//
+//  @include mixins.respond-to('small') {
+//    padding: calc(4 * 0.25vw) 0;
+//  }
+//  @include mixins.respond-to('medium') {
+//    padding: calc(2 * 0.25vw) 0;
+//  }
+//  @include mixins.respond-to('large') {
+//    padding: calc(2 * 0.25vw) 0;
+//  }
+//  @include mixins.respond-to('xlarge') {
+//    padding: calc(2 * 0.25vw) 0;
+//  }
+//  @include mixins.respond-to('xxlarge') {
+//    padding: calc(2 * 0.25vw) 0;
+//  }
+//
+//  .swiper-slide {
+//    height: 100%;
+//    display: flex;
+//    align-items: center;
+//    justify-content: center;
+//    background-color: #d7d7d7;
+//    border-radius: 7px;
+//    font-family: Arial, sans-serif;
+//    transition: background-color 200ms ease-in-out;
+//
+//    &:hover {
+//      background-color: #b0b0b0;
+//    }
+//
+//    .swiper-slide__link {
+//      color: black;
+//      display: flex;
+//      align-items: center;
+//      justify-content: center;
+//      height: 100%;
+//      width: 100%;
+//      text-align: center;
+//      text-decoration: none;
+//
+//      @include mixins.respond-to('small') {
+//        padding: calc(2 * 0.25vw) 0;
+//        font-size: calc(12 * 0.25vw);
+//      }
+//      @include mixins.respond-to('medium') {
+//        padding: calc(2 * 0.25vw) 0;
+//        font-size: calc(6 * 0.25vw);
+//      }
+//      @include mixins.respond-to('large') {
+//        padding: calc(2 * 0.25vw) 0;
+//
+//        font-size: calc(4 * 0.28vw);
+//      }
+//      @include mixins.respond-to('xlarge') {
+//        padding: calc(2 * 0.25vw) 0;
+//        font-size: calc(5 * 0.25vw);
+//      }
+//      @include mixins.respond-to('xxlarge') {
+//        padding: calc(2 * 0.25vw) 0;
+//        font-size: calc(4 * 0.27vw);
+//      }
+//    }
+//  }
+//}
+//
+//.buttonPrev:active,
+//.buttonNext:active {
+//  opacity: 50%;
+//}
+//
+//.buttonPrev {
+//  visibility: hidden;
+//  margin-right: calc(4 * 0.25vw);
+//}
+//
+//.buttonNext {
+//  margin-left: calc(4 * 0.25vw);
+//}
+//
+//.button-swiper {
+//  align-self: center;
+//  height: calc(8 * 0.25vw);
+//  border: none;
+//  z-index: 9999999;
+//  outline: none;
+//  cursor: pointer;
+//  transition: 100ms ease-in-out;
+//
+//  @include mixins.respond-to('small') {
+//    height: calc(25 * 0.25vw);
+//  }
+//  @include mixins.respond-to('medium') {
+//    height: calc(10 * 0.25vw);
+//  }
+//  @include mixins.respond-to('large') {
+//    height: calc(10 * 0.25vw);
+//  }
+//  @include mixins.respond-to('xlarge') {
+//    height: calc(10 * 0.25vw);
+//  }
+//  @include mixins.respond-to('xxlarge') {
+//    height: calc(10 * 0.25vw);
+//  }
+//}

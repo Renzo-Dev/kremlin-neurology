@@ -5,7 +5,7 @@
 </template>
 
 <script setup>
-import UDPRF from '../../assets/icons/UDPRF.vue'
+import UDPRF from '@/assets/icons/UDPRF.vue'
 </script>
 
 <style scoped lang="scss">
