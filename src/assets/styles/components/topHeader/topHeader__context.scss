@@ -1,27 +1,74 @@
 @use '@/assets/styles/mixins';
+@use 'sass:map';
+
+$border-color: #c6c6c6;
+$padding-margin: calc(7 * 0.25vw);
+$font-sizes: (
+  small: calc(15 * 0.25vw),
+  xsmall: calc(13 * 0.25vw),
+  medium: calc(9 * 0.25vw),
+  large: calc(8 * 0.25vw),
+  xlarge: calc(8 * 0.25vw),
+  xxlarge: calc(7 * 0.25vw),
+);
+
+@mixin respond-to-all {
+  @include mixins.respond-to('small') {
+    @content;
+  }
+  @include mixins.respond-to('xsmall') {
+    @content;
+  }
+  @include mixins.respond-to('medium') {
+    @content;
+  }
+  @include mixins.respond-to('large') {
+    @content;
+  }
+  @include mixins.respond-to('xlarge') {
+    @content;
+  }
+  @include mixins.respond-to('xxlarge') {
+    @content;
+  }
+}
 
 .top_header__context_link {
   height: fit-content;
   text-decoration: none;
 
-  @include mixins.respond-to('small') {
-    padding-top: 15px;
-    margin-left: 5px;
-    padding-bottom: 15px;
+  @include respond-to-all {
+    padding: $padding-margin 0;
+    margin: 0 $padding-margin;
+  }
+
+  &:hover {
+    .context {
+      color: #919191;
+    }
   }
 
   .context {
     color: black;
-    @include mixins.respond-to('small') {
-      text-align: center;
-      &:first-child {
-        font-size: calc(20 * 0.25vw);
+    margin: 0 10px;
+    transition: color 200ms ease-in-out;
+    text-align: center;
+
+    @each $size, $font-size in $font-sizes {
+      @include mixins.respond-to($size) {
+        &:first-child {
+          font-size: $font-size;
+        }
+        &:last-child {
+          margin-top: 15px;
+          font-weight: 600;
+          font-size: $font-size;
+        }
       }
-      &:last-child {
-        margin-top: 15px;
-        font-weight: 600;
-        font-size: calc(18 * 0.25vw);
-      }
+    }
+
+    @include mixins.respond-to('xxlarge') {
+      text-align: left;
     }
   }
 }
