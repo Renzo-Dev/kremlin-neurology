@@ -1,22 +1,20 @@
 <template>
-  <div class="footer">© 2024 Кафедра неврологии. Все права защищены.</div>
+  <div class="footer">
+    © {{ year }} Кафедра неврологии. Все права защищены.
+  </div>
 </template>
 
-<script setup></script>
+<script lang="js">
+export default {
+  setup() {
+    const year = new Date().getUTCFullYear()
+    return {
+      year,
+    }
+  },
+}
+</script>
 
 <style lang="scss">
-.footer {
-  height: 20px;
-  margin-top: auto;
-  border-top: 1px solid #2e2e2e;
-  width: 100%;
-  text-align: center;
-  text-wrap: nowrap;
-
-  @media (min-width: 1280px) {
-    & {
-      font-size: calc(3 * 0.25vw);
-    }
-  }
-}
+@use '@/assets/styles/components/footer/Footer';
 </style>

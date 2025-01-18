@@ -13,23 +13,10 @@ $font-sizes: (
 );
 
 @mixin respond-to-all {
-  @include mixins.respond-to('small') {
-    @content;
-  }
-  @include mixins.respond-to('xsmall') {
-    @content;
-  }
-  @include mixins.respond-to('medium') {
-    @content;
-  }
-  @include mixins.respond-to('large') {
-    @content;
-  }
-  @include mixins.respond-to('xlarge') {
-    @content;
-  }
-  @include mixins.respond-to('xxlarge') {
-    @content;
+  @each $size in small, xsmall, medium, large, xlarge, xxlarge {
+    @include mixins.respond-to($size) {
+      @content;
+    }
   }
 }
 
@@ -67,23 +54,7 @@ $font-sizes: (
       }
     }
 
-    @include mixins.respond-to('xsmall') {
-      text-align: left;
-    }
-
-    @include mixins.respond-to('medium') {
-      text-align: left;
-    }
-
-    @include mixins.respond-to('large') {
-      text-align: left;
-    }
-
-    @include mixins.respond-to('xlarge') {
-      text-align: left;
-    }
-
-    @include mixins.respond-to('xxlarge') {
+    @include respond-to-all {
       text-align: left;
     }
   }

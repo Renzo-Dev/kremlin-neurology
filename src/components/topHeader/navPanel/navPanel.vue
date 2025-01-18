@@ -1,31 +1,31 @@
 <template>
   <div class="nav-panel">
-    <!--    <img-->
-    <!--      ref="prevButton"-->
-    <!--      src="/src/assets/icons/arrow_icon.svg"-->
-    <!--      alt="Назад"-->
-    <!--      @click.prevent="swiper.slidePrev()"-->
-    <!--      class="buttonPrev button-swiper"-->
-    <!--    />-->
-    <!--    <swiper-->
-    <!--      @swiper="onSwiperInit"-->
-    <!--      @slideChange="updateButtonVisibility"-->
-    <!--      :breakpoints="breakpoints"-->
-    <!--    >-->
-    <!--      <swiper-slide v-for="(slide, index) in slides" :key="index">-->
-    <!--        <router-link class="swiper-slide__link" :to="slide.route"-->
-    <!--          >{{ slide.title }}-->
-    <!--        </router-link>-->
-    <!--      </swiper-slide>-->
-    <!--    </swiper>-->
-    <!--    <img-->
-    <!--      ref="nextButton"-->
-    <!--      src="/src/assets/icons/arrow_icon.svg"-->
-    <!--      style="transform: rotate(180deg)"-->
-    <!--      alt="Вперед"-->
-    <!--      @click.prevent="swiper.slideNext()"-->
-    <!--      class="buttonNext button-swiper"-->
-    <!--    />-->
+    <img
+      ref="prevButton"
+      src="/src/assets/icons/arrow_icon.svg"
+      alt="Назад"
+      @click.prevent="swiper.slidePrev()"
+      class="buttonPrev button-swiper"
+    />
+    <swiper
+      @swiper="onSwiperInit"
+      @slideChange="updateButtonVisibility"
+      :breakpoints="breakpoints"
+    >
+      <swiper-slide v-for="(slide, index) in slides" :key="index">
+        <router-link class="swiper-slide__link" :to="slide.route"
+          >{{ slide.title }}
+        </router-link>
+      </swiper-slide>
+    </swiper>
+    <img
+      ref="nextButton"
+      src="/src/assets/icons/arrow_icon.svg"
+      style="transform: rotate(180deg)"
+      alt="Вперед"
+      @click.prevent="swiper.slideNext()"
+      class="buttonNext button-swiper"
+    />
   </div>
 </template>
 
