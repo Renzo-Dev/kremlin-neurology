@@ -2,51 +2,51 @@ export const routes = [
   {
     path: '/',
     name: 'home',
-    component: () => import('../views/Home.vue'),
+    component: () => import('../pages/Home.vue'),
   },
   {
     path: '/learning',
     name: 'Learning',
-    component: () => import('../views/Learning.vue'),
+    component: () => import('../pages/Learning.vue'),
   },
   {
     path: '/history',
     name: 'History',
-    component: () => import('../views/History.vue'),
+    component: () => import('../pages/History.vue'),
   },
   {
     path: '/research',
     name: 'Research',
-    component: () => import('../views/Research.vue'),
+    component: () => import('../pages/Research.vue'),
   },
   {
     path: '/library',
     name: 'Library',
-    component: () => import('../views/Library.vue'),
+    component: () => import('../pages/Library.vue'),
   },
   {
     path: '/clientbase',
     name: 'ClientBase',
-    component: () => import('../views/ClientBase.vue'),
+    component: () => import('../pages/ClientBase.vue'),
   },
   {
     path: '/annualconferences',
     name: 'AnnualConferences',
-    component: () => import('../views/AnnualConferences.vue'),
+    component: () => import('../pages/AnnualConferences.vue'),
   },
   {
     path: '/youngneurologists',
     name: 'YoungNeurologists',
-    component: () => import('../views/YoungNeurologists.vue'),
+    component: () => import('../pages/YoungNeurologists.vue'),
   },
   {
     path: '/newsupdates',
     name: 'NewsUpdates',
-    component: () => import('../views/NewsUpdates.vue'),
+    component: () => import('../pages/NewsUpdates.vue'),
   },
   {
     path: '/contactinfo',
     name: 'ContactInfo',
-    component: () => import('../views/ContactInfo.vue'),
+    component: () => import('../pages/ContactInfo.vue'),
   },
 ]

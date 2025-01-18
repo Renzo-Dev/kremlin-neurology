@@ -1,4 +1,14 @@
 @use '@/assets/styles/mixins';
+@use 'sass:map';
+
+$dimensions: (
+  small: 60,
+  xsmall: 45,
+  medium: 35,
+  large: 28,
+  xlarge: 25,
+  xxlarge: 23,
+);
 
 .top_header__images {
   display: flex;
@@ -6,39 +16,16 @@
   align-items: center;
   min-height: 100%;
 
-  @include mixins.respond-to('small') {
-    min-width: calc(60 * 0.25vw);
-    max-width: calc(60 * 0.25vw);
-  }
-
-  @include mixins.respond-to('xsmall') {
-    margin-right: calc(4 * 0.25vw);
-    min-width: calc(45 * 0.25vw);
-    max-width: calc(45 * 0.25vw);
-  }
-
-  @include mixins.respond-to('medium') {
-    margin-right: calc(4 * 0.25vw);
-    min-width: calc(35 * 0.25vw);
-    max-width: calc(35 * 0.25vw);
-  }
-
-  @include mixins.respond-to('large') {
-    margin-right: calc(4 * 0.25vw);
-    min-width: calc(30 * 0.25vw);
-    max-width: calc(30 * 0.25vw);
-  }
-
-  @include mixins.respond-to('xlarge') {
-    margin-right: calc(4 * 0.25vw);
-    min-width: calc(25 * 0.25vw);
-    max-width: calc(25 * 0.25vw);
-  }
-
-  @include mixins.respond-to('xxlarge') {
-    margin-left: auto;
-    margin-right: calc(4 * 0.25vw);
-    min-width: calc(25 * 0.25vw);
-    max-width: calc(25 * 0.25vw);
+  @each $size, $dimension in $dimensions {
+    @include mixins.respond-to($size) {
+      min-width: calc(#{$dimension} * 0.25vw);
+      max-width: calc(#{$dimension} * 0.25vw);
+      @if $size != 'small' {
+        margin-right: calc(4 * 0.25vw);
+      }
+      @if $size == 'xxlarge' {
+        margin-left: auto;
+      }
+    }
   }
 }

@@ -78,5 +78,5 @@
 
 <script lang="js"></script>
 <style scoped lang="scss">
-@use '@/assets/styles/views/Home';
+@use '@/assets/styles/pages/Home';
 </style>

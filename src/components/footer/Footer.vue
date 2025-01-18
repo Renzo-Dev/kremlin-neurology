@@ -1,17 +1,17 @@
 <template>
-  <footer>© 2024 Кафедра неврологии. Все права защищены.</footer>
+  <div class="footer">© 2024 Кафедра неврологии. Все права защищены.</div>
 </template>
 
 <script setup></script>
 
 <style lang="scss">
-footer {
-  bottom: 0;
+.footer {
+  height: 20px;
+  margin-top: auto;
   border-top: 1px solid #2e2e2e;
   width: 100%;
   text-align: center;
   text-wrap: nowrap;
-  margin-top: auto;
 
   @media (min-width: 1280px) {
     & {

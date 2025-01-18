@@ -1,14 +1,14 @@
 <template>
   <topHeader />
   <main class="main-container">
-    <h1>HELLO WORLD</h1>
-    <!--    <router-view />-->
+    <router-view />
   </main>
-  <!--  <Footer />-->
+  <Footer />
 </template>
 
 <script setup>
 import topHeader from '@/components/topHeader/topHeader.vue'
+import Footer from '@/components/footer/Footer.vue'
 </script>
 
 <style lang="scss">

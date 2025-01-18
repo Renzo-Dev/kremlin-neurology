@@ -1,4 +1,15 @@
 @use '@/assets/styles/mixins' as mixins;
+@use 'sass:map';
+
+$border-color: #c6c6c6;
+$dimensions: (
+  small: 60,
+  xsmall: 50,
+  medium: 35,
+  large: 30,
+  xlarge: 27,
+  xxlarge: 25,
+);
 
 #flag {
   position: relative;
@@ -7,44 +18,13 @@
   overflow: hidden;
   margin-left: calc(4 * 0.25vw);
 
-  @include mixins.respond-to('small') {
-    border: 1px solid #c6c6c6;
-    min-height: calc(60 * 0.25vw);
-    min-width: calc(60 * 0.25vw);
-    max-width: calc(60 * 0.25vw);
-  }
-  @include mixins.respond-to('xsmall') {
-    border: 1px solid #c6c6c6;
-    min-height: calc(50 * 0.25vw);
-    min-width: calc(50 * 0.25vw);
-    max-width: calc(50 * 0.25vw);
-  }
-  @include mixins.respond-to('medium') {
-    border: 1px solid #c6c6c6;
-    min-height: calc(35 * 0.25vw);
-    min-width: calc(35 * 0.25vw);
-    max-width: calc(35 * 0.25vw);
-  }
-
-  @include mixins.respond-to('large') {
-    border: 1px solid #c6c6c6;
-    min-height: calc(30 * 0.25vw);
-    min-width: calc(30 * 0.25vw);
-    max-width: calc(30 * 0.25vw);
-  }
-
-  @include mixins.respond-to('xlarge') {
-    border: 1px solid #c6c6c6;
-    min-height: calc(30 * 0.25vw);
-    min-width: calc(30 * 0.25vw);
-    max-width: calc(30 * 0.25vw);
-  }
-
-  @include mixins.respond-to('xxlarge') {
-    border: 1px solid #c6c6c6;
-    min-height: calc(30 * 0.25vw);
-    min-width: calc(30 * 0.25vw);
-    max-width: calc(30 * 0.25vw);
+  @each $size, $dimension in $dimensions {
+    @include mixins.respond-to($size) {
+      border: 1px solid $border-color;
+      min-height: calc(#{$dimension} * 0.25vw);
+      min-width: calc(#{$dimension} * 0.25vw);
+      max-width: calc(#{$dimension} * 0.25vw);
+    }
   }
 }
 
