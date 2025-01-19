@@ -13,32 +13,8 @@
     display: flex;
     width: 100%;
     align-items: center;
-    justify-content: space-between;
+    justify-content: start;
     height: fit-content;
-
-    @include mixins.respond-to('small') {
-      justify-content: space-between;
-      padding: calc(1 * 0.25vw) 0;
-    }
-
-    @include mixins.respond-to('medium') {
-      justify-content: space-between;
-      padding: calc(1 * 0.25vw) 0;
-    }
-
-    @include mixins.respond-to('large') {
-      justify-content: space-between;
-      padding: calc(1 * 0.25vw) 0;
-    }
-
-    @include mixins.respond-to('xlarge') {
-      justify-content: space-between;
-      padding: calc(1 * 0.25vw) 0;
-    }
-
-    @include mixins.respond-to('xxlarge') {
-      justify-content: space-between;
-      padding: calc(1 * 0.25vw) 0;
-    }
+    padding: calc(1 * 0.25vw) 0;
   }
 }

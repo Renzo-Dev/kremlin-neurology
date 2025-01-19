@@ -2,14 +2,14 @@
 @use 'sass:map';
 
 $border-color: #c6c6c6;
-$padding-margin: calc(7 * 0.25vw);
+$padding-margin: calc(3 * 0.25vw);
 $font-sizes: (
-  small: calc(12 * 0.25vw),
-  xsmall: calc(12 * 0.25vw),
-  medium: calc(9 * 0.25vw),
-  large: calc(7 * 0.25vw),
-  xlarge: calc(7 * 0.25vw),
-  xxlarge: calc(6 * 0.25vw),
+  small: calc(10 * 0.25vw),
+  xsmall: calc(6 * 0.25vw),
+  medium: calc(5 * 0.25vw),
+  large: calc(5 * 0.25vw),
+  xlarge: calc(5 * 0.25vw),
+  xxlarge: calc(5 * 0.25vw),
 );
 
 @mixin respond-to-all {
@@ -25,7 +25,6 @@ $font-sizes: (
   text-decoration: none;
 
   @include respond-to-all {
-    padding: $padding-margin 0;
     margin: 0 $padding-margin;
   }
 
@@ -47,7 +46,7 @@ $font-sizes: (
           font-size: $font-size;
         }
         &:last-child {
-          margin-top: 15px;
+          margin-top: calc(4 * 0.25vw);
           font-weight: 600;
           font-size: $font-size;
         }

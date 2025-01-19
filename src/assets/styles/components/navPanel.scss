@@ -9,7 +9,8 @@
 
   @include mixins.respond-to('small') {
     height: calc(35 * 0.25vw);
-
+    border-top: 1px solid #c5c5c5;
+    border-bottom: 1px solid #c5c5c5;
     .swiper-slide {
       padding: calc(2 * 0.25vw) 0;
 
@@ -32,13 +33,13 @@
   }
 
   @include mixins.respond-to('medium') {
-    height: calc(15 * 0.25vw);
+    height: calc(16 * 0.25vw);
 
     .swiper-slide {
       padding: calc(2 * 0.25vw) 0;
 
       .swiper-slide__link {
-        font-size: calc(4 * 0.25vw);
+        font-size: calc(5 * 0.25vw);
       }
     }
   }
@@ -50,7 +51,7 @@
       padding: calc(2 * 0.25vw) 0;
 
       .swiper-slide__link {
-        font-size: calc(4 * 0.25vw);
+        font-size: calc(5 * 0.25vw);
       }
     }
   }

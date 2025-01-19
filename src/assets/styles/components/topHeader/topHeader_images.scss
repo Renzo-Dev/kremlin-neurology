@@ -2,12 +2,12 @@
 @use 'sass:map';
 
 $dimensions: (
-  small: 60,
-  xsmall: 45,
-  medium: 35,
-  large: 28,
-  xlarge: 25,
-  xxlarge: 23,
+  small: 40,
+  xsmall: 25,
+  medium: 20,
+  large: 18,
+  xlarge: 18,
+  xxlarge: 18,
 );
 
 .top_header__images {
@@ -23,9 +23,7 @@ $dimensions: (
       @if $size != 'small' {
         margin-right: calc(4 * 0.25vw);
       }
-      @if $size == 'xxlarge' {
-        margin-left: auto;
-      }
+      margin-left: auto;
     }
   }
 }
