@@ -6,28 +6,28 @@
   width: 100%;
   display: flex;
   background-color: white;
+  border-top: 1px solid #c5c5c5;
+  border-bottom: 1px solid #c5c5c5;
 
   @include mixins.respond-to('small') {
-    height: calc(35 * 0.25vw);
-    border-top: 1px solid #c5c5c5;
-    border-bottom: 1px solid #c5c5c5;
+    height: calc(25 * 0.25vw);
     .swiper-slide {
-      padding: calc(2 * 0.25vw) 0;
+      padding: calc(3 * 0.25vw) 0;
 
       .swiper-slide__link {
-        font-size: calc(4 * 0.25vw);
+        font-size: calc(10 * 0.25vw);
       }
     }
   }
 
   @include mixins.respond-to('xsmall') {
-    height: calc(15 * 0.25vw);
+    height: calc(20 * 0.25vw);
 
     .swiper-slide {
       padding: calc(2 * 0.25vw) 0;
 
       .swiper-slide__link {
-        font-size: calc(4 * 0.25vw);
+        font-size: calc(9 * 0.25vw);
       }
     }
   }
@@ -69,7 +69,7 @@
   }
 
   @include mixins.respond-to('xxlarge') {
-    height: calc(15 * 0.25vw);
+    height: calc(13 * 0.25vw);
 
     .swiper-slide {
       padding: calc(2 * 0.25vw) 0;
@@ -130,7 +130,7 @@
     transition: 100ms ease-in-out;
 
     @include mixins.respond-to('small') {
-      height: calc(10 * 0.25vw);
+      height: calc(14 * 0.25vw);
     }
     @include mixins.respond-to('xsmall') {
       height: calc(10 * 0.25vw);
@@ -140,13 +140,13 @@
       height: calc(10 * 0.25vw);
     }
     @include mixins.respond-to('large') {
-      height: calc(10 * 0.25vw);
+      height: calc(9 * 0.25vw);
     }
     @include mixins.respond-to('xlarge') {
-      height: calc(10 * 0.25vw);
+      height: calc(8 * 0.25vw);
     }
     @include mixins.respond-to('xxlarge') {
-      height: calc(10 * 0.25vw);
+      height: calc(8 * 0.25vw);
     }
   }
 }

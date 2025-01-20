@@ -5,7 +5,7 @@ $border-color: #c6c6c6;
 $padding-margin: calc(3 * 0.25vw);
 $font-sizes: (
   small: calc(10 * 0.25vw),
-  xsmall: calc(6 * 0.25vw),
+  xsmall: calc(9 * 0.25vw),
   medium: calc(5 * 0.25vw),
   large: calc(5 * 0.25vw),
   xlarge: calc(5 * 0.25vw),
@@ -32,6 +32,11 @@ $font-sizes: (
     .context {
       color: #919191;
     }
+  }
+
+  &:active,
+  &:visited {
+    color: black;
   }
 
   .context {
