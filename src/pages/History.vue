@@ -5,7 +5,7 @@
       <p class="lead">Управления делами Президента Российской Федерации</p>
     </div>
 
-    <div class="card www mb-4">
+    <div class="card mb-4">
       <div class="card-body">
         <h3 class="card-title">Общие сведения</h3>
         <p class="card-text">
