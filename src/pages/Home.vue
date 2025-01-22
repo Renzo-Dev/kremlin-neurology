@@ -37,7 +37,7 @@
         </p>
       </div>
     </div>
-    <div class="contact-info">
+    <div class="contact-info shadow">
       <div class="contact-info__title">
         Контактная информация /
         <router-link :to="{ name: 'ContactInfo' }" class="contact-info__link"

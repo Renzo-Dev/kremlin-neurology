@@ -1,6 +1,8 @@
 <template>
-  <header class="top_header">
-    <div class="top_header_content">
+  <header class="top_header h-auto w-100 flex-column d-flex">
+    <div
+      class="top_header_content align-items-center justify-content-center d-flex py-1"
+    >
       <Flag />
       <topHeader__Context />
       <top-header__Images />
@@ -18,7 +20,7 @@ import TopHeader__Images from './topHeader__Images.vue'
 import NavPanel from './navPanel/navPanel.vue'
 
 export default defineComponent({
-  components: { NavPanel, TopHeader__Images, TopHeader__Context, UDPRF, Flag },
+  components: { NavPanel, TopHeader__Images, TopHeader__Context, Flag },
   name: 'topHeader',
 })
 </script>
