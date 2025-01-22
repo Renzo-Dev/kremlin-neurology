@@ -1,13 +1,117 @@
+@use '@/assets/styles/mixins';
+
 .content-wrapper {
   width: 100%;
   height: 100%;
-  background-color: red;
   display: flex;
   flex-direction: column;
+  align-items: center;
 
   .content-wrapper__title {
     display: flex;
     align-items: center;
     justify-content: center;
+
+    @include mixins.respond-to('xxlarge') {
+      padding-top: calc(3 * 0.25vw);
+      font-size: calc(5 * 0.25vw);
+    }
+  }
+
+  .content-wrapper__context {
+    padding: calc(2 * 0.25vw);
+    display: flex;
+    align-items: center;
+
+    .content-wrapper__image {
+      border-radius: 13px;
+      margin-right: calc(4 * 0.25vw);
+      min-width: calc(55 * 0.25vw);
+    }
+
+    .content-wrapper__text {
+      display: flex;
+      flex-direction: column;
+
+      .content-wrapper__paragraph {
+        font-size: calc(4 * 0.27vw);
+
+        .content-wrapper__link {
+          text-decoration: none;
+        }
+
+        &:first-child {
+          margin-top: calc(4 * 0.25vw);
+        }
+
+        &:last-child {
+          margin-top: calc(7 * 0.25vw);
+        }
+      }
+    }
+  }
+
+  .contact-info {
+    padding: calc(5 * 0.25vw) calc(5 * 0.25vw) calc(15 * 0.25vw);
+    margin: auto calc(5 * 0.25vw) calc(17 * 0.25vw);
+    background-color: rgb(218, 234, 255);
+    box-shadow:
+      0 4px 8px rgba(0, 0, 0, 0.2),
+      0 8px 16px rgba(0, 0, 0, 0.1); /* Мягкая тень */
+    border-radius: 12px; /* Для более приятного вида */
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .contact-info__title {
+      padding-bottom: calc(10 * 0.25vw);
+      font-size: calc(4 * 0.25vw);
+
+      .contact-info__link {
+        font-weight: 600;
+        color: #07a2ff;
+        text-decoration: none;
+      }
+    }
+
+    .contact-container {
+      margin-top: calc(3 * 0.25vw);
+      display: flex;
+
+      .contact-info__details {
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
+
+        .contact-info__section {
+          .contact-info__label {
+            font-size: calc(4 * 0.25vw);
+            padding-bottom: calc(1 * 0.25vw);
+            border-bottom: 1px solid black;
+          }
+
+          .contact-info__item {
+            margin-top: calc(2 * 0.25vw);
+            font-size: calc(4 * 0.25vw);
+          }
+        }
+      }
+
+      .contact-info__address {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 100%;
+
+        .contact-info__address-item {
+          font-size: calc(4 * 0.25vw);
+
+          &:last-child {
+            margin-top: calc(4 * 0.25vw);
+          }
+        }
+      }
+    }
   }
 }

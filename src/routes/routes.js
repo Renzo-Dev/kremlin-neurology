@@ -49,4 +49,10 @@ export const routes = [
     name: 'ContactInfo',
     component: () => import('../pages/ContactInfo.vue'),
   },
+  {
+    path: '/employees/Vladimir_Ivanovich_Shmyrev',
+    name: 'Vladimir_Ivanovich_Shmyrev',
+    component: () =>
+      import('../pages/employees/Vladimir_Ivanovich_Shmyrev.vue'),
+  },
 ]

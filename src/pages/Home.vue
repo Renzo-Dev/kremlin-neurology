@@ -20,7 +20,9 @@
           всей неврологической службой ГМУ. Ее первым заведующим (1968-1980г.г.)
           был профессор Вячеслав Яковлевич Неретин. В настоящее время кафедру
           возглавляет профессор
-          <router-link :to="{ name: '' }" class="content-wrapper__link"
+          <router-link
+            :to="{ name: 'Vladimir_Ivanovich_Shmyrev' }"
+            class="content-wrapper__link"
             >Владимир Иванович Шмырев
           </router-link>
         </p>
@@ -35,15 +37,13 @@
         </p>
       </div>
     </div>
-    <fieldset class="contact-info">
-      <legend class="contact-info__legend">
+    <div class="contact-info">
+      <div class="contact-info__title">
         Контактная информация /
-        <router-link
-          :to="'http://kremlin-neurology.ru/app/?contactInfo'"
-          class="contact-info__link"
-          >Полная</router-link
-        >
-      </legend>
+        <router-link :to="{ name: 'ContactInfo' }" class="contact-info__link"
+          >Полная
+        </router-link>
+      </div>
       <div class="contact-container">
         <div class="contact-info__details">
           <div class="contact-info__section">
@@ -73,7 +73,7 @@
           </div>
         </div>
       </div>
-    </fieldset>
+    </div>
   </div>
 </template>
 
