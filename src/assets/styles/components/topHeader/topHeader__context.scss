@@ -1,65 +1,76 @@
 @use '@/assets/styles/mixins';
 @use 'sass:map';
 
-$border-color: #c6c6c6;
-$padding-margin: calc(3 * 0.25vw);
-$font-sizes: (
-  small: calc(10 * 0.25vw),
-  xsmall: calc(9 * 0.25vw),
-  medium: calc(5 * 0.25vw),
-  large: calc(5 * 0.25vw),
-  xlarge: calc(5 * 0.25vw),
-  xxlarge: calc(5 * 0.25vw),
-);
-
-@mixin respond-to-all {
-  @each $size in small, xsmall, medium, large, xlarge, xxlarge {
-    @include mixins.respond-to($size) {
-      @content;
-    }
-  }
-}
-
 .top_header__context_link {
-  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   text-decoration: none;
-
-  @include respond-to-all {
-    margin: 0 $padding-margin;
-  }
+  color: black;
 
   &:hover {
     .context {
-      color: #919191;
+      color: #505050;
     }
-  }
-
-  &:active,
-  &:visited {
-    color: black;
   }
 
   .context {
-    color: black;
-    margin: 0 10px;
     transition: color 200ms ease-in-out;
-    text-align: center;
-
-    @each $size, $font-size in $font-sizes {
-      @include mixins.respond-to($size) {
-        &:first-child {
-          font-size: $font-size;
-        }
-        &:last-child {
-          margin-top: calc(4 * 0.25vw);
-          font-weight: 600;
-          font-size: $font-size;
-        }
+    text-align: left;
+    @include mixins.respond-to('small') {
+      font-size: calc(5 * 0.25vw);
+      &:last-child {
+        margin-top: calc(3 * 0.25vw);
+        font-weight: 600;
       }
     }
-
-    @include respond-to-all {
-      text-align: left;
+    @include mixins.respond-to('xsmall') {
+    }
+    @include mixins.respond-to('medium') {
+      margin-left: calc(7 * 0.25vw);
+      font-size: calc(7 * 0.25vw);
+      &:last-child {
+        margin-top: calc(3 * 0.25vw);
+        font-weight: 600;
+      }
+    }
+    @include mixins.respond-to('large') {
+      margin-left: calc(7 * 0.25vw);
+      font-size: calc(6 * 0.25vw);
+      &:last-child {
+        margin-top: calc(3 * 0.25vw);
+        font-weight: 600;
+      }
+    }
+    @include mixins.respond-to('xlarge') {
+      margin-left: calc(5 * 0.25vw);
+      font-size: calc(5 * 0.25vw);
+      &:last-child {
+        margin-top: calc(3 * 0.25vw);
+        font-weight: 600;
+      }
+    }
+    @include mixins.respond-to('xxlarge') {
+      margin-left: calc(6 * 0.25vw);
+      font-size: calc(5 * 0.25vw);
+      &:last-child {
+        margin-top: calc(3 * 0.25vw);
+        font-weight: 600;
+      }
     }
   }
+
+  //@each $breakpoint, $size in $sizes {
+  //  margin-left: $size;
+  //  .context {
+  //    transition: color 200ms ease-in-out;
+  //    font-size: $size;
+  //    text-align: left;
+  //
+  //    &:last-child {
+  //      margin-top: $size;
+  //      font-weight: 600;
+  //    }
+  //  }
+  //}
 }

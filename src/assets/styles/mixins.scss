@@ -16,3 +16,11 @@ $breakpoints: (
     @content;
   }
 }
+
+@mixin respond-to-all {
+  @each $size in $breakpoints {
+    @include respond-to($size) {
+      @content;
+    }
+  }
+}

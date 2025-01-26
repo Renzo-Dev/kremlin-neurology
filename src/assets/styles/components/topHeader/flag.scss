@@ -3,12 +3,12 @@
 
 $border-color: #c6c6c6;
 $dimensions: (
-  small: 40,
-  xsmall: 35,
-  medium: 20,
-  large: 18,
-  xlarge: 17,
-  xxlarge: 17,
+  small: 20,
+  xsmall: 20,
+  medium: 23,
+  large: 20,
+  xlarge: 20,
+  xxlarge: 20,
 );
 
 #flag {
@@ -22,6 +22,7 @@ $dimensions: (
     @include mixins.respond-to($size) {
       border: 1px solid $border-color;
       min-height: calc(#{$dimension} * 0.25vw);
+      max-height: calc(#{$dimension} * 0.25vw);
       min-width: calc(#{$dimension} * 0.25vw);
       max-width: calc(#{$dimension} * 0.25vw);
     }
