@@ -1,20 +1,38 @@
 @use '@/assets/styles/mixins';
+@use 'sass:map';
 
 .top_header {
-  user-select: none;
-  background-color: #d9effc;
-  width: 100%;
-  height: auto;
-
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  height: auto;
+  width: 100%;
+  background-color: #d9effc;
 
   .top_header_content {
-    display: flex;
     width: 100%;
+    display: flex;
+    flex-direction: row;
     align-items: center;
-    justify-content: start;
+
     height: fit-content;
-    padding: calc(1 * 0.25vw) 0;
+    @include mixins.respond-to('small') {
+      padding: calc(1 * 0.35vw);
+    }
+    @include mixins.respond-to('xsmall') {
+      padding: calc(1 * 0.35vw);
+    }
+    @include mixins.respond-to('medium') {
+      padding: calc(3 * 0.35vw) 0;
+    }
+    @include mixins.respond-to('large') {
+      padding: calc(2 * 0.35vw);
+    }
+    @include mixins.respond-to('xlarge') {
+      padding: calc(1 * 0.35vw);
+    }
+    @include mixins.respond-to('xxlarge') {
+      padding: calc(1 * 0.35vw);
+    }
   }
 }
