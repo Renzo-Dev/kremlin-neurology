@@ -1,1 +1,90 @@
 @use '@/assets/styles/mixins';
+
+.nav-panel {
+  user-select: none;
+  background-color: white;
+  border-top: 2px solid #c5c5c5;
+  border-bottom: 2px solid #c5c5c5;
+  display: flex;
+  justify-content: center;
+
+  .button-swiper {
+    border: none;
+    z-index: 9999999;
+    outline: none;
+    cursor: pointer;
+    transition: 100ms ease-in-out;
+
+    &:active {
+      opacity: 50%;
+    }
+  }
+
+  .swiper-wrapper {
+    background-color: yellow;
+
+    .swiper-slide {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 7px;
+
+      .swiper-slide__link {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        color: black;
+        width: 100%;
+        height: 100%;
+        background-color: #d7d7d7;
+        border-radius: 7px;
+        text-align: center;
+        transition: 200ms ease-in-out;
+
+        &:hover {
+          background-color: #606060;
+        }
+      }
+    }
+  }
+
+  @include mixins.respond-to('small') {
+  }
+  @include mixins.respond-to('small') {
+  }
+  @include mixins.respond-to('xsmall') {
+  }
+  @include mixins.respond-to('medium') {
+  }
+  @include mixins.respond-to('large') {
+  }
+  @include mixins.respond-to('xlarge') {
+  }
+  @include mixins.respond-to('xxlarge') {
+    padding: calc(1 * 0.25vw);
+    height: calc(12 * 0.25vw);
+
+    .buttonNext {
+      margin-left: calc(3 * 0.25vw);
+    }
+
+    .buttonPrev {
+      margin-right: calc(3 * 0.25vw);
+    }
+
+    .button-swiper {
+      align-self: center;
+      height: calc(7 * 0.25vw);
+    }
+
+    .swiper-wrapper {
+      .swiper-slide {
+        .swiper-slide__link {
+          font-size: calc(4 * 0.25vw);
+        }
+      }
+    }
+  }
+}
