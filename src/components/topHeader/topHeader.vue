@@ -5,7 +5,7 @@
       <topHeader__Context />
       <top-header__Images />
     </div>
-    <!--    <nav-panel />-->
+    <nav-panel />
   </header>
 </template>
 
