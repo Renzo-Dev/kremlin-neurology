@@ -4,10 +4,10 @@
 $dimensions: (
   small: 40,
   xsmall: 35,
-  medium: 23,
-  large: 18,
-  xlarge: 18,
-  xxlarge: 18,
+  medium: 30,
+  large: 25,
+  xlarge: 20,
+  xxlarge: 15,
 );
 
 .top_header__images {
@@ -20,9 +20,7 @@ $dimensions: (
     @include mixins.respond-to($size) {
       min-width: calc(#{$dimension} * 0.25vw);
       max-width: calc(#{$dimension} * 0.25vw);
-      @if $size != 'small' {
-        margin-right: calc(4 * 0.25vw);
-      }
+      margin-right: calc(4 * 0.25vw);
       margin-left: auto;
     }
   }

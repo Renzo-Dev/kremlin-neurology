@@ -17,16 +17,16 @@
 
     height: fit-content;
     @include mixins.respond-to('small') {
-      padding: calc(1 * 0.35vw);
+      padding: calc(5 * 0.35vw) 0;
     }
     @include mixins.respond-to('xsmall') {
-      padding: calc(1 * 0.35vw);
+      padding: calc(5 * 0.35vw) 0;
     }
     @include mixins.respond-to('medium') {
-      padding: calc(3 * 0.35vw) 0;
+      padding: calc(2 * 0.35vw) 0;
     }
     @include mixins.respond-to('large') {
-      padding: calc(2 * 0.35vw);
+      padding: calc(2 * 0.35vw) 0;
     }
     @include mixins.respond-to('xlarge') {
       padding: calc(1 * 0.35vw);

@@ -1,6 +1,39 @@
 @use '@/assets/styles/mixins';
 @use 'sass:map';
 
+$context-styles: (
+  small: (
+    font-size: 10,
+    margin-left: 5,
+    margin-top: 5,
+  ),
+  xsmall: (
+    font-size: 10,
+    margin-left: 7,
+    margin-top: 3,
+  ),
+  medium: (
+    font-size: 7,
+    margin-left: 10,
+    margin-top: 4,
+  ),
+  large: (
+    font-size: 6,
+    margin-left: 7,
+    margin-top: 3,
+  ),
+  xlarge: (
+    font-size: 5,
+    margin-left: 5,
+    margin-top: 3,
+  ),
+  xxlarge: (
+    font-size: 5,
+    margin-left: 6,
+    margin-top: 3,
+  ),
+);
+
 .top_header__context_link {
   display: flex;
   flex-direction: column;
@@ -17,60 +50,17 @@
   .context {
     transition: color 200ms ease-in-out;
     text-align: left;
-    @include mixins.respond-to('small') {
-      font-size: calc(5 * 0.25vw);
-      &:last-child {
-        margin-top: calc(3 * 0.25vw);
-        font-weight: 600;
-      }
-    }
-    @include mixins.respond-to('xsmall') {
-    }
-    @include mixins.respond-to('medium') {
-      margin-left: calc(7 * 0.25vw);
-      font-size: calc(7 * 0.25vw);
-      &:last-child {
-        margin-top: calc(3 * 0.25vw);
-        font-weight: 600;
-      }
-    }
-    @include mixins.respond-to('large') {
-      margin-left: calc(7 * 0.25vw);
-      font-size: calc(6 * 0.25vw);
-      &:last-child {
-        margin-top: calc(3 * 0.25vw);
-        font-weight: 600;
-      }
-    }
-    @include mixins.respond-to('xlarge') {
-      margin-left: calc(5 * 0.25vw);
-      font-size: calc(5 * 0.25vw);
-      &:last-child {
-        margin-top: calc(3 * 0.25vw);
-        font-weight: 600;
-      }
-    }
-    @include mixins.respond-to('xxlarge') {
-      margin-left: calc(6 * 0.25vw);
-      font-size: calc(5 * 0.25vw);
-      &:last-child {
-        margin-top: calc(3 * 0.25vw);
-        font-weight: 600;
+
+    @each $size, $styles in $context-styles {
+      @include mixins.respond-to($size) {
+        font-size: calc(map.get($styles, font-size) * 0.25vw);
+        margin-left: calc(map.get($styles, margin-left) * 0.25vw);
+
+        &:last-child {
+          margin-top: calc(map.get($styles, margin-top) * 0.25vw);
+          font-weight: 600;
+        }
       }
     }
   }
-
-  //@each $breakpoint, $size in $sizes {
-  //  margin-left: $size;
-  //  .context {
-  //    transition: color 200ms ease-in-out;
-  //    font-size: $size;
-  //    text-align: left;
-  //
-  //    &:last-child {
-  //      margin-top: $size;
-  //      font-weight: 600;
-  //    }
-  //  }
-  //}
 }
