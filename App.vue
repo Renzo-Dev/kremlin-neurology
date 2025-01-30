@@ -1,7 +1,7 @@
 <template>
   <topHeader />
-  <main class="main-container">
-    <!--    <router-view />-->
+  <main id="main-container">
+    <router-view />
   </main>
   <Footer />
 </template>
