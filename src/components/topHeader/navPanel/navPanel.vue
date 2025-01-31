@@ -46,18 +46,18 @@ export default {
     const prevButton = ref(null)
 
     const slides = [
-      { title: 'Обучение', route: 'Learning' },
-      { title: 'История', route: 'History' },
-      { title: 'Научная работа', route: 'Research' },
-      { title: 'Библиотека', route: 'Library' },
-      { title: 'Клиентская база', route: 'ClientBase' },
-      { title: 'Ежегодные конференции ▼', route: 'AnnualConferences' },
+      { title: 'Обучение', route: 'learning' },
+      { title: 'История', route: 'history' },
+      { title: 'Научная работа', route: 'research' },
+      { title: 'Библиотека', route: 'library' },
+      { title: 'Клиентская база', route: 'clientBase' },
+      { title: 'Ежегодные конференции ▼', route: 'annualConferences' },
       {
         title: 'Научный кружок "Школа молодых неврологов"',
-        route: 'YoungNeurologists',
+        route: 'youngNeurologists',
       },
-      { title: 'Новости и обновления', route: 'NewsUpdates' },
-      { title: 'Контактная информация', route: 'ContactInfo' },
+      { title: 'Новости и обновления', route: 'newsUpdates' },
+      { title: 'Контактная информация', route: 'contactInfo' },
     ]
     const breakpoints = {
       300: {

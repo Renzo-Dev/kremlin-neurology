@@ -1,4 +1,4 @@
-<template></template>
+<template>History</template>
 
 <script setup></script>
 
