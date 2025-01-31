@@ -24,7 +24,6 @@
             >Владимир Иванович Шмырев
           </router-link>
         </p>
-        <p></p>
         <p class="content-wrapper__paragraph">
           Сотрудниками кафедры постоянно ведется научная работа, организуются
           научные и учебные мероприятия. Они входят в состав редакционных
@@ -35,15 +34,13 @@
         </p>
       </div>
     </div>
-    <fieldset class="contact-info">
-      <legend class="contact-info__legend">
+    <div class="contact-info">
+      <div class="contact-info__title">
         Контактная информация /
-        <router-link
-          :to="'http://kremlin-neurology.ru/app/?contactInfo'"
-          class="contact-info__link"
-          >Полная</router-link
-        >
-      </legend>
+        <router-link :to="{ name: 'ContactInfo' }" class="contact-info__link"
+          >Полная
+        </router-link>
+      </div>
       <div class="contact-container">
         <div class="contact-info__details">
           <div class="contact-info__section">
@@ -73,7 +70,7 @@
           </div>
         </div>
       </div>
-    </fieldset>
+    </div>
   </div>
 </template>
 
