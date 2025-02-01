@@ -6,7 +6,6 @@
     </h2>
     <div class="content-wrapper__context">
       <img
-        style="width: 50px"
         alt="Картинка фасада здания"
         class="content-wrapper__image"
         src="@/assets/images/fasad.jpg"
