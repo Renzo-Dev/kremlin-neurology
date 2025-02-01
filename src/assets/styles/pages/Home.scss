@@ -243,24 +243,28 @@
       //height: calc(50 * 0.25vw);
     }
     @include mixins.respond-to('medium') {
-      margin: calc(10 * 0.25vw) 15px calc(10 * 0.25vw) calc(4 * 0.25vw);
+      margin: calc(10 * 0.25vw) calc(4 * 0.25vw) calc(10 * 0.25vw)
+        calc(4 * 0.25vw);
       padding: calc(5 * 0.25vw);
       //height: calc(50 * 0.25vw);
     }
     @include mixins.respond-to('large') {
-      margin: calc(10 * 0.25vw) 15px calc(10 * 0.25vw) calc(4 * 0.25vw);
+      margin: calc(10 * 0.25vw) calc(4 * 0.25vw) calc(10 * 0.25vw)
+        calc(4 * 0.25vw);
       padding: calc(5 * 0.25vw);
       //height: calc(50 * 0.25vw);
     }
     @include mixins.respond-to('xlarge') {
-      margin: calc(10 * 0.25vw) 15px calc(10 * 0.25vw) calc(4 * 0.25vw);
+      margin: calc(10 * 0.25vw) calc(4 * 0.25vw) calc(10 * 0.25vw)
+        calc(4 * 0.25vw);
       padding: calc(5 * 0.25vw);
       //height: calc(50 * 0.25vw);
     }
 
     @include mixins.respond-to('xxlarge') {
-      margin: calc(10 * 0.25vw) 15px calc(10 * 0.25vw) calc(4 * 0.25vw);
-      padding: calc(5 * 0.25vw);
+      margin: calc(5 * 0.25vw) calc(4 * 0.25vw) calc(5 * 0.25vw)
+        calc(4 * 0.25vw);
+      padding: calc(3 * 0.25vw) calc(5 * 0.25vw);
       //height: calc(50 * 0.25vw);
     }
 
