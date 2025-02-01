@@ -1,4 +1,9 @@
 <template>
+  <div class="history">
+    <h1 class="history__title">
+      История ФГБУ "Учебно-научный медицинский центр" УД Президента РФ
+    </h1>
+  </div>
   <BAccordion flush free>
     <BAccordionItem title="Accordion Item #1" visible>
       <strong>This is the first item's accordion body.</strong> It is shown by
@@ -32,4 +37,9 @@
 
 <script setup></script>
 
-<style scoped lang="scss"></style>
+<style lang="scss">
+.accordion-button {
+  outline: none !important;
+  box-shadow: none !important;
+}
+</style>
