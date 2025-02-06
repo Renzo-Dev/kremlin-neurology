@@ -6,7 +6,6 @@ import { router } from '@/routes/route'
 // Add the necessary CSS
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap/dist/js/bootstrap.bundle.min'
-import 'bootstrap-vue-next/dist/bootstrap-vue-next.css'
 
 const app = createApp(App)
 
