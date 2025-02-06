@@ -15,7 +15,7 @@
 
     @include mixins.respond-to('xsmall') {
       margin-top: calc(5 * 0.25vw);
-      font-size: calc(11 * 0.25vw);
+      font-size: calc(14 * 0.25vw);
     }
 
     @include mixins.respond-to('medium') {
@@ -137,7 +137,7 @@
       flex-direction: column;
       justify-content: start;
       @include mixins.respond-to('small') {
-        padding: calc(4 * 0.25vw);
+        padding: calc(5 * 0.25vw);
       }
       @include mixins.respond-to('xsmall') {
         padding: calc(4 * 0.25vw);
@@ -157,37 +157,43 @@
 
       .content-wrapper__paragraph {
         @include mixins.respond-to('small') {
-          font-size: calc(11 * 0.27vw);
+          font-size: calc(15 * 0.27vw);
+          text-align: center;
           &:last-child {
             margin-top: calc(10 * 0.25vw);
           }
         }
         @include mixins.respond-to('xsmall') {
-          font-size: calc(8 * 0.27vw);
+          font-size: calc(12 * 0.27vw);
+          text-align: center;
           &:last-child {
             margin-top: calc(10 * 0.25vw);
           }
         }
         @include mixins.respond-to('medium') {
           font-size: calc(7 * 0.25vw);
+          text-align: left;
           &:last-child {
             margin-top: calc(3 * 0.25vw);
           }
         }
         @include mixins.respond-to('large') {
           font-size: calc(5 * 0.27vw);
+          text-align: left;
           &:last-child {
             margin-top: calc(2 * 0.25vw);
           }
         }
         @include mixins.respond-to('xlarge') {
           font-size: calc(5 * 0.25vw);
+          text-align: left;
           &:last-child {
             margin-top: calc(2 * 0.25vw);
           }
         }
         @include mixins.respond-to('xxlarge') {
           font-size: calc(4 * 0.27vw);
+          text-align: left;
           &:last-child {
             margin-top: calc(10 * 0.25vw);
           }
@@ -376,7 +382,7 @@
               margin-right: 0;
             }
             @include mixins.respond-to('xsmall') {
-              margin-right: 0;
+              margin-right: calc(20 * 0.25vw);
             }
             @include mixins.respond-to('medium') {
               margin-right: calc(20 * 0.25vw);
@@ -397,14 +403,14 @@
 
             @include mixins.respond-to('small') {
               text-align: center;
-              font-size: calc(13 * 0.25vw);
+              font-size: calc(15 * 0.25vw);
               padding-bottom: calc(2 * 0.25vw);
               margin-bottom: calc(2 * 0.25vw);
             }
 
             @include mixins.respond-to('xsmall') {
               text-align: left;
-              font-size: calc(10 * 0.25vw);
+              font-size: calc(13 * 0.25vw);
               padding-bottom: calc(1 * 0.25vw);
               margin-bottom: calc(1 * 0.25vw);
             }
@@ -441,12 +447,12 @@
             @include mixins.respond-to('small') {
               text-align: center;
               margin-top: calc(2 * 0.25vw);
-              font-size: calc(10 * 0.25vw);
+              font-size: calc(14 * 0.25vw);
             }
             @include mixins.respond-to('xsmall') {
               text-align: left;
               margin-top: calc(2 * 0.25vw);
-              font-size: calc(8 * 0.25vw);
+              font-size: calc(12 * 0.25vw);
             }
             @include mixins.respond-to('medium') {
               text-align: left;
@@ -508,14 +514,14 @@
         .contact-info__address-item {
           @include mixins.respond-to('small') {
             text-align: center;
-            font-size: calc(10 * 0.25vw);
+            font-size: calc(14 * 0.25vw);
             line-height: calc(16 * 0.25vw);
             margin-top: calc(10 * 0.25vw);
           }
           @include mixins.respond-to('xsmall') {
             text-align: center;
-            font-size: calc(8 * 0.25vw);
-            line-height: calc(8 * 0.25vw);
+            font-size: calc(12 * 0.25vw);
+            line-height: calc(13 * 0.25vw);
             width: 100%;
             margin-top: calc(10 * 0.25vw);
           }
