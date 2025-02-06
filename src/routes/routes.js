@@ -49,4 +49,9 @@ export const routes = [
     name: 'ContactInfo',
     component: () => import('../pages/ContactInfo.vue'),
   },
+  {
+    path: '/gkb51dzm',
+    name: 'Gkb51dzm',
+    component: () => import('../pages/Gkb51.vue'),
+  },
 ]

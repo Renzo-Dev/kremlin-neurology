@@ -23,6 +23,7 @@
   .swiper-wrapper {
     .swiper-slide {
       height: auto;
+
       display: flex;
       align-items: center;
       justify-content: center;
@@ -52,7 +53,7 @@
     border-top: 1px solid #c5c5c5;
     border-bottom: 1px solid #c5c5c5;
     padding: calc(2 * 0.25vw);
-    height: calc(50 * 0.25vw);
+    height: fit-content;
 
     .buttonNext {
       margin-left: calc(3 * 0.25vw);
@@ -70,7 +71,7 @@
     .swiper-wrapper {
       .swiper-slide {
         .swiper-slide__link {
-          padding-top: calc(1 * 0.25vw);
+          padding: calc(1 * 0.25vw);
           font-size: calc(14 * 0.25vw);
         }
       }
@@ -80,7 +81,7 @@
     border-top: 1px solid #c5c5c5;
     border-bottom: 1px solid #c5c5c5;
     padding: calc(2 * 0.25vw);
-    height: calc(35 * 0.25vw);
+    height: fit-content;
 
     .buttonNext {
       margin-left: calc(3 * 0.25vw);
@@ -92,14 +93,13 @@
 
     .button-swiper {
       align-self: center;
-      height: calc(22 * 0.25vw);
+      height: calc(15 * 0.25vw);
     }
 
     .swiper-wrapper {
       .swiper-slide {
         .swiper-slide__link {
-          padding: calc(2 * 0.25vw);
-          font-size: calc(11 * 0.25vw);
+          font-size: calc(9 * 0.25vw);
         }
       }
     }
@@ -108,7 +108,7 @@
     border-top: 1px solid #c5c5c5;
     border-bottom: 1px solid #c5c5c5;
     padding: calc(1 * 0.25vw);
-    height: calc(16 * 0.25vw);
+    height: fit-content;
 
     .buttonNext {
       margin-left: calc(3 * 0.25vw);
@@ -126,7 +126,6 @@
     .swiper-wrapper {
       .swiper-slide {
         .swiper-slide__link {
-          padding-top: calc(2 * 0.25vw);
           font-size: calc(6 * 0.25vw);
         }
       }
@@ -136,7 +135,7 @@
     border-top: 1px solid #c5c5c5;
     border-bottom: 1px solid #c5c5c5;
     padding: calc(1 * 0.25vw);
-    height: calc(13 * 0.25vw);
+    height: fit-content;
 
     .buttonNext {
       margin-left: calc(3 * 0.25vw);
@@ -163,7 +162,7 @@
     border-top: 1px solid #c5c5c5;
     border-bottom: 1px solid #c5c5c5;
     padding: calc(1 * 0.25vw);
-    height: calc(12 * 0.25vw);
+    height: fit-content;
 
     .buttonNext {
       margin-left: calc(3 * 0.25vw);
