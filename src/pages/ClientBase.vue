@@ -48,6 +48,6 @@
   </div>
 </template>
 
-<script setup></script>
+<script setup lang="js"></script>
 
 <style scoped lang="scss"></style>
