@@ -1,213 +1,157 @@
+@use "sass:map";
 @use '@/assets/styles/mixins';
 
+$sizes: (
+        small:(
+                font-size: calc(12 * 0.27vw),
+                sw-button: calc(20 * 0.25vw),
+                b-bottom: 1px,
+                b-top: 1px,
+                b-m-left: 5px,
+                b-m-right: 5px,
+                s-slide_link-line-hg: 15px,
+                sw-slide-pd-y: 5px,
+                nav-p-hg: 45px
+        ),
+        xsmall:(
+                font-size: calc(9 * 0.25vw),
+                sw-button: calc(10 * 0.25vw),
+                b-bottom: 1px,
+                b-top: 1px,
+                b-m-left: 10px,
+                b-m-right: 10px,
+                s-slide_link-line-hg: 15px,
+                sw-slide-pd-y: 5px,
+                nav-p-hg: 50px
+        ),
+        medium:(
+                font-size: calc(6 * 0.25vw),
+                sw-button: calc(10 * 0.25vw),
+                b-bottom: 1px,
+                b-top: 1px,
+                b-m-left: 10px,
+                b-m-right: 10px,
+                s-slide_link-line-hg: 15px,
+                sw-slide-pd-y: 5px,
+                nav-p-hg: 50px
+        ),
+        large:(
+                font-size: calc(5 * 0.25vw),
+                sw-button: calc(8 * 0.25vw),
+                b-bottom: 1px,
+                b-top: 1px,
+                b-m-left: 10px,
+                b-m-right: 10px,
+                s-slide_link-line-hg: 15px,
+                sw-slide-pd-y: 5px,
+                nav-p-hg: 45px
+        ),
+        xlarge:(
+                font-size: calc(5 * 0.25vw),
+                sw-button: calc(8 * 0.25vw),
+                b-bottom: 1px,
+                b-top: 1px,
+                b-m-left: 10px,
+                b-m-right: 10px,
+                s-slide_link-line-hg: 20px,
+                sw-slide-pd-y: 5px,
+                nav-p-hg: 55px
+        ),
+        xxlarge:(
+                font-size: calc(4 * 0.27vw),
+                sw-button: calc(8 * 0.25vw),
+                b-bottom: 1px,
+                b-top: 1px,
+                b-m-left: 10px,
+                b-m-right: 10px,
+                s-slide_link-line-hg: 20px,
+                sw-slide-pd-y: 5px,
+                nav-p-hg: 60px
+        ),
+);
+
+
 .nav-panel {
-  user-select: none;
-  background-color: white;
   display: flex;
-  justify-content: center;
+  flex-direction: row;
+  background-color: white;
+  align-items: center;
 
   .button-swiper {
     display: flex;
-
     border: none;
     z-index: 9999999;
     outline: none;
     cursor: pointer;
     transition: 100ms ease-in-out;
-
-    &:active {
-      opacity: 50%;
-    }
   }
 
-  .swiper-wrapper {
-    .swiper-slide {
-      height: auto;
+  .swiper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
 
+    padding: 5px;
+
+    .swiper-wrapper {
       display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 7px;
+      flex-direction: row;
+      border-radius: 13px;
+      width: 100%;
+      height: 100%;
 
-      .swiper-slide__link {
+      .swiper-slide {
+        background-color: #d7d7d7;
+        border-radius: 7px;
         display: flex;
         align-items: center;
         justify-content: center;
-        text-decoration: none;
-        color: black;
-        width: 100%;
-        height: 100%;
-        background-color: #d7d7d7;
-        border-radius: 7px;
-        text-align: center;
         transition: 200ms ease-in-out;
 
         &:hover {
-          background-color: #606060;
+          cursor: pointer;
+          background-color: #a5a5a5;
+        }
+
+        .swiper-slide__link {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 100%;
+          height: 100%;
+          text-decoration: none;
+          color: black;
+          text-align: center;
         }
       }
     }
   }
 
-  @include mixins.respond-to('small') {
-    border-top: 1px solid #c5c5c5;
-    border-bottom: 1px solid #c5c5c5;
-    padding: calc(2 * 0.25vw);
-    height: fit-content;
+  @each $size, $values in $sizes {
+    @include mixins.respond-to($size) {
+      border-top: map.get($values, b-top) solid #c5c5c5;
+      border-bottom: map.get($values, b-bottom) solid #c5c5c5;
+      height: map.get($values, nav-p-hg);
 
-    .buttonNext {
-      margin-left: calc(3 * 0.25vw);
-    }
-
-    .buttonPrev {
-      margin-right: calc(3 * 0.25vw);
-    }
-
-    .button-swiper {
-      align-self: center;
-      height: calc(25 * 0.25vw);
-    }
-
-    .swiper-wrapper {
-      .swiper-slide {
-        .swiper-slide__link {
-          padding: calc(1 * 0.25vw);
-          font-size: calc(14 * 0.25vw);
-        }
+      .button-swiper {
+        height: map.get($values, sw-button);
       }
-    }
-  }
-  @include mixins.respond-to('xsmall') {
-    border-top: 1px solid #c5c5c5;
-    border-bottom: 1px solid #c5c5c5;
-    padding: calc(2 * 0.25vw);
-    height: fit-content;
-
-    .buttonNext {
-      margin-left: calc(3 * 0.25vw);
-    }
-
-    .buttonPrev {
-      margin-right: calc(3 * 0.25vw);
-    }
-
-    .button-swiper {
-      align-self: center;
-      height: calc(15 * 0.25vw);
-    }
-
-    .swiper-wrapper {
-      .swiper-slide {
-        .swiper-slide__link {
-          font-size: calc(9 * 0.25vw);
-        }
+      .buttonNext {
+        margin-left: map.get($values, b-m-right);
       }
-    }
-  }
-  @include mixins.respond-to('medium') {
-    border-top: 1px solid #c5c5c5;
-    border-bottom: 1px solid #c5c5c5;
-    padding: calc(1 * 0.25vw);
-    height: fit-content;
-
-    .buttonNext {
-      margin-left: calc(3 * 0.25vw);
-    }
-
-    .buttonPrev {
-      margin-right: calc(3 * 0.25vw);
-    }
-
-    .button-swiper {
-      align-self: center;
-      height: calc(7 * 0.25vw);
-    }
-
-    .swiper-wrapper {
-      .swiper-slide {
-        .swiper-slide__link {
-          font-size: calc(6 * 0.25vw);
-        }
+      .buttonPrev {
+        margin-right: map.get($values, b-m-left);
       }
-    }
-  }
-  @include mixins.respond-to('large') {
-    border-top: 1px solid #c5c5c5;
-    border-bottom: 1px solid #c5c5c5;
-    padding: calc(1 * 0.25vw);
-    height: fit-content;
-
-    .buttonNext {
-      margin-left: calc(3 * 0.25vw);
-    }
-
-    .buttonPrev {
-      margin-right: calc(3 * 0.25vw);
-    }
-
-    .button-swiper {
-      align-self: center;
-      height: calc(7 * 0.25vw);
-    }
-
-    .swiper-wrapper {
       .swiper-slide {
+        padding: map.get($values, sw-slide-pd-y) 0;
+
         .swiper-slide__link {
-          font-size: calc(5 * 0.25vw);
-        }
-      }
-    }
-  }
-  @include mixins.respond-to('xlarge') {
-    border-top: 1px solid #c5c5c5;
-    border-bottom: 1px solid #c5c5c5;
-    padding: calc(1 * 0.25vw);
-    height: fit-content;
-
-    .buttonNext {
-      margin-left: calc(3 * 0.25vw);
-    }
-
-    .buttonPrev {
-      margin-right: calc(3 * 0.25vw);
-    }
-
-    .button-swiper {
-      align-self: center;
-      height: calc(7 * 0.25vw);
-    }
-
-    .swiper-wrapper {
-      .swiper-slide {
-        .swiper-slide__link {
-          font-size: calc(4 * 0.25vw);
-        }
-      }
-    }
-  }
-  @include mixins.respond-to('xxlarge') {
-    border-top: 2px solid #c5c5c5;
-    border-bottom: 2px solid #c5c5c5;
-    padding: calc(1 * 0.25vw);
-    height: calc(13 * 0.25vw);
-
-    .buttonNext {
-      margin-left: calc(3 * 0.25vw);
-    }
-
-    .buttonPrev {
-      margin-right: calc(3 * 0.25vw);
-    }
-
-    .button-swiper {
-      align-self: center;
-      height: calc(7 * 0.25vw);
-    }
-
-    .swiper-wrapper {
-      .swiper-slide {
-        .swiper-slide__link {
-          font-size: calc(4 * 0.25vw);
+          font-family: Arial, sans-serif;
+          font-size: map.get($values, font-size);
+          line-height: map.get($values, s-slide_link-line-hg);
         }
       }
     }
