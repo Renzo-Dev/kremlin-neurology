@@ -117,6 +117,11 @@ $sizes: (
         }
 
         .swiper-slide__link {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 100%;
+          height: 100%;
           text-decoration: none;
           color: black;
           text-align: center;
@@ -127,8 +132,8 @@ $sizes: (
 
   @each $size, $values in $sizes {
     @include mixins.respond-to($size) {
-      border-top: map.get($values, b-top) solid #c5c5c5;;
-      border-bottom: map.get($values, b-bottom) solid #c5c5c5;;
+      border-top: map.get($values, b-top) solid #c5c5c5;
+      border-bottom: map.get($values, b-bottom) solid #c5c5c5;
       height: map.get($values, nav-p-hg);
 
       .button-swiper {
