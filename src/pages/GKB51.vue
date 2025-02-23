@@ -116,13 +116,15 @@
   @include mixins.respond-to('xxlarge') {
     max-width: calc(300 * 0.25vw);
     min-width: calc(300 * 0.25vw);
-    max-height: calc(120 * 0.25vw);
-    min-height: calc(120 * 0.25vw);
+    max-height: calc(220 * 0.25vw);
+    min-height: calc(220 * 0.25vw);
     margin: 50px 0;
   }
 }
 
 iframe {
+  background-color: red;
+  padding: 15px;
   width: 100%;
   height: 100%;
 }
