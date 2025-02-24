@@ -48,16 +48,16 @@
       Схема прохода в неврологическое отделение ГКБ № 51 ДЗМ от ст.м. Филевский
       парк.
     </div>
-    <div class="map">
-      <iframe
-        src="https://yandex.ru/map-widget/v1/?lang=ru_RU&amp;scroll=true&amp;source=constructor-api&amp;um=constructor%3Afe782deb03bfc4bd36cde7b42eac04a7f4b2774a27088b4886cb079fc8ce01ff"
-        frameborder="0"
-        allowfullscreen="true"
-        width="570px"
-        height="637px"
-        style="display: block"
-      ></iframe>
-    </div>
+  </div>
+  <div class="map">
+    <iframe
+      src="https://yandex.ru/map-widget/v1/?lang=ru_RU&amp;scroll=true&amp;source=constructor-api&amp;um=constructor%3Afe782deb03bfc4bd36cde7b42eac04a7f4b2774a27088b4886cb079fc8ce01ff"
+      frameborder="0"
+      allowfullscreen="true"
+      width="570px"
+      height="637px"
+      style="display: block"
+    ></iframe>
   </div>
 </template>
 
@@ -65,65 +65,48 @@
 
 <style scoped lang="scss">
 @use '@/assets/styles/mixins';
+@use 'sass:map';
+
+$map-sizes: (
+  small: (
+    map-width: calc(400 * 0.25vw),
+    map-height: calc(250 * 0.25vw),
+  ),
+  xsmall: (
+    map-width: calc(300 * 0.25vw),
+    map-height: calc(200 * 0.25vw),
+  ),
+  medium: (
+    map-width: calc(300 * 0.25vw),
+    map-height: calc(150 * 0.25vw),
+  ),
+  large: (
+    map-width: calc(300 * 0.25vw),
+    map-height: calc(150 * 0.25vw),
+  ),
+  xlarge: (
+    map-width: calc(300 * 0.25vw),
+    map-height: calc(120 * 0.25vw),
+  ),
+  xxlarge: (
+    map-width: calc(250 * 0.25vw),
+    map-height: calc(100 * 0.25vw),
+  ),
+);
 
 .map {
   align-self: center;
-  justify-self: center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
   border-radius: 13px;
-  @include mixins.respond-to('small') {
-    max-width: calc(390 * 0.25vw);
-    min-width: calc(390 * 0.25vw);
-    max-height: calc(250 * 0.25vw);
-    min-height: calc(250 * 0.25vw);
-  }
-
-  @include mixins.respond-to('xsmall') {
-    max-width: calc(330 * 0.25vw);
-    min-width: calc(330 * 0.25vw);
-    max-height: calc(140 * 0.25vw);
-    min-height: calc(140 * 0.25vw);
-    margin: 50px 0;
-  }
-
-  @include mixins.respond-to('medium') {
-    max-width: calc(330 * 0.25vw);
-    min-width: calc(330 * 0.25vw);
-    max-height: calc(140 * 0.25vw);
-    min-height: calc(140 * 0.25vw);
-    margin: 50px 0;
-  }
-
-  @include mixins.respond-to('large') {
-    max-width: calc(330 * 0.25vw);
-    min-width: calc(330 * 0.25vw);
-    max-height: calc(140 * 0.25vw);
-    min-height: calc(140 * 0.25vw);
-    margin: 50px 0;
-  }
-
-  @include mixins.respond-to('xlarge') {
-    max-width: calc(330 * 0.25vw);
-    min-width: calc(330 * 0.25vw);
-    max-height: calc(140 * 0.25vw);
-    min-height: calc(140 * 0.25vw);
-    margin: 50px 0;
-  }
-
-  @include mixins.respond-to('xxlarge') {
-    max-width: calc(300 * 0.25vw);
-    min-width: calc(300 * 0.25vw);
-    max-height: calc(220 * 0.25vw);
-    min-height: calc(220 * 0.25vw);
-    margin: 50px 0;
+  @each $size, $value in $map-sizes {
+    @include mixins.respond-to($size) {
+      width: map.get($value, map-width);
+      height: map.get($value, map-height);
+    }
   }
 }
 
 iframe {
-  background-color: red;
+  border-radius: 13px;
   padding: 15px;
   width: 100%;
   height: 100%;
