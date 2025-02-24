@@ -8,7 +8,12 @@
     </h2>
   </div>
   <div class="education_tabs">
-    <router-link :to="item.link" class="education_item" v-for="item in tabs">
+    <router-link
+      :to="item.link"
+      class="education_item"
+      v-for="item in tabs"
+      :key="item.id"
+    >
       {{ item.label }}
     </router-link>
   </div>
@@ -16,9 +21,9 @@
     <button
       class="button__show_info"
       :class="{ active: showInfo }"
-      @click="showInfo = !showInfo"
+      @click="toggleInfo()"
     >
-      Показать информацию
+      {{ showInfo ? 'Скрыть информацию' : 'Показать информацию' }}
     </button>
     <div v-if="showInfo" class="info_context">
       Кафедра неврологии ФГБУ ДПО «ЦГМА» УД Президента РФ организует и проводит
@@ -52,7 +57,7 @@
     </div>
   </div>
   <div class="">
-    <h1 class="text-center">Hello World</h1>
+    <h1 class="text-center">{{ activeTab }}</h1>
   </div>
 </template>
 
@@ -79,7 +84,12 @@ export default defineComponent({
       },
     ]
 
+    const toggleInfo = () => {
+      showInfo.value = !showInfo.value
+    }
+
     return {
+      toggleInfo,
       showInfo,
       activeTab,
       tabs,
