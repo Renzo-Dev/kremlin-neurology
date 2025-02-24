@@ -54,4 +54,8 @@ export const routes = [
     name: 'Gkb51dzm',
     component: () => import('../pages/Gkb51.vue'),
   },
+  {
+    path: '/:pathMatch(.*)*',
+    redirect: '/',
+  },
 ]
