@@ -51,6 +51,9 @@
       мастер-классы.
     </div>
   </div>
+  <div class="">
+    <h1 class="text-center">Hello World</h1>
+  </div>
 </template>
 
 <script lang="js">
@@ -86,106 +89,5 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
-$bg-button-s-info: #cccccc;
-
-.education {
-  user-select: none;
-  max-width: calc(100vw - 100px);
-  margin: 20px auto;
-  padding: 20px 10px 10px 20px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  background: #f9f9f9;
-}
-
-.education__title {
-  text-align: center;
-  font-size: 1.2rem;
-  margin-bottom: 20px;
-}
-
-.education_tabs {
-  display: flex;
-  max-width: calc(100vw - 100px);
-  align-self: center;
-  justify-content: center;
-  align-items: center;
-
-  .education_item {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    width: fit-content;
-    height: 100%;
-    font-family: Arial, serif;
-
-    font-size: calc(4 * 0.25vw);
-    text-wrap: nowrap;
-    background: #e2e2e2ff;
-    border-radius: 7px;
-    padding: 10px;
-    text-decoration: none;
-    color: black;
-    transition: 100ms ease-in-out;
-
-    &:hover {
-      background-color: #adadad;
-      transform: translateY(5px);
-    }
-
-    &:not(:first-child) {
-      margin-left: 5px;
-    }
-
-    &:not(:last-child) {
-      margin-right: 5px;
-    }
-  }
-}
-
-.info__wrapper {
-  display: flex;
-  align-self: center;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: calc(100vw - 100px);
-  margin-top: 15px;
-
-  .button__show_info {
-    outline: none;
-    width: fit-content;
-    height: fit-content;
-    border: none;
-    background-color: $bg-button-s-info;
-    padding: 5px 15px;
-    border-radius: 7px;
-    text-align: center;
-    font-size: calc(4 * 0.25vw);
-
-    &.active {
-      background-color: #8c8c8c !important;
-    }
-  }
-
-  .info_context {
-    padding: 10px;
-    animation: showInfo 1s linear;
-    margin-top: 10px;
-    font-size: calc(4 * 0.23vw);
-    text-align: justify;
-    border-radius: 13px;
-    border: 1px solid #c7c7c7;
-  }
-}
-
-@keyframes showInfo {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
+@use '@/assets/styles/pages/Learn.scss';
 </style>
