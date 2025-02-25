@@ -55,6 +55,16 @@ export const routes = [
     component: () => import('../pages/Gkb51.vue'),
   },
   {
+    path: '/ordinatura',
+    name: 'Ordinatura',
+    component: () => import('../pages/Ordinatura.vue'),
+  },
+  {
+    path: '/aspirantura',
+    name: 'Aspirantura',
+    component: () => import('../pages/Aspirantura.vue'),
+  },
+  {
     path: '/:pathMatch(.*)*',
     redirect: '/',
   },

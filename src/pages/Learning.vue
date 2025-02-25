@@ -23,7 +23,7 @@
       :class="{ active: showInfo }"
       @click="toggleInfo()"
     >
-      {{ showInfo ? 'Скрыть информацию' : 'Показать информацию' }}
+      Показать информацию
     </button>
     <div v-if="showInfo" class="info_context">
       Кафедра неврологии ФГБУ ДПО «ЦГМА» УД Президента РФ организует и проводит
@@ -56,8 +56,19 @@
       мастер-классы.
     </div>
   </div>
-  <div class="">
-    <h1 class="text-center">{{ activeTab }}</h1>
+  <div class="tabs">
+    <button
+      class="tabs__btn"
+      v-for="(section, index) in sections"
+      :key="index"
+      :class="{ active: index === activeIndex }"
+      @click="setActiveIndex(index)"
+    >
+      {{ section.title }}
+    </button>
+  </div>
+  <div class="content">
+    <p>{{ sections[activeIndex].content }}</p>
   </div>
 </template>
 
@@ -66,11 +77,28 @@ import { defineComponent, ref } from 'vue'
 
 export default defineComponent({
   setup() {
-    const showInfo = ref(true)
-    const activeTab = ref('')
+    const activeIndex = ref(0)
+    const setActiveIndex = index => {
+      activeIndex.value = index
+    }
+    const showInfo = ref(false)
+    const sections = ref([
+      {
+        title: 'Ординатура',
+        content:
+          '( 2 года обучения ) по специальностям:\n' +
+          'Обучение в ординатуре осуществляется на клинических базах ГКБ №51 ДЗМ и ФГБУ "ЦКБ с поликлиникой" УД Президента РФ, при наличии заявок от подведомственных учреждений ГМУ включает в седя стажировку на потенциальном рабочем месте.',
+      },
+      {
+        title: 'Аспирантура',
+        content:
+          'по специальности 14.01.11 - "Нервные болезни":\n' +
+          'Обучение в очной аспирантуре осуществляется на клинической базе ФГБУ "ЦКБ с поликлиникой" УД Президента РФ, в заочной - на клинической базе ФГБУ "ЦКБ с поликлиникой" УД Президента РФ и по месту работы в медицинских учреждениях, подведоственных УДП.',
+      },
+    ])
     const tabs = [
-      { id: 'ordinatura', label: 'Ординатура', link: '/hll' },
-      { id: 'aspirantura', label: 'Аспирантура', link: '#' },
+      { id: 'ordinatura', label: 'Ординатура', link: '/ordinatura' },
+      { id: 'aspirantura', label: 'Аспирантура', link: '/aspirantura' },
       { id: 'retraining', label: 'Профессиональная переподготовка', link: '#' },
       {
         id: 'certification_cycles',
@@ -89,10 +117,12 @@ export default defineComponent({
     }
 
     return {
-      toggleInfo,
-      showInfo,
-      activeTab,
+      activeIndex,
+      sections,
       tabs,
+      showInfo,
+      setActiveIndex,
+      toggleInfo,
     }
   },
 })

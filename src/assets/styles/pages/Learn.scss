@@ -32,11 +32,11 @@ $bg-button-s-info: #cccccc;
 		height: 100%;
 		font-family: Arial, serif;
 		
-		font-size: calc(4 * 0.25vw);
+		font-size: calc(4 * 0.27vw);
 		text-wrap: nowrap;
 		background: #e2e2e2ff;
 		border-radius: 7px;
-		padding: 10px;
+		padding: 15px;
 		text-decoration: none;
 		color: black;
 		transition: 100ms ease-in-out;
@@ -63,7 +63,7 @@ $bg-button-s-info: #cccccc;
 	align-items: center;
 	justify-content: center;
 	width: calc(100vw - 100px);
-	margin-top: 15px;
+	margin-top: calc(10 * .25vw);
 	
 	.button__show_info {
 		outline: none;
@@ -71,10 +71,15 @@ $bg-button-s-info: #cccccc;
 		height: fit-content;
 		border: none;
 		background-color: $bg-button-s-info;
-		padding: 5px 15px;
+		padding: 15px 15px;
 		border-radius: 7px;
 		text-align: center;
 		font-size: calc(4 * 0.25vw);
+		transition: 100ms ease-in-out;
+		
+		&:hover {
+			background-color: #adadad;
+		}
 		
 		&.active {
 			background-color: #8c8c8c !important;
@@ -86,12 +91,59 @@ $bg-button-s-info: #cccccc;
 		overflow: hidden;
 		padding: 10px;
 		animation: showInfo 200ms ease-in-out;
-		margin-top: 10px;
+		margin-top: calc(5 * .25vw);
 		font-size: calc(4 * 0.23vw);
 		text-align: justify;
 		border-radius: 13px;
 		border: 1px solid #c7c7c7;
 	}
+}
+
+.tabs {
+	border-top-right-radius: 13px;
+	border-top-left-radius: 13px;
+	padding-top: 20px;
+	margin-top: calc(10 * 0.25vw);
+	background-color: #efefef;
+	width: calc(100vw - 40%);
+	align-self: center;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	
+	.tabs__btn {
+		&:first-child {
+			margin-right: 35px;
+		}
+		
+		&:last-child {
+			margin-left: 35px;
+		}
+		
+		padding: 10px 20px;
+		font-size: 20px;
+		border-radius: 6px;
+		text-align: center;
+		border: none;
+		background-color: #e6e6e6
+	}
+}
+
+.active {
+	transition: 200ms ease-in-out;
+	background-color: #8c8c8c !important;
+}
+
+.content {
+	padding-top: 15px;
+	padding-right: 15px;
+	padding-left: 15px;
+	align-self: center;
+	background-color: #efefef;
+	width: calc(100vw - 40%);
+	border-bottom-left-radius: 13px;
+	border-bottom-right-radius: 13px;
+	font-size: calc(4 * 0.25vw);
 }
 
 @keyframes showInfo {
