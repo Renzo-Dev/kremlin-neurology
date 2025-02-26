@@ -3,11 +3,13 @@
     <table class="table table-hover">
       <thead class="table-thead">
         <tr>
-          <th class="table-item">№</th>
-          <th v-if="!table3" class="table-item">Специальность</th>
-          <th v-if="table3" class="table-item">Кафедры, курсы</th>
-          <th v-if="table3" class="table-item">Наименование цикла</th>
-          <th class="table-item text-center">СТОИМОСТЬ ОБУЧЕНИЯ (руб./год)</th>
+          <th class="table-header">№</th>
+          <th v-if="!table3" class="table-header">Специальность</th>
+          <th v-if="table3" class="table-header">Кафедры, курсы</th>
+          <th v-if="table3" class="table-header">Наименование цикла</th>
+          <th class="table-header text-center">
+            СТОИМОСТЬ ОБУЧЕНИЯ (руб./год)
+          </th>
         </tr>
       </thead>
       <tbody>
@@ -44,20 +46,72 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
+@use 'sass:map';
+@use '@/assets/styles/mixins';
+
+$sizes: (
+  small: (
+    table-item-ft_size: calc(14 * 0.27vw),
+    table-header-ft-size: calc(12 * 0.27vw),
+    width: 100%,
+  ),
+  xsmall: (
+    table-item-ft_size: calc(10 * 0.27vw),
+    table-header-ft-size: calc(10 * 0.27vw),
+    width: 80%,
+  ),
+  medium: (
+    table-item-ft_size: calc(7 * 0.27vw),
+    table-header-ft-size: calc(6 * 0.27vw),
+    width: 80%,
+  ),
+  large: (
+    table-item-ft_size: calc(5 * 0.25vw),
+    table-header-ft-size: calc(5 * 0.25vw),
+    width: 80%,
+  ),
+  xlarge: (
+    table-item-ft_size: calc(5 * 0.25vw),
+    table-header-ft-size: calc(5 * 0.25vw),
+    width: 80%,
+  ),
+  xxlarge: (
+    table-item-ft_size: calc(4 * 0.25vw),
+    table-header-ft-size: calc(4 * 0.25vw),
+    width: 80%,
+  ),
+);
+
 .custom-table {
   overflow-y: auto;
   display: flex;
   justify-content: center;
   height: calc(50 * 1vh);
-  width: 60%;
+  @each $size, $values in $sizes {
+    @include mixins.respond-to($size) {
+      width: map.get($values, width);
+    }
+  }
 
   .table-thead {
     position: sticky;
     top: 0;
+
+    .table-header {
+      @each $size, $values in $sizes {
+        @include mixins.respond-to($size) {
+          font-size: map.get($values, table-header-ft-size);
+        }
+      }
+    }
   }
 }
 
 .table-item {
-  font-size: calc(4 * 0.25vw);
+  @each $size, $values in $sizes {
+    @include mixins.respond-to($size) {
+      font-size: map.get($values, table-item-ft_size);
+    }
+  }
 }
 </style>

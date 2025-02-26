@@ -68,6 +68,42 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
+@use '@/assets/styles/mixins.scss';
+@use 'sass:map';
+
+$sizes: (
+  small: (
+    content_title_ft-size: calc(15 * 0.25vw),
+    content_contact_info_ft-size: calc(14 * 0.25vw),
+    contact_info: calc(13 * 0.25vw),
+  ),
+  xsmall: (
+    content_title_ft-size: calc(10 * 0.25vw),
+    content_contact_info_ft-size: calc(8 * 0.27vw),
+    contact_info: calc(8 * 0.25vw),
+  ),
+  medium: (
+    content_title_ft-size: calc(10 * 0.25vw),
+    content_contact_info_ft-size: calc(7 * 0.27vw),
+    contact_info: calc(7 * 0.27vw),
+  ),
+  large: (
+    content_title_ft-size: calc(7 * 0.25vw),
+    content_contact_info_ft-size: calc(6 * 0.25vw),
+    contact_info: calc(5 * 0.27vw),
+  ),
+  xlarge: (
+    content_title_ft-size: calc(6 * 0.25vw),
+    content_contact_info_ft-size: calc(5 * 0.25vw),
+    contact_info: calc(4 * 0.27vw),
+  ),
+  xxlarge: (
+    content_title_ft-size: calc(5 * 0.25vw),
+    content_contact_info_ft-size: calc(4 * 0.25vw),
+    contact_info: calc(4 * 0.27vw),
+  ),
+);
+
 .content-container {
   display: flex;
   flex-direction: column;
@@ -78,22 +114,39 @@ export default defineComponent({
     font-weight: 600;
     margin-bottom: calc(5 * 0.25vw);
     margin-top: calc(5 * 0.25vw);
-    font-size: calc(5 * 0.25vw);
+    @each $size, $values in $sizes {
+      @include mixins.respond-to($size) {
+        font-size: map.get($values, content_title_ft-size);
+      }
+    }
   }
 
   .content__contact-info {
     align-self: center;
     display: flex;
-    font-size: calc(4 * 0.25vw);
+    text-align: center;
+    text-wrap: balance;
     background-color: #f9dbd2;
     border-radius: 7px;
-    padding: 0 10px;
+    padding: 0 calc(5 * 0.25vw);
+    margin-top: calc(15 * 0.25vw);
+    max-width: 80%;
+    @each $size, $values in $sizes {
+      @include mixins.respond-to($size) {
+        font-size: map.get($values, content_contact_info_ft-size);
+      }
+    }
   }
 
   .contact__info {
-    font-size: calc(4 * 0.25vw);
+    max-width: 90%;
     margin-top: calc(5 * 0.25vw);
     margin-bottom: calc(5 * 0.25vw);
+    @each $size, $values in $sizes {
+      @include mixins.respond-to($size) {
+        font-size: map.get($values, contact_info);
+      }
+    }
   }
 }
 </style>
