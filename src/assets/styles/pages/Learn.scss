@@ -1,27 +1,87 @@
+@use "@/assets/styles/mixins";
+@use "sass:map";
+
 $bg-button-s-info: #cccccc;
+$sizes: (
+	small: (
+		edu_title_f-size: calc(15 * .25vw),
+		edu_item_f-size: calc(14 * .27vw),
+		btn_show_inf_f-size: calc(14 * .25vw),
+		info_context_f-size: calc(15 * .25vw),
+		tabs_btn_f-size: calc(18 * .25vw),
+		tabs_content_f-size: calc(15 * .25vw),
+	),
+	xsmall: (
+		edu_title_f-size: calc(12 * .25vw),
+		edu_item_f-size: calc(13 * .25vw),
+		btn_show_inf_f-size: calc(14 * .25vw),
+		info_context_f-size: calc(13 * .25vw),
+		tabs_btn_f-size: calc(15 * .25vw),
+		tabs_content_f-size: calc(13 * .25vw),
+	),
+	medium: (
+		edu_title_f-size: calc(7 * .25vw),
+		edu_item_f-size: calc(7 * .25vw),
+		btn_show_inf_f-size: calc(7 * .25vw),
+		info_context_f-size: calc(6 * .25vw),
+		tabs_btn_f-size: calc(8 * .25vw),
+		tabs_content_f-size: calc(7 * .25vw),
+	),
+	large: (
+		edu_title_f-size: calc(5 * .25vw),
+		edu_item_f-size: calc(5 * .25vw),
+		btn_show_inf_f-size: calc(5 * .25vw),
+		info_context_f-size: calc(4 * .27vw),
+		tabs_btn_f-size: calc(5 * .25vw),
+		tabs_content_f-size: calc(5 * .25vw),
+	),
+	xlarge: (
+		edu_title_f-size: calc(5 * .25vw),
+		edu_item_f-size: calc(4 * .27vw),
+		btn_show_inf_f-size: calc(4 * .25vw),
+		info_context_f-size: calc(4 * .27vw),
+		tabs_btn_f-size: calc(5 * .25vw),
+		tabs_content_f-size: calc(5 * .25vw),
+	),
+	xxlarge: (
+		edu_title_f-size: calc(5 * .25vw),
+		edu_item_f-size: calc(4 * .27vw),
+		btn_show_inf_f-size: calc(4 * .25vw),
+		info_context_f-size: calc(4 * .25vw),
+		tabs_btn_f-size: calc(4 * .25vw),
+		tabs_content_f-size: calc(4 * .25vw),
+	),
+);
 
 .education {
 	user-select: none;
 	max-width: calc(100vw - 100px);
-	margin: 20px auto;
-	padding: 20px 10px 10px 20px;
+	margin: calc(10 * 0.25vw) auto;
+	padding: calc(7 * 0.25vw) 10px calc(5 * 0.25vw) 20px;
 	border: 1px solid #ddd;
 	border-radius: 8px;
 	background: #f9f9f9;
 }
 
 .education__title {
+	text-wrap: balance;
 	text-align: center;
-	font-size: 1.2rem;
-	margin-bottom: 20px;
+	margin-bottom: calc(5 * 0.25vw);
+	
+	@each $size, $values in $sizes {
+		@include mixins.respond-to($size) {
+			font-size: map.get($values, edu_title_f-size);
+		}
+	}
 }
 
 .education_tabs {
 	display: flex;
 	max-width: calc(100vw - 100px);
 	align-self: center;
-	justify-content: center;
 	align-items: center;
+	overflow-x: auto;
+	padding-bottom: 15px;
 	
 	.education_item {
 		display: flex;
@@ -31,8 +91,6 @@ $bg-button-s-info: #cccccc;
 		width: fit-content;
 		height: 100%;
 		font-family: Arial, serif;
-		
-		font-size: calc(4 * 0.27vw);
 		text-wrap: nowrap;
 		background: #e2e2e2ff;
 		border-radius: 7px;
@@ -40,6 +98,12 @@ $bg-button-s-info: #cccccc;
 		text-decoration: none;
 		color: black;
 		transition: 100ms ease-in-out;
+		
+		@each $size, $values in $sizes {
+			@include mixins.respond-to($size) {
+				font-size: map.get($values, edu_item_f-size);
+			}
+		}
 		
 		&:hover {
 			background-color: #adadad;
@@ -74,8 +138,13 @@ $bg-button-s-info: #cccccc;
 		padding: 15px 15px;
 		border-radius: 7px;
 		text-align: center;
-		font-size: calc(4 * 0.25vw);
 		transition: 100ms ease-in-out;
+		
+		@each $size, $values in $sizes {
+			@include mixins.respond-to($size) {
+				font-size: map.get($values, btn_show_inf_f-size);
+			}
+		}
 		
 		&:hover {
 			background-color: #adadad;
@@ -90,22 +159,34 @@ $bg-button-s-info: #cccccc;
 		user-select: none;
 		overflow: hidden;
 		padding: 10px;
-		animation: showInfo 200ms ease-in-out;
 		margin-top: calc(5 * .25vw);
-		font-size: calc(4 * 0.23vw);
 		text-align: justify;
 		border-radius: 13px;
 		border: 1px solid #c7c7c7;
+		
+		@each $size, $values in $sizes {
+			@include mixins.respond-to($size) {
+				font-size: map.get($values, info_context_f-size);
+			}
+		}
+		
+		&.hide {
+			animation: hideInfo 200ms ease-in-out;
+		}
+		
+		&.show {
+			animation: showInfo 200ms ease-in-out;
+		}
 	}
 }
 
 .tabs {
 	border-top-right-radius: 13px;
 	border-top-left-radius: 13px;
-	padding-top: 20px;
+	padding-top: calc(5 * .25vw);
 	margin-top: calc(10 * 0.25vw);
 	background-color: #efefef;
-	width: calc(100vw - 40%);
+	width: calc(100vw - 30%);
 	align-self: center;
 	display: flex;
 	flex-direction: row;
@@ -113,19 +194,23 @@ $bg-button-s-info: #cccccc;
 	
 	.tabs__btn {
 		&:first-child {
-			margin-right: 35px;
+			margin-right: calc(10 * .25vw);
 		}
 		
 		&:last-child {
-			margin-left: 35px;
+			margin-left: calc(10 * .25vw);
 		}
 		
-		padding: 10px 20px;
-		font-size: 20px;
+		padding: calc(3 * 0.25vw) calc(10 * 0.25vw);
 		border-radius: 6px;
 		text-align: center;
 		border: none;
-		background-color: #e6e6e6
+		background-color: #e6e6e6;
+		@each $size, $values in $sizes {
+			@include mixins.respond-to($size) {
+				font-size: map.get($values, tabs_btn_f-size);
+			}
+		}
 	}
 }
 
@@ -135,15 +220,21 @@ $bg-button-s-info: #cccccc;
 }
 
 .content {
-	padding-top: 15px;
-	padding-right: 15px;
-	padding-left: 15px;
+	display: flex;
+	text-wrap: balance;
+	text-align: center;
+	flex-direction: column;
+	padding: calc(100vh / 25) 15px calc(100vh / 25);
 	align-self: center;
 	background-color: #efefef;
-	width: calc(100vw - 40%);
+	width: calc(100vw - 30%);
 	border-bottom-left-radius: 13px;
 	border-bottom-right-radius: 13px;
-	font-size: calc(4 * 0.25vw);
+	@each $size, $values in $sizes {
+		@include mixins.respond-to($size) {
+			font-size: map.get($values, tabs_content_f-size);
+		}
+	}
 }
 
 @keyframes showInfo {
@@ -154,5 +245,16 @@ $bg-button-s-info: #cccccc;
 	100% {
 		max-height: 300px;
 		opacity: 1;
+	}
+}
+
+@keyframes hideInfo {
+	0% {
+		max-height: 300px;
+		opacity: 1;
+	}
+	100% {
+		max-height: 0;
+		opacity: 0;
 	}
 }
