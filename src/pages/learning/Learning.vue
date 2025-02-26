@@ -25,7 +25,11 @@
     >
       Показать информацию
     </button>
-    <div v-if="showInfo" class="info_context">
+    <div
+      v-if="hideInfo"
+      :class="{ show: showInfo, hide: !showInfo }"
+      class="info_context"
+    >
       Кафедра неврологии ФГБУ ДПО «ЦГМА» УД Президента РФ организует и проводит
       послевузовское и дополнительное образование врачей
       лечебно-профилактических и санаторно-курортных учреждений Управления
@@ -82,6 +86,7 @@ export default defineComponent({
       activeIndex.value = index
     }
     const showInfo = ref(false)
+    const hideInfo = ref(false)
     const sections = ref([
       {
         title: 'Ординатура',
@@ -99,7 +104,11 @@ export default defineComponent({
     const tabs = [
       { id: 'ordinatura', label: 'Ординатура', link: '/ordinatura' },
       { id: 'aspirantura', label: 'Аспирантура', link: '/aspirantura' },
-      { id: 'retraining', label: 'Профессиональная переподготовка', link: '#' },
+      {
+        id: 'retraining',
+        label: 'Профессиональная переподготовка',
+        link: '/retraining',
+      },
       {
         id: 'certification_cycles',
         label: 'Сертификационные циклы',
@@ -113,10 +122,19 @@ export default defineComponent({
     ]
 
     const toggleInfo = () => {
-      showInfo.value = !showInfo.value
+      if (showInfo.value === true) {
+        showInfo.value = false
+        setTimeout(() => {
+          hideInfo.value = false
+        }, 200)
+      } else {
+        hideInfo.value = true
+        showInfo.value = true
+      }
     }
 
     return {
+      hideInfo,
       activeIndex,
       sections,
       tabs,
@@ -129,5 +147,5 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
-@use '@/assets/styles/pages/Learn.scss';
+@use '@/assets/styles/pages/Learn';
 </style>

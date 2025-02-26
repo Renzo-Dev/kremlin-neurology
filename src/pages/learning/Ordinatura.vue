@@ -91,7 +91,8 @@ export default defineComponent({
     font-size: calc(4 * 0.25vw);
     background-color: #f9dbd2;
     border-radius: 7px;
-    padding: 0 10px;
+    padding: 0 calc(5 * 0.25vw);
+    margin-top: calc(5 * 0.25vw);
   }
 
   .contact__info {

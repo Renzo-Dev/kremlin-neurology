@@ -7,7 +7,7 @@ export const routes = [
   {
     path: '/learning',
     name: 'Learning',
-    component: () => import('../pages/Learning.vue'),
+    component: () => import('../pages/learning/Learning.vue'),
   },
   {
     path: '/history',
@@ -57,12 +57,17 @@ export const routes = [
   {
     path: '/ordinatura',
     name: 'Ordinatura',
-    component: () => import('../pages/Ordinatura.vue'),
+    component: () => import('../pages/learning/Ordinatura.vue'),
   },
   {
     path: '/aspirantura',
     name: 'Aspirantura',
-    component: () => import('../pages/Aspirantura.vue'),
+    component: () => import('../pages/learning/Aspirantura.vue'),
+  },
+  {
+    path: '/retraining',
+    name: 'Retraining',
+    component: () => import('../pages/learning/Professional_retraining.vue'),
   },
   {
     path: '/:pathMatch(.*)*',
