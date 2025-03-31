@@ -2,7 +2,7 @@ export const routes = [
   {
     path: '/',
     name: 'home',
-    component: () => import('../pages/Home.vue'),
+    component: () => import('../pages/home/Home.vue'),
   },
   {
     path: '/learning',
@@ -42,12 +42,12 @@ export const routes = [
   {
     path: '/newsupdates',
     name: 'NewsUpdates',
-    component: () => import('../pages/NewsUpdates.vue'),
+    component: () => import('../pages/news/NewsUpdates.vue'),
   },
   {
     path: '/contactinfo',
     name: 'ContactInfo',
-    component: () => import('../pages/ContactInfo.vue'),
+    component: () => import('../pages/home/ContactInfo.vue'),
   },
   {
     path: '/gkb51dzm',
@@ -68,6 +68,11 @@ export const routes = [
     path: '/retraining',
     name: 'Retraining',
     component: () => import('../pages/learning/Professional_retraining.vue'),
+  },
+  {
+    path: '/certification_cycles',
+    name: 'Certification_Cycle',
+    component: () => import('../pages/learning/Certification_cycles.vue'),
   },
   {
     path: '/:pathMatch(.*)*',

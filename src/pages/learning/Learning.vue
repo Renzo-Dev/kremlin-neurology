@@ -112,7 +112,7 @@ export default defineComponent({
       {
         id: 'certification_cycles',
         label: 'Сертификационные циклы',
-        link: '#',
+        link: '/certification_cycles',
       },
       {
         id: 'thematic_improvement',

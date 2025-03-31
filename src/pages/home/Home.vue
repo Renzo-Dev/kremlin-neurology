@@ -8,7 +8,7 @@
       <img
         alt="Картинка фасада здания"
         class="content-wrapper__image"
-        src="@/assets/images/fasad.jpg"
+        src="../../assets/images/fasad.jpg"
         title="Фасад здания"
       />
       <div class="content-wrapper__text">
@@ -75,5 +75,5 @@
 
 <script lang="js"></script>
 <style scoped lang="scss">
-@use '@/assets/styles/pages/Home';
+@use '@/assets/styles/pages/Home.scss';
 </style>

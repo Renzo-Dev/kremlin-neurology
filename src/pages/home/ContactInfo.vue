@@ -106,5 +106,5 @@
 <script setup></script>
 
 <style scoped lang="scss">
-@use '@/assets/styles/pages/ContactInfo.scss';
+@use '@/assets/styles/pages/ContactInfo';
 </style>
