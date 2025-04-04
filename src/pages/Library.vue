@@ -1,9 +1,38 @@
 <template>
-  <div class="container mt-4">
-    <h2 class="container h2 mt-2 text-center">
-      Электронная библиотека сайта "Кремлевская неврология"
-    </h2>
-    <LibraryAccordion :items="items"></LibraryAccordion>
+  <div class="library mt-4">
+    <div class="library__content">
+      <div class="library__header">
+        <h2 class="library__title">
+          Электронная библиотека сайта "Кремлевская неврология"
+        </h2>
+      </div>
+
+      <div class="library__notice mb-4">
+        <h2 class="library__subtitle h4 text-start">
+          <div class="library__greeting">Уважаемые посетители сайта!</div>
+          <div class="library__message">
+            С содержанием последних номеров журнала
+            <a
+              class="library__link text-decoration-none text-primary"
+              href="https://kremlin-medicine.ru/index.php/km"
+            >
+              "Кремлевская медицина. Клинический вестник"
+            </a>
+            можно ознакомиться на сайте журнала.
+          </div>
+        </h2>
+      </div>
+
+      <div class="library__accordion mb-4 w-100">
+        <LibraryAccordion :items="items" />
+      </div>
+    </div>
+
+    <div class="library__access text-center mt-3">
+      <h2 class="library__access-title h5">
+        Для доступа в приватную библиотеку введите пароль
+      </h2>
+    </div>
   </div>
 </template>
 
@@ -725,4 +754,40 @@ export default defineComponent({
 })
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+@use '@/assets/styles/mixins.scss';
+@use 'sass:map';
+
+$sizes: (
+  xxlarge: (
+    header_title-ft: calc(6 * 0.25vw),
+    flex-direc: row,
+  ),
+);
+
+.library {
+  @each $size, $value in $sizes {
+    @include mixins.respond-to($size) {
+      display: flex;
+      flex-direction: map.get($value, flex-direc);
+      justify-content: center;
+      width: 100%;
+
+      .library__content {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding-left: calc(5 * 0.25vw);
+        padding-right: calc(5 * 0.25vw);
+
+        .library__header {
+          .library__title {
+            font-size: map.get($value, header_title-ft);
+          }
+        }
+      }
+    }
+  }
+}
+</style>
