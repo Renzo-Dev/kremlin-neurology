@@ -13,13 +13,8 @@
       :breakpoints="breakpoints"
     >
       <swiper-slide v-for="(slide, index) in slides" :key="index">
-        <router-link
-          class="swiper-slide__link"
-          :to="slide.route"
-          @mouseover="slide.hasDropDown && onMouseOver()"
-          @mouseleave="slide.hasDropDown && onMouseLeave()"
-        >
-          {{ slide.title }}
+        <router-link class="swiper-slide__link" :to="slide.route"
+          >{{ slide.title }}
         </router-link>
       </swiper-slide>
     </swiper>
@@ -31,30 +26,24 @@
       @click.prevent="swiper.slideNext()"
       class="buttonNext button-swiper"
     />
-    <ConferenceDropdown v-if="dropDownActive === true" />
   </div>
 </template>
 
 <script lang="js">
-import ConferenceDropdown from '@/components/topHeader/ConferenceDropdown.vue'
 import 'swiper/swiper-bundle.css'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import { onMounted, ref } from 'vue'
 
 export default {
   name: 'navPanel',
-  computed: {},
   components: {
-    ConferenceDropdown,
     Swiper,
     SwiperSlide,
   },
   setup() {
-    
     const swiper = ref(null)
     const nextButton = ref(null)
     const prevButton = ref(null)
-    let dropDownActive = ref(false)
 
     const slides = [
       { title: 'Обучение', route: 'learning' },
@@ -102,13 +91,11 @@ export default {
     }
     const onMouseOver = () => {
       console.log('Навели на "Ежегодные конференции"')
-      dropDownActive = true
       // Добавь здесь логику показа dropdown или что тебе нужно
     }
 
     const onMouseLeave = () => {
       console.log('Убрали мышь с "Ежегодные конференции"')
-      dropDownActive = false
       // Здесь — скрытие dropdown и т.п.
     }
 
@@ -134,9 +121,6 @@ export default {
     }
 
     return {
-      onMouseOver,
-      onMouseLeave,
-      dropDownActive,
       breakpoints,
       prevButton,
       nextButton,
