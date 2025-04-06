@@ -48,7 +48,7 @@
 </template>
 
 <script lang="js">
-import { computed, defineComponent } from 'vue'
+import { defineComponent } from 'vue'
 
 export default defineComponent({
   props: {
@@ -62,7 +62,7 @@ export default defineComponent({
     },
   },
   components: {},
-  setup(props) {
+  setup() {
     function resolveImagePath(filename) {
       const safeName = filename || 'default.png' // или 'pdf.gif'
       return new URL(`/src/assets/images/${safeName}`, import.meta.url).href
@@ -74,6 +74,50 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
+@use '@/assets/styles/mixins.scss';
+@use 'sass:map';
+
+$sizes: (
+  small: (
+    accordion-button-ft: calc(14 * 0.25vw),
+    accordion-button-pt: 10px 10px 10px 15px,
+  ),
+  xsmall: (
+    accordion-button-ft: calc(10 * 0.25vw),
+    accordion-button-pt: 10px 10px 10px 15px,
+  ),
+  medium: (
+    accordion-button-ft: calc(6 * 0.25vw),
+    accordion-button-pt: 10px 10px 10px 15px,
+  ),
+  large: (
+    accordion-button-ft: calc(5 * 0.25vw),
+    accordion-button-pt: 10px 10px 10px 15px,
+  ),
+  xlarge: (
+    accordion-button-ft: calc(5 * 0.25vw),
+    accordion-button-pt: 10px 10px 10px 15px,
+  ),
+  xxlarge: (
+    accordion-button-ft: calc(4 * 0.25vw),
+    accordion-button-pt: 10px 10px 10px 15px,
+  ),
+);
+
+@each $size, $value in $sizes {
+  @include mixins.respond-to($size) {
+    .accordion-button {
+      font-size: map.get($value, accordion-button-ft);
+    }
+  }
+}
+
+.accordion-header {
+  .accordion-button {
+    padding: map.get($sizes, small, accordion-button-pt);
+  }
+}
+
 .accordion-button:not(.collapsed) {
   background-color: white !important;
   color: inherit;
@@ -84,4 +128,5 @@ export default defineComponent({
   border-color: transparent !important;
   box-shadow: none !important;
   outline: none !important;
-}</style>
+}
+</style>

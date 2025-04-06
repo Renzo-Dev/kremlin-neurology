@@ -7,8 +7,8 @@
 </template>
 
 <script lang="js">
-import { defineComponent } from 'vue'
 import AccordionItem from '@/components/library/AccordionItem.vue'
+import { defineComponent } from 'vue'
 
 export default defineComponent({
   props: {
@@ -28,5 +28,4 @@ export default defineComponent({
   max-height: 60vh;
   overflow: auto;
 }
-
 </style>

@@ -7,8 +7,8 @@
         </h2>
       </div>
 
-      <div class="library__notice mb-4">
-        <h2 class="library__subtitle h4 text-start">
+      <div class="library__notice">
+        <h2 class="library__subtitle">
           <div class="library__greeting">Уважаемые посетители сайта!</div>
           <div class="library__message">
             С содержанием последних номеров журнала
@@ -27,21 +27,17 @@
         <LibraryAccordion :items="items" />
       </div>
     </div>
-
-    <div class="library__access text-center mt-3">
-      <h2 class="library__access-title h5">
-        Для доступа в приватную библиотеку введите пароль
-      </h2>
-    </div>
+    <AccessLibrary />
   </div>
 </template>
 
 <script lang="js">
-import { defineComponent } from 'vue'
+import AccessLibrary from '@/components/library/AccessLibrary.vue'
 import LibraryAccordion from '@/components/library/LibraryAccordion.vue'
+import { defineComponent } from 'vue'
 
 export default defineComponent({
-  components: { LibraryAccordion },
+  components: { LibraryAccordion, AccessLibrary },
   setup() {
     let items = [
       {
@@ -759,9 +755,35 @@ export default defineComponent({
 @use 'sass:map';
 
 $sizes: (
-  xxlarge: (
+  small: (
+    header_title-ft: calc(13 * 0.25vw),
+    flex-direc: column,
+    subtitle-ft: calc(13 * 0.25vw),
+  ),
+  xsmall: (
+    header_title-ft: calc(10 * 0.25vw),
+    flex-direc: column,
+    subtitle-ft: calc(10 * 0.25vw),
+  ),
+  medium: (
     header_title-ft: calc(6 * 0.25vw),
+    flex-direc: column,
+    subtitle-ft: calc(6 * 0.25vw),
+  ),
+  large: (
+    header_title-ft: calc(5 * 0.25vw),
     flex-direc: row,
+    subtitle-ft: calc(5 * 0.25vw),
+  ),
+  xlarge: (
+    header_title-ft: calc(5 * 0.25vw),
+    flex-direc: row,
+    subtitle-ft: calc(5 * 0.25vw),
+  ),
+  xxlarge: (
+    header_title-ft: calc(4 * 0.25vw),
+    flex-direc: row,
+    subtitle-ft: calc(4 * 0.25vw),
   ),
 );
 
@@ -785,6 +807,12 @@ $sizes: (
           .library__title {
             font-size: map.get($value, header_title-ft);
           }
+        }
+      }
+
+      .library__notice {
+        .library__subtitle {
+          font-size: map.get($value, subtitle-ft);
         }
       }
     }
