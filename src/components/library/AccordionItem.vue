@@ -73,4 +73,15 @@ export default defineComponent({
 })
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.accordion-button:not(.collapsed) {
+  background-color: white !important;
+  color: inherit;
+  box-shadow: none;
+}
+
+.accordion-button:focus {
+  border-color: transparent !important;
+  box-shadow: none !important;
+  outline: none !important;
+}</style>

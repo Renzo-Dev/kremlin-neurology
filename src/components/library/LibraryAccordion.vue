@@ -29,15 +29,4 @@ export default defineComponent({
   overflow: auto;
 }
 
-.accordion-button:not(.collapsed) {
-  background-color: white !important;
-  color: inherit;
-  box-shadow: none;
-}
-
-.accordion-button:focus {
-  border-color: transparent !important;
-  box-shadow: none !important;
-  outline: none !important;
-}
 </style>
