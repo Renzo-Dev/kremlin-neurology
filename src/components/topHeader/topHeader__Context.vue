@@ -9,9 +9,14 @@
 </template>
 
 <script lang="js">
-export default {
+import { defineComponent } from 'vue'
+
+export default defineComponent({
   name: 'topHeader__Context',
-}
+  setup() {
+    return {}
+  },
+})
 </script>
 
 <style scoped lang="scss">

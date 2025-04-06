@@ -4,8 +4,17 @@
   </div>
 </template>
 
-<script setup>
+<script lang="js">
+import { defineComponent } from 'vue'
 import UDPRF from '@/assets/icons/UDPRF.vue'
+
+export default defineComponent({
+  components: { UDPRF },
+  name: 'topHeader__Images',
+  setup() {
+    return {}
+  },
+})
 </script>
 
 <style scoped lang="scss">

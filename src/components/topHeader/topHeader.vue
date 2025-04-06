@@ -3,7 +3,7 @@
     <div class="top_header_content">
       <Flag />
       <topHeader__Context />
-      <top-header__Images />
+      <topHeader__Images />
     </div>
     <nav-panel />
   </header>
@@ -12,13 +12,12 @@
 <script lang="js">
 import { defineComponent } from 'vue'
 import Flag from './flag.vue'
-import UDPRF from '../../assets/icons/UDPRF.vue'
-import TopHeader__Context from './topHeader__Context.vue'
-import TopHeader__Images from './topHeader__Images.vue'
+import topHeader__Context from './topHeader__Context.vue'
 import NavPanel from './navPanel/navPanel.vue'
+import topHeader__Images from '@/components/topHeader/topHeader__Images.vue'
 
 export default defineComponent({
-  components: { NavPanel, TopHeader__Images, TopHeader__Context, UDPRF, Flag },
+  components: { topHeader__Images, NavPanel, topHeader__Context, Flag },
   name: 'topHeader',
 })
 </script>
