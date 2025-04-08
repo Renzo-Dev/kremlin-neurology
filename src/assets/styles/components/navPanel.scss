@@ -70,6 +70,61 @@ $sizes: (
   ),
 );
 
+$dropdown-content-sizes: (
+  small: (
+    font-size: calc(12 * 0.27vw),
+  ),
+  xsmall: (
+    font-size: calc(9 * 0.25vw),
+  ),
+  medium: (
+    font-size: calc(6 * 0.25vw),
+  ),
+  large: (
+    font-size: calc(5 * 0.25vw),
+  ),
+  xlarge: (
+    font-size: calc(5 * 0.25vw),
+  ),
+  xxlarge: (
+    font-size: calc(4 * 0.27vw),
+  ),
+);
+
+#dropdown-content {
+  z-index: 99999999;
+  display: none;
+  flex-direction: column;
+  position: absolute;
+  user-select: none;
+  background-color: transparent;
+  border-radius: 13px;
+  background-color: transparent;
+
+  @each $size, $values in $dropdown-content-sizes {
+    @include mixins.respond-to($size) {
+      font-size: map.get($values, font-size);
+    }
+  }
+  a {
+    padding: 10px;
+    background-color: #d7d7d7;
+    text-decoration: none;
+    color: black;
+    text-wrap: balance;
+    text-align: center;
+    border-radius: 13px;
+    transition: 100ms ease-in-out;
+    &:hover {
+      background-color: rgb(133, 133, 133);
+    }
+
+    &:first-child {
+      margin-bottom: 5px;
+    }
+  }
+}
+
 .nav-panel {
   display: flex;
   flex-direction: row;
@@ -104,6 +159,7 @@ $sizes: (
       height: 100%;
 
       .swiper-slide {
+        overflow: visible;
         background-color: #d7d7d7;
         border-radius: 7px;
         display: flex;
@@ -148,25 +204,6 @@ $sizes: (
       .swiper-slide {
         padding: map.get($values, sw-slide-pd-y) 0;
 
-        .dropdown {
-          width: 100%;
-          height: 100%;
-          padding: 0;
-          margin: 0;
-          display: flex;
-
-          #dropdownMenuButton {
-            border: none;
-            outline: none;
-            padding: 0;
-            font-size: map.get($values, font-size);
-            border: none;
-            background-color: transparent;
-            margin: 0;
-            width: 100%;
-            height: 100%;
-          }
-        }
         .swiper-slide__link {
           font-family: Arial, sans-serif;
           font-size: map.get($values, font-size);

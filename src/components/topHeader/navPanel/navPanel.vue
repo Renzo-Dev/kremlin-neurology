@@ -13,31 +13,17 @@
       :breakpoints="breakpoints"
     >
       <swiper-slide v-for="(slide, index) in slides" :key="index">
-        <div v-if="slide.hasDropDown" class="dropdown">
-          <button
-            class="dropdown-toggle"
-            type="button"
-            id="dropdownMenuButton"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-          >
-            {{ slide.title }}
-          </button>
-          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <li>
-              <router-link class="dropdown-item" :to="slide.buttonOne?.route">{{
-                slide.buttonOne?.title
-              }}</router-link>
-            </li>
-            <li>
-              <router-link class="dropdown-item" :to="slide.buttonTwo?.route">{{
-                slide.buttonTwo?.title
-              }}</router-link>
-            </li>
-          </ul>
-        </div>
-        <router-link v-else class="swiper-slide__link" :to="slide.route"
-          >{{ slide.title }}
+        <a
+          v-if="slide.hasDropDown"
+          class="swiper-slide__link"
+          :id="slide.hasDropDown ? 'AnnualConferences' : null"
+          @mouseenter="showDropDownMenu($event)"
+          @mouseleave="hideDropDownMenu"
+        >
+          {{ slide.title }}
+        </a>
+        <router-link v-else class="swiper-slide__link" :to="slide.route">
+          {{ slide.title }}
         </router-link>
       </swiper-slide>
     </swiper>
@@ -49,6 +35,16 @@
       @click.prevent="swiper.slideNext()"
       class="buttonNext button-swiper"
     />
+  </div>
+  <div id="dropdown-content">
+    <a href="#"
+      >Научно-практическая конференция "Инновационные технологии в области
+      неврологии и смежных специальностей"</a
+    >
+    <a href="#"
+      >Научно-образовательная конференция "Неврологические образовательные
+      университеты"</a
+    >
   </div>
 </template>
 
@@ -67,6 +63,9 @@ export default {
     const swiper = ref(null)
     const nextButton = ref(null)
     const prevButton = ref(null)
+
+    let isDropDownVisible = ref(false)
+    let dropDownElem = ref(null)
 
     const slides = [
       { title: 'Обучение', route: 'learning' },
@@ -121,7 +120,44 @@ export default {
       },
     }
 
+    function showDropDownMenu(event) {
+      let dropdownContent = document.getElementById('dropdown-content')
+      let dropDownMenu = event.target.getBoundingClientRect()
+      dropdownContent.style.display = 'flex'
+      dropdownContent.style.width = dropDownMenu.width + 'px'
+      dropdownContent.style.left =
+        dropDownElem.getBoundingClientRect().left +
+        (dropDownElem.getBoundingClientRect().width -
+          dropdownContent.getBoundingClientRect().width) /
+          2 +
+        'px'
+      dropdownContent.style.top =
+        dropDownElem.getBoundingClientRect().bottom + 10 + 'px'
+
+      // Add event listeners for mouseenter and mouseleave to dropdown-content links
+      // Добавить обработчики событий для mouseenter и mouseleave для ссылок в dropdown-content
+      dropdownContent.querySelectorAll('a').forEach(elem => {
+        elem.addEventListener('mouseenter', () => {
+          isDropDownVisible = true
+        })
+        elem.addEventListener('mouseleave', () => {
+          isDropDownVisible = false
+          hideDropDownMenu()
+        })
+      })
+    }
+
+    function hideDropDownMenu() {
+      let dropdownContent = document.getElementById('dropdown-content')
+      setTimeout(() => {
+        if (isDropDownVisible === false) {
+          dropdownContent.style.display = 'none'
+        }
+      }, 200)
+    }
+
     onMounted(() => {
+      dropDownElem = document.getElementById('AnnualConferences')
       updateButtonVisibility()
     })
 
@@ -143,6 +179,9 @@ export default {
     }
 
     return {
+      isDropDownVisible,
+      showDropDownMenu,
+      hideDropDownMenu,
       breakpoints,
       prevButton,
       nextButton,
