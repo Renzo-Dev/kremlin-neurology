@@ -91,7 +91,7 @@ $sizes: (
     align-items: center;
     justify-content: center;
     width: 100%;
-    overflow: visible;
+    // overflow: visible;
     height: 100%;
 
     padding: 5px;
@@ -148,6 +148,25 @@ $sizes: (
       .swiper-slide {
         padding: map.get($values, sw-slide-pd-y) 0;
 
+        .dropdown {
+          width: 100%;
+          height: 100%;
+          padding: 0;
+          margin: 0;
+          display: flex;
+
+          #dropdownMenuButton {
+            border: none;
+            outline: none;
+            padding: 0;
+            font-size: map.get($values, font-size);
+            border: none;
+            background-color: transparent;
+            margin: 0;
+            width: 100%;
+            height: 100%;
+          }
+        }
         .swiper-slide__link {
           font-family: Arial, sans-serif;
           font-size: map.get($values, font-size);

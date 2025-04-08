@@ -15,18 +15,25 @@
       <swiper-slide v-for="(slide, index) in slides" :key="index">
         <div v-if="slide.hasDropDown" class="dropdown">
           <button
-            class="btn btn-secondary dropdown-toggle"
+            class="dropdown-toggle"
             type="button"
             id="dropdownMenuButton"
             data-bs-toggle="dropdown"
             aria-expanded="false"
           >
-            Dropdown button
+            {{ slide.title }}
           </button>
           <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
+            <li>
+              <router-link class="dropdown-item" :to="slide.buttonOne?.route">{{
+                slide.buttonOne?.title
+              }}</router-link>
+            </li>
+            <li>
+              <router-link class="dropdown-item" :to="slide.buttonTwo?.route">{{
+                slide.buttonTwo?.title
+              }}</router-link>
+            </li>
           </ul>
         </div>
         <router-link v-else class="swiper-slide__link" :to="slide.route"
@@ -68,7 +75,16 @@ export default {
       { title: 'Библиотека', route: 'library' },
       { title: 'Клиентская база', route: 'clientBase' },
       {
-        title: 'Ежегодные конференции ▼',
+        title: 'Ежегодные конференции',
+        buttonOne: {
+          title:
+            'Инновационные технологии в области неврологии и смежных специальностей',
+          route: 'youngNeurologists',
+        },
+        buttonTwo: {
+          title: 'Неврологические образовательные университеты',
+          route: 'youngNeurologists',
+        },
         hasDropDown: true,
       },
       {
@@ -103,15 +119,6 @@ export default {
         slidesPerView: 10,
         spaceBetween: 50,
       },
-    }
-    const onMouseOver = () => {
-      console.log('Навели на "Ежегодные конференции"')
-      // Добавь здесь логику показа dropdown или что тебе нужно
-    }
-
-    const onMouseLeave = () => {
-      console.log('Убрали мышь с "Ежегодные конференции"')
-      // Здесь — скрытие dropdown и т.п.
     }
 
     onMounted(() => {
