@@ -138,10 +138,10 @@ export default {
       // Добавить обработчики событий для mouseenter и mouseleave для ссылок в dropdown-content
       dropdownContent.querySelectorAll('a').forEach(elem => {
         elem.addEventListener('mouseenter', () => {
-          isDropDownVisible = true
+          isDropDownVisible.value = true
         })
         elem.addEventListener('mouseleave', () => {
-          isDropDownVisible = false
+          isDropDownVisible.value = false
           hideDropDownMenu()
         })
       })
@@ -150,7 +150,7 @@ export default {
     function hideDropDownMenu() {
       let dropdownContent = document.getElementById('dropdown-content')
       setTimeout(() => {
-        if (isDropDownVisible === false) {
+        if (isDropDownVisible.value === false) {
           dropdownContent.style.display = 'none'
         }
       }, 200)
