@@ -13,7 +13,23 @@
       :breakpoints="breakpoints"
     >
       <swiper-slide v-for="(slide, index) in slides" :key="index">
-        <router-link class="swiper-slide__link" :to="slide.route"
+        <div v-if="slide.hasDropDown" class="dropdown">
+          <button
+            class="btn btn-secondary dropdown-toggle"
+            type="button"
+            id="dropdownMenuButton"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            Dropdown button
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <li><a class="dropdown-item" href="#">Action</a></li>
+            <li><a class="dropdown-item" href="#">Another action</a></li>
+            <li><a class="dropdown-item" href="#">Something else here</a></li>
+          </ul>
+        </div>
+        <router-link v-else class="swiper-slide__link" :to="slide.route"
           >{{ slide.title }}
         </router-link>
       </swiper-slide>
@@ -53,7 +69,6 @@ export default {
       { title: 'Клиентская база', route: 'clientBase' },
       {
         title: 'Ежегодные конференции ▼',
-        route: 'annualConferences',
         hasDropDown: true,
       },
       {
@@ -134,5 +149,5 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@use '@/assets/styles/components/navPanel';
+@use '@/assets/styles/components/navPanel.scss';
 </style>
