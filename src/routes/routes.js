@@ -30,11 +30,6 @@ export const routes = [
     component: () => import('../pages/ClientBase.vue'),
   },
   {
-    path: '/annualconferences',
-    name: 'AnnualConferences',
-    component: () => import('../pages/AnnualConferences.vue'),
-  },
-  {
     path: '/youngneurologists',
     name: 'YoungNeurologists',
     component: () => import('../pages/YoungNeurologists.vue'),
@@ -73,6 +68,29 @@ export const routes = [
     path: '/certification_cycles',
     name: 'Certification_Cycle',
     component: () => import('../pages/learning/Certification_cycles.vue'),
+  },
+  {
+    path: '/scientific_practical',
+    name: 'Scientific_Practical',
+    component: () =>
+      import('../pages/scientific_practical/Scientific_practical.vue'),
+  },
+  {
+    path: '/scientific_practical/2010',
+    component: () => import('../pages/scientific_practical/2010.vue'),
+  },
+  // {
+  //   path: '/scientific_practical/:year',
+  //   // name: 'Scientific_Practical',
+  //   component: route =>
+  //     import(
+  //       `../pages/scientific_practical/${route.params.year}.vue`
+  //     ),
+  // },
+  {
+    path: '/educational',
+    name: 'Educational',
+    component: () => import('../pages/Educational.vue'),
   },
   {
     path: '/:pathMatch(.*)*',
