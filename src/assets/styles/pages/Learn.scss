@@ -205,7 +205,7 @@ $sizes: (
     border-radius: 6px;
     text-align: center;
     border: none;
-    background-color: #e6e6e6;
+    background-color: #c0c0c0;
     @each $size, $values in $sizes {
       @include mixins.respond-to($size) {
         font-size: map.get($values, tabs_btn_f-size);
