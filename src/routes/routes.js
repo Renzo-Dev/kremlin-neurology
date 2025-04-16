@@ -47,7 +47,7 @@ export const routes = [
   {
     path: '/gkb51dzm',
     name: 'Gkb51dzm',
-    component: () => import('../pages/Gkb51.vue'),
+    component: () => import('../pages/GKB51.vue'),
   },
   {
     path: '/ordinatura',
@@ -79,14 +79,10 @@ export const routes = [
     path: '/scientific_practical/2010',
     component: () => import('../pages/scientific_practical/2010.vue'),
   },
-  // {
-  //   path: '/scientific_practical/:year',
-  //   // name: 'Scientific_Practical',
-  //   component: route =>
-  //     import(
-  //       `../pages/scientific_practical/${route.params.year}.vue`
-  //     ),
-  // },
+  {
+    path: '/scientific_practical/2011',
+    component: () => import('../pages/scientific_practical/2011.vue'),
+  },
   {
     path: '/educational',
     name: 'Educational',
