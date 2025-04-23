@@ -1,5 +1,6 @@
 <template>
   <div class="container py-5">
+    <years-section />
     <div class="card shadow-sm border-0">
       <div class="card-body">
         <h1 class="card-title text-center mb-4">
@@ -72,6 +73,13 @@
   </div>
 </template>
 
-<script></script>
+<script>
+import { defineComponent } from 'vue'
+import YearsSection from '../../components/scientific_practical/years-section.vue'
+
+export default defineComponent({
+  components: { YearsSection },
+})
+</script>
 
 <style scoped lang="scss"></style>

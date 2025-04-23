@@ -1,5 +1,6 @@
 <template>
   <div class="container py-5">
+    <years-section />
     <div class="text-center mb-5">
       <h1 class="fw-bold">IV Ежегодная научно-практическая конференция</h1>
       <h5 class="text-muted">
@@ -161,6 +162,8 @@
   </div>
 </template>
 
-<script setup lang="js"></script>
+<script setup lang="js">
+import YearsSection from '../../components/scientific_practical/years-section.vue'
+</script>
 
 <style scoped lang="scss"></style>
