@@ -85,11 +85,6 @@ export const routes = [
     name: 'ScientificPractical2017',
     component: () => import('@/pages/scientific_practical/2017.vue'),
   },
-  {
-    path: '/scientific_practical/2018',
-    name: 'ScientificPractical2018',
-    component: () => import('@/pages/scientific_practical/2018.vue'),
-  },
 
   // Прочие страницы
   {

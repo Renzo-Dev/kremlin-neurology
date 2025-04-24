@@ -1,28 +1,14 @@
 <template>
-  <div class="container py-5">
-    <div class="text-center mb-4">
-      <h1 class="display-5 fw-bold">
+  <div class="container py-4">
+    <div class="mb-4">
+      <years-section />
+      <h1 class="display-6 fw-bold">
         Инновационные технологии в области неврологии и смежных специальностей
       </h1>
       <h2 class="h5 text-muted">
         Российская научно-практическая конференция с международным участием
       </h2>
     </div>
-
-    <div class="mb-4">
-      <p class="fw-bold">Годы проведения:</p>
-      <div class="d-flex flex-wrap gap-2">
-        <router-link
-          v-for="year in years"
-          :key="year"
-          :to="'scientific_practical/' + year"
-          class="btn btn-outline-primary btn-sm"
-        >
-          {{ year }}
-        </router-link>
-      </div>
-    </div>
-
     <div class="mb-4">
       <p>
         В 2010г., в год 410-летнего юбилея Кремлевской медицины, у сотрудников
@@ -64,8 +50,14 @@
   </div>
 </template>
 
-<script setup>
-const years = [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019]
+<script>
+import YearsSection from '../../components/scientific_practical/years-section.vue'
+
+export default {
+  components: {
+    YearsSection,
+  },
+}
 </script>
 
 <style scoped>
