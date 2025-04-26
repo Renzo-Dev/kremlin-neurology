@@ -28,7 +28,8 @@
             <h6 class="mb-1 text-primary">{{ pub.authors }}</h6>
             <p class="mb-1">{{ pub.title }}</p>
             <a
-              :href="pub.link"
+              :href="generateFileLink(pub.link)"
+              download
               target="_blank"
               class="btn btn-sm btn-outline-secondary"
               :class="{ disabled: !pub.img }"
@@ -63,12 +64,19 @@ export default defineComponent({
   },
   components: {},
   setup() {
+    function generateFileLink(fileName) {
+      return `${window.location.origin}/app/fileDownload.php?FileName=${fileName}`
+    }
+
     function resolveImagePath(filename) {
       const safeName = filename || 'default.png' // или 'pdf.gif'
       return new URL(`/src/assets/images/${safeName}`, import.meta.url).href
     }
 
-    return { resolveImagePath }
+    return {
+      resolveImagePath,
+      generateFileLink,
+    }
   },
 })
 </script>
