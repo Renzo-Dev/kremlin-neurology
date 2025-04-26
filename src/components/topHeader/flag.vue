@@ -6,9 +6,12 @@
 </template>
 
 <script lang="js">
+import { onMounted } from 'vue'
+
 export default {
   name: 'Flag',
 }
+onMounted(() => {})
 </script>
 
 <style scoped lang="scss">

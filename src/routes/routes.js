@@ -120,7 +120,17 @@ export const routes = [
   {
     path: '/educational',
     name: 'Educational',
-    component: () => import('@/pages/Educational.vue'),
+    component: () => import('@/pages/Educational/Educational.vue'),
+  },
+  {
+    path: '/educational/2017',
+    name: 'Educational2017',
+    component: () => import('@/pages/Educational/2017.vue'),
+  },
+  {
+    path: '/educational/2018',
+    name: 'Educational2018',
+    component: () => import('@/pages/Educational/2018.vue'),
   },
   {
     path: '/gkb51dzm',
