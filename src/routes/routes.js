@@ -1,10 +1,6 @@
 export const routes = [
   // Главная
-  {
-    path: '/',
-    name: 'Home',
-    component: () => import('@/pages/home/Home.vue'),
-  },
+  { path: '/', name: 'Home', component: () => import('@/pages/home/Home.vue') },
   {
     path: '/contactinfo',
     name: 'ContactInfo',
@@ -45,46 +41,11 @@ export const routes = [
     component: () =>
       import('@/pages/scientific_practical/Scientific_practical.vue'),
   },
-  {
-    path: '/scientific_practical/2010',
-    name: 'ScientificPractical2010',
-    component: () => import('@/pages/scientific_practical/2010.vue'),
-  },
-  {
-    path: '/scientific_practical/2011',
-    name: 'ScientificPractical2011',
-    component: () => import('@/pages/scientific_practical/2011.vue'),
-  },
-  {
-    path: '/scientific_practical/2012',
-    name: 'ScientificPractical2012',
-    component: () => import('@/pages/scientific_practical/2012.vue'),
-  },
-  {
-    path: '/scientific_practical/2013',
-    name: 'ScientificPractical2013',
-    component: () => import('@/pages/scientific_practical/2013.vue'),
-  },
-  {
-    path: '/scientific_practical/2014',
-    name: 'ScientificPractical2014',
-    component: () => import('@/pages/scientific_practical/2014.vue'),
-  },
-  {
-    path: '/scientific_practical/2015',
-    name: 'ScientificPractical2015',
-    component: () => import('@/pages/scientific_practical/2015.vue'),
-  },
-  {
-    path: '/scientific_practical/2016',
-    name: 'ScientificPractical2016',
-    component: () => import('@/pages/scientific_practical/2016.vue'),
-  },
-  {
-    path: '/scientific_practical/2017',
-    name: 'ScientificPractical2017',
-    component: () => import('@/pages/scientific_practical/2017.vue'),
-  },
+  ...[2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017].map(year => ({
+    path: `/scientific_practical/${year}`,
+    name: `ScientificPractical${year}`,
+    component: () => import(`@/pages/scientific_practical/${year}.vue`),
+  })),
 
   // Прочие страницы
   {
@@ -117,6 +78,8 @@ export const routes = [
     name: 'NewsUpdates',
     component: () => import('@/pages/news/NewsUpdates.vue'),
   },
+
+  // Образовательные мероприятия
   {
     path: '/educational',
     name: 'Educational',
@@ -132,15 +95,14 @@ export const routes = [
     name: 'Educational2018',
     component: () => import('@/pages/Educational/2018.vue'),
   },
+
+  // Больница
   {
     path: '/gkb51dzm',
     name: 'Gkb51dzm',
     component: () => import('@/pages/GKB51.vue'),
   },
 
-  // 404 redirect
-  {
-    path: '/:pathMatch(.*)*',
-    redirect: '/',
-  },
+  // 404 редирект
+  { path: '/:pathMatch(.*)*', redirect: '/' },
 ]
