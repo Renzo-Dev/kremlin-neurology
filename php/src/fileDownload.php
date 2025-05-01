@@ -1,7 +1,7 @@
 <?php
 header('Content-Type: text/html; charset=UTF-8');
 // получаем путь к директории загрузки
-$uploadDir = realpath(__DIR__ . '/../../') . '/kremlin-neurology.ru/library/';
+$uploadDir = realpath(__DIR__ . '/../PhpstormProjects/') . '/kremlin-neurology.ru/library/';
 
 // проверяем, указан ли файл для скачивания
 if (!isset($_GET['FileName'])) {
