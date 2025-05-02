@@ -64,6 +64,12 @@ export const routes = [
     component: () => import('@/pages/Library.vue'),
   },
   {
+    path: '/privateLibrary',
+    name: 'privateLibrary',
+    component: () => import('@/pages/PrivateLibrary.vue'),
+    meta: { requiresAuth: true },
+  },
+  {
     path: '/clientbase',
     name: 'ClientBase',
     component: () => import('@/pages/ClientBase.vue'),
