@@ -13,7 +13,7 @@ router.beforeEach(async (to, from, next) => {
         credentials: 'include', // важно для кук-сессий
       })
       const data = await response.json()
-      
+
       if (response.ok && data.authenticated === true) {
         next()
       } else {

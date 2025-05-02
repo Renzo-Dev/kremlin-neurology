@@ -23,7 +23,11 @@ define('ACCESS_PASSWORD', '123123');
 
 // Чтение JSON-данных
 $input = json_decode(file_get_contents('php://input'), true);
-$password = $input['password'] ?? null;
+if (isset($input['password'])) {
+    $password = $input['password'];
+} else {
+    $password = null;
+}
 
 if ($password === null) {
     sendResponse(false, 'Password not provided.', 401);
@@ -31,7 +35,7 @@ if ($password === null) {
 
 if ($password === ACCESS_PASSWORD) {
     $_SESSION['authenticated'] = true;
-    $_SESSION['expires_at'] = time() + 3600; // 1 час
+    $_SESSION['expires_at'] = time() + 1800; // 1 час
     sendResponse(true, 'Logged in successfully.');
 } else {
     destroySession(); // очистка сессии при неудачной попытке
@@ -40,7 +44,8 @@ if ($password === ACCESS_PASSWORD) {
 
 // --- Утилиты ---
 
-function sendResponse($success, $message, $code = 200) {
+function sendResponse($success, $message, $code = 200)
+{
     http_response_code($code);
     echo json_encode([
         'success' => $success,
@@ -49,7 +54,8 @@ function sendResponse($success, $message, $code = 200) {
     exit;
 }
 
-function destroySession() {
+function destroySession()
+{
     $_SESSION = [];
     if (ini_get("session.use_cookies")) {
         $params = session_get_cookie_params();
