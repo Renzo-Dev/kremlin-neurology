@@ -3,120 +3,54 @@
     <h2 class="library__access-title h5">
       Для доступа в приватную библиотеку введите пароль
     </h2>
-    <input type="password" class="library__access-input" />
-    <button class="library__access-button">Ввести</button>
+    <input
+      type="password"
+      v-model="password"
+      class="library__access-input"
+      placeholder="Введите пароль"
+    />
+    <button @click="checkPassword" class="library__access-button">
+      Ввести
+    </button>
+    <p v-if="errorMessage" class="library__access-error">{{ errorMessage }}</p>
   </div>
 </template>
 
-<script lang="js">
-import { defineComponent } from 'vue'
+<script setup>
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 
-export default defineComponent({
-  name: 'AccessLibrary',
-  setup() {
-    return {}
-  },
-})
+const router = useRouter()
+const password = ref('')
+const errorMessage = ref('')
+
+async function checkPassword() {
+  const url = 'http://localhost:5000/auth.php'
+
+  try {
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+      body: JSON.stringify({ password: password.value }),
+    })
+
+    const data = await response.json()
+
+    if (response.ok && data.success) {
+      await router.push('/privateLibrary')
+    } else {
+      errorMessage.value = 'Неверный пароль'
+    }
+  } catch (error) {
+    errorMessage.value = 'Ошибка соединения с сервером'
+    console.error('Ошибка:', error)
+  }
+}
 </script>
 
 <style scoped lang="scss">
-@use '@/assets/styles/mixins.scss';
-@use 'sass:map';
-$sizes: (
-  small: (
-    width: calc(100% - 100 * 0.25vw),
-    mr: calc(2 * 0.25vw),
-    ml: calc(2 * 0.25vw),
-    padding: calc(3 * 0.25vw),
-    title-ft: calc(14 * 0.25vw),
-    align-self: center,
-    margin-top: 0.5rem,
-    margin-bottom: 1rem,
-  ),
-  xsmall: (
-    width: calc(100% - 200 * 0.25vw),
-    mr: calc(2 * 0.25vw),
-    ml: calc(2 * 0.25vw),
-    padding: calc(3 * 0.25vw),
-    title-ft: calc(10 * 0.25vw),
-    align-self: center,
-    margin-top: 1rem,
-    margin-bottom: 1rem,
-  ),
-  medium: (
-    width: calc(100% - 200 * 0.25vw),
-    mr: calc(2 * 0.25vw),
-    ml: calc(2 * 0.25vw),
-    padding: calc(3 * 0.25vw),
-    title-ft: calc(6 * 0.25vw),
-    align-self: center,
-    margin-top: calc(1 * 0.25vw),
-    margin-bottom: calc(10 * 0.25vw),
-  ),
-  large: (
-    width: calc(70 * 0.25vw),
-    mr: calc(2 * 0.25vw),
-    ml: calc(2 * 0.25vw),
-    padding: calc(1 * 0.25vw),
-    title-ft: calc(4 * 0.25vw),
-    align-self: start,
-    margin-top: 1rem,
-    margin-bottom: 1rem,
-  ),
-  xlarge: (
-    width: calc(70 * 0.25vw),
-    mr: calc(2 * 0.25vw),
-    ml: calc(2 * 0.25vw),
-    padding: calc(1 * 0.25vw),
-    title-ft: calc(4 * 0.25vw),
-    align-self: start,
-    margin-top: 1rem,
-    margin-bottom: 1rem,
-  ),
-  xxlarge: (
-    width: calc(70 * 0.25vw),
-    mr: calc(2 * 0.25vw),
-    ml: calc(2 * 0.25vw),
-    padding: calc(1 * 0.25vw),
-    title-ft: calc(4 * 0.25vw),
-    align-self: start,
-    margin-top: 1rem,
-    margin-bottom: 1rem,
-  ),
-);
-
-.library__access {
-  @each $size, $value in $sizes {
-    @include mixins.respond-to($size) {
-      align-self: map.get($value, align-self);
-      width: map.get($value, width);
-      margin-right: map.get($value, mr);
-      margin-left: map.get($value, ml);
-      .library__access-title {
-        font-size: map.get($value, title-ft);
-      }
-      .library__access-input {
-        width: 100%;
-        border: 1px solid #ccc;
-        border-radius: 0.25rem;
-        margin-top: map.get($value, margin-top);
-        margin-bottom: map.get($value, margin-bottom);
-        border-radius: 7px;
-        padding: map.get($value, padding);
-      }
-      .library__access-button {
-        width: 70%;
-        border: 1px solid #ccc;
-        border-radius: 13px;
-        padding: map.get($value, padding);
-        margin-bottom: map.get($value, margin-bottom);
-        transition: all 0.3s ease;
-        &:hover {
-          background-color: #5f5f5f;
-          color: #fff;
-        }
-      }
-    }
-  }
-}
+@use '@/assets/styles/components/library/AccessLibrary.scss';
 </style>
