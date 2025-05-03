@@ -1,6 +1,10 @@
 <template>
   <header class="top_header">
-
+    <img
+      class="background_holiday"
+      src="@/assets/images/GeorgLenta.png"
+      alt="Георгиевская лента"
+    />
     <div class="top_header_content">
       <Flag />
       <topHeader__Context />
@@ -25,4 +29,15 @@ export default defineComponent({
 
 <style lang="scss">
 @use '@/assets/styles/components/topHeader/topHeader.scss';
+
+.background_holiday {
+  position: absolute;
+  top: -50px;
+  right: 150px;
+  display: flex;
+  flex-direction: column;
+  z-index: -1;
+  max-width: calc(250 * 0.25vw);
+  max-height: calc(40 * 0.25vw);
+}
 </style>
