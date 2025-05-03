@@ -1,0 +1,67 @@
+@use '@/assets/styles/mixins.scss';
+@use 'sass:map';
+
+$sizes: (
+	small: (
+		header_title-ft: calc(13 * 0.25vw),
+		flex-direc: column,
+		subtitle-ft: calc(13 * 0.25vw),
+	),
+	xsmall: (
+		header_title-ft: calc(10 * 0.25vw),
+		flex-direc: column,
+		subtitle-ft: calc(10 * 0.25vw),
+	),
+	medium: (
+		header_title-ft: calc(6 * 0.25vw),
+		flex-direc: column,
+		subtitle-ft: calc(6 * 0.25vw),
+	),
+	large: (
+		header_title-ft: calc(5 * 0.25vw),
+		flex-direc: row,
+		subtitle-ft: calc(5 * 0.25vw),
+	),
+	xlarge: (
+		header_title-ft: calc(5 * 0.25vw),
+		flex-direc: row,
+		subtitle-ft: calc(5 * 0.25vw),
+	),
+	xxlarge: (
+		header_title-ft: calc(4 * 0.25vw),
+		flex-direc: row,
+		subtitle-ft: calc(4 * 0.25vw),
+	),
+);
+
+.library {
+	@each $size, $value in $sizes {
+		@include mixins.respond-to($size) {
+			display: flex;
+			flex-direction: map.get($value, flex-direc);
+			justify-content: center;
+			width: 100%;
+			
+			.library__content {
+				width: 100%;
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				padding-left: calc(5 * 0.25vw);
+				padding-right: calc(5 * 0.25vw);
+				
+				.library__header {
+					.library__title {
+						font-size: map.get($value, header_title-ft);
+					}
+				}
+			}
+			
+			.library__notice {
+				.library__subtitle {
+					font-size: map.get($value, subtitle-ft);
+				}
+			}
+		}
+	}
+}

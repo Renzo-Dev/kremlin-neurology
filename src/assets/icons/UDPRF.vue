@@ -881,9 +881,6 @@ export default {
 
 <style lang="scss" scoped>
 @use '@/assets/styles/mixins';
-
 .gerb_udprf {
-  width: 100%;
-  height: 100%;
 }
 </style>

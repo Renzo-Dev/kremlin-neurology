@@ -16,39 +16,50 @@
   </div>
 </template>
 
-<script setup>
+<script lang="js">
+import { defineComponent } from 'vue'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 
-const router = useRouter()
-const password = ref('')
-const errorMessage = ref('')
+export default defineComponent({
+  setup() {
+    const router = useRouter()
+    const password = ref('')
+    const errorMessage = ref('')
 
-async function checkPassword() {
-  const url = 'http://localhost:5000/auth.php'
+    async function checkPassword() {
+      const url = 'http://localhost:5000/auth.php'
 
-  try {
-    const response = await fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      credentials: 'include',
-      body: JSON.stringify({ password: password.value }),
-    })
+      try {
+        const response = await fetch(url, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          credentials: 'include',
+          body: JSON.stringify({ password: password.value }),
+        })
 
-    const data = await response.json()
+        const data = await response.json()
 
-    if (response.ok && data.success) {
-      await router.push('/privateLibrary')
-    } else {
-      errorMessage.value = 'Неверный пароль'
+        if (response.ok && data.success) {
+          await router.push('/privateLibrary')
+        } else {
+          errorMessage.value = 'Неверный пароль'
+        }
+      } catch (error) {
+        errorMessage.value = 'Ошибка соединения с сервером'
+        console.error('Ошибка:', error)
+      }
     }
-  } catch (error) {
-    errorMessage.value = 'Ошибка соединения с сервером'
-    console.error('Ошибка:', error)
-  }
-}
+
+    return {
+      checkPassword,
+      errorMessage,
+      password,
+    }
+  },
+})
 </script>
 
 <style scoped lang="scss">
