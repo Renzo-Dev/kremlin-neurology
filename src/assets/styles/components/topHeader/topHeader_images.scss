@@ -2,26 +2,26 @@
 @use 'sass:map';
 
 $dimensions: (
-	small: 45,
-	xsmall: 40,
-	medium: 30,
-	large: 25,
-	xlarge: 20,
-	xxlarge: 15,
+  small: 45,
+  xsmall: 40,
+  medium: 30,
+  large: 25,
+  xlarge: 20,
+  xxlarge: 15,
 );
 
 .top_header__images {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	min-height: 100%;
-	
-	@each $size, $dimension in $dimensions {
-		@include mixins.respond-to($size) {
-			min-width: calc(#{$dimension} * 0.25vw);
-			max-width: calc(#{$dimension} * 0.25vw);
-			margin-right: calc(4 * 0.25vw);
-			margin-left: auto;
-		}
-	}
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  min-height: 100%;
+
+  @each $size, $dimension in $dimensions {
+    @include mixins.respond-to($size) {
+      min-width: calc(#{$dimension} * 0.25vw);
+      max-width: calc(#{$dimension} * 0.25vw);
+      margin-right: calc(4 * 0.25vw);
+      margin-left: auto;
+    }
+  }
 }
