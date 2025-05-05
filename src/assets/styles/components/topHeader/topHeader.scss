@@ -2,144 +2,173 @@
 @use 'sass:map';
 
 $lenta-sizes: (
-  small: (
-    font-size: 13,
-    height: 40,
-  ),
-  xsmall: (
-    font-size: 10,
-    height: 60,
-  ),
-  medium: (
-    font-size: 7,
-    height: 50,
-  ),
-  large: (
-    font-size: 6,
-    height: 50,
-  ),
-  xlarge: (
-    font-size: 5,
-    height: 70,
-  ),
-  xxlarge: (
-    font-size: 5,
-    height: 70,
-  ),
+	small: (
+		font-size: 13,
+		height: 40,
+	),
+	xsmall: (
+		font-size: 10,
+		height: 60,
+	),
+	medium: (
+		font-size: 7,
+		height: 50,
+	),
+	large: (
+		font-size: 6,
+		height: 50,
+	),
+	xlarge: (
+		font-size: 5,
+		height: 70,
+	),
+	xxlarge: (
+		font-size: 5,
+		height: 70,
+	),
 );
 
 .top_header {
-  z-index: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  height: auto;
-  width: 100%;
-  background-color: #d9effc;
-
-  .top_header_content {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-
-    height: fit-content;
-    @include mixins.respond-to('small') {
-      padding: calc(5 * 0.35vw) 0;
-    }
-    @include mixins.respond-to('xsmall') {
-      padding: calc(5 * 0.35vw) 0;
-    }
-    @include mixins.respond-to('medium') {
-      padding: calc(2 * 0.35vw) 0;
-    }
-    @include mixins.respond-to('large') {
-      padding: calc(2 * 0.35vw) 0;
-    }
-    @include mixins.respond-to('xlarge') {
-      padding: calc(1 * 0.35vw);
-    }
-    @include mixins.respond-to('xxlarge') {
-      padding: calc(1 * 0.35vw);
-    }
-  }
-
-  .georgy_lenta {
-    width: 100%;
-    display: flex;
-    flex-direction: row-reverse;
-    align-items: center;
-    @each $size, $styles in $lenta-sizes {
-      @include mixins.respond-to($size) {
-        height: map.get($styles, height) + px;
-      }
-    }
-
-    &__context {
-      position: absolute;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      opacity: 90%;
-      font-family: 'Georgia', serif;
-      font-weight: bold;
-      color: #ffffff;
-      background: linear-gradient(
-        to right,
-        #000000,
-        #ff9900
-      ); /* Георгиевская лента */
-      padding: 0.5rem;
-      border-top-left-radius: 10px;
-      border-bottom-left-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-
-      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
-      letter-spacing: 2px;
-      border: 2px solid #ff9900;
-      user-select: none;
-
-      @each $size, $styles in $lenta-sizes {
-        @include mixins.respond-to($size) {
-          font-size: calc(map.get($styles, font-size) * 0.25vw);
-        }
-      }
-    }
-
-    &__ribbon-row {
-      box-sizing: border-box;
-      display: flex;
-      flex-direction: column;
-      flex: 1;
-      background-color: yellow;
-      width: 100%;
-      height: inherit;
-
-      .line {
-        width: 100%;
-        height: 20%;
-
-        &:nth-child(1) {
-          background-color: black;
-        }
-
-        &:nth-child(2) {
-          background-color: #f36235;
-        }
-
-        &:nth-child(3) {
-          background-color: black;
-        }
-
-        &:nth-child(4) {
-          background-color: #f36235;
-        }
-
-        &:nth-child(5) {
-          background-color: black;
-        }
-      }
-    }
-  }
+	z-index: 1;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	height: auto;
+	width: 100%;
+	background-color: #d9effc;
+	
+	.top_header_content {
+		width: 100%;
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		
+		height: fit-content;
+		@include mixins.respond-to('small') {
+			padding: calc(5 * 0.35vw) 0;
+		}
+		@include mixins.respond-to('xsmall') {
+			padding: calc(5 * 0.35vw) 0;
+		}
+		@include mixins.respond-to('medium') {
+			padding: calc(2 * 0.35vw) 0;
+		}
+		@include mixins.respond-to('large') {
+			padding: calc(2 * 0.35vw) 0;
+		}
+		@include mixins.respond-to('xlarge') {
+			padding: calc(1 * 0.35vw);
+		}
+		@include mixins.respond-to('xxlarge') {
+			padding: calc(1 * 0.35vw);
+		}
+	}
+	
+	.georgy_lenta {
+		width: 100%;
+		display: flex;
+		flex-direction: row-reverse;
+		align-items: center;
+		@each $size, $styles in $lenta-sizes {
+			@include mixins.respond-to($size) {
+				height: map.get($styles, height) + px;
+			}
+		}
+		
+		&__context {
+			position: absolute;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			opacity: 90%;
+			font-family: 'Georgia', serif;
+			font-weight: bold;
+			color: #ffffff;
+			background: linear-gradient(
+					to right,
+					#000000,
+					#ff9900
+			); /* Георгиевская лента */
+			padding: 0.5rem;
+			border-top-left-radius: 10px;
+			border-bottom-left-radius: 10px;
+			box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+			
+			text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+			letter-spacing: 2px;
+			border: 2px solid #ff9900;
+			user-select: none;
+			animation: pulse 3s infinite;
+			
+			transform-origin: right;
+			
+			@each $size, $styles in $lenta-sizes {
+				@include mixins.respond-to($size) {
+					font-size: calc(map.get($styles, font-size) * 0.25vw);
+				}
+			}
+		}
+		
+		&__ribbon-row {
+			box-sizing: border-box;
+			display: flex;
+			flex-direction: column;
+			flex: 1;
+			background-color: yellow;
+			width: 100%;
+			height: inherit;
+			
+			.line {
+				width: 100%;
+				height: 20%;
+				
+				&:nth-child(1) {
+					background-color: black;
+				}
+				
+				&:nth-child(2) {
+					background-color: #f36235;
+				}
+				
+				&:nth-child(3) {
+					background-color: black;
+				}
+				
+				&:nth-child(4) {
+					background-color: #f36235;
+				}
+				
+				&:nth-child(5) {
+					background-color: black;
+				}
+			}
+		}
+	}
 }
+
+@keyframes pulse {
+	0% {
+		text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+		transform: scale(1);
+		
+	}
+	50% {
+		text-shadow: 1px 1px 6px rgba(255, 153, 0, 1);
+		transform: scale(1.05);
+	}
+	100% {
+		text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+		transform: scale(1);
+	}
+}
+
+@keyframes move-ribbon {
+	0% {
+		transform: translateX(0);
+	}
+	100% {
+		transform: translateX(-5%);
+	}
+}
+
