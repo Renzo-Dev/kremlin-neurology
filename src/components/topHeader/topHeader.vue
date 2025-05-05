@@ -1,14 +1,19 @@
 <template>
   <header class="top_header">
-    <img
-      class="background_holiday"
-      src="@/assets/images/GeorgLenta.png"
-      alt="Георгиевская лента"
-    />
     <div class="top_header_content">
       <Flag />
       <topHeader__Context />
       <topHeader__Images />
+    </div>
+    <div class="georgy_lenta">
+      <div class="georgy_lenta__context">80 лет Победы</div>
+      <div class="georgy_lenta__ribbon-row">
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
+      </div>
     </div>
     <nav-panel />
   </header>
@@ -24,20 +29,10 @@ import topHeader__Images from '@/components/topHeader/topHeader__Images.vue'
 export default defineComponent({
   components: { topHeader__Images, NavPanel, topHeader__Context, Flag },
   name: 'topHeader',
+  setup() {},
 })
 </script>
 
 <style lang="scss">
 @use '@/assets/styles/components/topHeader/topHeader.scss';
-
-.background_holiday {
-  position: absolute;
-  top: -50px;
-  right: 150px;
-  display: flex;
-  flex-direction: column;
-  z-index: -1;
-  max-width: calc(250 * 0.25vw);
-  max-height: calc(40 * 0.25vw);
-}
 </style>
