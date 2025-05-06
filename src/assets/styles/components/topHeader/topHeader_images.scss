@@ -1,27 +1,52 @@
 @use '@/assets/styles/mixins';
 @use 'sass:map';
 
-$dimensions: (
-  small: 45,
-  xsmall: 40,
-  medium: 30,
-  large: 25,
-  xlarge: 20,
-  xxlarge: 15,
+$sizes: (
+  small: (
+    width: calc(80 * 0.25vw),
+    f-dir: column,
+    justify-content: center,
+  ),
+  xsmall: (
+    width: calc(80 * 0.25vw),
+    f-dir: column,
+    justify-content: center,
+  ),
+  medium: (
+    width: calc(100 * 0.25vw),
+    f-dir: row-reverse,
+    justify-content: end,
+  ),
+  large: (
+    width: calc(75 * 0.25vw),
+    f-dir: row-reverse,
+    justify-content: end,
+  ),
+  xlarge: (
+    width: calc(70 * 0.25vw),
+    f-dir: row-reverse,
+    justify-content: end,
+  ),
+  xxlarge: (
+    width: calc(75 * 0.25vw),
+    f-dir: row-reverse,
+    justify-content: end,
+  ),
 );
 
 .top_header__images {
   display: flex;
-  flex-direction: row;
   align-items: center;
   min-height: 100%;
+  margin-right: calc(4 * 0.25vw);
+  margin-left: auto;
 
-  @each $size, $dimension in $dimensions {
+  @each $size, $values in $sizes {
     @include mixins.respond-to($size) {
-      min-width: calc(#{$dimension} * 0.25vw);
-      max-width: calc(#{$dimension} * 0.25vw);
-      margin-right: calc(4 * 0.25vw);
-      margin-left: auto;
+      justify-content: map.get($values, justify-content);
+      flex-direction: map.get($values, f-dir);
+      min-width: map.get($values, width);
+      max-width: map.get($values, width);
     }
   }
 }
