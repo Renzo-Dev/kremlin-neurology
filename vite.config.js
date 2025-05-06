@@ -6,7 +6,7 @@ export default defineConfig({
   plugins: [vue()],
   server: {
     port: 3000, // Укажите нужный порт, если требуется
-    open: true, // Открывать ли браузер по адресу
+    open: false, // Открывать ли браузер по адресу
   },
   resolve: {
     alias: {

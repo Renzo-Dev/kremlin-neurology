@@ -28,7 +28,9 @@ export default defineComponent({
     const errorMessage = ref('')
 
     async function checkPassword() {
-      const url = 'http://localhost:5000/auth.php'
+      // const url = 'http://localhost:5000/auth.php'
+      const url = `/app/auth.php`
+      console.log(url)
 
       try {
         const response = await fetch(url, {
