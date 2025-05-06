@@ -9,7 +9,9 @@ const router = createRouter({
 router.beforeEach(async (to, from, next) => {
   if (to.meta.requiresAuth) {
     try {
-      const response = await fetch('http://localhost:5000/check_session.php', {
+      // const url = `http://localhost:5000/check_session.php`
+      const url = `/app/check_session.php`
+      const response = await fetch(url, {
         credentials: 'include', // важно для кук-сессий
       })
       const data = await response.json()
