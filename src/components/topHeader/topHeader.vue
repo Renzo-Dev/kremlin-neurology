@@ -5,16 +5,6 @@
       <topHeader__Context />
       <topHeader__Images />
     </div>
-    <div class="georgy_lenta">
-      <div class="georgy_lenta__context">80 лет Победы</div>
-      <div class="georgy_lenta__ribbon-row">
-        <div class="line"></div>
-        <div class="line"></div>
-        <div class="line"></div>
-        <div class="line"></div>
-        <div class="line"></div>
-      </div>
-    </div>
     <nav-panel />
   </header>
 </template>
