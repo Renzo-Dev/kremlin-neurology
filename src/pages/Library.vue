@@ -751,5 +751,5 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
-@use '@/assets/styles/pages/library.scss';
+@use '@/assets/styles/pages/Library';
 </style>
