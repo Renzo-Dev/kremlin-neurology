@@ -20,7 +20,7 @@
       </router-link>
     </div>
 
-    <section class="education__details show">
+    <section class="education__details">
       <h2 class="education__details-title">Дополнительная информация</h2>
       <p class="education__details-context">
         Кафедра неврологии ФГБУ ДПО «ЦГМА» УД Президента РФ организует и
@@ -58,7 +58,7 @@
 </template>
 
 <script lang="js">
-import { defineComponent, ref } from 'vue'
+import { defineComponent } from 'vue'
 
 export default defineComponent({
   setup() {

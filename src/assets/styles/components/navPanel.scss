@@ -14,15 +14,15 @@ $sizes: (
     nav-p-hg: 45px,
   ),
   xsmall: (
-    font-size: calc(9 * 0.25vw),
-    sw-button: calc(10 * 0.25vw),
+    font-size: calc(13 * 0.27vw),
+    sw-button: calc(20 * 0.25vw),
     b-bottom: 1px,
     b-top: 1px,
-    b-m-left: 10px,
-    b-m-right: 10px,
+    b-m-left: 5px,
+    b-m-right: 5px,
     s-slide_link-line-hg: 15px,
     sw-slide-pd-y: 5px,
-    nav-p-hg: 50px,
+    nav-p-hg: 45px,
   ),
   medium: (
     font-size: calc(6 * 0.25vw),
@@ -97,7 +97,6 @@ $dropdown-content-sizes: (
   flex-direction: column;
   position: absolute;
   user-select: none;
-  background-color: transparent;
   border-radius: 13px;
   background-color: transparent;
 
