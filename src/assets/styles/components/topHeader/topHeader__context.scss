@@ -2,87 +2,87 @@
 @use 'sass:map';
 
 $context-styles: (
-  small: (
-    font-size: 16,
-    margin-left: 5,
-    margin-top: 5,
-  ),
-  xsmall: (
-    font-size: 12,
-    margin-left: 0,
-    margin-top: 3,
-  ),
-  medium: (
-    font-size: 7,
-    margin-left: 10,
-    margin-top: 4,
-  ),
-  large: (
-    font-size: 6,
-    margin-left: 7,
-    margin-top: 3,
-  ),
-  xlarge: (
-    font-size: 5,
-    margin-left: 5,
-    margin-top: 3,
-  ),
-  xxlarge: (
-    font-size: 5,
-    margin-left: 6,
-    margin-top: 3,
-  ),
+	small: (
+		font-size: 16,
+		margin-left: 5,
+		margin-top: 5,
+	),
+	xsmall: (
+		font-size: 13,
+		margin-left: 10,
+		margin-top: 5,
+	),
+	medium: (
+		font-size: 7,
+		margin-left: 10,
+		margin-top: 4,
+	),
+	large: (
+		font-size: 6,
+		margin-left: 7,
+		margin-top: 3,
+	),
+	xlarge: (
+		font-size: 5,
+		margin-left: 5,
+		margin-top: 3,
+	),
+	xxlarge: (
+		font-size: 5,
+		margin-left: 6,
+		margin-top: 3,
+	),
 );
 
 .top_header__context_link {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  text-decoration: none;
-  color: black;
-
-  &:hover {
-    .context {
-      color: #505050;
-    }
-  }
-
-  .context {
-    transition: color 200ms ease-in-out;
-
-    @include mixins.respond-to('small') {
-      text-align: center;
-    }
-    @include mixins.respond-to('xsmall') {
-      text-align: center;
-    }
-
-    @include mixins.respond-to('medium') {
-      text-align: left;
-    }
-    @include mixins.respond-to('large') {
-      text-align: left;
-    }
-    @include mixins.respond-to('xxlarge') {
-      text-align: left;
-    }
-    @include mixins.respond-to('xxlarge') {
-      text-align: left;
-    }
-    @include mixins.respond-to('xxlarge') {
-      text-align: left;
-    }
-
-    @each $size, $styles in $context-styles {
-      @include mixins.respond-to($size) {
-        font-size: calc(map.get($styles, font-size) * 0.25vw);
-        margin-left: calc(map.get($styles, margin-left) * 0.25vw);
-
-        &:last-child {
-          margin-top: calc(map.get($styles, margin-top) * 0.25vw);
-          font-weight: 600;
-        }
-      }
-    }
-  }
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	text-decoration: none;
+	color: black;
+	
+	&:hover {
+		.context {
+			color: #505050;
+		}
+	}
+	
+	.context {
+		transition: color 200ms ease-in-out;
+		
+		@include mixins.respond-to('small') {
+			text-align: center;
+		}
+		@include mixins.respond-to('xsmall') {
+			text-align: center;
+		}
+		
+		@include mixins.respond-to('medium') {
+			text-align: left;
+		}
+		@include mixins.respond-to('large') {
+			text-align: left;
+		}
+		@include mixins.respond-to('xxlarge') {
+			text-align: left;
+		}
+		@include mixins.respond-to('xxlarge') {
+			text-align: left;
+		}
+		@include mixins.respond-to('xxlarge') {
+			text-align: left;
+		}
+		
+		@each $size, $styles in $context-styles {
+			@include mixins.respond-to($size) {
+				font-size: calc(map.get($styles, font-size) * 0.25vw);
+				margin-left: calc(map.get($styles, margin-left) * 0.25vw);
+				
+				&:last-child {
+					margin-top: calc(map.get($styles, margin-top) * 0.25vw);
+					font-weight: 600;
+				}
+			}
+		}
+	}
 }

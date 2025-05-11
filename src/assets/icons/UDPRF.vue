@@ -893,7 +893,7 @@ $sizes: (
   ),
   xsmall: (
     width: calc(60 * 0.25vw),
-    height: calc(30 * 0.25vw),
+    height: calc(50 * 0.25vw),
   ),
   medium: (
     width: calc(30 * 0.25vw),
