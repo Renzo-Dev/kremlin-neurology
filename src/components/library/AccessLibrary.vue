@@ -28,8 +28,8 @@ export default defineComponent({
     const errorMessage = ref('')
 
     async function checkPassword() {
-      // const url = 'http://localhost:5000/auth.php'
-      const url = `/app/auth.php`
+      const url = 'http://localhost:5000/auth.php'
+      // const url = `/app/auth.php`
       console.log(url)
 
       try {
@@ -43,6 +43,7 @@ export default defineComponent({
         })
 
         const data = await response.json()
+        console.log('ответ от сервера: ', data)
 
         if (response.ok && data.success) {
           await router.push('/privateLibrary')
