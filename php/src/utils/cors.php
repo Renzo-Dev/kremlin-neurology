@@ -7,6 +7,6 @@ header('Content-Type: application/json');
 
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 //    http_response_code(204);
-    header('HTTP/1.1 204');
+    header("HTTP/1.1 204 No Content");
     exit;
 }

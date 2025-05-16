@@ -22,6 +22,9 @@ if (!is_array($catalog)) {
     exit;
 }
 
+// --- Группируем по алфавиту в JSON для отправки ---
+
+
 echo json_encode(array(
     'success' => true,
     'files' => $catalog
