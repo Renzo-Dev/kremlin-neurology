@@ -1,10 +1,11 @@
 <?php
 //require_once __DIR__ . '/../auth/check_session.php';
 require_once __DIR__ . '/../utils/cors.php';
+require_once __DIR__ . '/../controllers/catalog.php';
 
-// Путь к директории хранения и JSON-каталогу
-$libraryDir = __DIR__ . '/../library/';
-$catalogFile = __DIR__ . '/catalog.json';
+// --- Настройки ---
+$libraryDir = __DIR__ . '/../storage/library/'; // Папка для хранения загруженных файлов
+$catalogFile = __DIR__ . '/../storage/catalog.json'; // Файл каталога
 
 // --- Проверка наличия файла ---
 if (!isset($_FILES['file']) || $_FILES['file']['error'] !== UPLOAD_ERR_OK) {
@@ -16,10 +17,11 @@ if (!isset($_FILES['file']) || $_FILES['file']['error'] !== UPLOAD_ERR_OK) {
     exit();
 }
 
-// --- Получение и проверка полей title и authors ---
+// --- Проверка наличия обязательных полей ---
 $title = isset($_POST['title']) ? trim($_POST['title']) : '';
 $authors = isset($_POST['authors']) ? trim($_POST['authors']) : '';
 
+// --- Проверка обязательных полей ---
 if ($title === '' || $authors === '') {
     http_response_code(400);
     echo json_encode(array(
@@ -29,33 +31,22 @@ if ($title === '' || $authors === '') {
     exit();
 }
 
-// --- Безопасное имя файла ---
+// --- Обработка имени файла ---
 $originalName = basename($_FILES['file']['name']);
 $targetPath = $libraryDir . $originalName;
 
-// --- Чтение из текущего каталога ---
-$catalog = array();
-if (file_exists($catalogFile)) {
-    $json = file_get_contents($catalogFile);
-    $decoded = json_decode($json, true);
-    if (is_array($decoded)) {
-        $catalog = $decoded;
-    }
-}
-
+// --- Получение текущего каталога ---
+$catalog = getCatalogFromFile();
 
 // --- Проверяем уникальность имени файла ---
-foreach ($catalog as $entry) {
-    if (isset($entry['filename']) && $entry['filename'] === $originalName) {
-        http_response_code(400);
-        echo json_encode(array(
-            'success' => false,
-            'message' => 'File with current name already exists.'
-        ));
-        exit();
-    }
+if (isFileExistsInCatalog($catalog, $originalName)) {
+    http_response_code(400);
+    echo json_encode(array(
+        'success' => false,
+        'message' => 'Файл с таким именем уже существует.'
+    ));
+    exit();
 }
-
 
 // --- Сохранение загруженного файла ---
 if (!move_uploaded_file($_FILES['file']['tmp_name'], $targetPath)) {
@@ -67,19 +58,14 @@ if (!move_uploaded_file($_FILES['file']['tmp_name'], $targetPath)) {
     exit();
 }
 
-// --- Добавление записи в catalog.json ---
-
-$catalog[] = array(
+// --- Добавление записи в catalog.json и сохранение ---
+addToCatalog($catalog, array(
     'filename' => $originalName,
     'title' => $title,
     'authors' => $authors
-);
-
-// --- Сохранение обновленного каталога ---
-file_put_contents($catalogFile, json_encode($catalog));
+), $catalogFile);
 
 // --- Ответ об успехе ---
-
 echo json_encode(array(
     'success' => true,
     'message' => 'Successfully uploaded the file.',
