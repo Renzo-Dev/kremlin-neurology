@@ -5,11 +5,11 @@ $info_bg_color: #eaeaea;
 
 $sizes: (
   small: (
-    ft-size-title: calc(13 * 0.25vw),
-    ft-size-item: calc(12 * 0.25vw),
-    ft-contact: calc(12 * 0.25vw),
-    ft-size-directions: calc(12 * 0.25vw),
-    ft-size-maps-info: calc(12 * 0.25vw),
+    ft-size-title: calc(17 * 0.25vw),
+    ft-size-item: calc(15 * 0.25vw),
+    ft-contact: calc(15 * 0.25vw),
+    ft-size-directions: calc(15 * 0.25vw),
+    ft-size-maps-info: calc(15 * 0.25vw),
     m-b-maps-info: calc(15 * 0.25vw),
     map-heights: calc(200 * 0.25vw),
     maps-directions: column,
@@ -117,6 +117,7 @@ $sizes: (
 .contact {
   width: 100%;
   display: flex;
+  margin-top: 1rem;
   flex-direction: column;
   @each $size, $values in $sizes {
     @include mixins.respond-to($size) {
@@ -169,6 +170,7 @@ $sizes: (
 }
 
 .directions__text {
+  margin-top: 1rem;
   font-family: Arial, Helvetica, sans-serif;
   @each $size, $values in $sizes {
     @include mixins.respond-to($size) {

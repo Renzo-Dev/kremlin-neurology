@@ -18,11 +18,14 @@
 
 <script lang="js">
 import LibraryAccordion from '@/components/library/LibraryAccordion.vue'
-import { defineComponent } from 'vue'
+import { defineComponent, onMounted } from 'vue'
 
 export default defineComponent({
   components: { LibraryAccordion },
   setup() {
+    onMounted(async () => {
+      console.log(items)
+    })
     let items = [
       {
         letter: 'А',
