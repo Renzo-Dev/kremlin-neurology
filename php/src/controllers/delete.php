@@ -17,13 +17,15 @@ $dir = __DIR__ . '/../library/';
 $catalogFile = $dir . 'catalog.json';
 $path = $dir . $filename;
 
-// Удаляем файл
+// Проверяем, существует ли файл
 if (file_exists($path)) {
+    // Удаляем файл
     unlink($path);
 }
 
-// Удаляем из catalog.json
+// Удаляем запись из каталога
 if (file_exists($catalogFile)) {
+    // читаем содержимое файла
     $catalog = json_decode(file_get_contents($catalogFile), true);
     $newCatalog = array();
     foreach ($catalog as $entry) {
@@ -32,6 +34,7 @@ if (file_exists($catalogFile)) {
             $newCatalog[] = $entry;
         }
     }
+    // перезаписываем файл
     file_put_contents($catalogFile, json_encode($newCatalog));
 }
 

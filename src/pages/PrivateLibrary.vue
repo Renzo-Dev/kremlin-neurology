@@ -18,41 +18,20 @@
 
 <script lang="js">
 import LibraryAccordion from '@/components/library/LibraryAccordion.vue'
-import { defineComponent, onMounted } from 'vue'
+import { defineComponent, onMounted, ref } from 'vue'
+import { loadPrivateLibrary } from '@/utils/loadPrivateLibrary'
+import { transformCatalogToItems } from '@/utils/transformCatalogToItems'
 
 export default defineComponent({
   components: { LibraryAccordion },
   setup() {
+    const items = ref([])
+
     onMounted(async () => {
-      console.log(items)
+      const rawCatalog = await loadPrivateLibrary() // load the private library
+      items.value = transformCatalogToItems(rawCatalog)
     })
-    let items = [
-      {
-        letter: 'А',
-        publications: [
-          {
-            authors: 'Андреева Т.Е., Богачева Л.А., Седова Т.Н.',
-            title:
-              'Принципы диагностики и лечения хронических непрогрессирующих головных болей различной этиологии в условиях специализированного поликлинического отделения. Кремлевская медицина. Клинический вестник – 2000. - №3. – С. 35-36',
-            link: 'AndreevaTE.doc',
-            img: {
-              type: 'word',
-              src: 'word.png',
-            },
-          },
-          {
-            authors: 'Артамонов А.В.',
-            title:
-              'Кардиоцеребральный синдром у лиц пожилого и старческого возраста с преходящими нарушениями мозгового кровообращения (вопросы этиологии, патогенеза и лечения. Автореферат диссертации на соискание ученой степени кандидата медицинских наук, Москва – 2009.',
-            link: 'Artamonov_AV.pdf',
-            img: {
-              type: 'pdf',
-              src: 'pdf.gif',
-            },
-          },
-        ],
-      },
-    ]
+
     return {
       items,
     }
