@@ -27,20 +27,19 @@
           <div>
             <h6 class="mb-1 text-primary">{{ pub.authors }}</h6>
             <p class="mb-1">{{ pub.title }}</p>
-            <a
-              :href="generateFileLink(pub.link)"
-              download
-              target="_blank"
+            <button
+              @click="handleDownload(generateFileLink(pub.link,pub.link))"
+              :disabled="!pub.img"
               class="btn btn-sm btn-outline-secondary"
-              :class="{ disabled: !pub.img }"
-              >Скачать
+            >
+              Скачать
               <img
                 :src="resolveImagePath(pub.img?.src)"
                 :alt="pub.img?.src || 'file'"
                 class="ms-2"
                 style="width: 20px; height: 20px"
               />
-            </a>
+            </button>
           </div>
         </div>
       </div>
@@ -50,8 +49,11 @@
 
 <script lang="js">
 import { defineComponent } from 'vue'
+import { useRoute } from 'vue-router'
+import { handleDownload } from '@/utils/handleDownload'
 
 export default defineComponent({
+  methods: { handleDownload },
   props: {
     index: {
       type: Number,
@@ -64,8 +66,16 @@ export default defineComponent({
   },
   components: {},
   setup() {
+    const route = useRoute()
+
     function generateFileLink(fileName) {
-      return `${window.location.origin}/app/fileDownload.php?FileName=${fileName}`
+      if (route.path.startsWith('/privateLibrary')) {
+        return `http://localhost:5000/controllers/privateDownload.php?fileName=${fileName}`
+      } else if (route.path.startsWith('/library')) {
+        return `http://localhost:5000/controllers/download.php?fileName=${fileName}`
+      }
+      return '#'
+      // return `${window.location.origin}/app/fileDownload.php?fileName=${fileName}`
     }
 
     function resolveImagePath(filename) {

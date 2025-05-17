@@ -1,18 +1,17 @@
 <?php
-header('Content-Type: text/html; charset=UTF-8');
 // получаем путь к директории загрузки
-//$uploadDir = realpath(__DIR__ . '/../PhpstormProjects/') . '/kremlin-neurology.ru/library/';
-$uploadDir = realpath(__DIR__ . '/../../') . '/kremlin-neurology.ru/library/';;
+$uploadDir = __DIR__ . '/../storage/library/';
+//$uploadDir = realpath(__DIR__ . '/../../../library/') . '/';
 
 // проверяем, указан ли файл для скачивания
-if (!isset($_GET['FileName'])) {
+if (!isset($_GET['fileName'])) {
     header('HTTP/1.1 400 Bad Request');
     echo "Ошибка: не указано имя файла.";
     exit();
 }
 
 // Получаем имя файла из параметра запроса
-$fileName = basename($_GET['FileName']);
+$fileName = basename($_GET['fileName']);
 $filePath = $uploadDir . $fileName;
 
 // Проверяем, существует ли файл
@@ -25,7 +24,7 @@ if (!file_exists($filePath)) {
 // Отправляем заголовки для скачивания файла
 header('Content-Description: File Transfer');
 header('Content-Type: application/octet-stream');
-header('Content-Disposition: attachment; filename="' . $fileName . '"');
+header('Content-Disposition: attachment; fileName="' . $fileName . '"');
 header('Expires: 0');
 header('Cache-Control: must-revalidate');
 header('Pragma: public');
@@ -37,4 +36,3 @@ if (readfile($filePath) === false) {
     echo "Ошибка: не удалось прочитать файл.";
 }
 exit();
-?>
