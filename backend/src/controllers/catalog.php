@@ -43,5 +43,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $libraryService = new LibraryService();
     $libraryService->upload(basename($_FILES['file']['name']));
+}
 
+if ($_SERVER['REQUEST_METHOD'] == 'DELETE') {
+    $libraryService = new LibraryService();
+    $rawInput = file_get_contents("php://input");
+    $data = json_decode($rawInput, true);
+    $fileName = isset($data['fileName']) ? $data['fileName'] : null;
+
+    if ($fileName === null || trim($fileName) === '') {
+        http_response_code(400);
+        echo json_encode(array(
+            'success' => false,
+            'message' => 'File name is required'
+        ));
+        exit();
+    }
+    $libraryService->delete($fileName);
+    exit();
 }
