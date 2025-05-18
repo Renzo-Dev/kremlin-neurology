@@ -9,12 +9,13 @@ export const handleDownload = async (fileLink, fileName) => {
   // и мы получаем JSON с ошибкой
   if (contentType && contentType.includes('application/json')) {
     const json = await response.json()
-    console.log(json.authenticated)
     if (json.authenticated === false) {
-      alert('Доступ запрещён!')
+      console.error('Доступ запрещён!')
       return
     }
-    alert('Доступ разрешён, но файл не был отдан!')
+    if (response.status === 404) {
+      console.error('Файл не найден!')
+    }
     return
   }
 
