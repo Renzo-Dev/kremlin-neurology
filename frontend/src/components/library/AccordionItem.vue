@@ -28,7 +28,9 @@
             <h6 class="mb-1 text-primary">{{ pub.authors }}</h6>
             <p class="mb-1">{{ pub.title }}</p>
             <button
-              @click="handleDownload(generateFileLink(pub.link), pub.link)"
+              @click="
+                handleDownload(generateFileLink(pub.link, route.path), pub.link)
+              "
               :disabled="!pub.img"
               class="btn btn-sm btn-outline-secondary"
             >
@@ -51,9 +53,10 @@
 import { defineComponent } from 'vue'
 import { useRoute } from 'vue-router'
 import { handleDownload } from '@/utils/handleDownload'
+import { generateFileLink } from '@/utils/generateFileLink'
 
 export default defineComponent({
-  methods: { handleDownload },
+  methods: { generateFileLink, handleDownload },
   props: {
     index: {
       type: Number,
@@ -68,15 +71,15 @@ export default defineComponent({
   setup() {
     const route = useRoute()
 
-    function generateFileLink(fileName) {
-      if (route.path.startsWith('/privateLibrary')) {
-        return `http://localhost:5000/controllers/downloadPrivate.php?fileName=${fileName}`
-      } else if (route.path.startsWith('/library')) {
-        return `http://localhost:5000/controllers/download.php?fileName=${fileName}`
-      }
-      return '#'
-      // return `${window.location.origin}/app/fileDownload.php?fileName=${fileName}`
-    }
+    // function generateFileLink(fileName) {
+    //   if (route.path.startsWith('/privateLibrary')) {
+    //     return `http://localhost:5000/controllers/downloadPrivate.php?fileName=${fileName}`
+    //   } else if (route.path.startsWith('/library')) {
+    //     return `http://localhost:5000/controllers/download.php?fileName=${fileName}`
+    //   }
+    //   return '#'
+    //   // return `${window.location.origin}/app/fileDownload.php?fileName=${fileName}`
+    // }
 
     function resolveImagePath(filename) {
       const safeName = filename || 'default.png' // или 'pdf.gif'
@@ -85,7 +88,9 @@ export default defineComponent({
 
     return {
       resolveImagePath,
+      route,
       generateFileLink,
+      handleDownload,
     }
   },
 })
