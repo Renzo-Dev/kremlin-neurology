@@ -5,7 +5,27 @@ class CatalogService
     function getCatalogList()
     {
         $catalog = $this->loadCatalogFromFile();
-        return json_encode($catalog);
+        // Инициализируем ассоциативный массив
+        $newCatalog = array();
+
+        // Группировка публикаций по первой букве фамилии автора
+        foreach ($catalog as $file) {
+            // Проверяем, существует ли поле authors
+            $fileLetter = mb_strtoupper(mb_substr($file['authors'], 0, 1, 'UTF-8'), 'UTF-8');
+            // Проверяем, существует ли буква в массиве $letters
+            if (!isset($newCatalog[$fileLetter])) {
+                $newCatalog[$fileLetter] = array();
+            }
+            // Добавляем файл в соответствующий массив
+            $file['type'] = $this->getFileType($file['filename']);
+            $newCatalog[$fileLetter][] = $file;
+        }
+
+        // Сортируем массив по ключам
+        ksort($newCatalog);
+
+
+        return json_encode($newCatalog);
     }
 
     // загружает каталог из файла
@@ -94,12 +114,21 @@ class CatalogService
                 $newCatalog[] = $entry; // Добавляем все элементы, кроме удаляемого
             }
         }
-        
+
         // Сохраняем обновленный каталог в файл
         if ($this->saveCatalogToFile($newCatalog)) {
             return true; // Успешно сохранено
         } else {
             return false; // Ошибка при сохранении
         }
+    }
+
+    function getFileType($filename)
+    {
+        $ext = strtolower(pathinfo($filename, PATHINFO_EXTENSION));
+        if ($ext === 'pdf') return 'pdf';
+        if (in_array($ext, array('doc', 'docx', 'rtf'))) return 'word';
+        if (in_array($ext, array('zip', 'djvu'))) return 'zip';
+        return 'other';
     }
 }
