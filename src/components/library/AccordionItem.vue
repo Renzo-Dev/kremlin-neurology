@@ -28,7 +28,7 @@
             <h6 class="mb-1 text-primary">{{ pub.authors }}</h6>
             <p class="mb-1">{{ pub.title }}</p>
             <button
-              @click="handleDownload(generateFileLink(pub.link,pub.link))"
+              @click="handleDownload(generateFileLink(pub.link), pub.link)"
               :disabled="!pub.img"
               class="btn btn-sm btn-outline-secondary"
             >
@@ -70,7 +70,7 @@ export default defineComponent({
 
     function generateFileLink(fileName) {
       if (route.path.startsWith('/privateLibrary')) {
-        return `http://localhost:5000/controllers/privateDownload.php?fileName=${fileName}`
+        return `http://localhost:5000/controllers/downloadPrivate.php?fileName=${fileName}`
       } else if (route.path.startsWith('/library')) {
         return `http://localhost:5000/controllers/download.php?fileName=${fileName}`
       }

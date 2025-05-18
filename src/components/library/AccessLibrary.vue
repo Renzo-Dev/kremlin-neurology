@@ -28,8 +28,7 @@ export default defineComponent({
     const errorMessage = ref('')
 
     async function checkPassword() {
-      const url = 'http://localhost:5000/auth/auth.php'
-      // const url = `/app/auth/auth.php`
+      const url = 'http://localhost:5000/controllers/login.php'
 
       try {
         const response = await fetch(url, {
@@ -43,7 +42,7 @@ export default defineComponent({
 
         const data = await response.json()
 
-        if (response.ok && data.success) {
+        if (response.ok && data.authenticated) {
           await router.push('/privateLibrary')
         } else {
           errorMessage.value = 'Неверный пароль'

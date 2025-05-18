@@ -1,7 +1,13 @@
 <?php
 
-require_once __DIR__ . '/../services/LibraryService.php';
 require_once __DIR__ . '/../utils/cors.php';
+require_once __DIR__ . '/../services/SessionService.php';
+require_once __DIR__ . '/../services/LibraryService.php';
+
+if (SessionService::isAuthenticated() === false) {
+    SessionService::respond(false, 'Not authenticated', 401);
+    exit();
+}
 
 if (empty($_GET['fileName'])) {
     header('HTTP/1.1 400 Bad Request');

@@ -3,9 +3,10 @@ export const handleDownload = async (fileLink, fileName) => {
     credentials: 'include',
   })
 
-  console.log(fileLink)
   const contentType = response.headers.get('Content-Type')
 
+  // Если сервер отправил JSON, то это значит, что файл недоступен
+  // и мы получаем JSON с ошибкой
   if (contentType && contentType.includes('application/json')) {
     const json = await response.json()
     console.log(json.authenticated)
