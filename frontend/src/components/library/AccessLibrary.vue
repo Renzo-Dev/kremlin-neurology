@@ -41,9 +41,14 @@ export default defineComponent({
         })
 
         const data = await response.json()
+        console.log(data)
 
         if (response.ok && data.authenticated) {
-          await router.push('/privateLibrary')
+          if (data.isAdmin) {
+            await router.push('/libraryManager')
+          } else {
+            await router.push('/privateLibrary')
+          }
         } else {
           errorMessage.value = 'Неверный пароль'
         }

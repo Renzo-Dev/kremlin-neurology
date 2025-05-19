@@ -16,11 +16,17 @@ router.beforeEach(async (to, from, next) => {
       })
       const data = await response.json()
 
-      if (response.ok && data.authenticated === true) {
-        next()
-      } else {
-        next('/library') // редирект, если неавторизован
+      if (!response.ok || data.authenticated !== true) {
+        return next('/library') // неавторизованный доступ
       }
+      if (to.path === '/LibraryManager') {
+        if (!data.isAdmin) {
+          console.error('Доступ запрещен: недостаточно прав')
+          return next('/library') // доступ запрещен
+        }
+      }
+
+      next() // Доступ разрешен
     } catch (e) {
       console.error('Ошибка проверки сессии:', e)
       next('/library')
