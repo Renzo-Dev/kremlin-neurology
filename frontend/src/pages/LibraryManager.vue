@@ -100,6 +100,9 @@ import { handleDownload } from '@/utils/handleDownload'
 import { generateFileLink } from '@/utils/generateFileLink'
 import { useRoute } from 'vue-router'
 
+// const url = 'http://localhost:5000/controllers/catalog.php'
+const url = `${window.location.origin}`
+
 // 📁 Каталог файлов, сгруппированный по первой букве
 const catalog = ref({})
 
@@ -109,42 +112,18 @@ const route = useRoute()
 // 🎯 Данные нового файла, который добавляется
 const newFile = ref({ title: '', authors: '', file: null })
 
-// Для отладки можно включить mock-данные
-const useMock = false
-
 // 📡 Получение каталога файлов с backend или из mock
 const fetchCatalog = async () => {
-  if (useMock) {
-    // Пример данных
-    catalog.value = {
-      T: [
-        {
-          filename: 'AndreevaTE.doc',
-          title: 'Мозг и разум',
-          authors: 'Андреева Т.Е.',
-          type: 'word',
-        },
-      ],
-      A: [
-        {
-          filename: 'Avicenna.pdf',
-          title: 'Философия',
-          authors: 'Авиценна',
-          type: 'pdf',
-        },
-      ],
-    }
-  } else {
-    const res = await fetch('http://localhost:5000/controllers/catalog.php', {
-      method: 'GET',
-      credentials: 'include',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-    if (res.status === 200) {
-      catalog.value = await res.json()
-    }
+  const res = await fetch(`${url}/controllers/catalog.php`, {
+    method: 'GET',
+    credentials: 'include',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+  if (res.status === 200) {
+    catalog.value = await res.json()
+    console.log(catalog.value)
   }
 }
 
@@ -164,7 +143,7 @@ const uploadFile = async () => {
   formData.append('authors', newFile.value.authors)
   formData.append('file', newFile.value.file)
 
-  const res = await fetch('http://localhost:5000/controllers/catalog.php', {
+  const res = await fetch(`${url}/controllers/catalog.php`, {
     method: 'POST',
     credentials: 'include',
     body: formData,
@@ -181,11 +160,15 @@ const uploadFile = async () => {
 
 // 🗑 Удаление файла по имени
 const deleteFile = async fileName => {
-  const res = await fetch(`http://localhost:5000/controllers/catalog.php`, {
-    body: JSON.stringify({ fileName }),
-    credentials: 'include',
-    method: 'DELETE',
-  })
+  const res = await fetch(
+    `
+  ${url}/controllers/catalog.php`,
+    {
+      body: JSON.stringify({ fileName }),
+      credentials: 'include',
+      method: 'DELETE',
+    }
+  )
   if (res.ok) {
     await fetchCatalog() // Перезагружаем список после удаления
   } else {
