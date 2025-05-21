@@ -14,18 +14,21 @@ router.beforeEach(async (to, from, next) => {
 
       const response = await fetch(url, {
         credentials: 'include', // важно для кук-сессий
+        headers: {
+          'Content-Type': 'application/json',
+        },
       })
       const data = await response.json()
 
       if (!response.ok || data.authenticated !== true) {
         return next('/library') // неавторизованный доступ
       }
-      if (to.path === '/LibraryManager') {
-        if (!data.isAdmin) {
-          console.error('Доступ запрещен: недостаточно прав')
-          return next('/library') // доступ запрещен
-        }
-      }
+      // if (to.path === '/LibraryManager') {
+      //   if (!data.isAdmin) {
+      //     console.error('Доступ запрещен: недостаточно прав')
+      //     return next('/library') // доступ запрещен
+      //   }
+      // }
 
       next() // Доступ разрешен
     } catch (e) {
