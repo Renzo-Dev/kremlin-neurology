@@ -7,7 +7,7 @@
     <div class="card shadow-sm mb-5">
       <div class="card-header fw-semibold">➕ Добавить новый файл</div>
       <div class="card-body">
-        <form @submit.prevent="uploadFile">
+        <form @submit.prevent="uploadFile(newFile)">
           <!-- Поле для ввода названия -->
           <div class="mb-3">
             <label class="form-label">Название</label>
@@ -99,6 +99,7 @@ import { onMounted, ref } from 'vue'
 import { handleDownload } from '@/utils/handleDownload'
 import { generateFileLink } from '@/utils/generateFileLink'
 import { useRoute } from 'vue-router'
+import { deleteFile, fetchCatalog, uploadFile } from '@/utils/libraryManager'
 
 // 📁 Каталог файлов, сгруппированный по первой букве
 const catalog = ref({})
@@ -109,92 +110,13 @@ const route = useRoute()
 // 🎯 Данные нового файла, который добавляется
 const newFile = ref({ title: '', authors: '', file: null })
 
-// Для отладки можно включить mock-данные
-const useMock = false
-
-// 📡 Получение каталога файлов с backend или из mock
-const fetchCatalog = async () => {
-  if (useMock) {
-    // Пример данных
-    catalog.value = {
-      T: [
-        {
-          filename: 'AndreevaTE.doc',
-          title: 'Мозг и разум',
-          authors: 'Андреева Т.Е.',
-          type: 'word',
-        },
-      ],
-      A: [
-        {
-          filename: 'Avicenna.pdf',
-          title: 'Философия',
-          authors: 'Авиценна',
-          type: 'pdf',
-        },
-      ],
-    }
-  } else {
-    const res = await fetch('http://localhost:5000/controllers/catalog.php', {
-      method: 'GET',
-      credentials: 'include',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-    if (res.status === 200) {
-      catalog.value = await res.json()
-    }
-  }
-}
-
 // 📂 Обработка выбора файла пользователем
 const onFileChange = e => {
   newFile.value.file = e.target.files[0]
 }
 
-// 📤 Отправка нового файла на сервер
-const uploadFile = async () => {
-  // Проверяем, заполнены ли все поля
-  if (!newFile.value.title || !newFile.value.authors || !newFile.value.file)
-    return
-
-  const formData = new FormData()
-  formData.append('title', newFile.value.title)
-  formData.append('authors', newFile.value.authors)
-  formData.append('file', newFile.value.file)
-
-  const res = await fetch('http://localhost:5000/controllers/catalog.php', {
-    method: 'POST',
-    credentials: 'include',
-    body: formData,
-  })
-
-  if (res.ok) {
-    await fetchCatalog() // Перезагружаем список
-    newFile.value = { title: '', authors: '', file: null } // Сброс формы
-  } else {
-    console.error(await res.json())
-    alert('Ошибка при загрузке файла')
-  }
-}
-
-// 🗑 Удаление файла по имени
-const deleteFile = async fileName => {
-  const res = await fetch(`http://localhost:5000/controllers/catalog.php`, {
-    body: JSON.stringify({ fileName }),
-    credentials: 'include',
-    method: 'DELETE',
-  })
-  if (res.ok) {
-    await fetchCatalog() // Перезагружаем список после удаления
-  } else {
-    alert('Ошибка при удалении файла')
-  }
-}
-
 // 🔄 Автозагрузка каталога при монтировании компонента
-onMounted(fetchCatalog)
+onMounted(fetchCatalog(catalog))
 </script>
 
 <style scoped>

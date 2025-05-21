@@ -9,22 +9,26 @@ const router = createRouter({
 router.beforeEach(async (to, from, next) => {
   if (to.meta.requiresAuth) {
     try {
-      const url = `http://localhost:5000/controllers/auth.php`
+      // const url = `http://localhost:5000/controllers/auth.php`
+      const url = `${window.location.origin}/app/controllers/auth.php`
 
       const response = await fetch(url, {
         credentials: 'include', // важно для кук-сессий
+        headers: {
+          'Content-Type': 'application/json',
+        },
       })
       const data = await response.json()
 
       if (!response.ok || data.authenticated !== true) {
         return next('/library') // неавторизованный доступ
       }
-      if (to.path === '/LibraryManager') {
-        if (!data.isAdmin) {
-          console.error('Доступ запрещен: недостаточно прав')
-          return next('/library') // доступ запрещен
-        }
-      }
+      // if (to.path === '/LibraryManager') {
+      //   if (!data.isAdmin) {
+      //     console.error('Доступ запрещен: недостаточно прав')
+      //     return next('/library') // доступ запрещен
+      //   }
+      // }
 
       next() // Доступ разрешен
     } catch (e) {

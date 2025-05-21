@@ -71,16 +71,6 @@ export default defineComponent({
   setup() {
     const route = useRoute()
 
-    // function generateFileLink(fileName) {
-    //   if (route.path.startsWith('/privateLibrary')) {
-    //     return `http://localhost:5000/controllers/downloadPrivate.php?fileName=${fileName}`
-    //   } else if (route.path.startsWith('/library')) {
-    //     return `http://localhost:5000/controllers/download.php?fileName=${fileName}`
-    //   }
-    //   return '#'
-    //   // return `${window.location.origin}/app/fileDownload.php?fileName=${fileName}`
-    // }
-
     function resolveImagePath(filename) {
       const safeName = filename || 'default.png' // или 'pdf.gif'
       return new URL(`/src/assets/images/${safeName}`, import.meta.url).href

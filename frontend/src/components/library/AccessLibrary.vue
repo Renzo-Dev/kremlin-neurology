@@ -28,7 +28,8 @@ export default defineComponent({
     const errorMessage = ref('')
 
     async function checkPassword() {
-      const url = 'http://localhost:5000/controllers/login.php'
+      // const url = 'http://localhost:5000/controllers/login.php'
+      const url = `${window.location.origin}/app/controllers/login.php`
 
       try {
         const response = await fetch(url, {
@@ -41,7 +42,6 @@ export default defineComponent({
         })
 
         const data = await response.json()
-        console.log(data)
 
         if (response.ok && data.authenticated) {
           if (data.isAdmin) {

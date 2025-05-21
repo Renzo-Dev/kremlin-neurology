@@ -8,7 +8,8 @@ class LibraryService
 
     public function __construct()
     {
-        $this->libraryPath = $_SERVER['DOCUMENT_ROOT'] . '/storage/library/';
+//        $this->libraryPath = $_SERVER['DOCUMENT_ROOT'] . '/storage/library/';
+        $this->libraryPath = realpath(__DIR__ . '/../../../') . '/storage/library/';
     }
 
     public function download($fileName)
@@ -100,14 +101,5 @@ class LibraryService
                 'message' => 'File not found in storage'
             ));
         }
-    }
-
-    private function getFileType($filename)
-    {
-        $ext = strtolower(pathinfo($filename, PATHINFO_EXTENSION));
-        if ($ext === 'pdf') return 'pdf';
-        if (in_array($ext, array('doc', 'docx', 'rtf'))) return 'word';
-        if (in_array($ext, array('zip', 'djvu'))) return 'zip';
-        return 'other';
     }
 }

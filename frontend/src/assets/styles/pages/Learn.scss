@@ -2,177 +2,177 @@
 @use 'sass:map';
 
 $sizes: (
-	small: (
-		title-fs: calc(15 * 0.27vw),
-		paragraph-fs: calc(13 * 0.25vw),
-		edu-item-fs: calc(16 * 0.25vw),
-		edu-details-tl-fs: calc(15 * 0.25vw),
-		edu-details-ctx-fs: calc(13 * 0.25vw),
-	),
-	xsmall: (
-		title-fs: calc(14 * 0.27vw),
-		paragraph-fs: calc(12 * 0.25vw),
-		edu-item-fs: calc(13 * 0.25vw),
-		edu-details-tl-fs: calc(12 * 0.25vw),
-		edu-details-ctx-fs: calc(10 * 0.25vw),
-	),
-	medium: (
-		title-fs: calc(7 * 0.27vw),
-		paragraph-fs: calc(6 * 0.25vw),
-		edu-item-fs: calc(6 * 0.25vw),
-		edu-details-tl-fs: calc(7 * 0.25vw),
-		edu-details-ctx-fs: calc(6 * 0.25vw),
-	),
-	large: (
-		title-fs: calc(6 * 0.27vw),
-		paragraph-fs: calc(6 * 0.25vw),
-		edu-item-fs: calc(6 * 0.25vw),
-		edu-details-tl-fs: calc(5 * 0.25vw),
-		edu-details-ctx-fs: calc(5 * 0.25vw),
-	),
-	xlarge: (
-		title-fs: calc(6 * 0.27vw),
-		paragraph-fs: calc(5 * 0.22vw),
-		edu-item-fs: calc(5 * 0.22vw),
-		edu-details-tl-fs: calc(5 * 0.25vw),
-		edu-details-ctx-fs: calc(4 * 0.24vw),
-	),
-	xxlarge: (
-		title-fs: calc(6 * 0.27vw),
-		paragraph-fs: calc(4 * 0.25vw),
-		edu-item-fs: calc(5 * 0.22vw),
-		edu-details-tl-fs: calc(5 * 0.25vw),
-		edu-details-ctx-fs: calc(4 * 0.23vw),
-	),
+  small: (
+    title-fs: calc(15 * 0.27vw),
+    paragraph-fs: calc(13 * 0.25vw),
+    edu-item-fs: calc(16 * 0.25vw),
+    edu-details-tl-fs: calc(15 * 0.25vw),
+    edu-details-ctx-fs: calc(13 * 0.25vw),
+  ),
+  xsmall: (
+    title-fs: calc(14 * 0.27vw),
+    paragraph-fs: calc(12 * 0.25vw),
+    edu-item-fs: calc(13 * 0.25vw),
+    edu-details-tl-fs: calc(12 * 0.25vw),
+    edu-details-ctx-fs: calc(10 * 0.25vw),
+  ),
+  medium: (
+    title-fs: calc(7 * 0.27vw),
+    paragraph-fs: calc(6 * 0.25vw),
+    edu-item-fs: calc(6 * 0.25vw),
+    edu-details-tl-fs: calc(7 * 0.25vw),
+    edu-details-ctx-fs: calc(6 * 0.25vw),
+  ),
+  large: (
+    title-fs: calc(6 * 0.27vw),
+    paragraph-fs: calc(6 * 0.25vw),
+    edu-item-fs: calc(6 * 0.25vw),
+    edu-details-tl-fs: calc(5 * 0.25vw),
+    edu-details-ctx-fs: calc(5 * 0.25vw),
+  ),
+  xlarge: (
+    title-fs: calc(6 * 0.27vw),
+    paragraph-fs: calc(5 * 0.22vw),
+    edu-item-fs: calc(5 * 0.22vw),
+    edu-details-tl-fs: calc(5 * 0.25vw),
+    edu-details-ctx-fs: calc(4 * 0.24vw),
+  ),
+  xxlarge: (
+    title-fs: calc(6 * 0.27vw),
+    paragraph-fs: calc(4 * 0.25vw),
+    edu-item-fs: calc(5 * 0.22vw),
+    edu-details-tl-fs: calc(5 * 0.25vw),
+    edu-details-ctx-fs: calc(4 * 0.23vw),
+  ),
 );
 
 .education {
-	display: flex;
-	align-items: center;
-	flex-direction: column;
-	box-sizing: border-box;
-	width: 100%;
-	
-	.education__intro {
-		width: 80%;
-		align-self: center;
-		background-color: #fbfbfb;
-		border: 1px solid #d3d3d3;
-		padding: 1rem;
-		margin: 1rem;
-		border-radius: 13px;
-		text-align: center;
-	}
-	
-	.education__nav {
-		overflow-y: hidden;
-		overflow-x: auto;
-		display: flex;
-		flex-direction: row;
-		align-self: center;
-		width: 100%;
-		height: fit-content;
-		margin-bottom: calc(4 * 0.25vw);
-		scrollbar-width: none; /* Firefox */
-		-ms-overflow-style: none; /* IE 10+ */
-		
-		.education__item {
-			user-select: none;
-			text-decoration: none;
-			color: black;
-			padding: 0.2rem 2rem;
-			text-align: center;
-			flex: 1;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			background-color: #d0d0d0;
-			margin: 0 1rem;
-			border-radius: 13px;
-			transition: all 0.25s ease;
-			
-			&:hover {
-				background-color: #b1b1b1;
-				transform: scale(1.05);
-			}
-		}
-	}
-	
-	.education__details {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-		margin: 1rem 2rem;
-		height: fit-content;
-		overflow: auto;
-		position: relative;
-		max-height: 400px; /* задайте нужную высоту блока */
-		overflow: auto;
-		position: relative;
-		
-		background-color: #f9f9f9;
-		border-radius: 12px;
-		box-shadow: 0 3px 15px rgba(0, 0, 0, 0.2);
-		opacity: 0;
-		transform: translateY(50px);
-		animation: showInfo 500ms forwards ease;
-		
-		&-title {
-			padding-top: 1rem;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			width: 100%;
-		}
-		
-		&-context {
-			position: relative;
-			padding: 1rem 2rem 1rem 2rem;
-			text-align: left;
-			text-wrap: balance;
-			height: auto;
-			max-height: 100%;
-			overflow: auto;
-			width: 100%;
-		}
-	}
-	
-	@each $size, $values in $sizes {
-		@include mixins.respond-to($size) {
-			.education__details {
-				&-title {
-					font-size: map.get($values, edu-details-tl-fs);
-				}
-				
-				&-context {
-					font-size: map.get($values, edu-details-ctx-fs);
-				}
-			}
-			
-			.education__item {
-				font-size: map.get($values, edu-item-fs);
-			}
-			
-			.education__intro {
-				p {
-					font-size: map.get($values, paragraph-fs);
-				}
-			}
-			.education__title {
-				font-size: map.get($values, title-fs);
-			}
-		}
-	}
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  box-sizing: border-box;
+  width: 100%;
+
+  .education__intro {
+    width: 80%;
+    align-self: center;
+    background-color: #fbfbfb;
+    border: 1px solid #d3d3d3;
+    padding: 1rem;
+    margin: 1rem;
+    border-radius: 13px;
+    text-align: center;
+  }
+
+  .education__nav {
+    overflow-y: hidden;
+    overflow-x: auto;
+    display: flex;
+    flex-direction: row;
+    align-self: center;
+    width: 100%;
+    height: fit-content;
+    margin-bottom: calc(4 * 0.25vw);
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE 10+ */
+
+    .education__item {
+      user-select: none;
+      text-decoration: none;
+      color: black;
+      padding: 0.2rem 2rem;
+      text-align: center;
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #d0d0d0;
+      margin: 0 1rem;
+      border-radius: 13px;
+      transition: all 0.25s ease;
+
+      &:hover {
+        background-color: #b1b1b1;
+        transform: scale(1.05);
+      }
+    }
+  }
+
+  .education__details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 1rem 2rem;
+    height: fit-content;
+    overflow: auto;
+    position: relative;
+    max-height: 400px; /* задайте нужную высоту блока */
+    overflow: auto;
+    position: relative;
+
+    background-color: #f9f9f9;
+    border-radius: 12px;
+    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    transform: translateY(50px);
+    animation: showInfo 500ms forwards ease;
+
+    &-title {
+      padding-top: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+    }
+
+    &-context {
+      position: relative;
+      padding: 1rem 2rem 1rem 2rem;
+      text-align: left;
+      text-wrap: balance;
+      height: auto;
+      max-height: 100%;
+      overflow: auto;
+      width: 100%;
+    }
+  }
+
+  @each $size, $values in $sizes {
+    @include mixins.respond-to($size) {
+      .education__details {
+        &-title {
+          font-size: map.get($values, edu-details-tl-fs);
+        }
+
+        &-context {
+          font-size: map.get($values, edu-details-ctx-fs);
+        }
+      }
+
+      .education__item {
+        font-size: map.get($values, edu-item-fs);
+      }
+
+      .education__intro {
+        p {
+          font-size: map.get($values, paragraph-fs);
+        }
+      }
+      .education__title {
+        font-size: map.get($values, title-fs);
+      }
+    }
+  }
 }
 
 @keyframes showInfo {
-	0% {
-		opacity: 0;
-	}
-	
-	100% {
-		opacity: 1;
-		transform: translateY(0px);
-	}
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0px);
+  }
 }
