@@ -18,6 +18,23 @@ class SessionService
         SessionService::respond(true, 'Authenticated', 200);
     }
 
+    // Устанавливает админ сессию
+    public static function setAdminSession()
+    {
+        self::start();
+        $_SESSION['authenticated'] = true;
+        $_SESSION['admin'] = true;
+        $_SESSION['expires_at'] = time() + 3600; // Устанавливаем время жизни сессии на 1 час
+        SessionService::respond(true, 'Authenticated', 200, true);
+    }
+
+    // Проверяет, является ли пользователь администратором
+    public static function isAdmin()
+    {
+        self::start();
+        return isset($_SESSION['admin']) && $_SESSION['admin'] === true;
+    }
+
     // Проверяет аутентификацию пользователя
     public static function isAuthenticated()
     {
@@ -35,6 +52,11 @@ class SessionService
         if (isset($_SESSION['expires_at']) && time() > $_SESSION['expires_at']) {
             self::destroy();
             self::respond(false, 'Access denied: session expired.', 403);
+        }
+
+        if (self::isAdmin()) {
+            self::respond(true, 'Authenticated', 200, true);
+            exit();
         }
 
         self::respond(true, 'Authenticated', 200);
@@ -55,13 +77,17 @@ class SessionService
         session_destroy();
     }
 
-    public static function respond($authenticated, $message, $code)
+    public static function respond($authenticated, $message, $code, $isAdmin = false)
     {
         header('HTTP/1.1 ' . $code);
+
         $sendData = array(
             'authenticated' => $authenticated,
-            'message' => $message
+            'message' => $message,
         );
+        if ($isAdmin) {
+            $sendData['isAdmin'] = true;
+        };
 
         echo json_encode($sendData);
         exit;

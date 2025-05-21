@@ -1,71 +1,89 @@
 <?php
 
-require_once __DIR__ . "/../utils/cors.php";
-require_once __DIR__ . "/../services/SessionService.php";
+require_once __DIR__ . '/../utils/cors.php';
+require_once __DIR__ . '/../services/SessionService.php';
 require_once __DIR__ . '/../services/CatalogService.php';
 require_once __DIR__ . '/../services/LibraryService.php';
 
-if (SessionService::isAuthenticated() === false) {
-    SessionService::respond(false, 'Not authenticated', 401);
-    exit();
+// Функция для отправки JSON-ответа
+function jsonResponse($success, $message, $code = 200)
+{
+    header('Content-Type: application/json');
+    http_response_code($code);
+    echo json_encode(array(
+        'success' => $success,
+        'message' => $message
+    ));
+    exit;
 }
 
-// get для получения списка каталога (список)
-if ($_SERVER['REQUEST_METHOD'] == 'GET') {
-    // Получаем каталог JSON
+// Проверка авторизации
+if (!SessionService::isAuthenticated()) {
+    SessionService::respond(false, 'Not authenticated', 401);
+    exit;
+}
 
+// GET — получить список каталога
+if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $catalogService = new CatalogService();
     $catalog = $catalogService->getCatalogList();
     header('Content-Type: application/json');
     echo $catalog;
-    exit();
+    exit;
 }
 
+// Проверка, является ли пользователь администратором
+if (!SessionService::isAdmin()) {
+    SessionService::respond(false, 'Forbidden', 403);
+    exit;
+}
 
-// post для загрузки файла и внесения данных
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Проверяем, был ли загружен файл
+// POST — загрузка файла
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!isset($_FILES['file']) || $_FILES['file']['error'] !== UPLOAD_ERR_OK) {
-        http_response_code(400);
-        echo json_encode(array(
-            'success' => false,
-            'message' => 'File not uploaded or error occurred'
-        ));
-        exit();
+        jsonResponse(false, 'Файл не загружен или произошла ошибка', 400);
     }
 
-    // Проверка наличия обязательных полей
     $title = isset($_POST['title']) ? trim($_POST['title']) : '';
     $authors = isset($_POST['authors']) ? trim($_POST['authors']) : '';
 
-    // Проверка обязательных полей
     if ($title === '' || $authors === '') {
-        http_response_code(400);
-        echo json_encode(array(
-            'success' => false,
-            'message' => 'Поля title и authors обязательны.'
-        ));
-        exit();
+        jsonResponse(false, 'Поля title и authors обязательны.', 400);
     }
 
     $libraryService = new LibraryService();
-    $libraryService->upload(basename($_FILES['file']['name']));
+    $fileName = basename($_FILES['file']['name']);
+
+    // Оборачиваем в try-catch на случай ошибок
+    try {
+        $libraryService->upload($fileName);
+        jsonResponse(true, 'Файл успешно загружен');
+    } catch (Exception $e) {
+        jsonResponse(false, 'Ошибка при загрузке: ' . $e->getMessage(), 500);
+    }
+    exit;
 }
 
-if ($_SERVER['REQUEST_METHOD'] == 'DELETE') {
-    $libraryService = new LibraryService();
-    $rawInput = file_get_contents("php://input");
+// DELETE — удаление файла
+if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
+    $rawInput = file_get_contents('php://input');
     $data = json_decode($rawInput, true);
-    $fileName = isset($data['fileName']) ? $data['fileName'] : null;
+    $fileName = isset($data['fileName']) ? trim($data['fileName']) : '';
 
-    if ($fileName === null || trim($fileName) === '') {
-        http_response_code(400);
-        echo json_encode(array(
-            'success' => false,
-            'message' => 'File name is required'
-        ));
-        exit();
+    if ($fileName === '') {
+        jsonResponse(false, 'Имя файла обязательно', 400);
     }
-    $libraryService->delete($fileName);
-    exit();
+
+    $libraryService = new LibraryService();
+
+    try {
+        $libraryService->delete($fileName);
+        jsonResponse(true, 'Файл удалён');
+    } catch (Exception $e) {
+        jsonResponse(false, 'Ошибка при удалении: ' . $e->getMessage(), 500);
+    }
+    exit;
 }
+
+// Если метод не поддерживается
+jsonResponse(false, 'Метод не поддерживается', 405);

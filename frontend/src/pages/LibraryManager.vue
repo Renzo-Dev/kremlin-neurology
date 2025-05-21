@@ -7,7 +7,7 @@
     <div class="card shadow-sm mb-5">
       <div class="card-header fw-semibold">➕ Добавить новый файл</div>
       <div class="card-body">
-        <form @submit.prevent="uploadFile(newFile)">
+        <form @submit.prevent="uploadFile(newFile, catalog)">
           <!-- Поле для ввода названия -->
           <div class="mb-3">
             <label class="form-label">Название</label>
@@ -81,7 +81,7 @@
                 🔗 Скачать
               </button>
               <button
-                @click="deleteFile(file.filename)"
+                @click="deleteFile(file.filename,catalog)"
                 class="btn btn-sm btn-outline-danger"
               >
                 🗑 Удалить
@@ -116,7 +116,13 @@ const onFileChange = e => {
 }
 
 // 🔄 Автозагрузка каталога при монтировании компонента
-onMounted(fetchCatalog(catalog))
+onMounted(async () => {
+  try {
+    await fetchCatalog(catalog)
+  } catch (error) {
+    console.error('Ошибка при загрузке каталога:', error)
+  }
+})
 </script>
 
 <style scoped>
