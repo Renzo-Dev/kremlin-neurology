@@ -81,7 +81,7 @@
                 🔗 Скачать
               </button>
               <button
-                @click="deleteFile(file.filename,catalog)"
+                @click="deleteFile(file.filename)"
                 class="btn btn-sm btn-outline-danger"
               >
                 🗑 Удалить

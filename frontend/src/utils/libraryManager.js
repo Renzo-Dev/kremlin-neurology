@@ -36,7 +36,8 @@ const request = async (method, body = null, isForm = false) => {
 // 📡 Получение каталога файлов
 export const fetchCatalog = async catalog => {
   const data = await request('GET')
-  if (data) catalog.value = data
+  // if (data) catalog.value = data
+
 }
 
 // 📤 Отправка нового файла
@@ -56,7 +57,9 @@ export const uploadFile = async (newFile, catalog) => {
   const success = await request('POST', formData, true)
   if (success) {
     await fetchCatalog(catalog)
-    newFile.value = { title: '', authors: '', file: null }
+    newFile.file = null
+    newFile.title = ''
+    newFile.authors = ''
   }
 }
 
