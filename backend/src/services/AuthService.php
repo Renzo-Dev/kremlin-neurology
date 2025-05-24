@@ -29,7 +29,6 @@ class AuthService
 
     public static function setAdminAuthenticated()
     {
-        self::startSession();
         try {
             self::setAuthenticated();
             $_SESSION['is_admin'] = true;
@@ -64,7 +63,8 @@ class AuthService
     {
         self::startSession();
         try {
-            if (self::getAuthenticated() && isset($_SESSION['is_admin']) && $_SESSION['is_admin'] === true) {
+//            if (self::getAuthenticated() && isset($_SESSION['is_admin']) && $_SESSION['is_admin'] === true) {
+            if (isset($_SESSION['is_admin']) && $_SESSION['is_admin'] === true) {
                 return true; // User is admin
             }
             return false; // User is not admin
