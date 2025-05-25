@@ -1,4 +1,5 @@
-const baseUrl = `${window.location.origin}/controllers/catalog.php`
+const baseUrl = `http://localhost:5000/controllers/catalog.php`
+// const baseUrl = `${window.location.origin}/controllers/catalog.php`
 
 // 🔁 Универсальный запрос
 const request = async (method, body = null, isForm = false) => {
@@ -13,7 +14,6 @@ const request = async (method, body = null, isForm = false) => {
       if (isForm) {
         options.body = body
       } else {
-        options.headers['Content-Type'] = 'application/json'
         options.body = JSON.stringify(body)
       }
     }
@@ -34,14 +34,15 @@ const request = async (method, body = null, isForm = false) => {
 }
 
 // 📡 Получение каталога файлов
-export const fetchCatalog = async (catalog) => {
+export const fetchCatalog = async catalog => {
   const data = await request('GET')
-  if (data) catalog.value = data
+  // if (data) catalog.value = data
+
 }
 
 // 📤 Отправка нового файла
-export const uploadFile = async (newFile) => {
-  const { title, authors, file } = newFile.value
+export const uploadFile = async (newFile, catalog) => {
+  const { title, authors, file } = newFile
 
   if (!title || !authors || !file) {
     alert('Пожалуйста, заполните все поля')
@@ -55,15 +56,17 @@ export const uploadFile = async (newFile) => {
 
   const success = await request('POST', formData, true)
   if (success) {
-    await fetchCatalog()
-    newFile.value = { title: '', authors: '', file: null }
+    await fetchCatalog(catalog)
+    newFile.file = null
+    newFile.title = ''
+    newFile.authors = ''
   }
 }
 
 // 🗑 Удаление файла по имени
-export const deleteFile = async (fileName) => {
+export const deleteFile = async (fileName, catalog) => {
   const success = await request('DELETE', { fileName })
   if (success) {
-    await fetchCatalog()
+    await fetchCatalog(catalog)
   }
 }
