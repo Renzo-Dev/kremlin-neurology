@@ -1,5 +1,9 @@
 <?php
 
+namespace App\Services;
+
+use Exception;
+
 class AuthService
 {
     public static function startSession()
@@ -21,7 +25,7 @@ class AuthService
         try {
             $_SESSION['authenticated'] = true;
             $_SESSION['expires_at'] = time() + 3600; // Set session expiration time (1 hour)
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             // Handle exception (e.g., log it)
             error_log('Error setting authenticated session: ' . $exception->getMessage());
         }
@@ -32,7 +36,7 @@ class AuthService
         try {
             self::setAuthenticated();
             $_SESSION['is_admin'] = true;
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             // Handle exception (e.g., log it)
             error_log('Error setting admin authenticated session: ' . $exception->getMessage());
         }
@@ -52,7 +56,7 @@ class AuthService
                 return true; // User is authenticated
             }
             return false; // User is not authenticated
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             // Handle exception (e.g., log it)
             error_log('Error checking authenticated session: ' . $exception->getMessage());
             return false;
@@ -63,12 +67,11 @@ class AuthService
     {
         self::startSession();
         try {
-//            if (self::getAuthenticated() && isset($_SESSION['is_admin']) && $_SESSION['is_admin'] === true) {
             if (isset($_SESSION['is_admin']) && $_SESSION['is_admin'] === true) {
                 return true; // User is admin
             }
             return false; // User is not admin
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             // Handle exception (e.g., log it)
             error_log('Error checking admin authenticated session: ' . $exception->getMessage());
             return false;
@@ -89,7 +92,7 @@ class AuthService
                 );
             }
             session_destroy(); // Destroy the session
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             // Handle exception (e.g., log it)
             error_log('Error destroying session: ' . $exception->getMessage());
         }

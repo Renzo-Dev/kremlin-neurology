@@ -1,8 +1,7 @@
 <?php
 
-// получения каталога
-// добавление элемента в каталог (проверка на уже существующий элемент, добавление)
-// удаление элемента из каталога
+namespace App\Services;
+use Exception;
 
 class CatalogService
 {
@@ -40,11 +39,7 @@ class CatalogService
 
         } catch (Exception $e) {
             // Обработка исключения
-            respondHandler::respond(array(
-                'error' => 'Error adding item to catalog',
-                'message' => $e->getMessage()
-            ), $e->getCode()// Используем код ошибки из исключения или 500 по умолчанию
-            );
+            throw new Exception('Error adding item to catalog: ' . $e->getMessage(), $e->getCode());
         }
         return false; // Возвращаем false, если произошла ошибка
     }
@@ -86,11 +81,7 @@ class CatalogService
             }
         } catch (Exception $e) {
             // Обработка исключения
-            respondHandler::respond(array(
-                'error' => 'Error loading catalog',
-                'message' => $e->getMessage()
-            ), $e->getCode()); // Используем код ошибки из исключения или 500 по умолчанию
-            exit();
+            throw new Exception('Error loading catalog: ' . $e->getMessage(), $e->getCode());
         }
         return $catalog;
     }
@@ -118,6 +109,27 @@ class CatalogService
         return $groupedCatalog;
     }
 
+    // Метод для удаления файла из каталога
+    public static function deleteItemFromCatalog($fileName, $catalog)
+    {
+        // Проверяем, существует ли файл в каталоге
+        if (!self::itemExistsInCatalog($fileName, $catalog)) {
+            throw new Exception('Item not found in catalog', 404);
+        }
+
+        // Удаляем элемент из каталога
+        foreach ($catalog as $key => $item) {
+            if ($item['fileName'] === $fileName) {
+                unset($catalog[$key]);
+                break;
+            }
+        }
+
+        // Сохраняем обновленный каталог в файл
+        file_put_contents(self::getCatalogPath(), json_encode(array_values($catalog), JSON_UNESCAPED_UNICODE));
+        return true; // Возвращаем true, если удаление прошло успешно
+    }
+
     private static function getFileType($filename)
     {
         $ext = strtolower(pathinfo($filename, PATHINFO_EXTENSION));
@@ -135,5 +147,26 @@ class CatalogService
         } else {
             return false;
         }
+    }
+
+    public static function deleteFile($fileName)
+    {
+        try {
+            // загружаем каталог
+            $catalog = CatalogService::loadCatalogFromFile();
+
+            // удаляем его из catalog.json
+            if (CatalogService::deleteItemFromCatalog($fileName, $catalog)) {
+                // удаляем файл из storage
+                if (FileService::deleteFile($fileName)) {
+                    return true; // Возвращаем true, если файл успешно удален
+                } else {
+                    return false;
+                }
+            }
+        } catch (Exception $e) {
+            throw new Exception($e->getMessage(), $e->getCode());
+        }
+        return false; // Возвращаем false, если произошла ошибка
     }
 }

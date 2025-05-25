@@ -1,8 +1,6 @@
 <?php
 
-// загрузка файла и проверка на существование
-// получение файла по названию (проверка на существование файла)
-// проверка на существование файла (возвращает true/false)
+namespace App\Services;
 
 class FileService
 {
@@ -49,5 +47,20 @@ class FileService
         } else {
             throw new Exception('Failed to save file'); // Если не удалось сохранить файл, выбрасываем исключение
         }
+    }
+
+    // Метод для удаления файла
+    public static function deleteFile($fileName)
+    {
+        $filePath = self::getFilePath($fileName); // Получаем полный путь к файлу
+
+        if (self::fileExists($fileName)) {
+            if (unlink($filePath)) { // Удаляем файл
+                return true; // Возвращаем true, если файл успешно удален
+            } else {
+                throw new Exception('Failed to delete file', 501); // Если не удалось удалить файл, выбрасываем исключение
+            }
+        }
+        return true; // Если файл не существует, возвращаем true (ничего не удаляем)
     }
 }

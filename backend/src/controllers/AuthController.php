@@ -1,7 +1,9 @@
 <?php
 
-require_once __DIR__ . '/../services/AuthService.php';
-require_once __DIR__ . '/../utils/respondHandler.php';
+namespace App\Controllers;
+
+use App\Services\AuthService;
+use App\Utils\respondHandler;
 
 class AuthController
 {
@@ -29,7 +31,7 @@ class AuthController
                 'authenticated' => true,
                 'isAdmin' => true,
                 'message' => 'Authenticated as admin successfully'
-            ], 200);
+            ]);
             return;
         }
 
@@ -38,7 +40,7 @@ class AuthController
             respondHandler::respond([
                 'authenticated' => true,
                 'message' => 'Authenticated successfully'
-            ], 200);
+            ]);
             return;
         }
 
@@ -65,7 +67,7 @@ class AuthController
                 $response['message'] = 'Authenticated as admin successfully';
             }
 
-            respondHandler::respond($response, 200);
+            respondHandler::respond($response);
         } else {
             respondHandler::respond(array(
                 'authenticated' => false,

@@ -1,8 +1,12 @@
 <?php
 
-require_once __DIR__ . '/../utils/respondHandler.php';
-require_once __DIR__ . '/../services/CatalogService.php';
-require_once __DIR__ . '/../services/FileService.php';
+
+namespace App\Controllers;
+use App\Services\CatalogService;
+use App\Services\FileService;
+use App\Utils\respondHandler;
+use Exception;
+
 
 class CatalogController
 {
@@ -26,12 +30,8 @@ class CatalogController
                 throw new Exception('File not found or upload error');
             }
 
-            // Получаем title и authors
-            $title = isset($_POST['title']) ? trim($_POST['title']) : '';
-            $authors = isset($_POST['authors']) ? trim($_POST['authors']) : '';
-
             // Проверяем, что title и authors не пустые
-            if (empty($title) || empty($authors)) {
+            if (empty($_POST['title']) || empty($_POST['authors'])) {
                 throw new Exception('Title or authors are empty');
             }
 
@@ -39,7 +39,7 @@ class CatalogController
             // если успешно добавили файл в каталог
             if (CatalogService::addItemToCatalog()) {
                 // сохраняем файл в папку
-                $fileInfo = FileService::saveFile($_FILES['file'], $title, $authors);
+                $fileInfo = FileService::saveFile($_FILES['file'], $_POST['title'], $_POST['authors']);
                 // Возвращаем успешный ответ с информацией о файле
                 respondHandler::respond(array(
                     'message' => 'File saved successfully',
@@ -54,5 +54,31 @@ class CatalogController
                 'message' => $e->getMessage()
             ), 500);
         }
+    }
+
+    public static function deleteFile()
+    {
+        // получаем fileName который хотим удалить
+        try {
+            $rawInput = file_get_contents('php://input');
+            $data = json_decode($rawInput, true);
+            $fileName = isset($data['fileName']) ? trim($data['fileName']) : '';
+
+            if ($fileName === '') {
+                throw new Exception('File name are empty ', 500);
+            }
+            if (CatalogService::deleteFile($fileName)) {
+                respondHandler::respond(array(
+                    'message' => 'File deleted successfully',
+                ), 200);
+            }
+
+        } catch (Exception $e) {
+            respondHandler::respond(array(
+                'error' => 'Error delete file',
+                'message' => $e->getMessage()
+            ), $e->getCode());
+        }
+        return true;
     }
 }

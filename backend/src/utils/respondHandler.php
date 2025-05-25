@@ -1,5 +1,8 @@
 <?php
 
+namespace App\Utils;
+use Exception;
+
 class respondHandler
 {
     static function respond($sendData = array(), $code = 200)
