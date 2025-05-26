@@ -29,7 +29,8 @@
             <p class="mb-1">{{ pub.title }}</p>
             <button
               @click="
-                handleDownload(generateFileLink(pub.link, route.path), pub.link)
+                // handleDownload(generateFileLink(pub.link, route.path), pub.link)
+                handleDownload(pub.link)
               "
               :disabled="!pub.img"
               class="btn btn-sm btn-outline-secondary"
