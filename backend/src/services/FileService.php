@@ -2,6 +2,8 @@
 
 namespace App\Services;
 
+use Exception;
+
 class FileService
 {
     public function __construct()
@@ -62,5 +64,32 @@ class FileService
             }
         }
         return true; // Если файл не существует, возвращаем true (ничего не удаляем)
+    }
+
+    public static function downloadFile($fileName)
+    {
+        // получаем путь к файлу
+//        $filePath = __DIR__ . '/../../uploads/' . $fileName;
+        $filePath = self::getFilePath($fileName); // используем метод для получения пути к файлу
+        // проверяем, что файл существует
+        if (!file_exists($filePath)) {
+            // если файл не существует, возвращаем ошибку
+            throw new Exception('File not found', 404);
+        }
+        // если файл существует, устанавливаем заголовки для скачивания
+        header('Content-Description: File Transfer');
+        header('Content-Type: application/octet-stream');
+        header('Content-Disposition: attachment; fileName="' . $fileName . '"');
+        header('Expires: 0');
+        header('Cache-Control: must-revalidate');
+        header('Pragma: public');
+        header('Content-Length: ' . filesize($filePath));
+
+        if (readfile($filePath) === false) {
+            // если чтение файла не удалось, возвращаем ошибку
+            throw new Exception('Error reading file', 500);
+        }
+        // если файл успешно прочитан, завершаем выполнение скрипта
+        exit;
     }
 }

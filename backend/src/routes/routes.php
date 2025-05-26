@@ -2,6 +2,7 @@
 
 use App\Controllers\AuthController;
 use App\Controllers\CatalogController;
+use App\Controllers\FileController;
 use App\Services\AuthService;
 use App\Utils\respondHandler;
 
@@ -25,6 +26,15 @@ try {
                 throw new Exception('Unauthorized access', 401);
             }
             CatalogController::getCatalog();
+            break;
+        case $request === '/api/download' && $method === 'GET':
+            FileController::downloadFile();
+            break;
+        case $request === '/api/privateDownload' && $method === 'GET':
+            if (!AuthService::getAuthenticated()) {
+                throw new Exception('Unauthorized access', 401);
+            }
+            FileController::downloadFile();
             break;
         case $request === '/api/catalog' && $method === 'POST':
             if (!AuthService::getAdminAuthenticated()) {
