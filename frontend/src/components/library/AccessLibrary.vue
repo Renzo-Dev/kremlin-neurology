@@ -28,8 +28,8 @@ export default defineComponent({
     const errorMessage = ref('')
 
     async function checkPassword() {
-      const url = 'http://localhost:5000/api/auth'
-      // const url = `${window.location.origin}/api/auth`
+      // const url = 'http://localhost:5000/api/auth'
+      const url = `${window.location.origin}/api/auth`
 
       try {
         const response = await fetch(url, {

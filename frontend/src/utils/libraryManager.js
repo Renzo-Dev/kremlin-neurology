@@ -2,8 +2,8 @@ import { loadPrivateLibrary } from '@/utils/loadPrivateLibrary'
 import { transformCatalogToItems } from '@/utils/transformCatalogToItems'
 import { isRef } from 'vue'
 
-const baseUrl = `http://localhost:5000/api/catalog`
-// const baseUrl = `${window.location.origin}/api/catalog`
+// const baseUrl = `http://localhost:5000/api/catalog`
+const baseUrl = `${window.location.origin}/api/catalog`
 
 // 🔁 Универсальный запрос
 const request = async (method, body = null, isForm = false) => {

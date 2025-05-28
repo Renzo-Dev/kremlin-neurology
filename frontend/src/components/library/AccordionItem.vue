@@ -28,9 +28,7 @@
             <h6 class="mb-1 text-primary">{{ pub.authors }}</h6>
             <p class="mb-1">{{ pub.title }}</p>
             <button
-              @click="
-                handleDownload(generateFileLink(route.path), pub.link)
-              "
+              @click="handleDownload(generateFileLink(route.path), pub.link)"
               :disabled="!pub.img"
               class="btn btn-sm btn-outline-secondary"
             >

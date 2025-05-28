@@ -1,7 +1,6 @@
 export async function loadPrivateLibrary() {
-  const url = 'http://localhost:5000/api/catalog'
-  // Маршрут к вашему API
-  // const url = `${window.location.origin}/api/catalog`
+  // const url = 'http://localhost:5000/api/catalog'
+  const url = `${window.location.origin}/api/catalog`
 
   let rep = await fetch(url, {
     method: 'GET',
