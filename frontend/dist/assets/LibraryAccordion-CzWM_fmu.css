@@ -1,0 +1,48 @@
+@media (min-width: 320px) {
+  .accordion-button[data-v-0ac393d6] {
+    font-size: 3.5vw;
+  }
+}
+@media (min-width: 420px) {
+  .accordion-button[data-v-0ac393d6] {
+    font-size: 2.5vw;
+  }
+}
+@media (min-width: 768px) {
+  .accordion-button[data-v-0ac393d6] {
+    font-size: 1.5vw;
+  }
+}
+@media (min-width: 1024px) {
+  .accordion-button[data-v-0ac393d6] {
+    font-size: 1.25vw;
+  }
+}
+@media (min-width: 1280px) {
+  .accordion-button[data-v-0ac393d6] {
+    font-size: 1.25vw;
+  }
+}
+@media (min-width: 1440px) {
+  .accordion-button[data-v-0ac393d6] {
+    font-size: 1vw;
+  }
+}
+.accordion-header .accordion-button[data-v-0ac393d6] {
+  padding: 10px 10px 10px 15px;
+}
+.accordion-button[data-v-0ac393d6]:not(.collapsed) {
+  background-color: #fff !important;
+  color: inherit;
+  box-shadow: none;
+}
+.accordion-button[data-v-0ac393d6]:focus {
+  border-color: transparent !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+.accordion[data-v-cb767fa8] {
+  height: auto;
+  max-height: 60vh;
+  overflow: auto;
+}

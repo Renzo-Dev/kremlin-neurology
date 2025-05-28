@@ -9,8 +9,8 @@ const router = createRouter({
 router.beforeEach(async (to, from, next) => {
   if (to.meta.requiresAuth) {
     try {
-      const url = `http://localhost:5000/api/auth`
-      // const url = `${window.location.origin}/api/auth`
+      // const url = `http://localhost:5000/api/auth`
+      const url = `${window.location.origin}/api/auth`
 
       const response = await fetch(url, {
         credentials: 'include', // важно для кук-сессий

@@ -1,0 +1,100 @@
+.custom-table[data-v-204aa147] {
+  overflow-y: auto;
+  display: flex;
+  justify-content: center;
+  height: 50vh;
+}
+@media (min-width: 320px) {
+  .custom-table[data-v-204aa147] {
+    width: 100%;
+  }
+}
+@media (min-width: 420px) {
+  .custom-table[data-v-204aa147] {
+    width: 80%;
+  }
+}
+@media (min-width: 768px) {
+  .custom-table[data-v-204aa147] {
+    width: 80%;
+  }
+}
+@media (min-width: 1024px) {
+  .custom-table[data-v-204aa147] {
+    width: 80%;
+  }
+}
+@media (min-width: 1280px) {
+  .custom-table[data-v-204aa147] {
+    width: 80%;
+  }
+}
+@media (min-width: 1440px) {
+  .custom-table[data-v-204aa147] {
+    width: 80%;
+  }
+}
+.custom-table .table-thead[data-v-204aa147] {
+  position: sticky;
+  top: 0;
+}
+@media (min-width: 320px) {
+  .custom-table .table-thead .table-header[data-v-204aa147] {
+    font-size: 3.24vw;
+  }
+}
+@media (min-width: 420px) {
+  .custom-table .table-thead .table-header[data-v-204aa147] {
+    font-size: 2.7vw;
+  }
+}
+@media (min-width: 768px) {
+  .custom-table .table-thead .table-header[data-v-204aa147] {
+    font-size: 1.62vw;
+  }
+}
+@media (min-width: 1024px) {
+  .custom-table .table-thead .table-header[data-v-204aa147] {
+    font-size: 1.25vw;
+  }
+}
+@media (min-width: 1280px) {
+  .custom-table .table-thead .table-header[data-v-204aa147] {
+    font-size: 1.25vw;
+  }
+}
+@media (min-width: 1440px) {
+  .custom-table .table-thead .table-header[data-v-204aa147] {
+    font-size: 1vw;
+  }
+}
+@media (min-width: 320px) {
+  .table-item[data-v-204aa147] {
+    font-size: 3.78vw;
+  }
+}
+@media (min-width: 420px) {
+  .table-item[data-v-204aa147] {
+    font-size: 2.7vw;
+  }
+}
+@media (min-width: 768px) {
+  .table-item[data-v-204aa147] {
+    font-size: 1.89vw;
+  }
+}
+@media (min-width: 1024px) {
+  .table-item[data-v-204aa147] {
+    font-size: 1.25vw;
+  }
+}
+@media (min-width: 1280px) {
+  .table-item[data-v-204aa147] {
+    font-size: 1.25vw;
+  }
+}
+@media (min-width: 1440px) {
+  .table-item[data-v-204aa147] {
+    font-size: 1vw;
+  }
+}

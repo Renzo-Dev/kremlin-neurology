@@ -9,6 +9,12 @@
         </div>
 
         <div class="library__accordion mb-4 w-100">
+          <div
+            v-if="Object.keys(items).length === 0"
+            class="text-muted text-center"
+          >
+            Каталог пуст.
+          </div>
           <LibraryAccordion :items="items" />
         </div>
       </div>
