@@ -18,7 +18,7 @@ export function transformCatalogToItems(catalog) {
         return {
           authors: entry.authors,
           title: entry.title,
-          link: entry.filename,
+          link: entry.fileName,
           img: {
             type: fileType,
             src: fileTypeToImage[fileType] || 'file.png',

@@ -1,19 +1,17 @@
 <?php
 
-use App\Controllers\AuthController;
-use App\Controllers\CatalogController;
-use App\Controllers\FileController;
-use App\Services\AuthService;
-use App\Utils\respondHandler;
+require_once __DIR__ . '/../controllers/AuthController.php';
+require_once __DIR__ . '/../controllers/CatalogController.php';
+require_once __DIR__ . '/../controllers/FileController.php';
+require_once __DIR__ . '/../services/AuthService.php';
+require_once __DIR__ . '/../utils/cors.php';
+
 
 $request = $_SERVER['REQUEST_URI']; // получаем текущий путь
 $method = $_SERVER['REQUEST_METHOD']; // получаем метод запроса
 
 try {
     switch (true) {
-        case $request === '/api/file' && $method === 'POST':
-            //
-            break;
         case $request === '/api/auth' && $method === 'POST':
             AuthController::login();
             break;
@@ -27,14 +25,14 @@ try {
             }
             CatalogController::getCatalog();
             break;
-        case $request === '/api/download' && $method === 'GET':
+        case $request === '/api/download' && $method === 'POST':
             FileController::downloadFile();
             break;
-        case $request === '/api/privateDownload' && $method === 'GET':
+        case $request === '/api/privateDownload' && $method === 'POST':
             if (!AuthService::getAuthenticated()) {
                 throw new Exception('Unauthorized access', 401);
             }
-            FileController::downloadFile();
+            FileController::downloadFile(true);
             break;
         case $request === '/api/catalog' && $method === 'POST':
             if (!AuthService::getAdminAuthenticated()) {

@@ -1,5 +1,9 @@
-const baseUrl = `http://localhost:5000/controllers/catalog.php`
-// const baseUrl = `${window.location.origin}/controllers/catalog.php`
+import { loadPrivateLibrary } from '@/utils/loadPrivateLibrary'
+import { transformCatalogToItems } from '@/utils/transformCatalogToItems'
+import { isRef } from 'vue'
+
+const baseUrl = `http://localhost:5000/api/catalog`
+// const baseUrl = `${window.location.origin}/api/catalog`
 
 // 🔁 Универсальный запрос
 const request = async (method, body = null, isForm = false) => {
@@ -33,15 +37,8 @@ const request = async (method, body = null, isForm = false) => {
   }
 }
 
-// 📡 Получение каталога файлов
-export const fetchCatalog = async catalog => {
-  const data = await request('GET')
-  // if (data) catalog.value = data
-
-}
-
 // 📤 Отправка нового файла
-export const uploadFile = async (newFile, catalog) => {
+export const uploadFile = async newFile => {
   const { title, authors, file } = newFile
 
   if (!title || !authors || !file) {
@@ -56,17 +53,23 @@ export const uploadFile = async (newFile, catalog) => {
 
   const success = await request('POST', formData, true)
   if (success) {
-    await fetchCatalog(catalog)
-    newFile.file = null
-    newFile.title = ''
-    newFile.authors = ''
+    alert('Успешно добавлен')
+    return true
+  } else {
+    alert('Ошибка при добавлении файла')
+    return false
   }
 }
 
 // 🗑 Удаление файла по имени
-export const deleteFile = async (fileName, catalog) => {
+export const deleteFile = async fileName => {
   const success = await request('DELETE', { fileName })
   if (success) {
-    await fetchCatalog(catalog)
+    const rawCatalog = await loadPrivateLibrary() // load the private library
+    const newCatalog = transformCatalogToItems(rawCatalog)
+    alert('Файл успешно удален')
+    return true
+  } else {
+    return false
   }
 }

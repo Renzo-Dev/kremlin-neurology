@@ -1,14 +1,11 @@
 <?php
 
-namespace App\Utils;
-use Exception;
-
 class respondHandler
 {
     static function respond($sendData = array(), $code = 200)
     {
-        header('HTTP/1.1 ' . $code);
         try {
+            header('HTTP/1.1 ' . $code);
             if (!isset($sendData)) {
                 throw new Exception('No data to send');
             }
@@ -20,5 +17,4 @@ class respondHandler
             exit();
         }
     }
-
 }

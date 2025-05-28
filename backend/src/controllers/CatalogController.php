@@ -1,12 +1,8 @@
 <?php
 
-
-namespace App\Controllers;
-use App\Services\CatalogService;
-use App\Services\FileService;
-use App\Utils\respondHandler;
-use Exception;
-
+require_once __DIR__ . '/../utils/respondHandler.php';
+require_once __DIR__ . '/../services/CatalogService.php';
+require_once __DIR__ . '/../services/FileService.php';
 
 class CatalogController
 {
@@ -16,10 +12,17 @@ class CatalogController
 
     static function getCatalog()
     {
-        $catalog = CatalogService::loadCatalogFromFile();
-        $catalog = CatalogService::groupCatalogByAuthorFirstLetter($catalog);
-        echo json_encode($catalog);
-        exit();
+        try {
+            $catalog = CatalogService::loadCatalogFromFile();
+            $catalog = CatalogService::groupCatalogByAuthorFirstLetter($catalog);
+            // Возвращаем успешный ответ с каталогом
+            respondHandler::respond($catalog);
+        } catch (Exception $e) {
+            respondHandler::respond(array(
+                'error' => 'Error loading catalog',
+                'message' => $e->getMessage()
+            ), 500);
+        }
     }
 
     public static function saveFile()

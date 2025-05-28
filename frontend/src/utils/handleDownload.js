@@ -1,14 +1,12 @@
-export const handleDownload = async fileName => {
+export const handleDownload = async (url, fileName) => {
   try {
-    const url = `${window.location.origin}/api/download.php` // URL вашего сервера для скачивания файлов
-    console.log(url)
     const response = await fetch(url, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       credentials: 'include', // важно для кук-сессий
-      body: JSON.stringify({ filename: fileName }),
+      body: JSON.stringify({ fileName: fileName }),
     })
     if (!response.ok) {
       throw new Error(`Ошибка сети: ${response.statusText}`)
