@@ -1,8 +1,5 @@
 <?php
 
-namespace App\Services;
-use Exception;
-
 class CatalogService
 {
     public function __construct()
@@ -15,6 +12,10 @@ class CatalogService
     }
 
     // Метод для добавления элемента в каталог
+
+    /**
+     * @throws Exception
+     */
     public static function addItemToCatalog()
     {
         try {
@@ -32,7 +33,7 @@ class CatalogService
                 ); // Добавляем имя файла в массив каталога
 
                 // Сохраняем обновленный каталог в файл
-                file_put_contents(self::getCatalogPath(), json_encode($catalog, JSON_UNESCAPED_UNICODE));
+                file_put_contents(self::getCatalogPath(), json_encode($catalog));
                 // Если сохранение прошло успешно, возвращаем true
             }
             return true; // Возвращаем true, если добавление прошло успешно
@@ -41,7 +42,8 @@ class CatalogService
             // Обработка исключения
             throw new Exception('Error adding item to catalog: ' . $e->getMessage(), $e->getCode());
         }
-        return false; // Возвращаем false, если произошла ошибка
+        // Возвращаем false, если произошла ошибка
+        return false;
     }
 
     // Проверка на существование элемента в каталоге
@@ -56,6 +58,9 @@ class CatalogService
         return false; // Элемент не найден
     }
 
+    /**
+     * @throws Exception
+     */
     public static function loadCatalogFromFile()
     {
         try {
@@ -110,6 +115,10 @@ class CatalogService
     }
 
     // Метод для удаления файла из каталога
+
+    /**
+     * @throws Exception
+     */
     public static function deleteItemFromCatalog($fileName, $catalog)
     {
         // Проверяем, существует ли файл в каталоге
@@ -126,7 +135,7 @@ class CatalogService
         }
 
         // Сохраняем обновленный каталог в файл
-        file_put_contents(self::getCatalogPath(), json_encode(array_values($catalog), JSON_UNESCAPED_UNICODE));
+        file_put_contents(self::getCatalogPath(), json_encode(array_values($catalog)));
         return true; // Возвращаем true, если удаление прошло успешно
     }
 
@@ -149,6 +158,9 @@ class CatalogService
         }
     }
 
+    /**
+     * @throws Exception
+     */
     public static function deleteFile($fileName)
     {
         try {

@@ -9,6 +9,7 @@ services:
     volumes:
       - ./src/:/app
       - ./supervisord.conf:/etc/supervisor/conf.d/supervisord.conf
+      - ./php.ini:/usr/local/etc/php/php.ini
     ports:
       - '5000:5000'
     networks:

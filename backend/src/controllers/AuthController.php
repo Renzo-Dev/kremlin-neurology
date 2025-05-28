@@ -1,9 +1,7 @@
 <?php
 
-namespace App\Controllers;
-
-use App\Services\AuthService;
-use App\Utils\respondHandler;
+require_once __DIR__ . '/../services/AuthService.php';
+require_once __DIR__ . '/../utils/respondHandler.php';
 
 class AuthController
 {
@@ -15,11 +13,11 @@ class AuthController
         $data = json_decode(file_get_contents('php://input'), true);
 
         if (!isset($data['password']) || $data['password'] === '') {
-            respondHandler::respond([
+            respondHandler::respond(array(
                 'authenticated' => false,
                 'error' => 'Password is required',
                 'message' => 'Password is required'
-            ], 400);
+            ), 400);
             return;
         }
 
@@ -27,28 +25,28 @@ class AuthController
 
         if ($password === self::$adminPassword) {
             AuthService::setAdminAuthenticated();
-            respondHandler::respond([
+            respondHandler::respond(array(
                 'authenticated' => true,
                 'isAdmin' => true,
                 'message' => 'Authenticated as admin successfully'
-            ]);
+            ));
             return;
         }
 
         if ($password === self::$authPassword) {
             AuthService::setAuthenticated();
-            respondHandler::respond([
+            respondHandler::respond(array(
                 'authenticated' => true,
                 'message' => 'Authenticated successfully'
-            ]);
+            ));
             return;
         }
 
-        respondHandler::respond([
+        respondHandler::respond(array(
             'authenticated' => false,
             'error' => 'Invalid password',
             'message' => 'Invalid password'
-        ], 401);
+        ), 401);
     }
 
     // Check if the user is authenticated
