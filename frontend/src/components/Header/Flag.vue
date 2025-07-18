@@ -13,6 +13,8 @@ $--flag-min-width: 90px;
 $--flag-min-height: 90px;
 
 #flag {
+  align-self: center;
+  justify-self: center;
   position: relative;
   top: 0;
   left: 0;
@@ -21,6 +23,7 @@ $--flag-min-height: 90px;
   overflow: hidden;
   min-width: $--flag-min-width;
   min-height: $--flag-min-height;
+  max-height: $--flag-min-height;
 
   .wave2,
   .wave3 {

@@ -1,15 +1,20 @@
 <template>
   <Header />
+  <NavList />
   <router-view />
 </template>
 
 <script lang="js">
 import { defineComponent } from 'vue'
 import Header from '@/components/Header/Header.vue'
+import NavList from '@/components/Header/NavList.vue'
 
 export default defineComponent({
-  components: { Header },
+  components: { NavList, Header },
 })
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+#app {
+}
+</style>

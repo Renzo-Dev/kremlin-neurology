@@ -1,5 +1,5 @@
 <template>
-  <div class="images-container">qwe</div>
+  <div class="images-container"></div>
 </template>
 
 <script setup lang="ts"></script>
@@ -7,6 +7,6 @@
 <style scoped lang="scss">
 .images-container {
   height: auto;
-  background-color: red;
+  width: auto;
 }
 </style>

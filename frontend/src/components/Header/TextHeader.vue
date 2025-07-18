@@ -1,6 +1,6 @@
 <template>
   <div class="header-text">
-    <router-link class="" :to="{ name: 'Home' }">
+    <router-link :to="{ name: 'Home' }">
       <div>Кафедра неврологии Официальный сайт</div>
       <h5>
         ФГБУ ДПО "Центральная государственная медицинская академия" УД
@@ -20,9 +20,9 @@
   align-items: center;
 
   a {
-    text-wrap: balance;
     width: auto;
     height: auto;
+    text-wrap: balance;
     padding: 1rem;
     text-decoration: none;
     color: var(--text-color);
@@ -33,16 +33,22 @@
     align-items: start;
     justify-content: center;
     transition: 0.2s ease;
-    background-color: red;
 
     &:hover {
       color: var(--hv-text-color);
     }
 
+    div {
+      height: 100%;
+      font-size: 1.4rem;
+      font-weight: 400;
+    }
+
     h5 {
+      margin-top: 0.5rem;
       height: 100%;
       font-size: 1.5rem;
-      font-weight: 600;
+      font-weight: 500;
     }
   }
 }
