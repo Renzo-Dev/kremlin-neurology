@@ -8,7 +8,6 @@
 
 <script setup>
 const navListItems = [
-  { text: 'Главная', route: 'Home' },
   {
     text: 'Обучение',
     route: 'Home',
@@ -27,9 +26,6 @@ const navListItems = [
 
 <style scoped lang="scss">
 .nav-list {
-  display: flex;
-  height: auto;
-  width: 10%;
-  background-color: red;
+
 }
 </style>
