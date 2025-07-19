@@ -10,17 +10,14 @@ body {
 }
 
 :root {
-  --text-color: #000000;
-  --hv-text-color: #757575;
-  --bg-color: #ffffff;
-  --hover-bg-color: #ffffff;
-  --border-color: #000000;
-  --hover-border-color: #000000;
-  --header-color: #000000;
-  --hover-header-color: #000000;
-  --p-color: #000000;
-  --hover-p-color: #000000;
-  --font: 'Roboto', sans-serif;
-  --header-font: 1.2rem;
-  --p-font: 1rem;
+  /*header background color*/
+  --h-bg-color: #d9effc;
+  --h-font-h-color: #757575;
+  /*header font color*/
+  --h-font-color: #000;
+  /*main background color*/
+  --bg-color: #ffff;
+  --nav-font-size: 1.2rem;
+  --nav-bg-item: #f1f7fc;
+  --nav-bg-h-item: #dae8ff;
 }
