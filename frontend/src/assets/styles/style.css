@@ -1,0 +1,23 @@
+html,
+body {
+  width: 100%;
+  height: auto;
+}
+
+#app {
+  width: 100%;
+  height: auto;
+}
+
+:root {
+  /*header background color*/
+  --h-bg-color: #d9effc;
+  --h-font-h-color: #757575;
+  /*header font color*/
+  --h-font-color: #000;
+  /*main background color*/
+  --bg-color: #ffff;
+  --nav-font-size: 1.2rem;
+  --nav-bg-item: #f1f7fc;
+  --nav-bg-h-item: #dae8ff;
+}
