@@ -29,6 +29,7 @@ const navListItems = [
 
 <style scoped lang="scss">
 .nav-list {
+  font-family: 'Roboto', sans-serif;
   position: absolute;
   top: 110px;
   display: flex;
@@ -47,8 +48,10 @@ const navListItems = [
     color: var(--h-font-color);
     font-size: var(--nav-font-size);
     transition: 0.4s ease;
+
     &:hover {
       background-color: var(--nav-bg-h-item);
+      transform: translateY(3.5px);
     }
   }
 }
