@@ -1,7 +1,7 @@
 <template>
   <div class="contact-info">
     <h2 class="contact-info__title">
-      Контактная информация / <strong>Полная</strong>
+      Контактная информация / <a href="#">Полная</a>
     </h2>
 
     <div class="contact-info__content">
@@ -55,8 +55,13 @@
     font-weight: 600;
     margin-bottom: 20px;
 
-    strong {
+    a {
       color: #1e40af; // синий акцент
+      transition: 0.3s ease;
+
+      &:hover {
+        color: #d7d7d7;
+      }
     }
   }
 

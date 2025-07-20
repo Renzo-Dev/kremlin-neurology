@@ -12,6 +12,6 @@
   width: 100%;
   text-align: center;
   font-size: 1.5rem;
-  font-weight: 600;
+  font-weight: 400;
 }
 </style>
