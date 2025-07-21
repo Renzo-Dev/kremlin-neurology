@@ -92,7 +92,7 @@
 
   &__item {
     margin-bottom: 6px;
-    font-size: 0.95rem;
+    font-size: 1.1rem;
   }
 
   &__section--address {
@@ -103,7 +103,7 @@
   &__address,
   &__email {
     margin: 8px 0;
-    font-size: 0.95rem;
+    font-size: 1.1rem;
   }
 
   &__email {

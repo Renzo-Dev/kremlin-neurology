@@ -51,7 +51,7 @@
     flex: 2 1 400px;
     padding: 24px;
     color: #333;
-    font-size: 16px;
+    font-size: 1.2rem;
     line-height: 1.6;
 
     p {

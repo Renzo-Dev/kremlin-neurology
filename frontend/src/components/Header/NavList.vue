@@ -1,30 +1,37 @@
 <template>
   <ul class="nav-list">
     <li v-for="item in navListItems">
-      <router-link :to="{ name: item.route }">{{ item.text }}</router-link>
+      <router-link
+        :class="{ active: isActiveRoute(item.route) }"
+        :to="{ name: item.route }"
+        >{{ item.text }}
+      </router-link>
     </li>
   </ul>
 </template>
 
 <script setup>
-const navListItems = [
-  {
-    text: 'Обучение',
-    route: 'Home',
-  },
-  { text: 'История', route: 'Home' },
-  {
-    text: 'Научная работа',
-    route: 'Home',
-  },
-  { text: 'Библиотека', route: 'Home' },
-  { text: 'Клиентская база', route: 'Home' },
-  { text: 'Ежегодные конференции', route: 'Home' },
-  { text: 'Научный кружек "Школа молодых неврологов"', route: 'Home' },
-  { text: 'Новости и обновления', route: 'Home' },
+import { useRoute } from 'vue-router'
 
-  { text: 'Контактная информация', route: 'Home' },
+const route = useRoute()
+const navListItems = [
+  { text: 'Обучение', route: 'Education' },
+  { text: 'История', route: 'History' },
+  { text: 'Научная работа', route: 'Research' },
+  { text: 'Библиотека', route: 'Library' },
+  { text: 'Клиентская база', route: 'Clients' },
+  { text: 'Ежегодные конференции', route: 'Conferences' },
+  {
+    text: 'Научный кружек "Школа молодых неврологов"',
+    route: 'YoungNeurologists',
+  },
+  { text: 'Новости и обновления', route: 'News' },
+  { text: 'Контактная информация', route: 'Contacts' },
 ]
+
+const isActiveRoute = routeName => {
+  return route.name === routeName
+}
 </script>
 
 <style scoped lang="scss">
@@ -53,6 +60,10 @@ const navListItems = [
       background-color: var(--nav-bg-h-item);
       transform: translateY(3.5px);
     }
+  }
+
+  .active {
+    background-color: #83888d;
   }
 }
 </style>
