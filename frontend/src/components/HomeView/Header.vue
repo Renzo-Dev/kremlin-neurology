@@ -5,7 +5,8 @@
   </h2>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+</script>
 
 <style scoped lang="scss">
 .header {
@@ -13,5 +14,11 @@
   text-align: center;
   font-size: 1.5rem;
   font-weight: 400;
+}
+
+@media (max-width: 1470px) {
+  .header {
+    font-size: 1.4rem;
+  }
 }
 </style>

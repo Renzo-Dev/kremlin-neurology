@@ -97,7 +97,6 @@
 
   &__section--address {
     flex-basis: 100%;
-    margin-top: 16px;
   }
 
   &__address,

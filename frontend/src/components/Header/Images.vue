@@ -1,6 +1,6 @@
 <template>
   <div class="images-container">
-    <UDPRF />
+    <UDPRF/>
   </div>
 </template>
 
@@ -15,4 +15,5 @@ import UDPRF from '@/assets/icons/UDPRF.vue'
   justify-content: center;
   height: 100%;
 }
+
 </style>

@@ -5,12 +5,11 @@
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+</script>
 
 <style scoped lang="scss">
-// ADD MEDIA
-$--flag-min-width: 90px;
-$--flag-min-height: 90px;
+
 
 #flag {
   align-self: center;
@@ -21,9 +20,6 @@ $--flag-min-height: 90px;
   border-radius: 300px;
   background-color: #fff;
   overflow: hidden;
-  min-width: $--flag-min-width;
-  min-height: $--flag-min-height;
-  max-height: $--flag-min-height;
 
   .wave2,
   .wave3 {
@@ -46,6 +42,36 @@ $--flag-min-height: 90px;
   }
 }
 
+
+@media (max-width: 1670px) {
+  #flag {
+    min-width: 90px;
+    min-height: 90px;
+    max-height: 90px;
+  }
+}
+
+@media (max-width: 1280px) {
+  #flag {
+    min-width: 80px;
+    min-height: 80px;
+    max-height: 80px;
+  }
+}
+
+@media (max-width: 570px) {
+  #flag {
+    min-width: 70px;
+    min-height: 70px;
+    max-height: 70px;
+  }
+}
+
+@media (max-width: 440px) {
+  #flag {
+    display: none;
+  }
+}
 @keyframes wave {
   100% {
     transform: rotate(360deg);

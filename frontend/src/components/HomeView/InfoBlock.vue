@@ -1,9 +1,9 @@
 <template>
   <div class="info-block">
     <img
-      class="info-block__image"
-      src="@/assets/images/fasad.jpg"
-      alt="Фасад"
+        class="info-block__image"
+        src="@/assets/images/fasad.jpg"
+        alt="Фасад"
     />
     <div class="info-block__content">
       <p>
