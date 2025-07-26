@@ -1,16 +1,16 @@
 <template>
-  <Header/>
+  <Header />
   <main class="main-container">
-    <router-view/>
+    <router-view />
   </main>
 </template>
 
 <script lang="js">
-import {defineComponent} from 'vue'
+import { defineComponent } from 'vue'
 import Header from '@/components/Header/Header.vue'
 
 export default defineComponent({
-  components: {Header}
+  components: { Header },
 })
 </script>
 
@@ -54,7 +54,6 @@ export default defineComponent({
     top: 160px;
   }
 }
-
 
 @media (max-width: 634px) {
   .main-container {

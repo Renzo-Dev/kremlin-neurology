@@ -2,35 +2,35 @@
   <ul class="nav-list">
     <li v-for="(item, index) in navListItems" :key="index">
       <router-link
-          :class="{ active: isActiveRoute(item.route) }"
-          :to="{ name: item.route }"
-          @click="closeNavMenu"
-      >{{ item.text }}
+        :class="{ active: isActiveRoute(item.route) }"
+        :to="{ name: item.route }"
+        @click="closeNavMenu"
+        >{{ item.text }}
       </router-link>
     </li>
-    <li class="close-btn" @click="closeNavMenu()"><i class='bxr  bx-equal'
-                                                     style='color:#000000'></i>
+    <li class="close-btn" @click="closeNavMenu()">
+      <i class="bxr bx-equal" style="color: #000000"></i>
     </li>
   </ul>
 </template>
 
 <script setup>
-import {useRoute} from 'vue-router'
+import { useRoute } from 'vue-router'
 
 const route = useRoute()
 const navListItems = [
-  {text: 'Обучение', route: 'Education'},
-  {text: 'История', route: 'History'},
-  {text: 'Научная работа', route: 'Research'},
-  {text: 'Библиотека', route: 'Library'},
-  {text: 'Клиентская база', route: 'Clients'},
-  {text: 'Ежегодные конференции', route: 'Conferences'},
+  { text: 'Обучение', route: 'Education' },
+  { text: 'История', route: 'History' },
+  { text: 'Научная работа', route: 'Research' },
+  { text: 'Библиотека', route: 'Library' },
+  { text: 'Клиентская база', route: 'Clients' },
+  { text: 'Ежегодные конференции', route: 'Conferences' },
   {
     text: 'Научный кружек "Школа молодых неврологов"',
-    route: 'YoungNeurologists'
+    route: 'YoungNeurologists',
   },
-  {text: 'Новости и обновления', route: 'News'},
-  {text: 'Контактная информация', route: 'Contacts'}
+  { text: 'Новости и обновления', route: 'News' },
+  { text: 'Контактная информация', route: 'Contacts' },
 ]
 
 function closeNavMenu() {
