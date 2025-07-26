@@ -60,7 +60,7 @@ const isActiveRoute = routeName => {
   top: 109px;
 
   a {
-    margin: 5px 0;
+    margin: 5px;
     border-radius: 7px;
     padding: 12px;
     background-color: #c6cfd9;
@@ -177,6 +177,14 @@ const isActiveRoute = routeName => {
     display: flex;
     flex-direction: column;
     backdrop-filter: blur(32px);
+
+    a {
+      width: 100%;
+      text-align: center;
+      padding: 15px 10px;
+      font-size: 1.1rem;
+      margin: 5px;
+    }
 
     .close-btn {
       display: flex;

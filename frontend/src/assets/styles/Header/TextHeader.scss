@@ -110,11 +110,27 @@
       padding: 0.5rem;
 
       div {
-        font-size: 1.2rem;
+        font-size: 1.1rem;
       }
 
       h5 {
-        font-size: 1.2rem;
+        font-size: 1.1rem;
+      }
+    }
+  }
+}
+
+@media (max-width: 370px) {
+  .header-text {
+    a {
+      padding: 0.5rem;
+
+      div {
+        font-size: 1rem;
+      }
+
+      h5 {
+        font-size: 1rem;
       }
     }
   }

@@ -45,4 +45,10 @@
     font-size: 1.3rem;
   }
 }
+
+@media (max-width: 450px) {
+  .header {
+    font-size: 1.1rem;
+  }
+}
 </style>
