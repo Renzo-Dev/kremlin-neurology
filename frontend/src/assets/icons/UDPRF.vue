@@ -915,13 +915,13 @@ export default {
 
 @media (max-width: 570px) {
   .gerb {
-    width: 70px;
+    width: 60px;
   }
 }
 
 @media (max-width: 440px) {
   .gerb {
-    width: 70px;
+    width: 60px;
   }
 }
 </style>
