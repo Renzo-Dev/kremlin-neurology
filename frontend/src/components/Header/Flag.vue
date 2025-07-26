@@ -59,11 +59,9 @@
   }
 }
 
-@media (max-width: 570px) {
+@media (max-width: 640px) {
   #flag {
-    min-width: 70px;
-    min-height: 70px;
-    max-height: 70px;
+    display: none;
   }
 }
 

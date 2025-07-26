@@ -1,20 +1,20 @@
 <template>
   <header
-    data-aos="fade"
-    data-aos-easing="ease"
-    data-aos-duration="1500"
-    class="header"
+      data-aos="fade"
+      data-aos-easing="ease"
+      data-aos-duration="1500"
+      class="header"
   >
     <!--    Flag    -->
-    <Flag />
+    <Flag/>
     <!--    Text    -->
-    <TextHeader />
+    <TextHeader/>
     <!--    Images  -->
-    <Images />
+    <Images/>
     <!--    Navigation List    -->
-    <NavList />
+    <NavList/>
     <!--    Menu Nav Button    -->
-    <MenuNavButton />
+    <MenuNavButton @click="openNavMenu"/>
   </header>
 </template>
 
@@ -24,6 +24,15 @@ import TextHeader from '@/components/Header/TextHeader.vue'
 import Images from '@/components/Header/Images.vue'
 import NavList from '@/components/Header/NavList.vue'
 import MenuNavButton from '@/components/Header/MenuNavButton.vue'
+
+
+function openNavMenu() {
+  const navList = document.querySelector('.nav-list')
+  if (navList) {
+    navList.classList.add('open')
+    navList.classList.remove('close')
+  }
+}
 </script>
 
 <style scoped lang="scss">
