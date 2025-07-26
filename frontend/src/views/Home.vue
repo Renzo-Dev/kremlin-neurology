@@ -14,7 +14,7 @@ import Header from '@/components/HomeView/Header.vue'
 
 <style scoped lang="scss">
 .main-content {
-  margin-top: 15px;
+  margin: 15px 0;
   display: flex;
   flex-direction: column;
 }

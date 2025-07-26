@@ -5,13 +5,11 @@
   </div>
 </template>
 
-<script setup lang="ts">
-</script>
+<script setup lang="ts"></script>
 
 <style scoped lang="scss">
-
-
 #flag {
+  margin-left: 5px;
   align-self: center;
   justify-self: center;
   position: relative;
@@ -20,6 +18,9 @@
   border-radius: 300px;
   background-color: #fff;
   overflow: hidden;
+  min-width: 90px;
+  min-height: 90px;
+  max-height: 90px;
 
   .wave2,
   .wave3 {
@@ -41,7 +42,6 @@
     background-color: red;
   }
 }
-
 
 @media (max-width: 1670px) {
   #flag {
@@ -72,6 +72,7 @@
     display: none;
   }
 }
+
 @keyframes wave {
   100% {
     transform: rotate(360deg);
