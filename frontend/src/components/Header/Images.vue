@@ -1,6 +1,6 @@
 <template>
   <div class="images-container">
-    <UDPRF/>
+    <UDPRF />
   </div>
 </template>
 

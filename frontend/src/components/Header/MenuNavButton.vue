@@ -1,14 +1,12 @@
 <template>
   <div class="menu-button-container">
-    <i class='bxr  bx-menu-wider'></i>
+    <i class="bxr bx-menu-wider"></i>
   </div>
 </template>
 
-<script setup lang="ts">
-</script>
+<script setup lang="ts"></script>
 
 <style scoped lang="scss">
-
 .menu-button-container {
   display: none;
   padding: 5px;
@@ -41,5 +39,4 @@
     margin-right: 0;
   }
 }
-
 </style>
