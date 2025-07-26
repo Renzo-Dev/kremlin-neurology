@@ -887,12 +887,41 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 90px;
   height: auto;
 
   svg {
     width: 100%;
     height: 100%;
+  }
+}
+
+@media (min-width: 1670px) {
+  .gerb {
+    width: 90px;
+  }
+}
+
+@media (max-width: 1670px) {
+  .gerb {
+    width: 90px;
+  }
+}
+
+@media (max-width: 1280px) {
+  .gerb {
+    width: 80px;
+  }
+}
+
+@media (max-width: 570px) {
+  .gerb {
+    width: 70px;
+  }
+}
+
+@media (max-width: 440px) {
+  .gerb {
+    width: 70px;
   }
 }
 </style>

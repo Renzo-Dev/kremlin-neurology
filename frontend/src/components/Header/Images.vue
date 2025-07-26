@@ -14,5 +14,6 @@ import UDPRF from '@/assets/icons/UDPRF.vue'
   align-items: center;
   justify-content: center;
   height: 100%;
+  margin-right: 5px;
 }
 </style>

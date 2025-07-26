@@ -6,10 +6,28 @@
   top: 0;
   right: 0;
   z-index: 1000;
-  padding: 5px 1%;
+  padding: 5px 0;
   display: flex;
-  justify-content: space-between;
   transition: 0.5s ease;
   background-color: var(--h-bg-color);
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  align-items: center;
+  justify-content: center;
 }
+
+//@media (max-width: 1650px) {
+//	.header {
+//		height: 100px;
+//	}
+//}
+//
+//@media (max-width: 1170px) {
+//	.header {
+//		box-shadow: none;
+//	}
+//}
+//
+//@media (max-width: 950px) {
+//	.header {
+//		height: 120px;
+//	}
+//}

@@ -49,4 +49,8 @@ export const routers = [
     name: 'Contacts',
     component: () => import('@/views/Home.vue'),
   },
+  {
+    path: '/:pathMatch(.*)*',
+    redirect: '/'
+  }
 ]

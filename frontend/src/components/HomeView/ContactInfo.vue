@@ -38,7 +38,7 @@
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="js"></script>
 
 <style scoped lang="scss">
 .contact-info {
@@ -49,6 +49,8 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   color: #222;
   font-family: 'Arial', sans-serif;
+
+  animation: fade-animation 1s ease-in-out;
 
   &__title {
     font-size: 1.5rem;
@@ -97,7 +99,6 @@
 
   &__section--address {
     flex-basis: 100%;
-    margin-top: 16px;
   }
 
   &__address,
@@ -109,6 +110,83 @@
   &__email {
     color: #1e40af;
     font-weight: 500;
+  }
+}
+
+@media (max-width: 1670px) {
+  .contact-info {
+    &__title {
+      font-size: 1.3rem;
+    }
+
+    &__subtitle {
+      font-size: 1.1rem;
+    }
+
+    &__item,
+    &__address,
+    &__email {
+      font-size: 1rem;
+    }
+  }
+}
+
+@media (max-width: 1280px) {
+  .contact-info {
+    &__title {
+      font-size: 1.2rem;
+    }
+
+    &__subtitle {
+      font-size: 1rem;
+    }
+
+    &__item,
+    &__address,
+    &__email {
+      font-size: 0.95rem;
+    }
+  }
+}
+
+@media (max-width: 1170px) {
+  .contact-info {
+    &__title {
+      font-size: 1.1rem;
+    }
+
+    &__subtitle {
+      font-size: 1rem;
+    }
+
+    &__item,
+    &__address,
+    &__email {
+      font-size: 1rem;
+    }
+  }
+}
+
+@media (max-width: 950px) {
+  .contact-info {
+    &__content {
+      flex-direction: column;
+    }
+
+    &__section {
+      flex: 1 1 100%;
+    }
+  }
+}
+
+@keyframes fade-animation {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 </style>
