@@ -36,8 +36,10 @@ const navListItems = [
 function closeNavMenu() {
   const navList = document.querySelector('.nav-list')
   if (navList) {
-    navList.classList.add('close')
-    navList.classList.remove('open')
+    if (navList.classList.contains('open')) {
+      navList.classList.add('close')
+      navList.classList.remove('open')
+    }
   }
 }
 
@@ -88,7 +90,7 @@ const isActiveRoute = routeName => {
     }
 
     position: absolute;
-    top: 45px;
+    top: 35px;
     right: 5px;
 
     &:active {
@@ -167,6 +169,7 @@ const isActiveRoute = routeName => {
 
 @media (max-width: 720px) {
   .nav-list {
+    background-color: #d9effc;
     position: absolute;
     width: 100%;
     height: 100vh;
@@ -179,6 +182,7 @@ const isActiveRoute = routeName => {
     backdrop-filter: blur(32px);
 
     a {
+      background-color: #c2d9f0;
       width: 100%;
       text-align: center;
       padding: 15px 10px;

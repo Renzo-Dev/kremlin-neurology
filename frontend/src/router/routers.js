@@ -17,7 +17,7 @@ export const routers = [
   {
     path: '/research',
     name: 'Research',
-    component: () => import('@/views/Home.vue'),
+    component: () => import('@/views/Research.vue'),
   },
   {
     path: '/library',
@@ -25,9 +25,9 @@ export const routers = [
     component: () => import('@/views/Home.vue'),
   },
   {
-    path: '/clients',
+    path: '/clientsbase',
     name: 'Clients',
-    component: () => import('@/views/Home.vue'),
+    component: () => import('@/views/ClientBase.vue'),
   },
   {
     path: '/conferences',
@@ -48,6 +48,12 @@ export const routers = [
     path: '/contacts',
     name: 'Contacts',
     component: () => import('@/views/Home.vue'),
+  },
+
+  {
+    path: '/gkb51dzm',
+    name: 'Gkb51dzm',
+    component: () => import('@/views/GKB51.vue'),
   },
   {
     path: '/:pathMatch(.*)*',
