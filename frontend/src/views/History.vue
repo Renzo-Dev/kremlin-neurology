@@ -1,5 +1,5 @@
 <template>
-  <div class="container mt-3">
+  <div class="container">
     <h2 class="text-center mb-3 h2">Учебно-научный медицинский центр</h2>
 
     <div class="accordion accordion-flush" id="accordionExample">
