@@ -30,9 +30,9 @@ export const routers = [
     component: () => import('@/views/ClientBase.vue'),
   },
   {
-    path: '/conferences',
-    name: 'Conferences',
-    component: () => import('@/views/Home.vue'),
+    path: '/educational',
+    name: 'Educational',
+    component: () => import('@/views/Educational.vue'),
   },
   {
     path: '/young-neurologists',
