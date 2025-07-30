@@ -15,7 +15,7 @@
 </template>
 
 <script setup>
-import { useRoute } from 'vue-router'
+import {useRoute} from 'vue-router'
 
 const route = useRoute()
 const navListItems = [
@@ -24,7 +24,7 @@ const navListItems = [
   { text: 'Научная работа', route: 'Research' },
   { text: 'Библиотека', route: 'Library' },
   { text: 'Клиентская база', route: 'Clients' },
-  { text: 'Ежегодные конференции', route: 'Conferences' },
+  { text: 'Ежегодные конференции', route: 'Educational' },
   {
     text: 'Научный кружек "Школа молодых неврологов"',
     route: 'YoungNeurologists',

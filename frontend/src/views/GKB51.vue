@@ -1,5 +1,5 @@
 <template>
-  <div class="container py-4">
+  <div class="container">
     <div class="card shadow-lg border-0">
       <div class="card-body d-flex flex-column align-items-center">
         <div class="h3 text-center mb-3">
@@ -34,13 +34,7 @@
           средствами ранней реабилитации пациенитов с ОНМК, в том числе
           компьютеризированными системами с биологической обратной связью. Столь
           широкие возможности отделения предоставляют великолепные возможности
-          для овладения базовыми знаниями и навыками врача-невролога. Страница
-          неврологического отделения на официальном сайте ГКБ №51
-          <router-link
-            class="link-primary"
-            to="http://gkb51.com/therapy_departments/vascularcenter/neurology/"
-            >на официальном сайте ГКБ №51
-          </router-link>
+          для овладения базовыми знаниями и навыками врача-невролога.
         </div>
       </div>
     </div>
@@ -51,16 +45,57 @@
   </div>
   <div class="map">
     <iframe
-      src="https://yandex.ru/map-widget/v1/?lang=ru_RU&amp;scroll=true&amp;source=constructor-api&amp;um=constructor%3Afe782deb03bfc4bd36cde7b42eac04a7f4b2774a27088b4886cb079fc8ce01ff"
-      frameborder="0"
-      allowfullscreen="true"
-      width="570px"
-      height="637px"
-      style="display: block"
+        src="https://yandex.ru/map-widget/v1/?lang=ru_RU&amp;scroll=true&amp;source=constructor-api&amp;um=constructor%3Afe782deb03bfc4bd36cde7b42eac04a7f4b2774a27088b4886cb079fc8ce01ff"
+        frameborder="0"
+        allowfullscreen="true"
+        width="570px"
+        height="637px"
+        style="display: block"
     ></iframe>
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+</script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.map {
+  align-self: center;
+  border-radius: 13px;
+}
+
+iframe {
+  border-radius: 13px;
+  padding: 15px;
+  width: 100%;
+  height: 100%;
+}
+
+@media (min-width: 1600px) {
+  .map {
+    width: 50%;
+    height: 50vh;
+  }
+}
+
+@media (max-width: 1600px) {
+  .map {
+    width: 70%;
+    height: 50vh;
+  }
+}
+
+@media (max-width: 600px) {
+  .map {
+    width: 100%;
+    height: 50vh;
+  }
+}
+
+@media (max-width: 450px) {
+  .map {
+    width: 100%;
+    height: 50vh;
+  }
+}
+</style>
