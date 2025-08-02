@@ -45,17 +45,18 @@
   </div>
   <div class="map">
     <iframe
-      src="https://yandex.ru/map-widget/v1/?lang=ru_RU&amp;scroll=true&amp;source=constructor-api&amp;um=constructor%3Afe782deb03bfc4bd36cde7b42eac04a7f4b2774a27088b4886cb079fc8ce01ff"
-      frameborder="0"
-      allowfullscreen="true"
-      width="570px"
-      height="637px"
-      style="display: block"
+        src="https://yandex.ru/map-widget/v1/?lang=ru_RU&amp;scroll=true&amp;source=constructor-api&amp;um=constructor%3Afe782deb03bfc4bd36cde7b42eac04a7f4b2774a27088b4886cb079fc8ce01ff"
+        frameborder="0"
+        allowfullscreen="true"
+        width="570px"
+        height="637px"
+        style="display: block"
     ></iframe>
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+</script>
 
 <style scoped lang="scss">
 .container {
@@ -96,15 +97,31 @@ iframe {
     height: 50vh;
   }
 
+  .text-start.mb-1 {
+    padding: 15px;
+    font-size: 1.1rem;
+  }
+
   .container {
     .text-start {
-      max-height: 500px;
+      max-height: 350px;
       overflow: auto;
     }
   }
 }
 
 @media (max-width: 450px) {
+  .card-body {
+    .text-center.h3 {
+      font-size: 1.2rem;
+    }
+
+    .text-start.mb-1 {
+      padding: 15px;
+      font-size: 1.1rem;
+    }
+  }
+
   .map {
     width: 100%;
     height: 50vh;
