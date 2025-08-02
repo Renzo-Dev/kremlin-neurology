@@ -1,21 +1,12 @@
 <template>
-  <div class="container my-5">
+  <div class="container">
     <div class="text-center mb-5">
-      <h1 class="display-4">IX Российская научно-практическая конференция</h1>
+      <h1 class="fs">IX Российская научно-практическая конференция</h1>
       <p class="lead">
         30 октября 2018 г. | Центр нейрохирургии им. Н.Н. Бурденко
       </p>
     </div>
-    <div class="alert alert-info mt-4">
-      <strong>Годы проведения: </strong>
-      <a href="#" class="link-primary text-decoration-none">2016</a>,
-      <a href="/educational/2017" class="link-primary text-decoration-none"
-        >2017</a
-      >,
-      <a href="/educational/2018" class="link-primary text-decoration-none"
-        >2018</a
-      >
-    </div>
+
     <div class="card mb-4">
       <div class="card-body">
         <h2 class="h4 card-title">Приглашение к участию</h2>
@@ -94,8 +85,8 @@
         <p>
           Тезисы принимаются до <strong>1 октября 2018 г.</strong> на адрес
           <a href="mailto:kremlinneurology@yandex.ru"
-            >kremlinneurology@yandex.ru</a
-          >.<br />
+          >kremlinneurology@yandex.ru</a
+          >.<br/>
           Формат файлов: MS Word'95 и выше (*.doc, *.docx). Публикация
           бесплатная.
         </p>
@@ -126,8 +117,8 @@
         </p>
         <p>
           Провайдер мероприятия: ООО "Медзнания", г. Москва, Большой Каретный
-          пер., 7<br />
-          Тел: (495) 699-14-65, (495) 699-81-84<br />
+          пер., 7<br/>
+          Тел: (495) 699-14-65, (495) 699-81-84<br/>
           Email: <a href="mailto:info@medq.ru">info@medq.ru</a>
         </p>
       </div>
@@ -136,3 +127,9 @@
 </template>
 
 <script setup></script>
+<style lang="scss">
+.fs {
+  font-weight: 500;
+  font-size: 1.4rem;
+}
+</style>

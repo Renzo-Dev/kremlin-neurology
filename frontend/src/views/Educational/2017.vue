@@ -1,10 +1,10 @@
 <template>
   <div class="container">
     <h1 class="text-center mb-4">
-      Ежегодная научно-образовательная конференция<br /><small
+      Ежегодная научно-образовательная конференция<br/><small
         class="text-muted"
-        >"Неврологические образовательные университеты"</small
-      >
+    >"Неврологические образовательные университеты"</small
+    >
     </h1>
 
     <p>
@@ -13,17 +13,6 @@
       специальностей, акцентируя внимание на новые направления и
       междисциплинарное взаимодействие.
     </p>
-
-    <div class="alert alert-info mt-4">
-      <strong>Годы проведения: </strong>
-      <a href="#" class="link-primary text-decoration-none">2016</a>,
-      <a href="/educational/2017" class="link-primary text-decoration-none"
-        >2017</a
-      >,
-      <a href="/educational/2018" class="link-primary text-decoration-none"
-        >2018</a
-      >
-    </div>
 
     <div class="card my-5">
       <div class="card-body">
@@ -105,9 +94,9 @@
       <div class="card-body">
         <h5 class="card-title">Провайдер конференции</h5>
         <p class="card-text">
-          <strong>ООО "Медзнания"</strong><br />
-          127083, г.Москва, Большой Каретный пер., 7<br />
-          Телефон: (495) 699-14-65, 699-81-84<br />
+          <strong>ООО "Медзнания"</strong><br/>
+          127083, г.Москва, Большой Каретный пер., 7<br/>
+          Телефон: (495) 699-14-65, 699-81-84<br/>
           E-mail: <a href="mailto:info@medq.ru">info@medq.ru</a>
         </p>
       </div>
@@ -117,7 +106,7 @@
 
 <script>
 export default {
-  name: 'ConferencePage',
+  name: 'ConferencePage'
 }
 </script>
 
@@ -126,13 +115,10 @@ export default {
   display: flex;
   flex-direction: column;
 
-  .years-education {
+  .text-center {
     display: flex;
-    flex-wrap: wrap;
-
-    span {
-      padding: 1%;
-    }
+    flex-direction: column;
+    font-size: 1.3rem;
   }
 
   h2,
@@ -144,16 +130,51 @@ export default {
     font-size: 1.1rem;
   }
 
-  .fw-semibold {
-    font-size: 1.3rem;
-  }
-
   .text-muted {
     font-size: 1.3rem;
   }
 
   p {
     font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .container {
+
+  }
+}
+
+@media (max-width: 450px) {
+  .container {
+    .text-center {
+      font-size: 1.2rem;
+    }
+
+    h2,
+    h5 {
+      font-size: 1.3rem;
+    }
+
+    span {
+      font-size: 1.3rem;
+    }
+
+    .text-muted {
+      margin-top: 10px;
+      font-size: 1.2rem;
+    }
+
+    p {
+      font-size: 1.1rem;
+    }
+
+    .card {
+      .card-title {
+        font-weight: 600;
+        font-size: 1.1rem;
+      }
+    }
   }
 }
 
