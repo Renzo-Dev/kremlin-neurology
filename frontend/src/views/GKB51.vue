@@ -5,7 +5,7 @@
         <div class="h3 text-center mb-3">
           Городская клиническая больница №51 ДЗМ
         </div>
-        <div class="fs-6 text-start mb-1">
+        <div class="text-start mb-1">
           Исторически с момента создания ЦНИЛ 4-го ГУ МЗ СССР в 1968 году первой
           клинической базой кафедры (тогда клиники) неврологии была Городская
           клиническая больница №51 ДЗМ. Это плодотворное сотрудничество
@@ -45,20 +45,25 @@
   </div>
   <div class="map">
     <iframe
-        src="https://yandex.ru/map-widget/v1/?lang=ru_RU&amp;scroll=true&amp;source=constructor-api&amp;um=constructor%3Afe782deb03bfc4bd36cde7b42eac04a7f4b2774a27088b4886cb079fc8ce01ff"
-        frameborder="0"
-        allowfullscreen="true"
-        width="570px"
-        height="637px"
-        style="display: block"
+      src="https://yandex.ru/map-widget/v1/?lang=ru_RU&amp;scroll=true&amp;source=constructor-api&amp;um=constructor%3Afe782deb03bfc4bd36cde7b42eac04a7f4b2774a27088b4886cb079fc8ce01ff"
+      frameborder="0"
+      allowfullscreen="true"
+      width="570px"
+      height="637px"
+      style="display: block"
     ></iframe>
   </div>
 </template>
 
-<script setup>
-</script>
+<script setup></script>
 
 <style scoped lang="scss">
+.container {
+  .text-start {
+    font-size: 1.2rem;
+  }
+}
+
 .map {
   align-self: center;
   border-radius: 13px;
@@ -89,6 +94,13 @@ iframe {
   .map {
     width: 100%;
     height: 50vh;
+  }
+
+  .container {
+    .text-start {
+      max-height: 500px;
+      overflow: auto;
+    }
   }
 }
 
