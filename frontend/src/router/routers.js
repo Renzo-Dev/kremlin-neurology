@@ -2,37 +2,37 @@ export const routers = [
   {
     path: '/',
     name: 'Home',
-    component: () => import('@/views/Home.vue'),
+    component: () => import('@/pages/Home.vue'),
   },
   {
     path: '/education',
     name: 'Education',
-    component: () => import('@/views/Home.vue'),
+    component: () => import('@/pages/Home.vue'),
   },
   {
     path: '/history',
     name: 'History',
-    component: () => import('@/views/History.vue'),
+    component: () => import('@/pages/History.vue'),
   },
   {
     path: '/research',
     name: 'Research',
-    component: () => import('@/views/Research.vue'),
+    component: () => import('@/pages/Research.vue'),
   },
   {
     path: '/library',
     name: 'Library',
-    component: () => import('@/views/Home.vue'),
+    component: () => import('@/pages/Home.vue'),
   },
   {
     path: '/clientsbase',
     name: 'Clients',
-    component: () => import('@/views/ClientBase.vue'),
+    component: () => import('@/pages/ClientBase.vue'),
   },
   {
     path: '/educational',
     name: 'Educational',
-    component: () => import('@/views/Educational/Educational.vue'),
+    component: () => import('@/pages/Educational/Educational.vue'),
   },
   ...[2017, 2018].map(year => ({
     path: `/educational/${year}`,
@@ -43,23 +43,23 @@ export const routers = [
   {
     path: '/young-neurologists',
     name: 'YoungNeurologists',
-    component: () => import('@/views/Home.vue'),
+    component: () => import('@/pages/YoungNeurologists.vue'),
   },
   {
     path: '/news',
     name: 'News',
-    component: () => import('@/views/Home.vue'),
+    component: () => import('@/pages/Home.vue'),
   },
   {
     path: '/contacts',
     name: 'Contacts',
-    component: () => import('@/views/Home.vue'),
+    component: () => import('@/pages/Home.vue'),
   },
 
   {
     path: '/gkb51dzm',
     name: 'Gkb51dzm',
-    component: () => import('@/views/GKB51.vue'),
+    component: () => import('@/pages/GKB51.vue'),
   },
   {
     path: '/:pathMatch(.*)*',
