@@ -49,7 +49,6 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   color: #222;
   font-family: 'Arial', sans-serif;
-
   animation: fade-animation 1s ease-in-out;
 
   &__title {
@@ -58,7 +57,7 @@
     margin-bottom: 20px;
 
     a {
-      color: #1e40af; // синий акцент
+      color: #1e40af;
       transition: 0.3s ease;
 
       &:hover {

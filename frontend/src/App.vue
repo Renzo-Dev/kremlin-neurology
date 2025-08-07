@@ -6,8 +6,8 @@
 </template>
 
 <script lang="js">
-import { defineComponent } from 'vue'
 import Header from '@/components/Header/Header.vue'
+import { defineComponent } from 'vue'
 
 export default defineComponent({
   components: { Header },
@@ -33,61 +33,61 @@ export default defineComponent({
 
 @media (max-width: 1123px) {
   .main-container {
-    top: 250px;
+    top: 240px;
   }
 }
 
 @media (max-width: 950px) {
   .main-container {
-    top: 280px;
+    top: 270px;
   }
 }
 
 @media (max-width: 720px) {
   .main-container {
-    top: 140px;
+    top: 120px;
   }
 }
 
 @media (max-width: 689px) {
   .main-container {
-    top: 160px;
+    top: 140px;
   }
 }
 
 @media (max-width: 634px) {
   .main-container {
-    top: 150px;
+    top: 130px;
   }
 }
 
 @media (max-width: 624px) {
   .main-container {
-    top: 170px;
+    top: 150px;
   }
 }
 
 @media (max-width: 572px) {
   .main-container {
-    top: 160px;
+    top: 140px;
   }
 }
 
 @media (max-width: 505px) {
   .main-container {
-    top: 180px;
+    top: 160px;
   }
 }
 
 @media (max-width: 464px) {
   .main-container {
-    top: 190px;
+    top: 170px;
   }
 }
 
 @media (max-width: 450px) {
   .main-container {
-    top: 170px;
+    top: 150px;
   }
 }
 </style>
