@@ -33,17 +33,24 @@ export const routers = [
     path: '/educational',
     name: 'Educational',
     component: () => import('@/pages/Educational/Educational.vue'),
+    children: [
+      {
+        path: '2017',
+        name: 'Educational2017',
+        component: () => import('@/pages/Educational/2017.vue'),
+      },
+      {
+        path: '2018',
+        name: 'Educational2018',
+        component: () => import('@/pages/Educational/2018.vue'),
+      },
+    ],
   },
-  ...[2017, 2018].map(year => ({
-    path: `/educational/${year}`,
-    name: `educational${year}`,
-    component: () => import(`@/views/Educational/${year}.vue`),
-  })),
 
   {
     path: '/young-neurologists',
     name: 'YoungNeurologists',
-    component: () => import('@/pages/YoungNeurologists.vue'),
+    component: () => import('@/pages/NeurologySchool/NeurologySchool.vue'),
   },
   {
     path: '/news',
