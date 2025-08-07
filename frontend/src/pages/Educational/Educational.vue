@@ -13,7 +13,7 @@
       <span class="fw-bold">Годы проведения:</span>
       <span v-for="year in years" :key="year" class="ms-2">
         <router-link
-            :to="{ name: `educational${year}` }"
+            :to="{ name: `Educational${year}` }"
             class="text-primary fw-medium"
         >
           {{ year }}
