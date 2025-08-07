@@ -35,7 +35,6 @@
 .info-block {
   display: flex;
   align-items: center;
-
   flex-wrap: wrap;
   background-color: #f9fbfd;
   border-radius: 12px;

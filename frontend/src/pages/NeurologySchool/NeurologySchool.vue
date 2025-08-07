@@ -50,9 +50,19 @@
       </section>
 
       <section class="events-by-year">
-        <div v-for="year in eventsByYear" :key="year.year" class="year-section">
-          <h3>{{ year.year }}г.</h3>
-          <EventSchedule :events="year.events" />
+        <div v-for="(year, idx) in eventsByYear" :key="year.year" class="year-section">
+          <h3
+            class="year-title clickable"
+            @click="toggleYear(idx)"
+          >
+            {{ year.year }}г.
+            <span class="arrow" :class="{ open: isYearOpen(idx) }">&#9660;</span>
+          </h3>
+          <transition name="dropdown">
+            <div v-if="isYearOpen(idx)">
+              <EventSchedule :events="year.events" />
+            </div>
+          </transition>
         </div>
       </section>
     </div>
@@ -60,9 +70,9 @@
 </template>
 
 <script>
-import LeadershipSection from '../../components/LeadershipSection/LeadershipSection.vue'
-import EventSchedule from '../../components/EventSchedule/EventSchedule.vue'
 import { neurologySchoolData } from '@/data/neurologySchoolData.js'
+import EventSchedule from '../../components/EventSchedule/EventSchedule.vue'
+import LeadershipSection from '../../components/LeadershipSection/LeadershipSection.vue'
 
 export default {
   name: 'NeurologySchool',
@@ -74,7 +84,20 @@ export default {
     return {
       leadership: neurologySchoolData.leadership,
       eventsByYear: neurologySchoolData.eventsByYear,
+      openYears: [],
     }
+  },
+  methods: {
+    toggleYear(idx) {
+      if (this.openYears.includes(idx)) {
+        this.openYears = this.openYears.filter(i => i !== idx)
+      } else {
+        this.openYears.push(idx)
+      }
+    },
+    isYearOpen(idx) {
+      return this.openYears.includes(idx)
+    },
   },
 }
 </script>
@@ -137,15 +160,67 @@ export default {
 }
 
 .year-section {
-  margin-bottom: 40px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+  background: #fafdff;
+  transition: box-shadow 0.3s, background 0.3s;
 }
 
-.year-section h3 {
+.year-title {
   color: #2c3e50;
-  font-size: 1.4em;
-  margin-bottom: 20px;
-  padding-bottom: 10px;
-  border-bottom: 2px solid #ecf0f1;
+  font-size: 1.2em;
+  margin-bottom: 0;
+  padding: 16px 20px;
+  border-bottom: 1px solid #e0e0e0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  user-select: none;
+  border-radius: 8px 8px 0 0;
+  background: #f8f9fa;
+  transition: background 0.3s;
+  position: relative;
+}
+
+.year-title.clickable:hover {
+  background: #e9ecef;
+}
+
+.year-title .arrow {
+  margin-left: auto;
+  font-size: 1em;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  color: #2c3e50;
+}
+
+.year-title .arrow.open {
+  transform: rotate(180deg);
+}
+
+/* Dropdown animation */
+.dropdown-enter-active, .dropdown-leave-active {
+  transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s;
+}
+
+.dropdown-enter-from, .dropdown-leave-to {
+  max-height: 0;
+  opacity: 0;
+}
+
+.dropdown-enter-to, .dropdown-leave-from {
+  max-height: 1000px;
+  opacity: 1;
+}
+
+.year-section .dropdown-enter-to {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Активный год — выделение */
+.year-section .year-title.active,
+.year-section .year-title.open {
+  background: #e9ecef;
 }
 
 @media (max-width: 768px) {
@@ -163,6 +238,11 @@ export default {
 
   .events-info {
     padding: 20px;
+  }
+
+  .year-title {
+    font-size: 1em;
+    padding: 12px 16px;
   }
 }
 </style>
