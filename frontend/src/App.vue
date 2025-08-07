@@ -7,7 +7,7 @@
 
 <script lang="js">
 import Header from '@/components/Header/Header.vue'
-import { defineComponent } from 'vue'
+import {defineComponent} from 'vue'
 
 export default defineComponent({
   components: { Header },
@@ -33,61 +33,52 @@ export default defineComponent({
 
 @media (max-width: 1123px) {
   .main-container {
-    top: 240px;
+    top: 250px;
   }
 }
-
 @media (max-width: 950px) {
   .main-container {
-    top: 270px;
+    top: 280px;
   }
 }
-
 @media (max-width: 720px) {
   .main-container {
-    top: 120px;
+    top: 140px;
   }
 }
-
 @media (max-width: 689px) {
-  .main-container {
-    top: 140px;
-  }
-}
-
-@media (max-width: 634px) {
-  .main-container {
-    top: 130px;
-  }
-}
-
-@media (max-width: 624px) {
-  .main-container {
-    top: 150px;
-  }
-}
-
-@media (max-width: 572px) {
-  .main-container {
-    top: 140px;
-  }
-}
-
-@media (max-width: 505px) {
   .main-container {
     top: 160px;
   }
 }
-
-@media (max-width: 464px) {
+@media (max-width: 634px) {
+  .main-container {
+    top: 150px;
+  }
+}
+@media (max-width: 624px) {
   .main-container {
     top: 170px;
   }
 }
-
+@media (max-width: 572px) {
+  .main-container {
+    top: 160px;
+  }
+}
+@media (max-width: 505px) {
+  .main-container {
+    top: 180px;
+  }
+}
+@media (max-width: 464px) {
+  .main-container {
+    top: 190px;
+  }
+}
 @media (max-width: 450px) {
   .main-container {
-    top: 150px;
+    top: 170px;
   }
 }
 </style>
