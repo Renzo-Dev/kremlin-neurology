@@ -5,14 +5,14 @@
         <h2 class="text-center h2">Клинические базы кафедры неврологии</h2>
         <div class="button-link-container">
           <router-link class="button-link" :to="{ name: 'Gkb51dzm' }"
-          >ГКБ №51 ДЗМ
+            >ГКБ №51 ДЗМ
           </router-link>
           <a
-              target="_blank"
-              rel="noopener noreferrer"
-              class="button-link"
-              href="http://www.kremlin-neurology.ru/volynka.htm"
-          >КБ №1 (Волынская)
+            target="_blank"
+            rel="noopener noreferrer"
+            class="button-link"
+            href="http://www.kremlin-neurology.ru/volynka.htm"
+            >КБ №1 (Волынская)
           </a>
         </div>
         <p class="text-info-emphasis mt-3">

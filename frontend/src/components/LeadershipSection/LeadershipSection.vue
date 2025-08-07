@@ -1,10 +1,6 @@
 <template>
   <div class="leadership-section">
-    <div 
-      class="leadership-item" 
-      v-for="leader in leaders" 
-      :key="leader.id"
-    >
+    <div class="leadership-item" v-for="leader in leaders" :key="leader.id">
       <h3 class="title">{{ leader.title }}</h3>
       <p class="speaker">{{ leader.name }}</p>
     </div>
@@ -17,9 +13,9 @@ export default {
   props: {
     leaders: {
       type: Array,
-      required: true
-    }
-  }
+      required: true,
+    },
+  },
 }
 </script>
 
@@ -53,7 +49,7 @@ export default {
   .title {
     font-size: 1.1em;
   }
-  
+
   .speaker {
     padding: 12px;
     font-size: 0.95em;

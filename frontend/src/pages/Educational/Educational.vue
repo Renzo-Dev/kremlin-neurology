@@ -13,8 +13,8 @@
       <span class="fw-bold">Годы проведения:</span>
       <span v-for="year in years" :key="year" class="ms-2">
         <router-link
-            :to="{ name: `Educational${year}` }"
-            class="text-primary fw-medium"
+          :to="{ name: `Educational${year}` }"
+          class="text-primary fw-medium"
         >
           {{ year }}
         </router-link>
@@ -24,9 +24,9 @@
     <div class="card p-4 shadow-sm mb-4">
       <h4 class="fw-semibold mb-3">
         Российская научно-практическая конференция с международным участием
-        <br/>
+        <br />
         <small class="text-muted"
-        >«Инновационные технологии в области неврологии и смежных
+          >«Инновационные технологии в области неврологии и смежных
           специальностей»</small
         >
       </h4>
@@ -63,12 +63,12 @@
       <p><strong>Схема проезда на Конференцию. 2019 г.</strong></p>
       <div class="map">
         <iframe
-            src="https://yandex.ru/map-widget/v1/?lang=ru_RU&amp;scroll=true&amp;source=constructor-api&amp;um=constructor%3Af48bbfefa42b01696b0e4503f3138dee0cc76ebcc5d1d3e5d0979b04e868fb3d"
-            frameborder="0"
-            allowfullscreen="true"
-            width="789px"
-            height="576px"
-            style="display: block"
+          src="https://yandex.ru/map-widget/v1/?lang=ru_RU&amp;scroll=true&amp;source=constructor-api&amp;um=constructor%3Af48bbfefa42b01696b0e4503f3138dee0cc76ebcc5d1d3e5d0979b04e868fb3d"
+          frameborder="0"
+          allowfullscreen="true"
+          width="789px"
+          height="576px"
+          style="display: block"
         ></iframe>
       </div>
     </div>
@@ -76,9 +76,9 @@
     <div class="card p-4 shadow-sm">
       <h5 class="fw-bold mb-3">Провайдер Конференции:</h5>
       <p>
-        ООО "Медзнания"<br/>
-        127083, г. Москва, Большой Каретный пер., 7<br/>
-        Тел.: (495) 699-14-65, 699-81-84<br/>
+        ООО "Медзнания"<br />
+        127083, г. Москва, Большой Каретный пер., 7<br />
+        Тел.: (495) 699-14-65, 699-81-84<br />
         E-mail: <a href="mailto:info@medq.ru">info@medq.ru</a>
       </p>
     </div>
@@ -218,6 +218,5 @@ iframe {
     width: 100%;
     height: 50vh;
   }
-
 }
 </style>

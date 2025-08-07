@@ -1,10 +1,10 @@
 <template>
   <div class="container">
     <h1 class="text-center mb-4">
-      Ежегодная научно-образовательная конференция<br/><small
+      Ежегодная научно-образовательная конференция<br /><small
         class="text-muted"
-    >"Неврологические образовательные университеты"</small
-    >
+        >"Неврологические образовательные университеты"</small
+      >
     </h1>
 
     <p>
@@ -94,9 +94,9 @@
       <div class="card-body">
         <h5 class="card-title">Провайдер конференции</h5>
         <p class="card-text">
-          <strong>ООО "Медзнания"</strong><br/>
-          127083, г.Москва, Большой Каретный пер., 7<br/>
-          Телефон: (495) 699-14-65, 699-81-84<br/>
+          <strong>ООО "Медзнания"</strong><br />
+          127083, г.Москва, Большой Каретный пер., 7<br />
+          Телефон: (495) 699-14-65, 699-81-84<br />
           E-mail: <a href="mailto:info@medq.ru">info@medq.ru</a>
         </p>
       </div>
@@ -106,7 +106,7 @@
 
 <script>
 export default {
-  name: 'ConferencePage'
+  name: 'ConferencePage',
 }
 </script>
 
@@ -141,7 +141,6 @@ export default {
 
 @media (max-width: 600px) {
   .container {
-
   }
 }
 

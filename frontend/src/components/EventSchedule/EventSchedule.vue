@@ -3,9 +3,9 @@
     <div class="schedule-item" v-for="event in events" :key="event.id">
       <p class="date">{{ event.date }}</p>
       <div class="presentations">
-        <div 
-          class="presentation" 
-          v-for="presentation in event.presentations" 
+        <div
+          class="presentation"
+          v-for="presentation in event.presentations"
           :key="presentation.id"
         >
           <span class="speaker">{{ presentation.speaker }}</span>
@@ -22,9 +22,9 @@ export default {
   props: {
     events: {
       type: Array,
-      required: true
-    }
-  }
+      required: true,
+    },
+  },
 }
 </script>
 
@@ -80,8 +80,9 @@ export default {
   .presentation {
     padding: 10px;
   }
-  
-  .speaker, .topic {
+
+  .speaker,
+  .topic {
     font-size: 0.9em;
   }
 }

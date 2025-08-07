@@ -85,8 +85,8 @@
         <p>
           Тезисы принимаются до <strong>1 октября 2018 г.</strong> на адрес
           <a href="mailto:kremlinneurology@yandex.ru"
-          >kremlinneurology@yandex.ru</a
-          >.<br/>
+            >kremlinneurology@yandex.ru</a
+          >.<br />
           Формат файлов: MS Word'95 и выше (*.doc, *.docx). Публикация
           бесплатная.
         </p>
@@ -117,8 +117,8 @@
         </p>
         <p>
           Провайдер мероприятия: ООО "Медзнания", г. Москва, Большой Каретный
-          пер., 7<br/>
-          Тел: (495) 699-14-65, (495) 699-81-84<br/>
+          пер., 7<br />
+          Тел: (495) 699-14-65, (495) 699-81-84<br />
           Email: <a href="mailto:info@medq.ru">info@medq.ru</a>
         </p>
       </div>
