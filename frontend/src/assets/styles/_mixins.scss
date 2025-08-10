@@ -1,0 +1,166 @@
+// Global SCSS Mixins
+@use './variables' as *;
+
+// Responsive breakpoints
+@mixin responsive($breakpoint) {
+  @if $breakpoint == sm {
+    @media (min-width: $breakpoint-sm) { @content; }
+  } @else if $breakpoint == md {
+    @media (min-width: $breakpoint-md) { @content; }
+  } @else if $breakpoint == lg {
+    @media (min-width: $breakpoint-lg) { @content; }
+  } @else if $breakpoint == xl {
+    @media (min-width: $breakpoint-xl) { @content; }
+  } @else if $breakpoint == 2xl {
+    @media (min-width: $breakpoint-2xl) { @content; }
+  }
+}
+
+// Mobile-first responsive
+@mixin mobile {
+  @media (max-width: #{$breakpoint-md - 1px}) { @content; }
+}
+
+@mixin tablet {
+  @media (max-width: #{$breakpoint-lg - 1px}) { @content; }
+}
+
+@mixin desktop {
+  @media (min-width: $breakpoint-lg) { @content; }
+}
+
+// Gradients
+@mixin gradient-bg($start-color, $end-color) {
+  background: $start-color; /* Fallback для старых браузеров */
+  background: -webkit-linear-gradient(135deg, $start-color 0%, $end-color 100%);
+  background: -moz-linear-gradient(135deg, $start-color 0%, $end-color 100%);
+  background: -o-linear-gradient(135deg, $start-color 0%, $end-color 100%);
+  background: linear-gradient(135deg, $start-color 0%, $end-color 100%);
+}
+
+// Card hover effects
+@mixin card-hover {
+  -webkit-transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  -moz-transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  -o-transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  &:hover {
+    box-shadow: $box-shadow-lg;
+  }
+}
+
+// Animations
+@mixin fade-in-up($delay: 0s) {
+  -webkit-animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) $delay both;
+  -moz-animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) $delay both;
+  -o-animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) $delay both;
+  animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) $delay both;
+}
+
+@mixin slide-in-left($delay: 0s) {
+  -webkit-animation: slideInLeft 0.6s cubic-bezier(0.4, 0, 0.2, 1) $delay both;
+  -moz-animation: slideInLeft 0.6s cubic-bezier(0.4, 0, 0.2, 1) $delay both;
+  -o-animation: slideInLeft 0.6s cubic-bezier(0.4, 0, 0.2, 1) $delay both;
+  animation: slideInLeft 0.6s cubic-bezier(0.4, 0, 0.2, 1) $delay both;
+}
+
+@mixin slide-in-right($delay: 0s) {
+  -webkit-animation: slideInRight 0.6s cubic-bezier(0.4, 0, 0.2, 1) $delay both;
+  -moz-animation: slideInRight 0.6s cubic-bezier(0.4, 0, 0.2, 1) $delay both;
+  -o-animation: slideInRight 0.6s cubic-bezier(0.4, 0, 0.2, 1) $delay both;
+  animation: slideInRight 0.6s cubic-bezier(0.4, 0, 0.2, 1) $delay both;
+}
+
+@mixin pulse-glow {
+  -webkit-animation: pulseGlow 2s ease-in-out infinite;
+  -moz-animation: pulseGlow 2s ease-in-out infinite;
+  -o-animation: pulseGlow 2s ease-in-out infinite;
+  animation: pulseGlow 2s ease-in-out infinite;
+}
+
+// Button styles
+@mixin button-base {
+  border: none;
+  border-radius: $border-radius-sm;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  -webkit-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  -moz-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  -o-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  text-decoration: none;
+  
+  &:hover {
+    transform: translateY(-1px);
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+@mixin button-primary {
+  @include button-base;
+  background-color: $primary-color;
+  color: white;
+  
+  &:hover {
+    background-color: $secondary-color;
+    box-shadow: $box-shadow;
+  }
+}
+
+@mixin button-secondary {
+  @include button-base;
+  background-color: $secondary-color;
+  color: white;
+  
+  &:hover {
+    background-color: $primary-color;
+    box-shadow: $box-shadow;
+  }
+}
+
+// Flexbox utilities
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@mixin flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+// Text utilities
+@mixin text-truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@mixin text-gradient($start-color, $end-color) {
+  background: -webkit-linear-gradient($start-color, $end-color);
+  background: -moz-linear-gradient($start-color, $end-color);
+  background: -o-linear-gradient($start-color, $end-color);
+  background: linear-gradient($start-color, $end-color);
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -o-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-text-fill-color: transparent;
+  -o-text-fill-color: transparent;
+}
