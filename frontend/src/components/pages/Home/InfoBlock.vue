@@ -5,7 +5,7 @@
       data-aos-easing="ease"
       data-aos-duration="1000"
       class="info-block__image"
-      src="../../assets/images/fasad.jpg"
+      src="../../../assets/images/fasad.jpg"
       alt="Фасад"
     />
     <div class="info-block__content">

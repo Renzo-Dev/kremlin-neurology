@@ -60,7 +60,7 @@ export const routers = [
   {
     path: '/contacts',
     name: 'Contacts',
-    component: () => import('@/pages/Home.vue'),
+    component: () => import('@/pages/ContactInfo.vue'),
   },
 
   {
