@@ -2,6 +2,33 @@ html,
 body {
   width: 100%;
   height: auto;
+  scroll-behavior: smooth;
+}
+
+/* Плавная прокрутка для всех элементов */
+* {
+  scroll-behavior: smooth;
+}
+
+/* Оптимизация прокрутки для производительности */
+html {
+  scroll-padding-top: 80px; /* Отступ для фиксированного header */
+}
+
+/* Плавная прокрутка для мобильных устройств */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Отключение плавной прокрутки для пользователей с ограниченными возможностями */
+@media (prefers-reduced-motion: reduce) {
+  html,
+  body,
+  * {
+    scroll-behavior: auto;
+  }
 }
 
 #app {
