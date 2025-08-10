@@ -7,7 +7,7 @@
 
 <script lang="js">
 import Header from '@/components/Header/Header.vue'
-import {defineComponent} from 'vue'
+import { defineComponent } from 'vue'
 
 export default defineComponent({
   components: { Header },

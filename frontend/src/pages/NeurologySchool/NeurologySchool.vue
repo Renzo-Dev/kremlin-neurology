@@ -50,13 +50,16 @@
       </section>
 
       <section class="events-by-year">
-        <div v-for="(year, idx) in eventsByYear" :key="year.year" class="year-section">
-          <h3
-            class="year-title clickable"
-            @click="toggleYear(idx)"
-          >
+        <div
+          v-for="(year, idx) in eventsByYear"
+          :key="year.year"
+          class="year-section"
+        >
+          <h3 class="year-title clickable" @click="toggleYear(idx)">
             {{ year.year }}г.
-            <span class="arrow" :class="{ open: isYearOpen(idx) }">&#9660;</span>
+            <span class="arrow" :class="{ open: isYearOpen(idx) }"
+              >&#9660;</span
+            >
           </h3>
           <transition name="dropdown">
             <div v-if="isYearOpen(idx)">
@@ -164,7 +167,9 @@ export default {
   border-radius: 8px;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
   background: #fafdff;
-  transition: box-shadow 0.3s, background 0.3s;
+  transition:
+    box-shadow 0.3s,
+    background 0.3s;
 }
 
 .year-title {
@@ -199,16 +204,21 @@ export default {
 }
 
 /* Dropdown animation */
-.dropdown-enter-active, .dropdown-leave-active {
-  transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s;
+.dropdown-enter-active,
+.dropdown-leave-active {
+  transition:
+    max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.3s;
 }
 
-.dropdown-enter-from, .dropdown-leave-to {
+.dropdown-enter-from,
+.dropdown-leave-to {
   max-height: 0;
   opacity: 0;
 }
 
-.dropdown-enter-to, .dropdown-leave-from {
+.dropdown-enter-to,
+.dropdown-leave-from {
   max-height: 1000px;
   opacity: 1;
 }
