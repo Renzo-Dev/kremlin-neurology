@@ -178,7 +178,8 @@
 
 // Pulse Glow Animation
 @-webkit-keyframes pulseGlow {
-  0%, 100% {
+  0%,
+  100% {
     -webkit-box-shadow: 0 4px 8px rgba(16, 185, 129, 0.3);
     box-shadow: 0 4px 8px rgba(16, 185, 129, 0.3);
   }
@@ -189,7 +190,8 @@
 }
 
 @-moz-keyframes pulseGlow {
-  0%, 100% {
+  0%,
+  100% {
     -moz-box-shadow: 0 4px 8px rgba(16, 185, 129, 0.3);
     box-shadow: 0 4px 8px rgba(16, 185, 129, 0.3);
   }
@@ -200,7 +202,8 @@
 }
 
 @-o-keyframes pulseGlow {
-  0%, 100% {
+  0%,
+  100% {
     -o-box-shadow: 0 4px 8px rgba(16, 185, 129, 0.3);
     box-shadow: 0 4px 8px rgba(16, 185, 129, 0.3);
   }
@@ -211,7 +214,8 @@
 }
 
 @keyframes pulseGlow {
-  0%, 100% {
+  0%,
+  100% {
     -webkit-box-shadow: 0 4px 8px rgba(16, 185, 129, 0.3);
     -moz-box-shadow: 0 4px 8px rgba(16, 185, 129, 0.3);
     -o-box-shadow: 0 4px 8px rgba(16, 185, 129, 0.3);
@@ -227,7 +231,11 @@
 
 // Bounce Animation
 @-webkit-keyframes bounce {
-  0%, 20%, 50%, 80%, 100% {
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
     -webkit-transform: translateY(0);
     transform: translateY(0);
   }
@@ -242,7 +250,11 @@
 }
 
 @-moz-keyframes bounce {
-  0%, 20%, 50%, 80%, 100% {
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
     -moz-transform: translateY(0);
     transform: translateY(0);
   }
@@ -257,7 +269,11 @@
 }
 
 @-o-keyframes bounce {
-  0%, 20%, 50%, 80%, 100% {
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
     -o-transform: translateY(0);
     transform: translateY(0);
   }
@@ -272,7 +288,11 @@
 }
 
 @keyframes bounce {
-  0%, 20%, 50%, 80%, 100% {
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
     -webkit-transform: translateY(0);
     -moz-transform: translateY(0);
     -ms-transform: translateY(0);

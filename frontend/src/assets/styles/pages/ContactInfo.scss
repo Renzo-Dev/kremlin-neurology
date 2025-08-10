@@ -24,7 +24,7 @@
   -webkit-scroll-behavior: smooth;
   -moz-scroll-behavior: smooth;
   scroll-behavior: smooth;
-  
+
   @include tablet {
     padding: 1rem 0.5rem;
   }
@@ -35,23 +35,23 @@
   text-align: center;
   margin-bottom: 3rem;
   padding: 3rem 0;
-  
+
   .hero-title {
     font-size: $font-size-4xl;
     font-weight: 700;
     color: $dark-color;
     margin-bottom: 1rem;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    
+
     @include tablet {
       font-size: $font-size-3xl;
     }
-    
+
     @include mobile {
       font-size: $font-size-2xl;
     }
   }
-  
+
   .hero-subtitle {
     font-size: $font-size-xl;
     color: $secondary-color;
@@ -65,7 +65,7 @@
   grid-template-columns: 1fr 1fr;
   gap: 2rem;
   margin-bottom: 2rem;
-  
+
   @include tablet {
     grid-template-columns: 1fr;
     gap: 1.5rem;
@@ -79,25 +79,25 @@
   overflow: hidden;
   @include card-hover;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  
+
   .card-header {
     @include gradient-bg($primary-color, $secondary-color);
     color: white;
     padding: 1.5rem;
     @include flex-center;
     gap: 1rem;
-    
+
     .card-icon {
       font-size: 2rem;
     }
-    
+
     h3 {
       margin: 0;
       font-size: $font-size-2xl;
       font-weight: 600;
     }
   }
-  
+
   .card-content {
     padding: 2rem;
   }
@@ -106,11 +106,11 @@
 // Info sections
 .info-section {
   margin-bottom: 2rem;
-  
+
   &:last-child {
     margin-bottom: 0;
   }
-  
+
   .section-title {
     font-size: $font-size-xl;
     font-weight: 600;
@@ -126,27 +126,27 @@
     @include flex-between;
     padding: 0.75rem 0;
     border-bottom: 1px solid #e5e7eb;
-    
+
     &:last-child {
       border-bottom: none;
     }
-    
+
     @include mobile {
       @include flex-column;
       align-items: flex-start;
       gap: 0.5rem;
     }
-    
+
     .phone-label {
       font-weight: 500;
       color: $dark-color;
     }
-    
+
     .phone-actions {
       @include flex-center;
       gap: 0.5rem;
     }
-    
+
     .phone-btn {
       background-color: white;
       color: $dark-color;
@@ -160,7 +160,7 @@
       min-width: 40px;
       height: 36px;
     }
-    
+
     .phone-text {
       color: $dark-color;
       font-weight: 500;
@@ -182,10 +182,30 @@
     left: -100%;
     width: 100%;
     height: 100%;
-    background: -webkit-linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-    background: -moz-linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-    background: -o-linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    background: -webkit-linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.2),
+      transparent
+    );
+    background: -moz-linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.2),
+      transparent
+    );
+    background: -o-linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.2),
+      transparent
+    );
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.2),
+      transparent
+    );
     -webkit-transition: left 0.5s ease;
     -moz-transition: left 0.5s ease;
     -o-transition: left 0.5s ease;
@@ -243,12 +263,12 @@
   @include flex-center;
   align-items: flex-start;
   gap: 1rem;
-  
+
   .address-icon {
     font-size: 1.5rem;
     margin-top: 0.25rem;
   }
-  
+
   .address-text {
     line-height: 1.6;
     color: $dark-color;
@@ -262,7 +282,7 @@
     font-size: $font-size-sm;
     margin-bottom: 0.5rem;
   }
-  
+
   .person-name {
     font-size: $font-size-2xl;
     font-weight: 600;
@@ -277,34 +297,34 @@
     gap: 1rem;
     padding: 1rem 0;
     border-bottom: 1px solid #e5e7eb;
-    
+
     &:last-child {
       border-bottom: none;
     }
-    
+
     .contact-icon {
       font-size: 1.5rem;
       width: 2rem;
       text-align: center;
     }
-    
+
     .contact-details {
       @include flex-column;
       gap: 0.25rem;
-      
+
       .contact-label {
         font-size: $font-size-sm;
         color: $secondary-color;
         font-weight: 500;
       }
-      
+
       .contact-link {
         color: $primary-color;
         text-decoration: none;
         font-weight: 500;
         transition: all 0.3s ease;
         position: relative;
-        
+
         &::after {
           content: '';
           position: absolute;
@@ -315,10 +335,10 @@
           background: $primary-color;
           transition: width 0.3s ease;
         }
-        
+
         &:hover {
           color: $secondary-color;
-          
+
           &::after {
             width: 100%;
           }
@@ -352,17 +372,17 @@
   align-items: flex-start;
   gap: 1rem;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  
+
   &:hover {
     transform: translateY(-2px);
     box-shadow: 0 8px 25px rgba(245, 158, 11, 0.15);
   }
-  
+
   .warning-icon {
     font-size: 2rem;
     margin-top: 0.25rem;
   }
-  
+
   .warning-content {
     h4 {
       color: $dark-color;
@@ -370,7 +390,7 @@
       font-size: $font-size-xl;
       font-weight: 600;
     }
-    
+
     p {
       color: $secondary-color;
       margin: 0;
@@ -387,37 +407,37 @@
   margin-bottom: 2rem;
   overflow: hidden;
   @include card-hover;
-  
+
   .card-header {
     @include gradient-bg($secondary-color, $primary-color);
     color: white;
     padding: 1.5rem;
     @include flex-center;
     gap: 1rem;
-    
+
     .card-icon {
       font-size: 2rem;
     }
-    
+
     h3 {
       margin: 0;
       font-size: $font-size-2xl;
       font-weight: 600;
     }
   }
-  
+
   .directions-content {
     padding: 2rem;
-    
+
     p {
       margin-bottom: 1rem;
       line-height: 1.6;
       color: $dark-color;
-      
+
       &:last-child {
         margin-bottom: 0;
       }
-      
+
       strong {
         color: $primary-color;
         font-weight: 600;
@@ -435,7 +455,7 @@
     font-weight: 700;
     margin-bottom: 2rem;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    
+
     @include tablet {
       font-size: $font-size-3xl;
     }
@@ -446,7 +466,7 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 2rem;
-  
+
   @include tablet {
     grid-template-columns: 1fr;
     gap: 1.5rem;
@@ -460,7 +480,7 @@
   overflow: hidden;
   @include card-hover;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  
+
   .map-header {
     padding: 1.5rem;
     background: -webkit-linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
@@ -468,26 +488,26 @@
     background: -o-linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
     background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
     border-bottom: 1px solid #e5e7eb;
-    
+
     .map-icon {
       font-size: 2rem;
       margin-bottom: 1rem;
     }
-    
+
     h4 {
       margin: 0 0 0.5rem 0;
       color: $dark-color;
       font-size: $font-size-xl;
       font-weight: 600;
     }
-    
+
     .map-address {
       margin: 0;
       color: $secondary-color;
       font-size: $font-size-sm;
     }
   }
-  
+
   .map-container {
     iframe {
       border-radius: 0 0 $border-radius $border-radius;

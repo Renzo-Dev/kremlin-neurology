@@ -4,7 +4,7 @@ export function useContactInfo() {
   const copyStatus = ref('')
   const showCopyNotification = ref(false)
 
-  const copyToClipboard = async (text) => {
+  const copyToClipboard = async text => {
     try {
       await navigator.clipboard.writeText(text)
       copyStatus.value = text
@@ -37,6 +37,6 @@ export function useContactInfo() {
   return {
     copyStatus,
     showCopyNotification,
-    copyToClipboard
+    copyToClipboard,
   }
 }

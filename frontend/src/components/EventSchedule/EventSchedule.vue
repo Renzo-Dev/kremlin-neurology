@@ -1,22 +1,12 @@
 <template>
   <div class="event-schedule">
-    <div
-      class="schedule-item"
-      v-for="(event, idx) in events"
-      :key="event.id"
-    >
-      <p
-        class="date clickable"
-        @click="toggle(idx)"
-      >
+    <div class="schedule-item" v-for="(event, idx) in events" :key="event.id">
+      <p class="date clickable" @click="toggle(idx)">
         {{ event.date }}
         <span class="arrow" :class="{ open: isOpen(idx) }">&#9660;</span>
       </p>
       <transition name="dropdown">
-        <div
-          class="presentations"
-          v-if="isOpen(idx)"
-        >
+        <div class="presentations" v-if="isOpen(idx)">
           <div
             class="presentation"
             v-for="presentation in event.presentations"
@@ -43,21 +33,21 @@ export default {
   data() {
     return {
       openIndexes: [],
-    };
+    }
   },
   methods: {
     toggle(idx) {
       if (this.openIndexes.includes(idx)) {
-        this.openIndexes = this.openIndexes.filter(i => i !== idx);
+        this.openIndexes = this.openIndexes.filter(i => i !== idx)
       } else {
-        this.openIndexes.push(idx);
+        this.openIndexes.push(idx)
       }
     },
     isOpen(idx) {
-      return this.openIndexes.includes(idx);
+      return this.openIndexes.includes(idx)
     },
   },
-};
+}
 </script>
 
 <style scoped>
@@ -129,14 +119,19 @@ export default {
 }
 
 /* Dropdown animation */
-.dropdown-enter-active, .dropdown-leave-active {
-  transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s;
+.dropdown-enter-active,
+.dropdown-leave-active {
+  transition:
+    max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.3s;
 }
-.dropdown-enter-from, .dropdown-leave-to {
+.dropdown-enter-from,
+.dropdown-leave-to {
   max-height: 0;
   opacity: 0;
 }
-.dropdown-enter-to, .dropdown-leave-from {
+.dropdown-enter-to,
+.dropdown-leave-from {
   max-height: 500px;
   opacity: 1;
 }
