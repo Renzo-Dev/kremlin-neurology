@@ -1,148 +1,35 @@
-// Global SCSS Mixins
-@use './variables' as *;
-
-// Responsive breakpoints
-@mixin responsive($breakpoint) {
-  @if $breakpoint == sm {
-    @media (min-width: $breakpoint-sm) {
-      @content;
-    }
-  } @else if $breakpoint == md {
-    @media (min-width: $breakpoint-md) {
-      @content;
-    }
-  } @else if $breakpoint == lg {
-    @media (min-width: $breakpoint-lg) {
-      @content;
-    }
-  } @else if $breakpoint == xl {
-    @media (min-width: $breakpoint-xl) {
-      @content;
-    }
-  } @else if $breakpoint == 2xl {
-    @media (min-width: $breakpoint-2xl) {
-      @content;
-    }
-  }
-}
-
-// Mobile-first responsive
+// Медиа-запросы
 @mixin mobile {
-  @media (max-width: #{$breakpoint-md - 1px}) {
+  @media (max-width: #{$breakpoint-sm - 1px}) {
     @content;
   }
 }
 
 @mixin tablet {
-  @media (max-width: #{$breakpoint-lg - 1px}) {
+  @media (min-width: #{$breakpoint-sm}) and (max-width: #{$breakpoint-lg - 1px}) {
     @content;
   }
 }
 
 @mixin desktop {
-  @media (min-width: $breakpoint-lg) {
+  @media (min-width: #{$breakpoint-lg}) {
     @content;
   }
 }
 
-// Gradients
-@mixin gradient-bg($start-color, $end-color) {
-  background: $start-color; /* Fallback для старых браузеров */
-  background: -webkit-linear-gradient(135deg, $start-color 0%, $end-color 100%);
-  background: -moz-linear-gradient(135deg, $start-color 0%, $end-color 100%);
-  background: -o-linear-gradient(135deg, $start-color 0%, $end-color 100%);
-  background: linear-gradient(135deg, $start-color 0%, $end-color 100%);
-}
-
-// Card hover effects
-@mixin card-hover {
-  -webkit-transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  -moz-transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  -o-transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  &:hover {
-    box-shadow: $box-shadow-lg;
+@mixin mobile-up {
+  @media (min-width: #{$breakpoint-sm}) {
+    @content;
   }
 }
 
-// Animations
-@mixin fade-in-up($delay: 0s) {
-  -webkit-animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) $delay both;
-  -moz-animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) $delay both;
-  -o-animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) $delay both;
-  animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) $delay both;
-}
-
-@mixin slide-in-left($delay: 0s) {
-  -webkit-animation: slideInLeft 0.6s cubic-bezier(0.4, 0, 0.2, 1) $delay both;
-  -moz-animation: slideInLeft 0.6s cubic-bezier(0.4, 0, 0.2, 1) $delay both;
-  -o-animation: slideInLeft 0.6s cubic-bezier(0.4, 0, 0.2, 1) $delay both;
-  animation: slideInLeft 0.6s cubic-bezier(0.4, 0, 0.2, 1) $delay both;
-}
-
-@mixin slide-in-right($delay: 0s) {
-  -webkit-animation: slideInRight 0.6s cubic-bezier(0.4, 0, 0.2, 1) $delay both;
-  -moz-animation: slideInRight 0.6s cubic-bezier(0.4, 0, 0.2, 1) $delay both;
-  -o-animation: slideInRight 0.6s cubic-bezier(0.4, 0, 0.2, 1) $delay both;
-  animation: slideInRight 0.6s cubic-bezier(0.4, 0, 0.2, 1) $delay both;
-}
-
-@mixin pulse-glow {
-  -webkit-animation: pulseGlow 2s ease-in-out infinite;
-  -moz-animation: pulseGlow 2s ease-in-out infinite;
-  -o-animation: pulseGlow 2s ease-in-out infinite;
-  animation: pulseGlow 2s ease-in-out infinite;
-}
-
-// Button styles
-@mixin button-base {
-  border: none;
-  border-radius: $border-radius-sm;
-  padding: 0.5rem 1rem;
-  cursor: pointer;
-  font-weight: 600;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  -webkit-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  -moz-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  -o-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  text-decoration: none;
-
-  &:hover {
-    transform: translateY(-1px);
-  }
-
-  &:active {
-    transform: translateY(0);
+@mixin tablet-up {
+  @media (min-width: #{$breakpoint-md}) {
+    @content;
   }
 }
 
-@mixin button-primary {
-  @include button-base;
-  background-color: $primary-color;
-  color: white;
-
-  &:hover {
-    background-color: $secondary-color;
-    box-shadow: $box-shadow;
-  }
-}
-
-@mixin button-secondary {
-  @include button-base;
-  background-color: $secondary-color;
-  color: white;
-
-  &:hover {
-    background-color: $primary-color;
-    box-shadow: $box-shadow;
-  }
-}
-
-// Flexbox utilities
+// Флексбокс утилиты
 @mixin flex-center {
   display: flex;
   align-items: center;
@@ -155,28 +42,236 @@
   justify-content: space-between;
 }
 
+@mixin flex-start {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+@mixin flex-end {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
 @mixin flex-column {
   display: flex;
   flex-direction: column;
 }
 
-// Text utilities
+@mixin flex-column-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+// Позиционирование
+@mixin absolute-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@mixin fixed-center {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@mixin sticky-top {
+  position: sticky;
+  top: 0;
+  z-index: $z-sticky;
+}
+
+// Размеры
+@mixin full-size {
+  width: 100%;
+  height: 100%;
+}
+
+@mixin full-viewport {
+  width: 100vw;
+  height: 100vh;
+}
+
+@mixin square($size) {
+  width: $size;
+  height: $size;
+}
+
+@mixin circle($size) {
+  width: $size;
+  height: $size;
+  border-radius: 50%;
+}
+
+// Текст
 @mixin text-truncate {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-@mixin text-gradient($start-color, $end-color) {
-  background: -webkit-linear-gradient($start-color, $end-color);
-  background: -moz-linear-gradient($start-color, $end-color);
-  background: -o-linear-gradient($start-color, $end-color);
-  background: linear-gradient($start-color, $end-color);
-  -webkit-background-clip: text;
-  -moz-background-clip: text;
-  -o-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  -moz-text-fill-color: transparent;
-  -o-text-fill-color: transparent;
+@mixin text-truncate-multiline($lines: 2) {
+  display: -webkit-box;
+  -webkit-line-clamp: $lines;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+@mixin heading-style($size: $font-size-2xl, $weight: $font-weight-bold) {
+  font-size: $size;
+  font-weight: $weight;
+  line-height: $line-height-tight;
+}
+
+// Кнопки
+@mixin button-reset {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  font: inherit;
+}
+
+@mixin button-base {
+  @include button-reset;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-sm $spacing-md;
+  border-radius: $border-radius-md;
+  font-weight: $font-weight-medium;
+  transition: all $transition-normal;
+  
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+// Формы
+@mixin input-base {
+  width: 100%;
+  padding: $spacing-sm $spacing-md;
+  border: 1px solid $gray-300;
+  border-radius: $border-radius-md;
+  font-size: $font-size-base;
+  line-height: $line-height-normal;
+  transition: border-color $transition-normal;
+  
+  &:focus {
+    outline: none;
+    border-color: $primary-color;
+    box-shadow: 0 0 0 3px rgba($primary-color, 0.1);
+  }
+  
+  &:disabled {
+    background-color: $gray-100;
+    cursor: not-allowed;
+  }
+}
+
+// Карточки
+@mixin card-base {
+  background: $white;
+  border-radius: $border-radius-lg;
+  box-shadow: $shadow-sm;
+  padding: $spacing-lg;
+  transition: box-shadow $transition-normal;
+  
+  &:hover {
+    box-shadow: $shadow-md;
+  }
+}
+
+// Анимации
+@mixin fade-in($duration: $transition-normal) {
+  animation: fadeIn $duration ease-in-out;
+}
+
+@mixin slide-up($duration: $transition-normal) {
+  animation: slideUp $duration ease-out;
+}
+
+@mixin slide-down($duration: $transition-normal) {
+  animation: slideDown $duration ease-out;
+}
+
+@mixin scale-in($duration: $transition-normal) {
+  animation: scaleIn $duration ease-out;
+}
+
+// Градиенты
+@mixin gradient-primary {
+  background: linear-gradient(135deg, $primary-color 0%, $primary-light 100%);
+}
+
+@mixin gradient-secondary {
+  background: linear-gradient(135deg, $secondary-color 0%, $secondary-light 100%);
+}
+
+@mixin gradient-dark {
+  background: linear-gradient(135deg, $gray-800 0%, $gray-900 100%);
+}
+
+// Ховер эффекты
+@mixin hover-lift {
+  transition: transform $transition-normal, box-shadow $transition-normal;
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: $shadow-lg;
+  }
+}
+
+@mixin hover-scale($scale: 1.05) {
+  transition: transform $transition-normal;
+  
+  &:hover {
+    transform: scale($scale);
+  }
+}
+
+// Скрытие элементов
+@mixin visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+@mixin sr-only {
+  @include visually-hidden;
+}
+
+// Скроллбары
+@mixin custom-scrollbar($width: 8px, $track-color: $gray-200, $thumb-color: $gray-400) {
+  &::-webkit-scrollbar {
+    width: $width;
+  }
+  
+  &::-webkit-scrollbar-track {
+    background: $track-color;
+    border-radius: $border-radius-sm;
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    background: $thumb-color;
+    border-radius: $border-radius-sm;
+    
+    &:hover {
+      background: darken($thumb-color, 10%);
+    }
+  }
 }

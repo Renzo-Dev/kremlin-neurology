@@ -1,20 +1,20 @@
 <template>
-  <div class="history-page">
-    <h1>История</h1>
+  <div class="clients-page">
+    <h1>Клиентская база</h1>
     <p>Страница находится в разработке</p>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'History'
+  name: 'Clients'
 }
 </script>
 
 <style lang="scss" scoped>
 @import '@/assets/styles/variables';
 
-.history-page {
+.clients-page {
   padding: 2rem;
   text-align: center;
 }

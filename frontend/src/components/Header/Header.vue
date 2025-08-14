@@ -1,39 +1,51 @@
 <template>
-  <header
-    data-aos="fade"
-    data-aos-easing="ease"
-    data-aos-duration="1500"
-    class="header"
-  >
-    <!--    Flag    -->
-    <Flag />
-    <!--    Text    -->
-    <TextHeader />
-    <!--    Images  -->
-    <Images />
-    <!--    Navigation List    -->
-    <NavList />
-    <!--    Menu Nav Button    -->
-    <MenuNavButton @click="openNavMenu" />
+  <header class="header">
+    <div class="header__background">
+      <div class="header__background-pattern"></div>
+      <div class="header__background-overlay"></div>
+    </div>
+    <div class="container">
+      <div class="header__content">
+        <div class="header__logo-section">
+          <a href="/" class="header__logo-link">
+            <div class="header__logo-icon">
+              <div class="header__logo-inner">
+                <svg class="header__logo-symbol" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                </svg>
+              </div>
+              <div class="header__logo-glow"></div>
+            </div>
+            <div class="header__title-section">
+              <h1 class="header__title">Кафедра неврологии</h1>
+              <p class="header__institution">ФГБУ ДПО "Центральная государственная медицинская академия" УД Президента РФ</p>
+            </div>
+          </a>
+        </div>
+        
+        <div class="header__nav-wrapper">
+          <HeaderNavigation />
+        </div>
+        
+
+      </div>
+    </div>
   </header>
 </template>
 
-<script setup lang="ts">
-import Flag from '@/components/Header/Flag.vue'
-import TextHeader from '@/components/Header/TextHeader.vue'
-import Images from '@/components/Header/Images.vue'
-import NavList from '@/components/Header/NavList.vue'
-import MenuNavButton from '@/components/Header/MenuNavButton.vue'
+<script>
+import HeaderNavigation from './HeaderNavigation.vue'
 
-function openNavMenu() {
-  const navList = document.querySelector('.nav-list')
-  if (navList) {
-    navList.classList.add('open')
-    navList.classList.remove('close')
+export default {
+  name: 'Header',
+  components: {
+    HeaderNavigation
   }
 }
 </script>
 
-<style scoped lang="scss">
-@use '@/assets/styles/Header/Header.scss';
+<style lang="scss" scoped>
+@import '@/assets/styles/variables';
+@import '@/assets/styles/mixins';
+@import './Header.scss';
 </style>

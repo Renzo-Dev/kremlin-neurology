@@ -7,7 +7,7 @@ export const routers = [
   {
     path: '/education',
     name: 'Education',
-    component: () => import('@/pages/Home.vue'),
+    component: () => import('@/pages/Education.vue'),
   },
   {
     path: '/history',
@@ -22,51 +22,32 @@ export const routers = [
   {
     path: '/library',
     name: 'Library',
-    component: () => import('@/pages/Home.vue'),
+    component: () => import('@/pages/Library.vue'),
   },
   {
-    path: '/clientsbase',
+    path: '/clients',
     name: 'Clients',
-    component: () => import('@/pages/ClientBase.vue'),
+    component: () => import('@/pages/Clients.vue'),
   },
   {
-    path: '/educational',
-    name: 'Educational',
-    component: () => import('@/pages/Educational/Educational.vue'),
-    children: [
-      {
-        path: '2017',
-        name: 'Educational2017',
-        component: () => import('@/pages/Educational/2017.vue'),
-      },
-      {
-        path: '2018',
-        name: 'Educational2018',
-        component: () => import('@/pages/Educational/2018.vue'),
-      },
-    ],
+    path: '/conferences',
+    name: 'Conferences',
+    component: () => import('@/pages/Conferences.vue'),
   },
-
   {
     path: '/young-neurologists',
     name: 'YoungNeurologists',
-    component: () => import('@/pages/NeurologySchool/NeurologySchool.vue'),
+    component: () => import('@/pages/YoungNeurologists.vue'),
   },
   {
     path: '/news',
     name: 'News',
-    component: () => import('@/pages/Home.vue'),
+    component: () => import('@/pages/News.vue'),
   },
   {
     path: '/contacts',
     name: 'Contacts',
-    component: () => import('@/pages/ContactInfo.vue'),
-  },
-
-  {
-    path: '/gkb51dzm',
-    name: 'Gkb51dzm',
-    component: () => import('@/pages/GKB51.vue'),
+    component: () => import('@/pages/Contacts.vue'),
   },
   {
     path: '/:pathMatch(.*)*',

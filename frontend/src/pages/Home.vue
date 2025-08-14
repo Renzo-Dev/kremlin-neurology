@@ -1,21 +1,21 @@
 <template>
-  <Header />
-  <div class="main-content">
-    <InfoBlock />
-    <ContactInfo />
+  <div class="home-page">
+    <h1>Главная страница</h1>
+    <p>Добро пожаловать на сайт Кафедры неврологии</p>
   </div>
 </template>
 
-<script setup lang="js">
-import InfoBlock from '@/components/pages/Home/InfoBlock.vue'
-import ContactInfo from '@/components/pages/Home/ContactInfo.vue'
-import Header from '@/components/pages/Home/Header.vue'
+<script>
+export default {
+  name: 'Home'
+}
 </script>
 
-<style scoped lang="scss">
-.main-content {
-  margin: 15px 0;
-  display: flex;
-  flex-direction: column;
+<style lang="scss" scoped>
+@import '@/assets/styles/variables';
+
+.home-page {
+  padding: 2rem;
+  text-align: center;
 }
 </style>

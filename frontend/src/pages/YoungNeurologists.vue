@@ -1,20 +1,20 @@
 <template>
-  <div class="history-page">
-    <h1>История</h1>
+  <div class="young-neurologists-page">
+    <h1>Научный кружок "Школа молодых неврологов"</h1>
     <p>Страница находится в разработке</p>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'History'
+  name: 'YoungNeurologists'
 }
 </script>
 
 <style lang="scss" scoped>
 @import '@/assets/styles/variables';
 
-.history-page {
+.young-neurologists-page {
   padding: 2rem;
   text-align: center;
 }
