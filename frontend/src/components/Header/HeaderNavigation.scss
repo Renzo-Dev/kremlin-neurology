@@ -1,3 +1,7 @@
+@use '@/assets/styles/variables' as *;
+@use '@/assets/styles/mixins' as *;
+@use 'sass:color';
+
 .header-navigation {
   position: relative;
   display: flex;
@@ -17,7 +21,7 @@
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-    z-index: 1001;
+    z-index: 999999;
     border: 1px solid $gray-100;
     outline: none;
 
@@ -49,15 +53,15 @@
       top: 50%;
       margin-left: -11px;
       margin-top: -1px;
-      
+
       &:nth-child(1) {
         transform: translateY(-8px);
       }
-      
+
       &:nth-child(2) {
         transform: translateY(0);
       }
-      
+
       &:nth-child(3) {
         transform: translateY(8px);
       }
@@ -67,12 +71,12 @@
       box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
       transform: translateY(-2px);
       border-color: $gray-200;
-      
+
       span {
         &:nth-child(1) {
           transform: translateY(-9px);
         }
-        
+
         &:nth-child(3) {
           transform: translateY(9px);
         }
@@ -86,33 +90,33 @@
 
     &--active {
       background: $primary-color;
-      
+
       span {
         background: $white;
-        
+
         &:nth-child(1) {
           transform: rotate(45deg) translateY(0);
         }
-        
+
         &:nth-child(2) {
           opacity: 0;
           transform: scale(0) translateY(0);
         }
-        
+
         &:nth-child(3) {
           transform: rotate(-45deg) translateY(0);
         }
       }
 
       &:hover {
-        background: darken($primary-color, 5%);
+        background: color.adjust($primary-color, $lightness: -5%);
         box-shadow: 0 8px 30px rgba(59, 130, 246, 0.3);
-        
+
         span {
           &:nth-child(1) {
             transform: rotate(45deg) translateY(0) scale(1.1);
           }
-          
+
           &:nth-child(3) {
             transform: rotate(-45deg) translateY(0) scale(1.1);
           }
@@ -122,12 +126,12 @@
       &:active {
         outline: none;
         border: none;
-        
+
         span {
           &:nth-child(1) {
             transform: rotate(45deg) translateY(0) scale(0.95);
           }
-          
+
           &:nth-child(3) {
             transform: rotate(-45deg) translateY(0) scale(0.95);
           }
@@ -135,10 +139,6 @@
       }
     }
   }
-
-
-
-
 
   &__list {
     @include flex-center;
@@ -162,24 +162,24 @@
       gap: $spacing-sm;
       transform: translateX(-100%);
       transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-      z-index: 1000;
+      z-index: 99998;
       overflow-y: auto;
       backdrop-filter: blur(20px);
-      
+
       // Стилизация скроллбара для мобильных устройств
       &::-webkit-scrollbar {
         width: 6px;
       }
-      
+
       &::-webkit-scrollbar-track {
         background: rgba(255, 255, 255, 0.1);
         border-radius: 3px;
       }
-      
+
       &::-webkit-scrollbar-thumb {
         background: rgba(255, 255, 255, 0.3);
         border-radius: 3px;
-        
+
         &:hover {
           background: rgba(255, 255, 255, 0.5);
         }
@@ -193,7 +193,7 @@
 
   &__item {
     margin: 0;
-    
+
     @include mobile {
       width: 100%;
       text-align: left;
@@ -201,12 +201,12 @@
       transform: translateY(20px);
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       margin-bottom: $spacing-xs;
-      
+
       .header-navigation__list--mobile-open & {
         opacity: 1;
         transform: translateY(0);
       }
-      
+
       // Анимация появления элементов с задержкой
       @for $i from 1 through 10 {
         &:nth-child(#{$i}) {
@@ -225,7 +225,10 @@
     font-size: $font-size-sm;
     padding: $spacing-sm $spacing-md;
     border-radius: $border-radius-lg;
-    transition: color $transition-normal, background-color $transition-normal, box-shadow $transition-normal;
+    transition:
+      color $transition-normal,
+      background-color $transition-normal,
+      box-shadow $transition-normal;
 
     @include mobile {
       justify-content: flex-start;
@@ -239,7 +242,7 @@
       backdrop-filter: blur(10px);
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       min-height: 44px;
-      
+
       &:hover {
         background: rgba(255, 255, 255, 0.1);
         border-color: rgba(255, 255, 255, 0.2);
@@ -248,9 +251,9 @@
       }
     }
 
-    &:hover { 
-      color: $primary-color; 
-      background: $gray-100; 
+    &:hover {
+      color: $primary-color;
+      background: $gray-100;
     }
 
     &--active {
@@ -258,7 +261,7 @@
       background: $primary-color;
       font-weight: $font-weight-medium;
       box-shadow: $shadow-sm;
-      
+
       @include mobile {
         background: $primary-color;
         border-color: $primary-color;
@@ -267,14 +270,14 @@
     }
   }
 
-  &__icon { 
-    width: 16px; 
-    height: 16px; 
-    stroke: currentColor; 
-    stroke-width: 2; 
-    fill: none; 
-    flex-shrink: 0; 
-    
+  &__icon {
+    width: 16px;
+    height: 16px;
+    stroke: currentColor;
+    stroke-width: 2;
+    fill: none;
+    flex-shrink: 0;
+
     @include mobile {
       width: 18px;
       height: 18px;
@@ -282,12 +285,12 @@
     }
   }
 
-  &__text { 
-    white-space: normal; 
-    font-size: $font-size-sm; 
+  &__text {
+    white-space: normal;
+    font-size: $font-size-sm;
     text-align: left;
     line-height: 1.4;
-    
+
     @include mobile {
       font-size: $font-size-sm;
       font-weight: $font-weight-normal;
@@ -299,4 +302,13 @@
   }
 }
 
-@include tablet { .header-navigation { &__list { gap: $spacing-sm; } &__link { padding: $spacing-sm $spacing-md; } } }
+@include tablet {
+  .header-navigation {
+    &__list {
+      gap: $spacing-sm;
+    }
+    &__link {
+      padding: $spacing-sm $spacing-md;
+    }
+  }
+}

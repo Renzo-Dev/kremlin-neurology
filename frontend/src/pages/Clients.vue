@@ -7,12 +7,12 @@
 
 <script>
 export default {
-  name: 'Clients'
+  name: 'Clients',
 }
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/styles/variables';
+@use '@/assets/styles/variables' as *;
 
 .clients-page {
   padding: 2rem;

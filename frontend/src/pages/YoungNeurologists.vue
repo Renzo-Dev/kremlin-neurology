@@ -7,12 +7,12 @@
 
 <script>
 export default {
-  name: 'YoungNeurologists'
+  name: 'YoungNeurologists',
 }
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/styles/variables';
+@use '@/assets/styles/variables' as *;
 
 .young-neurologists-page {
   padding: 2rem;

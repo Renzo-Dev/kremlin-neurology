@@ -7,12 +7,12 @@
 
 <script>
 export default {
-  name: 'History'
+  name: 'History',
 }
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/styles/variables';
+@use '@/assets/styles/variables' as *;
 
 .history-page {
   padding: 2rem;

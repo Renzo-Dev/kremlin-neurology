@@ -1,30 +1,32 @@
+@use 'variables' as v;
+
 // Медиа-запросы
 @mixin mobile {
-  @media (max-width: #{$breakpoint-sm - 1px}) {
+  @media (max-width: #{v.$breakpoint-sm - 1px}) {
     @content;
   }
 }
 
 @mixin tablet {
-  @media (min-width: #{$breakpoint-sm}) and (max-width: #{$breakpoint-lg - 1px}) {
+  @media (min-width: #{v.$breakpoint-sm}) and (max-width: #{v.$breakpoint-lg - 1px}) {
     @content;
   }
 }
 
 @mixin desktop {
-  @media (min-width: #{$breakpoint-lg}) {
+  @media (min-width: #{v.$breakpoint-lg}) {
     @content;
   }
 }
 
 @mixin mobile-up {
-  @media (min-width: #{$breakpoint-sm}) {
+  @media (min-width: #{v.$breakpoint-sm}) {
     @content;
   }
 }
 
 @mixin tablet-up {
-  @media (min-width: #{$breakpoint-md}) {
+  @media (min-width: #{v.$breakpoint-md}) {
     @content;
   }
 }
@@ -84,7 +86,7 @@
 @mixin sticky-top {
   position: sticky;
   top: 0;
-  z-index: $z-sticky;
+  z-index: v.$z-sticky;
 }
 
 // Размеры
@@ -123,10 +125,10 @@
   overflow: hidden;
 }
 
-@mixin heading-style($size: $font-size-2xl, $weight: $font-weight-bold) {
+@mixin heading-style($size: v.$font-size-2xl, $weight: v.$font-weight-bold) {
   font-size: $size;
   font-weight: $weight;
-  line-height: $line-height-tight;
+  line-height: v.$line-height-tight;
 }
 
 // Кнопки
@@ -144,11 +146,11 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: $spacing-sm $spacing-md;
-  border-radius: $border-radius-md;
-  font-weight: $font-weight-medium;
-  transition: all $transition-normal;
-  
+  padding: v.$spacing-sm v.$spacing-md;
+  border-radius: v.$border-radius-md;
+  font-weight: v.$font-weight-medium;
+  transition: all v.$transition-normal;
+
   &:disabled {
     opacity: 0.6;
     cursor: not-allowed;
@@ -158,35 +160,35 @@
 // Формы
 @mixin input-base {
   width: 100%;
-  padding: $spacing-sm $spacing-md;
-  border: 1px solid $gray-300;
-  border-radius: $border-radius-md;
-  font-size: $font-size-base;
-  line-height: $line-height-normal;
-  transition: border-color $transition-normal;
-  
+  padding: v.$spacing-sm v.$spacing-md;
+  border: 1px solid v.$gray-300;
+  border-radius: v.$border-radius-md;
+  font-size: v.$font-size-base;
+  line-height: v.$line-height-normal;
+  transition: border-color v.$transition-normal;
+
   &:focus {
     outline: none;
-    border-color: $primary-color;
-    box-shadow: 0 0 0 3px rgba($primary-color, 0.1);
+    border-color: v.$primary-color;
+    box-shadow: 0 0 0 3px rgba(v.$primary-color, 0.1);
   }
-  
+
   &:disabled {
-    background-color: $gray-100;
+    background-color: v.$gray-100;
     cursor: not-allowed;
   }
 }
 
 // Карточки
 @mixin card-base {
-  background: $white;
-  border-radius: $border-radius-lg;
-  box-shadow: $shadow-sm;
-  padding: $spacing-lg;
-  transition: box-shadow $transition-normal;
-  
+  background: v.$white;
+  border-radius: v.$border-radius-lg;
+  box-shadow: v.$shadow-sm;
+  padding: v.$spacing-lg;
+  transition: box-shadow v.$transition-normal;
+
   &:hover {
-    box-shadow: $shadow-md;
+    box-shadow: v.$shadow-md;
   }
 }
 
@@ -213,7 +215,11 @@
 }
 
 @mixin gradient-secondary {
-  background: linear-gradient(135deg, $secondary-color 0%, $secondary-light 100%);
+  background: linear-gradient(
+    135deg,
+    $secondary-color 0%,
+    $secondary-light 100%
+  );
 }
 
 @mixin gradient-dark {
@@ -222,8 +228,10 @@
 
 // Ховер эффекты
 @mixin hover-lift {
-  transition: transform $transition-normal, box-shadow $transition-normal;
-  
+  transition:
+    transform $transition-normal,
+    box-shadow $transition-normal;
+
   &:hover {
     transform: translateY(-2px);
     box-shadow: $shadow-lg;
@@ -232,7 +240,7 @@
 
 @mixin hover-scale($scale: 1.05) {
   transition: transform $transition-normal;
-  
+
   &:hover {
     transform: scale($scale);
   }
@@ -256,20 +264,24 @@
 }
 
 // Скроллбары
-@mixin custom-scrollbar($width: 8px, $track-color: $gray-200, $thumb-color: $gray-400) {
+@mixin custom-scrollbar(
+  $width: 8px,
+  $track-color: $gray-200,
+  $thumb-color: $gray-400
+) {
   &::-webkit-scrollbar {
     width: $width;
   }
-  
+
   &::-webkit-scrollbar-track {
     background: $track-color;
     border-radius: $border-radius-sm;
   }
-  
+
   &::-webkit-scrollbar-thumb {
     background: $thumb-color;
     border-radius: $border-radius-sm;
-    
+
     &:hover {
       background: darken($thumb-color, 10%);
     }

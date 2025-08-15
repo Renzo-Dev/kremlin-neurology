@@ -7,12 +7,12 @@
 
 <script>
 export default {
-  name: 'Library'
+  name: 'Library',
 }
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/styles/variables';
+@use '@/assets/styles/variables' as *;
 
 .library-page {
   padding: 2rem;

@@ -7,12 +7,12 @@
 
 <script>
 export default {
-  name: 'Education'
+  name: 'Education',
 }
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/styles/variables';
+@use '@/assets/styles/variables' as *;
 
 .education-page {
   padding: 2rem;

@@ -1,0 +1,18 @@
+@import '@/assets/styles/variables';
+
+.home-page {
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 $spacing-lg;
+}
+
+// Responsive Design
+@media (max-width: $breakpoint-md) {
+  .container {
+    padding: 0 $spacing-md;
+  }
+}

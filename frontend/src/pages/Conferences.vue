@@ -7,12 +7,12 @@
 
 <script>
 export default {
-  name: 'Conferences'
+  name: 'Conferences',
 }
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/styles/variables';
+@use '@/assets/styles/variables' as *;
 
 .conferences-page {
   padding: 2rem;

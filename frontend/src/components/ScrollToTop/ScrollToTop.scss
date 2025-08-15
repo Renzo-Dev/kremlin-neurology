@@ -1,0 +1,83 @@
+@use '@/assets/styles/variables' as *;
+@use '@/assets/styles/mixins' as *;
+
+.scroll-to-top-btn {
+  position: fixed;
+  bottom: $spacing-xl;
+  right: $spacing-xl;
+  width: 56px;
+  height: 56px;
+  background: $white;
+  border: 2px solid $primary-color;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 20px rgba($primary-color, 0.2);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 9999;
+  opacity: 1;
+  transform: translateY(0) scale(1);
+
+  svg {
+    width: 24px;
+    height: 24px;
+    stroke: $primary-color;
+    stroke-width: 2;
+    fill: none;
+    transition: transform 0.3s ease;
+  }
+
+  &:hover {
+    background: $primary-color;
+    transform: translateY(-4px) scale(1.05);
+    box-shadow: 0 8px 30px rgba($primary-color, 0.4);
+
+    svg {
+      stroke: $white;
+      transform: translateY(-2px);
+    }
+  }
+
+  &:active {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 4px 15px rgba($primary-color, 0.3);
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow:
+      0 0 0 3px rgba($primary-color, 0.3),
+      0 4px 20px rgba($primary-color, 0.2);
+  }
+}
+
+// Медиа-запросы для мобильных устройств
+@media (max-width: $breakpoint-md) {
+  .scroll-to-top-btn {
+    bottom: $spacing-lg;
+    right: $spacing-lg;
+    width: 48px;
+    height: 48px;
+
+    svg {
+      width: 20px;
+      height: 20px;
+    }
+  }
+}
+
+@media (max-width: $breakpoint-sm) {
+  .scroll-to-top-btn {
+    bottom: $spacing-md;
+    right: $spacing-md;
+    width: 44px;
+    height: 44px;
+
+    svg {
+      width: 18px;
+      height: 18px;
+    }
+  }
+}

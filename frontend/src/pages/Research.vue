@@ -7,12 +7,12 @@
 
 <script>
 export default {
-  name: 'Research'
+  name: 'Research',
 }
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/styles/variables';
+@use '@/assets/styles/variables' as *;
 
 .research-page {
   padding: 2rem;

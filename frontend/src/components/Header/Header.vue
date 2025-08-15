@@ -10,24 +10,33 @@
           <a href="/" class="header__logo-link">
             <div class="header__logo-icon">
               <div class="header__logo-inner">
-                <svg class="header__logo-symbol" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                <svg
+                  class="header__logo-symbol"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path
+                    d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"
+                  />
                 </svg>
               </div>
               <div class="header__logo-glow"></div>
             </div>
             <div class="header__title-section">
               <h1 class="header__title">Кафедра неврологии</h1>
-              <p class="header__institution">ФГБУ ДПО "Центральная государственная медицинская академия" УД Президента РФ</p>
+              <p class="header__institution">
+                ФГБУ ДПО "Центральная государственная медицинская академия" УД
+                Президента РФ
+              </p>
             </div>
           </a>
         </div>
-        
+
         <div class="header__nav-wrapper">
           <HeaderNavigation />
         </div>
-        
-
       </div>
     </div>
   </header>
@@ -39,13 +48,13 @@ import HeaderNavigation from './HeaderNavigation.vue'
 export default {
   name: 'Header',
   components: {
-    HeaderNavigation
-  }
+    HeaderNavigation,
+  },
 }
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/styles/variables';
-@import '@/assets/styles/mixins';
-@import './Header.scss';
+@use '@/assets/styles/variables' as *;
+@use '@/assets/styles/mixins' as *;
+@use './Header.scss' as *;
 </style>

@@ -1,0 +1,307 @@
+@import '@/assets/styles/variables';
+@import '@/assets/styles/mixins';
+
+.contact-section {
+  padding: $spacing-3xl 0;
+  background: $white;
+
+  @include mobile {
+    padding: $spacing-2xl 0;
+  }
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: $spacing-2xl;
+
+  @include tablet {
+    grid-template-columns: 1fr;
+    gap: $spacing-xl;
+  }
+
+  @include mobile {
+    gap: $spacing-lg;
+  }
+}
+
+.contact-card {
+  background: $white;
+  padding: $spacing-2xl;
+  border-radius: $border-radius-xl;
+  box-shadow: $shadow-lg;
+  border: 1px solid $gray-100;
+  transition: all $transition-normal;
+
+  // Убираем hover эффекты для всех элементов
+
+  @include mobile {
+    padding: $spacing-lg;
+    border-radius: $border-radius-lg;
+
+    &:hover {
+      transform: none;
+    }
+  }
+
+  .contact-icon {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, $primary-color, $primary-light);
+    border-radius: $border-radius-lg;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto $spacing-lg;
+
+    @include mobile {
+      width: 50px;
+      height: 50px;
+      margin-bottom: $spacing-md;
+    }
+
+    svg {
+      width: 28px;
+      height: 28px;
+      color: $white;
+
+      @include mobile {
+        width: 24px;
+        height: 24px;
+      }
+    }
+  }
+
+  h3 {
+    font-size: $font-size-xl;
+    font-weight: $font-weight-semibold;
+    color: $gray-900;
+    margin-bottom: $spacing-lg;
+    text-align: center;
+
+    @include mobile {
+      font-size: $font-size-lg;
+      margin-bottom: $spacing-md;
+    }
+  }
+
+  .contact-details {
+    text-align: left;
+  }
+
+  .contact-item {
+    margin-bottom: $spacing-md;
+    padding: $spacing-md;
+    background: $gray-50;
+    border: 1px solid $gray-200;
+    border-radius: $border-radius-md;
+    transition: all $transition-normal;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    // Убираем hover эффекты
+
+    @include mobile {
+      margin-bottom: $spacing-sm;
+      padding: $spacing-sm;
+
+      &:hover {
+        transform: none;
+        box-shadow: none;
+      }
+
+      &:active {
+        background: $gray-100;
+        border-color: $primary-color;
+      }
+    }
+
+    .contact-label {
+      display: block;
+      font-weight: $font-weight-medium;
+      color: $gray-700;
+      margin-bottom: $spacing-xs;
+      font-size: $font-size-sm;
+
+      @include mobile {
+        font-size: $font-size-xs;
+        margin-bottom: $spacing-xs;
+      }
+    }
+
+    .contact-actions {
+      display: flex;
+      align-items: center;
+      gap: $spacing-sm;
+      justify-content: space-between;
+
+      @include mobile {
+        gap: $spacing-xs;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .contact-value,
+      .contact-email {
+        color: $primary-color;
+        text-decoration: none;
+        font-weight: $font-weight-medium;
+        font-size: $font-size-lg;
+        flex: 1;
+        min-width: 0;
+        display: flex;
+        align-items: center;
+        min-height: 36px;
+
+        // Убираем hover эффекты
+
+        @include mobile {
+          font-size: $font-size-base;
+          min-height: 32px;
+          word-break: break-word;
+        }
+      }
+
+      .copy-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 36px;
+        height: 36px;
+        padding: 0;
+        border: none;
+        background: rgba($primary-color, 0.1);
+        color: $primary-color;
+        border-radius: $border-radius-md;
+        cursor: pointer;
+        transition: all $transition-normal;
+        flex-shrink: 0;
+        border: 1px solid rgba($primary-color, 0.2);
+
+        @include mobile {
+          width: 44px;
+          height: 44px;
+          align-self: flex-end;
+          margin-top: $spacing-xs;
+        }
+
+        svg {
+          width: 18px;
+          height: 18px;
+          stroke: currentColor;
+          stroke-width: 2;
+          fill: none;
+
+          @include mobile {
+            width: 20px;
+            height: 20px;
+          }
+        }
+
+        // Убираем hover эффекты
+
+        &:active {
+          transform: translateY(0);
+          box-shadow: 0 2px 6px rgba($primary-color, 0.15);
+        }
+
+        &:focus {
+          outline: none;
+          box-shadow: 0 0 0 3px rgba($primary-color, 0.3);
+        }
+
+        @include mobile {
+          &:hover {
+            transform: none;
+          }
+
+          &:active {
+            background: rgba($primary-color, 0.2);
+            transform: scale(0.95);
+          }
+        }
+      }
+    }
+
+    .contact-address {
+      color: $gray-600;
+      line-height: $line-height-relaxed;
+      margin: 0;
+      flex: 1;
+
+      @include mobile {
+        font-size: $font-size-sm;
+        line-height: $line-height-normal;
+        word-break: break-word;
+      }
+    }
+  }
+}
+
+// Responsive Design
+@include tablet {
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-actions {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: $spacing-xs;
+
+    .copy-btn {
+      align-self: flex-end;
+      margin-left: 0;
+      margin-top: $spacing-xs;
+    }
+  }
+}
+
+@include mobile {
+  .contact-card {
+    padding: $spacing-lg;
+  }
+
+  .contact-section {
+    .container {
+      padding: 0 $spacing-md;
+    }
+  }
+
+  .contact-value,
+  .contact-email {
+    padding: $spacing-xs 0;
+
+    &:active {
+      background: rgba($primary-color, 0.05);
+      border-radius: $border-radius-sm;
+    }
+  }
+
+  @media (max-width: 360px) {
+    .contact-card {
+      padding: $spacing-md;
+    }
+
+    .contact-icon {
+      width: 45px;
+      height: 45px;
+
+      svg {
+        width: 22px;
+        height: 22px;
+      }
+    }
+
+    h3 {
+      font-size: $font-size-base;
+    }
+
+    .contact-value,
+    .contact-email {
+      font-size: $font-size-sm;
+    }
+  }
+}

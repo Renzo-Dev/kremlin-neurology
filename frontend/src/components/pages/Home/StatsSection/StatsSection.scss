@@ -1,0 +1,45 @@
+@import '@/assets/styles/variables';
+
+.stats-section {
+  padding: $spacing-3xl 0;
+  background: linear-gradient(135deg, $gray-900 0%, $gray-800 100%);
+  color: $white;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: $spacing-2xl;
+}
+
+.stat-item {
+  text-align: center;
+  padding: $spacing-2xl;
+
+  .stat-number {
+    font-size: 4rem;
+    font-weight: $font-weight-bold;
+    color: $primary-color;
+    margin-bottom: $spacing-sm;
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: $font-size-lg;
+    color: $gray-300;
+    font-weight: $font-weight-medium;
+  }
+}
+
+// Responsive Design
+@media (max-width: $breakpoint-md) {
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: $breakpoint-sm) {
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+}
