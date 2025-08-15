@@ -67,5 +67,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import './HeroSection.scss';
+@use './HeroSection.scss';
 </style>

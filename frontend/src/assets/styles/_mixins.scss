@@ -1,32 +1,32 @@
-@use 'variables' as v;
+@use 'variables' as vr;
 
 // Медиа-запросы
 @mixin mobile {
-  @media (max-width: #{v.$breakpoint-sm - 1px}) {
+  @media (max-width: #{vr.$breakpoint-sm - 1px}) {
     @content;
   }
 }
 
 @mixin tablet {
-  @media (min-width: #{v.$breakpoint-sm}) and (max-width: #{v.$breakpoint-lg - 1px}) {
+  @media (min-width: #{vr.$breakpoint-sm}) and (max-width: #{vr.$breakpoint-lg - 1px}) {
     @content;
   }
 }
 
 @mixin desktop {
-  @media (min-width: #{v.$breakpoint-lg}) {
+  @media (min-width: #{vr.$breakpoint-lg}) {
     @content;
   }
 }
 
 @mixin mobile-up {
-  @media (min-width: #{v.$breakpoint-sm}) {
+  @media (min-width: #{vr.$breakpoint-sm}) {
     @content;
   }
 }
 
 @mixin tablet-up {
-  @media (min-width: #{v.$breakpoint-md}) {
+  @media (min-width: #{vr.$breakpoint-md}) {
     @content;
   }
 }
@@ -86,7 +86,7 @@
 @mixin sticky-top {
   position: sticky;
   top: 0;
-  z-index: v.$z-sticky;
+  z-index: vr.$z-sticky;
 }
 
 // Размеры
@@ -125,10 +125,10 @@
   overflow: hidden;
 }
 
-@mixin heading-style($size: v.$font-size-2xl, $weight: v.$font-weight-bold) {
+@mixin heading-style($size: vr.$font-size-2xl, $weight: vr.$font-weight-bold) {
   font-size: $size;
   font-weight: $weight;
-  line-height: v.$line-height-tight;
+  line-height: vr.$line-height-tight;
 }
 
 // Кнопки
@@ -146,10 +146,10 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: v.$spacing-sm v.$spacing-md;
-  border-radius: v.$border-radius-md;
-  font-weight: v.$font-weight-medium;
-  transition: all v.$transition-normal;
+  padding: vr.$spacing-sm vr.$spacing-md;
+  border-radius: vr.$border-radius-md;
+  font-weight: vr.$font-weight-medium;
+  transition: all vr.$transition-normal;
 
   &:disabled {
     opacity: 0.6;
@@ -160,86 +160,86 @@
 // Формы
 @mixin input-base {
   width: 100%;
-  padding: v.$spacing-sm v.$spacing-md;
-  border: 1px solid v.$gray-300;
-  border-radius: v.$border-radius-md;
-  font-size: v.$font-size-base;
-  line-height: v.$line-height-normal;
-  transition: border-color v.$transition-normal;
+  padding: vr.$spacing-sm vr.$spacing-md;
+  border: 1px solid vr.$gray-300;
+  border-radius: vr.$border-radius-md;
+  font-size: vr.$font-size-base;
+  line-height: vr.$line-height-normal;
+  transition: border-color vr.$transition-normal;
 
   &:focus {
     outline: none;
-    border-color: v.$primary-color;
-    box-shadow: 0 0 0 3px rgba(v.$primary-color, 0.1);
+    border-color: vr.$primary-color;
+    box-shadow: 0 0 0 3px rgba(vr.$primary-color, 0.1);
   }
 
   &:disabled {
-    background-color: v.$gray-100;
+    background-color: vr.$gray-100;
     cursor: not-allowed;
   }
 }
 
 // Карточки
 @mixin card-base {
-  background: v.$white;
-  border-radius: v.$border-radius-lg;
-  box-shadow: v.$shadow-sm;
-  padding: v.$spacing-lg;
-  transition: box-shadow v.$transition-normal;
+  background: vr.$white;
+  border-radius: vr.$border-radius-lg;
+  box-shadow: vr.$shadow-sm;
+  padding: vr.$spacing-lg;
+  transition: box-shadow vr.$transition-normal;
 
   &:hover {
-    box-shadow: v.$shadow-md;
+    box-shadow: vr.$shadow-md;
   }
 }
 
 // Анимации
-@mixin fade-in($duration: $transition-normal) {
+@mixin fade-in($duration: vr.$transition-normal) {
   animation: fadeIn $duration ease-in-out;
 }
 
-@mixin slide-up($duration: $transition-normal) {
+@mixin slide-up($duration: vr.$transition-normal) {
   animation: slideUp $duration ease-out;
 }
 
-@mixin slide-down($duration: $transition-normal) {
+@mixin slide-down($duration: vr.$transition-normal) {
   animation: slideDown $duration ease-out;
 }
 
-@mixin scale-in($duration: $transition-normal) {
+@mixin scale-in($duration: vr.$transition-normal) {
   animation: scaleIn $duration ease-out;
 }
 
 // Градиенты
 @mixin gradient-primary {
-  background: linear-gradient(135deg, $primary-color 0%, $primary-light 100%);
+  background: linear-gradient(135deg, vr.$primary-color 0%, vr.$primary-light 100%);
 }
 
 @mixin gradient-secondary {
   background: linear-gradient(
     135deg,
-    $secondary-color 0%,
-    $secondary-light 100%
+    vr.$secondary-color 0%,
+    vr.$secondary-light 100%
   );
 }
 
 @mixin gradient-dark {
-  background: linear-gradient(135deg, $gray-800 0%, $gray-900 100%);
+  background: linear-gradient(135deg, vr.$gray-800 0%, vr.$gray-900 100%);
 }
 
 // Ховер эффекты
 @mixin hover-lift {
   transition:
-    transform $transition-normal,
-    box-shadow $transition-normal;
+    transform vr.$transition-normal,
+    box-shadow vr.$transition-normal;
 
   &:hover {
     transform: translateY(-2px);
-    box-shadow: $shadow-lg;
+    box-shadow: vr.$shadow-lg;
   }
 }
 
 @mixin hover-scale($scale: 1.05) {
-  transition: transform $transition-normal;
+  transition: transform vr.$transition-normal;
 
   &:hover {
     transform: scale($scale);
@@ -266,8 +266,8 @@
 // Скроллбары
 @mixin custom-scrollbar(
   $width: 8px,
-  $track-color: $gray-200,
-  $thumb-color: $gray-400
+  $track-color: vr.$gray-200,
+  $thumb-color: vr.$gray-400
 ) {
   &::-webkit-scrollbar {
     width: $width;
@@ -275,12 +275,12 @@
 
   &::-webkit-scrollbar-track {
     background: $track-color;
-    border-radius: $border-radius-sm;
+    border-radius: vr.$border-radius-sm;
   }
 
   &::-webkit-scrollbar-thumb {
     background: $thumb-color;
-    border-radius: $border-radius-sm;
+    border-radius: vr.$border-radius-sm;
 
     &:hover {
       background: darken($thumb-color, 10%);

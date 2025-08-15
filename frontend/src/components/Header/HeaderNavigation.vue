@@ -323,7 +323,7 @@ export default {
           setTimeout(() => {
             // Убираем класс только после полного закрытия
             heroSection.classList.remove('hero-section--menu-open')
-          }, 300)
+          }, 200) // Уменьшил с 300ms до 200ms для соответствия новой анимации
         }
       }
     },
@@ -354,7 +354,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@use '@/assets/styles/variables' as *;
-@use '@/assets/styles/mixins' as *;
-@use './HeaderNavigation.scss' as *;
+@use '@/assets/styles/variables' as vr;
+@use '@/assets/styles/mixins' as mx;
+@use './HeaderNavigation.scss';
 </style>

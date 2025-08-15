@@ -259,5 +259,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import './ContactSection.scss';
+@use './ContactSection.scss';
 </style>

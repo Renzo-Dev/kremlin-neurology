@@ -12,7 +12,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@use '@/assets/styles/variables' as *;
+@use '@/assets/styles/variables' as v;
 
 .news-page {
   padding: 2rem;

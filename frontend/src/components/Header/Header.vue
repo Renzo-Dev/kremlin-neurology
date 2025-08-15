@@ -43,7 +43,7 @@
 </template>
 
 <script>
-import HeaderNavigation from './HeaderNavigation.vue'
+import HeaderNavigation from './HeaderNavigation.vue';
 
 export default {
   name: 'Header',

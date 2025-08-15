@@ -1,44 +1,44 @@
-@import '@/assets/styles/variables';
+@use '@/assets/styles/variables' as vr;
 
 .stats-section {
-  padding: $spacing-3xl 0;
-  background: linear-gradient(135deg, $gray-900 0%, $gray-800 100%);
-  color: $white;
+  padding: vr.$spacing-3xl 0;
+  background: linear-gradient(135deg, vr.$gray-900 0%, vr.$gray-800 100%);
+  color: vr.$white;
 }
 
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: $spacing-2xl;
+  gap: vr.$spacing-2xl;
 }
 
 .stat-item {
   text-align: center;
-  padding: $spacing-2xl;
+  padding: vr.$spacing-2xl;
 
   .stat-number {
     font-size: 4rem;
-    font-weight: $font-weight-bold;
-    color: $primary-color;
-    margin-bottom: $spacing-sm;
+    font-weight: vr.$font-weight-bold;
+    color: vr.$primary-color;
+    margin-bottom: vr.$spacing-sm;
     line-height: 1;
   }
 
   .stat-label {
-    font-size: $font-size-lg;
-    color: $gray-300;
-    font-weight: $font-weight-medium;
+    font-size: vr.$font-size-lg;
+    color: vr.$gray-300;
+    font-weight: vr.$font-weight-medium;
   }
 }
 
 // Responsive Design
-@media (max-width: $breakpoint-md) {
+@media (max-width: vr.$breakpoint-md) {
   .stats-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
-@media (max-width: $breakpoint-sm) {
+@media (max-width: vr.$breakpoint-sm) {
   .stats-grid {
     grid-template-columns: 1fr;
   }

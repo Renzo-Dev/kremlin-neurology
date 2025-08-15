@@ -1,64 +1,64 @@
-@import '@/assets/styles/variables';
+@use '@/assets/styles/variables' as vr;
 
 .about-section {
-  padding: $spacing-3xl 0;
-  background: $white;
+  padding: vr.$spacing-3xl 0;
+  background: vr.$white;
 }
 
 .section-intro {
   text-align: center;
   max-width: 800px;
-  margin: 0 auto $spacing-3xl;
+  margin: 0 auto vr.$spacing-3xl;
 
   .section-tag {
     display: inline-block;
-    background: $primary-color;
-    color: $white;
-    padding: $spacing-xs $spacing-lg;
-    border-radius: $border-radius-full;
-    font-size: $font-size-sm;
-    font-weight: $font-weight-medium;
+    background: vr.$primary-color;
+    color: vr.$white;
+    padding: vr.$spacing-xs vr.$spacing-lg;
+    border-radius: vr.$border-radius-full;
+    font-size: vr.$font-size-sm;
+    font-weight: vr.$font-weight-medium;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    margin-bottom: $spacing-lg;
+    margin-bottom: vr.$spacing-lg;
   }
 
   .section-title {
-    font-size: $font-size-4xl;
-    font-weight: $font-weight-bold;
-    color: $gray-900;
-    margin-bottom: $spacing-lg;
+    font-size: vr.$font-size-4xl;
+    font-weight: vr.$font-weight-bold;
+    color: vr.$gray-900;
+    margin-bottom: vr.$spacing-lg;
     line-height: 1.1;
 
     .title-accent {
-      color: $primary-color;
+      color: vr.$primary-color;
     }
 
-    @media (max-width: $breakpoint-md) {
-      font-size: $font-size-3xl;
+    @media (max-width: vr.$breakpoint-md) {
+      font-size: vr.$font-size-3xl;
     }
   }
 
   .section-description {
-    font-size: $font-size-lg;
-    color: $gray-600;
-    line-height: $line-height-relaxed;
+    font-size: vr.$font-size-lg;
+    color: vr.$gray-600;
+    line-height: vr.$line-height-relaxed;
   }
 }
 
 .about-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: $spacing-2xl;
+  gap: vr.$spacing-2xl;
 }
 
 .about-card {
-  background: $white;
-  padding: $spacing-2xl;
-  border-radius: $border-radius-xl;
-  box-shadow: $shadow-lg;
-  border: 1px solid $gray-100;
-  transition: all $transition-normal;
+  background: vr.$white;
+  padding: vr.$spacing-2xl;
+  border-radius: vr.$border-radius-xl;
+  box-shadow: vr.$shadow-lg;
+  border: 1px solid vr.$gray-100;
+  transition: all vr.$transition-normal;
   position: relative;
   overflow: hidden;
 
@@ -69,50 +69,50 @@
     left: 0;
     right: 0;
     height: 4px;
-    background: linear-gradient(90deg, $primary-color, $primary-light);
+    background: linear-gradient(90deg, vr.$primary-color, vr.$primary-light);
   }
 
   &:hover {
     transform: translateY(-8px);
-    box-shadow: $shadow-xl;
-    border-color: $primary-color;
+    box-shadow: vr.$shadow-xl;
+    border-color: vr.$primary-color;
   }
 
   .card-number {
     font-size: 3rem;
-    font-weight: $font-weight-bold;
-    color: rgba($primary-color, 0.1);
-    margin-bottom: $spacing-lg;
+    font-weight: vr.$font-weight-bold;
+    color: rgba(vr.$primary-color, 0.1);
+    margin-bottom: vr.$spacing-lg;
     line-height: 1;
   }
 
   h3 {
-    font-size: $font-size-xl;
-    font-weight: $font-weight-semibold;
-    color: $gray-900;
-    margin-bottom: $spacing-md;
+    font-size: vr.$font-size-xl;
+    font-weight: vr.$font-weight-semibold;
+    color: vr.$gray-900;
+    margin-bottom: vr.$spacing-md;
   }
 
   p {
-    color: $gray-600;
-    line-height: $line-height-relaxed;
+    color: vr.$gray-600;
+    line-height: vr.$line-height-relaxed;
     margin: 0;
   }
 }
 
 // Responsive Design
-@media (max-width: $breakpoint-md) {
+@media (max-width: vr.$breakpoint-md) {
   .about-grid {
     grid-template-columns: 1fr;
   }
 }
 
-@media (max-width: $breakpoint-sm) {
+@media (max-width: vr.$breakpoint-sm) {
   .section-title {
-    font-size: $font-size-2xl;
+    font-size: vr.$font-size-2xl;
   }
 
   .about-card {
-    padding: $spacing-xl;
+    padding: vr.$spacing-xl;
   }
 }

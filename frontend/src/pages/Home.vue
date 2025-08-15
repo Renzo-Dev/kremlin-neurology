@@ -28,7 +28,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/styles/pages/home/home';
+@use '@/assets/styles/pages/home/home';
 
 // Добавляем глобальные стили для плавной прокрутки
 :global(html) {

@@ -48,7 +48,7 @@ export default {
     },
     scrollToTop() {
       const startPosition = window.scrollY
-      const duration = 800 // 0.8 секунды
+      const duration = 400 // 0.4 секунды
       let start = null
 
       const animation = currentTime => {
@@ -71,7 +71,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@use '@/assets/styles/variables' as *;
-@use '@/assets/styles/mixins' as *;
-@use './ScrollToTop.scss' as *;
+@use '@/assets/styles/variables' as vr;
+@use '@/assets/styles/mixins' as mx;
+@use './ScrollToTop.scss';
 </style>

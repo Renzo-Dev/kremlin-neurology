@@ -53,5 +53,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import './AboutSection.scss';
+@use './AboutSection.scss';
 </style>

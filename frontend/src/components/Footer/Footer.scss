@@ -2,194 +2,321 @@
 @use '@/assets/styles/mixins' as *;
 
 .footer {
-  background: #111827;
-  color: $white;
-  margin-top: auto;
+	background: #111827;
+	color: $white;
+	margin-top: auto;
+	
+	// Предотвращаем layout shift - минимальные изменения
+	min-height: 400px; // Фиксированная минимальная высота
+	contain: layout style; // CSS containment для стабильности
 }
 
 .footer-top {
-  padding: $spacing-3xl 0;
+	padding: $spacing-xl 0; // Уменьшил с $spacing-2xl на $spacing-xl
+	
+	// Предотвращаем изменение размера
+	min-height: 200px;
 }
 
 .container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 $spacing-lg;
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 0 $spacing-lg;
+	
+	// Фиксированная ширина для предотвращения CLS
+	width: 100%;
+	box-sizing: border-box;
 }
 
 .footer-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: $spacing-2xl;
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+	gap: $spacing-2xl;
+	
+	// Предотвращаем изменение grid при загрузке
+	min-height: 300px;
 }
 
 .footer-section {
-  .footer-title {
-    font-size: $font-size-xl;
-    font-weight: $font-weight-semibold;
-    color: $white;
-    margin-bottom: $spacing-lg;
-    position: relative;
-
-    &::after {
-      content: '';
-      position: absolute;
-      bottom: -$spacing-sm;
-      left: 0;
-      width: 40px;
-      height: 3px;
-      background: $primary-color;
-      border-radius: $border-radius-full;
-    }
-  }
+	// Фиксированная высота для предотвращения CLS
+	min-height: 200px;
+	
+	.footer-title {
+		font-size: $font-size-xl;
+		font-weight: $font-weight-semibold;
+		color: $white;
+		margin-bottom: $spacing-lg;
+		position: relative;
+		
+		// Фиксированная высота для заголовка
+		min-height: 2.5rem;
+		display: flex;
+		align-items: center;
+		
+		&::after {
+			content: '';
+			position: absolute;
+			bottom: -$spacing-sm;
+			left: 0;
+			width: 40px;
+			height: 3px;
+			background: $primary-color;
+			border-radius: $border-radius-full;
+			
+			// Предотвращаем изменение размера
+			min-width: 40px;
+			min-height: 3px;
+		}
+	}
 }
 
 .footer-description {
-  color: $gray-300;
-  line-height: $line-height-relaxed;
-  margin-bottom: $spacing-lg;
+	color: $gray-300;
+	line-height: $line-height-relaxed;
+	margin-bottom: $spacing-lg;
+	
+	// Фиксированная высота для описания
+	min-height: 3rem;
 }
 
 .footer-links {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-
-  li {
-    margin-bottom: $spacing-md;
-
-    a {
-      color: $gray-300;
-      text-decoration: none;
-      transition: color $transition-normal;
-      display: inline-block;
-      position: relative;
-
-      &::before {
-        content: '→';
-        color: $primary-color;
-        margin-right: $spacing-sm;
-        transition: transform $transition-normal;
-      }
-
-      &:hover {
-        color: $white;
-
-        &::before {
-          transform: translateX(4px);
-        }
-      }
-    }
-  }
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	
+	// Фиксированная высота для списка ссылок
+	min-height: 150px;
+	
+	li {
+		margin-bottom: $spacing-md;
+		
+		// Фиксированная высота для элементов списка
+		min-height: 2rem;
+		
+		a {
+			color: $gray-300;
+			text-decoration: none;
+			transition: color $transition-normal;
+			display: inline-block;
+			position: relative;
+			
+			// Фиксированная высота для ссылок
+			min-height: 1.5rem;
+			line-height: 1.5;
+			
+			&::before {
+				content: '→';
+				color: $primary-color;
+				margin-right: $spacing-sm;
+				transition: transform $transition-normal;
+				
+				// Предотвращаем изменение размера стрелки
+				display: inline-block;
+				width: 1rem;
+				text-align: center;
+			}
+			
+			&:hover {
+				color: $white;
+				
+				&::before {
+					transform: translateX(4px);
+				}
+			}
+		}
+	}
 }
 
 .contact-info {
-  .contact-item {
-    display: flex;
-    align-items: flex-start;
-    gap: $spacing-md;
-    margin-bottom: $spacing-md;
-
-    .contact-icon {
-      font-size: $font-size-lg;
-      color: $primary-color;
-      flex-shrink: 0;
-      margin-top: 2px;
-    }
-
-    .contact-text {
-      color: $gray-300;
-      line-height: $line-height-relaxed;
-
-      a {
-        color: $gray-300;
-        text-decoration: none;
-        transition: color $transition-normal;
-
-        &:hover {
-          color: $primary-color;
-        }
-      }
-    }
-  }
+	// Фиксированная высота для контактной информации
+	min-height: 200px;
+	
+	.contact-item {
+		display: flex;
+		align-items: flex-start;
+		gap: $spacing-md;
+		margin-bottom: $spacing-md;
+		
+		// Фиксированная высота для элементов контактов
+		min-height: 3rem;
+		
+		.contact-icon {
+			font-size: $font-size-lg;
+			color: $primary-color;
+			flex-shrink: 0;
+			margin-top: 2px;
+			
+			// Фиксированный размер для иконки
+			width: 1.5rem;
+			height: 1.5rem;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+		
+		.contact-text {
+			color: $gray-300;
+			line-height: $line-height-relaxed;
+			
+			// Фиксированная высота для текста
+			min-height: 2.5rem;
+			
+			a {
+				color: $gray-300;
+				text-decoration: none;
+				transition: color $transition-normal;
+				
+				&:hover {
+					color: $primary-color;
+				}
+			}
+		}
+	}
 }
 
 .footer-bottom {
-  background: rgba($black, 0.3);
-  padding: $spacing-lg 0;
-  border-top: 1px solid rgba($white, 0.1);
+	background: rgba($black, 0.3);
+	padding: $spacing-lg 0;
+	border-top: 1px solid rgba($white, 0.1);
+	
+	// Фиксированная высота для нижней части
+	min-height: 80px;
 }
 
 .footer-bottom-content {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: $spacing-md;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: $spacing-md;
+	
+	// Фиксированная высота для контента
+	min-height: 3rem;
 }
 
 .copyright {
-  color: $gray-400;
-  font-size: $font-size-sm;
+	color: $gray-400;
+	font-size: $font-size-sm;
+	
+	// Фиксированная высота для копирайта
+	min-height: 1.5rem;
+	line-height: 1.5;
 }
 
 .footer-bottom-links {
-  display: flex;
-  align-items: center;
-  gap: $spacing-md;
-
-  a {
-    color: $gray-400;
-    text-decoration: none;
-    font-size: $font-size-sm;
-    transition: color $transition-normal;
-
-    &:hover {
-      color: $primary-color;
-    }
-  }
-
-  .separator {
-    color: $gray-600;
-  }
+	display: flex;
+	align-items: center;
+	gap: $spacing-md;
+	
+	// Фиксированная высота для ссылок
+	min-height: 1.5rem;
+	
+	a {
+		color: $gray-400;
+		text-decoration: none;
+		font-size: $font-size-sm;
+		transition: color $transition-normal;
+		
+		// Фиксированная высота для ссылок
+		min-height: 1.5rem;
+		line-height: 1.5;
+		
+		&:hover {
+			color: $primary-color;
+		}
+	}
+	
+	.separator {
+		color: $gray-600;
+		
+		// Фиксированный размер для разделителя
+		width: 1rem;
+		text-align: center;
+	}
 }
 
 // Responsive Design
 @media (max-width: $breakpoint-md) {
-  .container {
-    padding: 0 $spacing-md;
-  }
-
-  .footer-top {
-    padding: $spacing-2xl 0;
-  }
-
-  .footer-grid {
-    grid-template-columns: 1fr;
-    gap: $spacing-xl;
-  }
-
-  .footer-bottom-content {
-    flex-direction: column;
-    text-align: center;
-  }
+	.container {
+		padding: 0 $spacing-md;
+	}
+	
+	.footer-top {
+		padding: $spacing-2xl 0;
+	}
+	
+	.footer-grid {
+		grid-template-columns: 1fr;
+		gap: $spacing-xl;
+	}
+	
+	.footer-bottom-content {
+		flex-direction: column;
+		text-align: center;
+		
+		// Увеличиваем высоту для мобильных
+		min-height: 5rem;
+	}
 }
 
 @media (max-width: $breakpoint-sm) {
-  .footer-top {
-    padding: $spacing-xl 0;
-  }
+	.footer-top {
+		padding: $spacing-xl 0;
+	}
+	
+	.footer-section {
+		text-align: center;
+		
+		.footer-title::after {
+			left: 50%;
+			transform: translateX(-50%);
+		}
+	}
+	
+	.contact-info .contact-item {
+		justify-content: center;
+	}
+	
+	// Уменьшаем минимальные высоты для мобильных
+	.footer {
+		min-height: 300px;
+	}
+	
+	.footer-top {
+		min-height: 150px;
+	}
+	
+	.footer-grid {
+		min-height: 250px;
+	}
+	
+	.footer-section {
+		min-height: 150px;
+	}
+	
+	.contact-info {
+		min-height: 150px;
+	}
+}
 
-  .footer-section {
-    text-align: center;
+// Предотвращение CLS при загрузке изображений
+.footer img {
+	max-width: 100%;
+	height: auto;
+	
+	// Резервируем место для изображений
+	min-height: 1px;
+}
 
-    .footer-title::after {
-      left: 50%;
-      transform: translateX(-50%);
-    }
-  }
+// Предотвращение CLS для динамического контента
+.footer * {
+	// Отключаем анимации при загрузке для предотвращения CLS
+	animation: none;
+	transition: none;
+}
 
-  .contact-info .contact-item {
-    justify-content: center;
-  }
+// Восстанавливаем анимации после загрузки
+.footer.loaded * {
+	animation: initial;
+	transition: initial;
 }

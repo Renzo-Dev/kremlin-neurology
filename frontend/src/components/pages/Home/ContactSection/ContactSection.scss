@@ -1,43 +1,43 @@
-@import '@/assets/styles/variables';
-@import '@/assets/styles/mixins';
+@use '@/assets/styles/variables' as vr;
+@use '@/assets/styles/mixins' as mx;
 
 .contact-section {
-  padding: $spacing-3xl 0;
-  background: $white;
+  padding: vr.$spacing-3xl 0;
+  background: vr.$white;
 
-  @include mobile {
-    padding: $spacing-2xl 0;
+  @include mx.mobile {
+    padding: vr.$spacing-2xl 0;
   }
 }
 
 .contact-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-  gap: $spacing-2xl;
+  gap: vr.$spacing-2xl;
 
-  @include tablet {
+  @include mx.tablet {
     grid-template-columns: 1fr;
-    gap: $spacing-xl;
+    gap: vr.$spacing-xl;
   }
 
-  @include mobile {
-    gap: $spacing-lg;
+  @include mx.mobile {
+    gap: vr.$spacing-lg;
   }
 }
 
 .contact-card {
-  background: $white;
-  padding: $spacing-2xl;
-  border-radius: $border-radius-xl;
-  box-shadow: $shadow-lg;
-  border: 1px solid $gray-100;
-  transition: all $transition-normal;
+  background: vr.$white;
+  padding: vr.$spacing-2xl;
+  border-radius: vr.$border-radius-xl;
+  box-shadow: vr.$shadow-lg;
+  border: 1px solid vr.$gray-100;
+  transition: all vr.$transition-normal;
 
   // Убираем hover эффекты для всех элементов
 
-  @include mobile {
-    padding: $spacing-lg;
-    border-radius: $border-radius-lg;
+  @include mx.mobile {
+    padding: vr.$spacing-lg;
+    border-radius: vr.$border-radius-lg;
 
     &:hover {
       transform: none;
@@ -47,25 +47,25 @@
   .contact-icon {
     width: 60px;
     height: 60px;
-    background: linear-gradient(135deg, $primary-color, $primary-light);
-    border-radius: $border-radius-lg;
+    background: linear-gradient(135deg, vr.$primary-color, vr.$primary-light);
+    border-radius: vr.$border-radius-lg;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 auto $spacing-lg;
+    margin: 0 auto vr.$spacing-lg;
 
-    @include mobile {
+    @include mx.mobile {
       width: 50px;
       height: 50px;
-      margin-bottom: $spacing-md;
+      margin-bottom: vr.$spacing-md;
     }
 
     svg {
       width: 28px;
       height: 28px;
-      color: $white;
+      color: vr.$white;
 
-      @include mobile {
+      @include mx.mobile {
         width: 24px;
         height: 24px;
       }
@@ -73,15 +73,15 @@
   }
 
   h3 {
-    font-size: $font-size-xl;
-    font-weight: $font-weight-semibold;
-    color: $gray-900;
-    margin-bottom: $spacing-lg;
+    font-size: vr.$font-size-xl;
+    font-weight: vr.$font-weight-semibold;
+    color: vr.$gray-900;
+    margin-bottom: vr.$spacing-lg;
     text-align: center;
 
-    @include mobile {
-      font-size: $font-size-lg;
-      margin-bottom: $spacing-md;
+    @include mx.mobile {
+      font-size: vr.$font-size-lg;
+      margin-bottom: vr.$spacing-md;
     }
   }
 
@@ -90,12 +90,12 @@
   }
 
   .contact-item {
-    margin-bottom: $spacing-md;
-    padding: $spacing-md;
-    background: $gray-50;
-    border: 1px solid $gray-200;
-    border-radius: $border-radius-md;
-    transition: all $transition-normal;
+    margin-bottom: vr.$spacing-md;
+    padding: vr.$spacing-md;
+    background: vr.$gray-50;
+    border: 1px solid vr.$gray-200;
+    border-radius: vr.$border-radius-md;
+    transition: all vr.$transition-normal;
 
     &:last-child {
       margin-bottom: 0;
@@ -103,9 +103,9 @@
 
     // Убираем hover эффекты
 
-    @include mobile {
-      margin-bottom: $spacing-sm;
-      padding: $spacing-sm;
+    @include mx.mobile {
+      margin-bottom: vr.$spacing-sm;
+      padding: vr.$spacing-sm;
 
       &:hover {
         transform: none;
@@ -113,42 +113,42 @@
       }
 
       &:active {
-        background: $gray-100;
-        border-color: $primary-color;
+        background: vr.$gray-100;
+        border-color: vr.$primary-color;
       }
     }
 
     .contact-label {
       display: block;
-      font-weight: $font-weight-medium;
-      color: $gray-700;
-      margin-bottom: $spacing-xs;
-      font-size: $font-size-sm;
+      font-weight: vr.$font-weight-medium;
+      color: vr.$gray-700;
+      margin-bottom: vr.$spacing-xs;
+      font-size: vr.$font-size-sm;
 
-      @include mobile {
-        font-size: $font-size-xs;
-        margin-bottom: $spacing-xs;
+      @include mx.mobile {
+        font-size: vr.$font-size-xs;
+        margin-bottom: vr.$spacing-xs;
       }
     }
 
     .contact-actions {
       display: flex;
       align-items: center;
-      gap: $spacing-sm;
+      gap: vr.$spacing-sm;
       justify-content: space-between;
 
-      @include mobile {
-        gap: $spacing-xs;
+      @include mx.mobile {
+        gap: vr.$spacing-xs;
         flex-direction: column;
         align-items: flex-start;
       }
 
       .contact-value,
       .contact-email {
-        color: $primary-color;
+        color: vr.$primary-color;
         text-decoration: none;
-        font-weight: $font-weight-medium;
-        font-size: $font-size-lg;
+        font-weight: vr.$font-weight-medium;
+        font-size: vr.$font-size-lg;
         flex: 1;
         min-width: 0;
         display: flex;
@@ -157,8 +157,8 @@
 
         // Убираем hover эффекты
 
-        @include mobile {
-          font-size: $font-size-base;
+        @include mx.mobile {
+          font-size: vr.$font-size-base;
           min-height: 32px;
           word-break: break-word;
         }
@@ -172,19 +172,19 @@
         height: 36px;
         padding: 0;
         border: none;
-        background: rgba($primary-color, 0.1);
-        color: $primary-color;
-        border-radius: $border-radius-md;
+        background: rgba(vr.$primary-color, 0.1);
+        color: vr.$primary-color;
+        border-radius: vr.$border-radius-md;
         cursor: pointer;
-        transition: all $transition-normal;
+        transition: all vr.$transition-normal;
         flex-shrink: 0;
-        border: 1px solid rgba($primary-color, 0.2);
+        border: 1px solid rgba(vr.$primary-color, 0.2);
 
-        @include mobile {
+        @include mx.mobile {
           width: 44px;
           height: 44px;
           align-self: flex-end;
-          margin-top: $spacing-xs;
+          margin-top: vr.$spacing-xs;
         }
 
         svg {
@@ -194,7 +194,7 @@
           stroke-width: 2;
           fill: none;
 
-          @include mobile {
+          @include mx.mobile {
             width: 20px;
             height: 20px;
           }
@@ -204,21 +204,21 @@
 
         &:active {
           transform: translateY(0);
-          box-shadow: 0 2px 6px rgba($primary-color, 0.15);
+          box-shadow: 0 2px 6px rgba(vr.$primary-color, 0.15);
         }
 
         &:focus {
           outline: none;
-          box-shadow: 0 0 0 3px rgba($primary-color, 0.3);
+          box-shadow: 0 0 0 3px rgba(vr.$primary-color, 0.3);
         }
 
-        @include mobile {
+        @include mx.mobile {
           &:hover {
             transform: none;
           }
 
           &:active {
-            background: rgba($primary-color, 0.2);
+            background: rgba(vr.$primary-color, 0.2);
             transform: scale(0.95);
           }
         }
@@ -226,14 +226,14 @@
     }
 
     .contact-address {
-      color: $gray-600;
-      line-height: $line-height-relaxed;
+      color: vr.$gray-600;
+      line-height: vr.$line-height-relaxed;
       margin: 0;
       flex: 1;
 
-      @include mobile {
-        font-size: $font-size-sm;
-        line-height: $line-height-normal;
+      @include mx.mobile {
+        font-size: vr.$font-size-sm;
+        line-height: vr.$line-height-normal;
         word-break: break-word;
       }
     }
@@ -241,7 +241,7 @@
 }
 
 // Responsive Design
-@include tablet {
+@include mx.tablet {
   .contact-grid {
     grid-template-columns: 1fr;
   }
@@ -249,40 +249,40 @@
   .contact-actions {
     flex-direction: column;
     align-items: flex-start;
-    gap: $spacing-xs;
+    gap: vr.$spacing-xs;
 
     .copy-btn {
       align-self: flex-end;
       margin-left: 0;
-      margin-top: $spacing-xs;
+      margin-top: vr.$spacing-xs;
     }
   }
 }
 
-@include mobile {
+@include mx.mobile {
   .contact-card {
-    padding: $spacing-lg;
+    padding: vr.$spacing-lg;
   }
 
   .contact-section {
     .container {
-      padding: 0 $spacing-md;
+      padding: 0 vr.$spacing-md;
     }
   }
 
   .contact-value,
   .contact-email {
-    padding: $spacing-xs 0;
+    padding: vr.$spacing-xs 0;
 
     &:active {
-      background: rgba($primary-color, 0.05);
-      border-radius: $border-radius-sm;
+      background: rgba(vr.$primary-color, 0.05);
+      border-radius: vr.$border-radius-sm;
     }
   }
 
   @media (max-width: 360px) {
     .contact-card {
-      padding: $spacing-md;
+      padding: vr.$spacing-md;
     }
 
     .contact-icon {
@@ -296,12 +296,12 @@
     }
 
     h3 {
-      font-size: $font-size-base;
+      font-size: vr.$font-size-base;
     }
 
     .contact-value,
     .contact-email {
-      font-size: $font-size-sm;
+      font-size: vr.$font-size-sm;
     }
   }
 }

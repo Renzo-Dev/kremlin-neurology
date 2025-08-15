@@ -1,4 +1,4 @@
-@import '@/assets/styles/variables';
+@use '@/assets/styles/variables' as vr;
 
 // Глобальные настройки плавного скролла
 html {
@@ -7,10 +7,10 @@ html {
 
 .hero-section {
   position: relative;
-  min-height: 70vh;
+  min-height: 100vh;
   display: flex;
   align-items: center;
-  color: $white;
+  color: vr.$white;
   overflow: hidden;
 
   &--menu-open {
@@ -43,7 +43,7 @@ html {
   transition: transform 0.3s ease-out;
   z-index: -2;
 
-  @media (min-width: $breakpoint-md) {
+  @media (min-width: vr.$breakpoint-md) {
     background-attachment: scroll;
     transform: scale(1.02);
   }
@@ -63,8 +63,8 @@ html {
   bottom: 0;
   background: linear-gradient(
     135deg,
-    rgba($primary-color, 0.4) 0%,
-    rgba($primary-dark, 0.5) 100%
+    rgba(vr.$primary-color, 0.4) 0%,
+    rgba(vr.$primary-dark, 0.5) 100%
   );
   z-index: 0;
 }
@@ -79,46 +79,46 @@ html {
 
 .hero-title {
   font-size: 3.5rem;
-  font-weight: $font-weight-bold;
+  font-weight: vr.$font-weight-bold;
   line-height: 0.9;
-  margin-bottom: $spacing-lg;
+  margin-bottom: vr.$spacing-lg;
 
   .title-accent {
-    background: linear-gradient(135deg, $white 0%, rgba($white, 0.8) 100%);
+    background: linear-gradient(135deg, vr.$white 0%, rgba(vr.$white, 0.8) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
 
-  @media (max-width: $breakpoint-md) {
+  @media (max-width: vr.$breakpoint-md) {
     font-size: 2.5rem;
   }
 
-  @media (max-width: $breakpoint-sm) {
+  @media (max-width: vr.$breakpoint-sm) {
     font-size: 2rem;
   }
 }
 
 .hero-subtitle {
-  font-size: $font-size-lg;
+  font-size: vr.$font-size-lg;
   opacity: 0.9;
-  line-height: $line-height-relaxed;
-  margin-bottom: $spacing-2xl;
-  font-weight: $font-weight-light;
+  line-height: vr.$line-height-relaxed;
+  margin-bottom: vr.$spacing-2xl;
+  font-weight: vr.$font-weight-light;
 }
 
 .hero-actions {
   display: flex;
-  gap: $spacing-lg;
+  gap: vr.$spacing-lg;
   justify-content: center;
   flex-wrap: wrap;
 
   .btn-primary,
   .btn-secondary {
-    padding: $spacing-md $spacing-2xl;
-    border-radius: $border-radius-full;
+    padding: vr.$spacing-md vr.$spacing-2xl;
+    border-radius: vr.$border-radius-full;
     text-decoration: none;
-    font-weight: $font-weight-medium;
+    font-weight: vr.$font-weight-medium;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     border: 2px solid transparent;
     cursor: pointer;
@@ -133,7 +133,7 @@ html {
 
     &:focus {
       outline: none;
-      box-shadow: 0 0 0 3px rgba($white, 0.3);
+      box-shadow: 0 0 0 3px rgba(vr.$white, 0.3);
     }
 
     &:active {
@@ -143,35 +143,35 @@ html {
   }
 
   .btn-primary {
-    background: $white;
-    color: $primary-color;
+    background: vr.$white;
+    color: vr.$primary-color;
 
     &:hover {
       background: transparent;
-      color: $white;
-      border-color: $white;
+      color: vr.$white;
+      border-color: vr.$white;
       transform: translateY(-2px);
-      box-shadow: 0 8px 25px rgba($white, 0.3);
+      box-shadow: 0 8px 25px rgba(vr.$white, 0.3);
     }
   }
 
   .btn-secondary {
     background: transparent;
-    color: $white;
-    border-color: $white;
+    color: vr.$white;
+    border-color: vr.$white;
 
     &:hover {
-      background: $white;
-      color: $primary-color;
+      background: vr.$white;
+      color: vr.$primary-color;
       transform: translateY(-2px);
-      box-shadow: 0 8px 25px rgba($white, 0.2);
+      box-shadow: 0 8px 25px rgba(vr.$white, 0.2);
     }
   }
 }
 
 .scroll-indicator {
   position: absolute;
-  bottom: $spacing-2xl;
+  bottom: vr.$spacing-2xl;
   left: 50%;
   transform: translateX(-50%);
   z-index: -1;
@@ -179,7 +179,7 @@ html {
   .scroll-arrow {
     width: 2px;
     height: 40px;
-    background: $white;
+    background: vr.$white;
     position: relative;
 
     &::after {
@@ -189,15 +189,15 @@ html {
       left: -3px;
       width: 8px;
       height: 8px;
-      border-right: 2px solid $white;
-      border-bottom: 2px solid $white;
+      border-right: 2px solid vr.$white;
+      border-bottom: 2px solid vr.$white;
       transform: rotate(45deg);
     }
   }
 }
 
 // Responsive Design
-@media (max-width: $breakpoint-md) {
+@media (max-width: vr.$breakpoint-md) {
   .hero-title {
     font-size: 2.5rem;
   }
@@ -214,7 +214,7 @@ html {
   }
 }
 
-@media (max-width: $breakpoint-sm) {
+@media (max-width: vr.$breakpoint-sm) {
   .hero-title {
     font-size: 2rem;
   }

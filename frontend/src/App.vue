@@ -10,9 +10,9 @@
 </template>
 
 <script>
-import Footer from '@/components/Footer/Footer.vue'
-import Header from '@/components/Header/Header.vue'
-import ScrollToTop from '@/components/ScrollToTop/ScrollToTop.vue'
+import Footer from '@/components/Footer/Footer.vue';
+import Header from '@/components/Header/Header.vue';
+import ScrollToTop from '@/components/ScrollToTop/ScrollToTop.vue';
 
 export default {
   name: 'App',

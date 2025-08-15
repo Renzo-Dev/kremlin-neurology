@@ -1,5 +1,5 @@
 <template>
-  <footer class="footer">
+  <footer class="footer" :class="{ loaded: isLoaded }">
     <div class="footer-top">
       <div class="container">
         <div class="footer-grid">
@@ -74,6 +74,20 @@
 <script>
 export default {
   name: 'Footer',
+  data() {
+    return {
+      isLoaded: false
+    }
+  },
+  mounted() {
+    // Предотвращаем CLS, добавляя класс loaded после монтирования
+    this.$nextTick(() => {
+      // Небольшая задержка для стабилизации layout
+      setTimeout(() => {
+        this.isLoaded = true;
+      }, 100);
+    });
+  }
 }
 </script>
 
