@@ -84,7 +84,11 @@ html {
   margin-bottom: vr.$spacing-lg;
 
   .title-accent {
-    background: linear-gradient(135deg, vr.$white 0%, rgba(vr.$white, 0.8) 100%);
+    background: linear-gradient(
+      135deg,
+      vr.$white 0%,
+      rgba(vr.$white, 0.8) 100%
+    );
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -174,7 +178,7 @@ html {
   bottom: vr.$spacing-2xl;
   left: 50%;
   transform: translateX(-50%);
-  z-index: -1;
+  z-index: 2;
 
   .scroll-arrow {
     width: 2px;
@@ -217,5 +221,25 @@ html {
 @media (max-width: vr.$breakpoint-sm) {
   .hero-title {
     font-size: 2rem;
+  }
+}
+
+// Адаптивность по высоте экрана
+@media (max-height: 600px) {
+  .scroll-indicator {
+    display: none; // Скрываю при недостаточной высоте
+  }
+}
+
+@media (max-height: 500px) {
+  .hero-actions {
+    margin-bottom: vr.$spacing-sm; // Уменьшаю отступы
+  }
+}
+
+// Мобильные устройства с маленькой высотой
+@media (max-width: vr.$breakpoint-md) and (max-height: 600px) {
+  .scroll-indicator {
+    display: none; // Убираю scroll-indicator на мобильных при высоте < 600px
   }
 }

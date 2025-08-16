@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import { easeInOutCubic } from '@/utils/helpers/easing'
+import { easeInOutFast } from '@/utils/helpers/easing'
 
 export default {
   name: 'HeroSection',
@@ -43,13 +43,13 @@ export default {
         const targetPosition = targetElement.offsetTop - headerHeight
         const startPosition = window.pageYOffset
         const distance = targetPosition - startPosition
-        const duration = 1000 // 1 секунда
+        const duration = 600 // Уменьшил с 1000 до 600мс для быстрого движения
         let start = null
 
         const animation = currentTime => {
           if (start === null) start = currentTime
           const timeElapsed = currentTime - start
-          const run = easeInOutCubic(
+          const run = easeInOutFast(
             timeElapsed,
             startPosition,
             distance,

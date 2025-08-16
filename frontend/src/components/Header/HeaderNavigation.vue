@@ -17,11 +17,7 @@
       :class="{ 'header-navigation__list--mobile-open': isMobileMenuOpen }"
     >
       <li class="header-navigation__item">
-        <router-link
-          to="/"
-          class="header-navigation__link"
-          :class="{ 'header-navigation__link--active': isActiveRoute('/') }"
-        >
+        <router-link to="/" exact class="header-navigation__link">
           <svg
             class="header-navigation__icon"
             viewBox="0 0 24 24"
@@ -37,13 +33,7 @@
       </li>
 
       <li class="header-navigation__item">
-        <router-link
-          to="/education"
-          class="header-navigation__link"
-          :class="{
-            'header-navigation__link--active': isActiveRoute('/education'),
-          }"
-        >
+        <router-link to="/education" exact class="header-navigation__link">
           <svg
             class="header-navigation__icon"
             viewBox="0 0 24 24"
@@ -60,13 +50,7 @@
       </li>
 
       <li class="header-navigation__item">
-        <router-link
-          to="/history"
-          class="header-navigation__link"
-          :class="{
-            'header-navigation__link--active': isActiveRoute('/history'),
-          }"
-        >
+        <router-link to="/history" exact class="header-navigation__link">
           <svg
             class="header-navigation__icon"
             viewBox="0 0 24 24"
@@ -82,13 +66,7 @@
       </li>
 
       <li class="header-navigation__item">
-        <router-link
-          to="/research"
-          class="header-navigation__link"
-          :class="{
-            'header-navigation__link--active': isActiveRoute('/research'),
-          }"
-        >
+        <router-link to="/research" exact class="header-navigation__link">
           <svg
             class="header-navigation__icon"
             viewBox="0 0 24 24"
@@ -107,13 +85,7 @@
       </li>
 
       <li class="header-navigation__item">
-        <router-link
-          to="/library"
-          class="header-navigation__link"
-          :class="{
-            'header-navigation__link--active': isActiveRoute('/library'),
-          }"
-        >
+        <router-link to="/library" exact class="header-navigation__link">
           <svg
             class="header-navigation__icon"
             viewBox="0 0 24 24"
@@ -131,13 +103,7 @@
       </li>
 
       <li class="header-navigation__item">
-        <router-link
-          to="/clients"
-          class="header-navigation__link"
-          :class="{
-            'header-navigation__link--active': isActiveRoute('/clients'),
-          }"
-        >
+        <router-link to="/clients" exact class="header-navigation__link">
           <svg
             class="header-navigation__icon"
             viewBox="0 0 24 24"
@@ -155,13 +121,7 @@
       </li>
 
       <li class="header-navigation__item">
-        <router-link
-          to="/conferences"
-          class="header-navigation__link"
-          :class="{
-            'header-navigation__link--active': isActiveRoute('/conferences'),
-          }"
-        >
+        <router-link to="/conferences" exact class="header-navigation__link">
           <svg
             class="header-navigation__icon"
             viewBox="0 0 24 24"
@@ -181,12 +141,8 @@
       <li class="header-navigation__item">
         <router-link
           to="/young-neurologists"
+          exact
           class="header-navigation__link"
-          :class="{
-            'header-navigation__link--active': isActiveRoute(
-              '/young-neurologists'
-            ),
-          }"
         >
           <svg
             class="header-navigation__icon"
@@ -207,11 +163,7 @@
       </li>
 
       <li class="header-navigation__item">
-        <router-link
-          to="/news"
-          class="header-navigation__link"
-          :class="{ 'header-navigation__link--active': isActiveRoute('/news') }"
-        >
+        <router-link to="/news" exact class="header-navigation__link">
           <svg
             class="header-navigation__icon"
             viewBox="0 0 24 24"
@@ -227,13 +179,7 @@
       </li>
 
       <li class="header-navigation__item">
-        <router-link
-          to="/contacts"
-          class="header-navigation__link"
-          :class="{
-            'header-navigation__link--active': isActiveRoute('/contacts'),
-          }"
-        >
+        <router-link to="/contacts" exact class="header-navigation__link">
           <svg
             class="header-navigation__icon"
             viewBox="0 0 24 24"
@@ -258,27 +204,15 @@ export default {
   name: 'HeaderNavigation',
   data() {
     return {
-      currentRoute: '/',
       isMobileMenuOpen: false,
     }
   },
-  computed: {
-    activeRoute() {
-      return this.currentRoute
-    },
-  },
   watch: {
-    $route(to) {
-      this.currentRoute = to.path
+    $route() {
       this.closeMobileMenu()
     },
   },
   mounted() {
-    this.currentRoute = this.$route?.path || window.location.pathname
-    window.addEventListener('popstate', () => {
-      this.currentRoute = window.location.pathname
-    })
-
     // Закрытие меню при клике вне его
     document.addEventListener('click', this.handleClickOutside)
 
@@ -294,13 +228,6 @@ export default {
     window.removeEventListener('resize', this.handleResize)
   },
   methods: {
-    isActiveRoute(path) {
-      if (path === '/') {
-        return this.currentRoute === '/' || this.currentRoute === ''
-      }
-      return this.currentRoute.startsWith(path)
-    },
-
     toggleMobileMenu() {
       this.isMobileMenuOpen = !this.isMobileMenuOpen
       this.updateBodyOverflow()

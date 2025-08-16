@@ -1,5 +1,5 @@
 <template>
-  <footer class="footer" :class="{ loaded: isLoaded }">
+  <footer class="footer">
     <div class="footer-top">
       <div class="container">
         <div class="footer-grid">
@@ -74,25 +74,11 @@
 <script>
 export default {
   name: 'Footer',
-  data() {
-    return {
-      isLoaded: false
-    }
-  },
-  mounted() {
-    // Предотвращаем CLS, добавляя класс loaded после монтирования
-    this.$nextTick(() => {
-      // Небольшая задержка для стабилизации layout
-      setTimeout(() => {
-        this.isLoaded = true;
-      }, 100);
-    });
-  }
 }
 </script>
 
 <style lang="scss" scoped>
-@use '@/assets/styles/variables' as *;
-@use '@/assets/styles/mixins' as *;
-@use './Footer.scss' as *;
+@use '@/assets/styles/variables' as vars;
+@use '@/assets/styles/mixins' as mix;
+@use './Footer.scss' as footer;
 </style>

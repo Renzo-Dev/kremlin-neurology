@@ -225,7 +225,8 @@
       background: vr.$gray-100;
     }
 
-    &--active {
+    // Активное состояние для точного совпадения
+    &.router-link-exact-active {
       color: vr.$white;
       background: vr.$primary-color;
       font-weight: vr.$font-weight-medium;
@@ -237,6 +238,19 @@
         box-shadow: 0 4px 20px rgba(59, 130, 246, 0.4);
       }
     }
+
+    // Частично активное состояние (для вложенных маршрутов)
+    &.router-link-active:not(.router-link-exact-active) {
+      color: vr.$primary-color;
+      background: vr.$gray-100;
+      font-weight: vr.$font-weight-medium;
+
+      @include mx.mobile {
+        background: rgba(59, 130, 246, 0.1);
+        border-color: rgba(59, 130, 246, 0.3);
+        color: vr.$primary-color;
+      }
+    }
   }
 
   &__icon {
@@ -246,11 +260,22 @@
     stroke-width: 2;
     fill: none;
     flex-shrink: 0;
+    transition: stroke 0.2s ease;
 
     @include mx.mobile {
       width: 18px;
       height: 18px;
       stroke-width: 2;
+    }
+
+    // Иконка в активном состоянии
+    .router-link-exact-active & {
+      stroke: vr.$white;
+    }
+
+    // Иконка в частично активном состоянии
+    .router-link-active:not(.router-link-exact-active) & {
+      stroke: vr.$primary-color;
     }
   }
 
@@ -259,6 +284,7 @@
     font-size: vr.$font-size-sm;
     text-align: left;
     line-height: 1.4;
+    transition: color 0.2s ease;
 
     @include mx.mobile {
       font-size: vr.$font-size-sm;
@@ -267,6 +293,18 @@
       word-wrap: break-word;
       hyphens: auto;
       text-align-last: left;
+    }
+
+    // Текст в активном состоянии
+    .router-link-exact-active & {
+      color: vr.$white;
+      font-weight: vr.$font-weight-medium;
+    }
+
+    // Текст в частично активном состоянии
+    .router-link-active:not(.router-link-exact-active) & {
+      color: vr.$primary-color;
+      font-weight: vr.$font-weight-medium;
     }
   }
 }

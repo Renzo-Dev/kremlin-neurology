@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import { easeInOutCubic } from '@/utils/helpers/easing'
+import { easeInOutFast } from '@/utils/helpers/easing'
 
 export default {
   name: 'ScrollToTop',
@@ -48,13 +48,13 @@ export default {
     },
     scrollToTop() {
       const startPosition = window.scrollY
-      const duration = 400 // 0.4 секунды
+      const duration = 300 // Уменьшил с 400 до 300мс для быстрого движения
       let start = null
 
       const animation = currentTime => {
         if (start === null) start = currentTime
         const timeElapsed = currentTime - start
-        const run = easeInOutCubic(
+        const run = easeInOutFast(
           timeElapsed,
           startPosition,
           -startPosition,
