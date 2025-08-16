@@ -1,0 +1,11 @@
+@use '@/assets/styles/variables' as vr;
+
+.history-accordion {
+  margin-top: vr.$spacing-lg;
+}
+
+.special-sections {
+  margin-top: vr.$spacing-lg;
+  padding-top: vr.$spacing-lg;
+  border-top: 2px solid #e9ecef;
+}

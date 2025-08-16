@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import HistoryAccordion from '@/components/pages/History/HistoryAccordion.vue'
+import HistoryAccordion from '@/components/pages/History/HistoryAccordion/HistoryAccordion.vue'
 
 export default {
   name: 'History',

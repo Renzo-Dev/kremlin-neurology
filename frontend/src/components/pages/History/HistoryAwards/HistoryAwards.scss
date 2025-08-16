@@ -1,0 +1,125 @@
+@use '@/assets/styles/variables' as vr;
+
+.history-awards {
+  padding: vr.$spacing-md 0;
+}
+
+.awards-header {
+  text-align: center;
+  margin-bottom: vr.$spacing-lg;
+
+  h3 {
+    color: #1e293b;
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: vr.$spacing-sm;
+  }
+
+  p {
+    color: #64748b;
+    font-size: 0.9rem;
+    margin: 0;
+  }
+}
+
+.awards-list {
+  display: flex;
+  flex-direction: column;
+  gap: vr.$spacing-md;
+}
+
+.award-item {
+  display: flex;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: all 0.2s ease;
+
+  &:hover {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    transform: translateY(-1px);
+  }
+}
+
+.award-year {
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  color: white;
+  padding: vr.$spacing-md;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 70px;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.award-content {
+  flex: 1;
+  padding: vr.$spacing-md;
+
+  h4 {
+    color: #334155;
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0 0 vr.$spacing-xs 0;
+  }
+
+  p {
+    color: #64748b;
+    margin: 0 0 vr.$spacing-xs 0;
+    line-height: 1.4;
+    font-size: 0.85rem;
+  }
+
+  .award-recipients {
+    color: #334155;
+    font-size: 0.8rem;
+    line-height: 1.3;
+  }
+}
+
+// Responsive Design
+@media (max-width: vr.$breakpoint-md) {
+  .award-item {
+    flex-direction: column;
+  }
+
+  .award-year {
+    min-width: auto;
+    padding: vr.$spacing-sm;
+  }
+
+  .award-content {
+    padding: vr.$spacing-sm;
+  }
+}
+
+@media (max-width: vr.$breakpoint-sm) {
+  .awards-header {
+    h3 {
+      font-size: 1.1rem;
+    }
+  }
+
+  .award-year {
+    font-size: 0.9rem;
+    padding: vr.$spacing-xs vr.$spacing-sm;
+  }
+
+  .award-content {
+    padding: vr.$spacing-xs vr.$spacing-sm;
+
+    h4 {
+      font-size: 0.95rem;
+    }
+
+    p {
+      font-size: 0.8rem;
+    }
+
+    .award-recipients {
+      font-size: 0.75rem;
+    }
+  }
+}

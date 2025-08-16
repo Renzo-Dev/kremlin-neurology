@@ -250,7 +250,7 @@ export default {
           setTimeout(() => {
             // Убираем класс только после полного закрытия
             heroSection.classList.remove('hero-section--menu-open')
-          }, 200) // Уменьшил с 300ms до 200ms для соответствия новой анимации
+          }, 150) // Синхронизировано с CSS анимацией
         }
       }
     },

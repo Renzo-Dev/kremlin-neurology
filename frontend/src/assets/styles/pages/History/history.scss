@@ -1,0 +1,214 @@
+@use '@/assets/styles/variables' as vr;
+
+.history-page {
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 vr.$spacing-lg;
+}
+
+.history-header {
+  text-align: center;
+  margin-bottom: vr.$spacing-xl;
+
+  .header-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    color: white;
+    padding: vr.$spacing-sm vr.$spacing-md;
+    border-radius: 20px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: vr.$spacing-md;
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.3);
+  }
+
+  h1 {
+    color: vr.$primary-color;
+    font-size: 2.5rem;
+    font-weight: 600;
+    margin-bottom: vr.$spacing-lg;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  p {
+    font-size: 1.1rem;
+    color: vr.$gray-700;
+    line-height: 1.6;
+    max-width: 800px;
+    margin: 0 auto vr.$spacing-lg auto;
+  }
+}
+
+.header-stats {
+  display: flex;
+  justify-content: center;
+  gap: vr.$spacing-xl;
+  margin-top: vr.$spacing-lg;
+
+  .stat-item {
+    text-align: center;
+
+    .stat-number {
+      display: block;
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: #1e293b;
+      margin-bottom: vr.$spacing-xs;
+    }
+
+    .stat-label {
+      font-size: 0.875rem;
+      color: #64748b;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+  }
+}
+
+.history-accordion {
+  margin-top: vr.$spacing-xl;
+}
+
+// Accordion Styles
+.accordion-item {
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: vr.$spacing-md;
+  overflow: hidden;
+  transition: all 0.3s ease;
+
+  &:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
+  }
+}
+
+.accordion-button {
+  width: 100%;
+  padding: vr.$spacing-lg;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  text-align: left;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
+    transform: translateY(-1px);
+  }
+
+  &:focus {
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.3);
+    outline: none;
+  }
+}
+
+.accordion-body {
+  padding: vr.$spacing-lg;
+  background: white;
+  border-top: 1px solid #e9ecef;
+}
+
+.section-content {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #495057;
+  text-align: justify;
+
+  &:first-letter {
+    font-size: 1.2em;
+    font-weight: 600;
+    color: #667eea;
+  }
+}
+
+// Utility Classes
+.text-center {
+  text-align: center;
+}
+
+.mb-4 {
+  margin-bottom: vr.$spacing-lg;
+}
+
+.mb-5 {
+  margin-bottom: vr.$spacing-xl;
+}
+
+// Responsive Design
+@media (max-width: vr.$breakpoint-md) {
+  .container {
+    padding: 0 vr.$spacing-md;
+  }
+
+  .history-header {
+    h1 {
+      font-size: 2rem;
+    }
+
+    p {
+      font-size: 1rem;
+    }
+  }
+
+  .header-stats {
+    gap: vr.$spacing-lg;
+
+    .stat-item .stat-number {
+      font-size: 1.5rem;
+    }
+  }
+
+  .accordion-button {
+    padding: vr.$spacing-md;
+    font-size: 1rem;
+  }
+
+  .accordion-body {
+    padding: vr.$spacing-md;
+  }
+
+  .section-content {
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+}
+
+@media (max-width: vr.$breakpoint-sm) {
+  .history-header {
+    h1 {
+      font-size: 1.75rem;
+    }
+
+    p {
+      font-size: 0.95rem;
+    }
+  }
+
+  .header-stats {
+    flex-direction: column;
+    gap: vr.$spacing-md;
+
+    .stat-item .stat-number {
+      font-size: 1.25rem;
+    }
+  }
+
+  .accordion-button {
+    padding: vr.$spacing-sm vr.$spacing-md;
+  }
+
+  .accordion-body {
+    padding: vr.$spacing-sm vr.$spacing-md;
+  }
+}

@@ -1,0 +1,133 @@
+@use '@/assets/styles/variables' as vr;
+
+.history-leadership {
+  margin-top: vr.$spacing-lg;
+  padding: vr.$spacing-lg;
+  background: white;
+  border-radius: vr.$border-radius-xl;
+  color: vr.$black;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+  .leadership-header {
+    text-align: center;
+    margin-bottom: vr.$spacing-xl;
+
+    h3 {
+      margin: 0 0 vr.$spacing-sm 0;
+      font-size: vr.$font-size-xl;
+      font-weight: vr.$font-weight-bold;
+      color: vr.$black;
+    }
+
+    p {
+      margin: 0;
+      font-size: vr.$font-size-base;
+      color: vr.$gray-700;
+      line-height: 1.6;
+    }
+  }
+
+  .leadership-timeline {
+    margin-top: vr.$spacing-lg;
+  }
+
+  .timeline-item {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: vr.$spacing-lg;
+    position: relative;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    .timeline-marker {
+      width: 12px;
+      height: 12px;
+      background: vr.$primary-color;
+      border-radius: 50%;
+      margin-right: vr.$spacing-md;
+      margin-top: 6px;
+      flex-shrink: 0;
+      position: relative;
+
+      &::before {
+        content: '';
+        position: absolute;
+        left: 50%;
+        top: 12px;
+        width: 2px;
+        height: 40px;
+        background: vr.$primary-color;
+        transform: translateX(-50%);
+      }
+    }
+
+    &:last-child .timeline-marker::before {
+      display: none;
+    }
+
+    .timeline-content {
+      flex: 1;
+
+      .period {
+        font-size: vr.$font-size-sm;
+        color: vr.$primary-color;
+        font-weight: vr.$font-weight-semibold;
+        margin-bottom: vr.$spacing-xs;
+      }
+
+              .leader-info {
+          h4 {
+            margin: 0 0 vr.$spacing-xs 0;
+            font-size: vr.$font-size-lg;
+            font-weight: vr.$font-weight-semibold;
+            color: vr.$black;
+          }
+
+        p {
+          margin: 0;
+          font-size: vr.$font-size-sm;
+          color: vr.$gray-600;
+          line-height: 1.5;
+        }
+      }
+    }
+  }
+
+  @media (max-width: vr.$breakpoint-sm) {
+    padding: vr.$spacing-md;
+
+    .leadership-header {
+      margin-bottom: vr.$spacing-lg;
+
+      h3 {
+        font-size: vr.$font-size-lg;
+      }
+    }
+
+    .timeline-item {
+      .timeline-marker {
+        width: 10px;
+        height: 10px;
+        margin-right: vr.$spacing-sm;
+      }
+
+      .timeline-content {
+        .period {
+          font-size: vr.$font-size-xs;
+        }
+
+        .leader-info {
+          h4 {
+            font-size: vr.$font-size-base;
+          }
+
+          p {
+            font-size: vr.$font-size-xs;
+          }
+        }
+      }
+    }
+  }
+}
