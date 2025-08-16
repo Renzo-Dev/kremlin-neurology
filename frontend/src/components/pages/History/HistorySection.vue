@@ -11,7 +11,6 @@
           :aria-controls="`collapse${index}`"
         >
           <span class="section-title">{{ section.title }}</span>
-
         </button>
       </h2>
 
@@ -151,8 +150,6 @@ export default {
   flex: 1;
   margin-right: vr.$spacing-md;
 }
-
-
 
 .accordion-collapse {
   max-height: 0;

@@ -82,8 +82,6 @@
             <span class="learn-more">Подробнее →</span>
           </div>
         </div>
-
-
       </div>
     </div>
   </section>

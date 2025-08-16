@@ -128,25 +128,33 @@
       transition: transform 0.2s ease-out;
       z-index: 99998;
       overflow-y: auto;
+      overflow-x: hidden;
+      flex-wrap: nowrap;
+      min-height: 100vh;
 
       // Стилизация скроллбара для мобильных устройств
       &::-webkit-scrollbar {
-        width: 6px;
+        width: 8px;
       }
 
       &::-webkit-scrollbar-track {
-        background: rgba(255, 255, 255, 0.1);
-        border-radius: 3px;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 4px;
       }
 
       &::-webkit-scrollbar-thumb {
-        background: rgba(255, 255, 255, 0.3);
-        border-radius: 3px;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 4px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
 
         &:hover {
-          background: rgba(255, 255, 255, 0.5);
+          background: rgba(255, 255, 255, 0.4);
         }
       }
+
+      // Скрываем скроллбар на мобильных устройствах по умолчанию
+      scrollbar-width: thin;
+      scrollbar-color: rgba(255, 255, 255, 0.2) rgba(255, 255, 255, 0.05);
 
       &--mobile-open {
         transform: translateX(0);
@@ -166,6 +174,8 @@
         opacity 0.15s ease-out,
         transform 0.15s ease-out;
       margin-bottom: vr.$spacing-xs;
+      flex-shrink: 0;
+      min-width: 0;
 
       .header-navigation__list--mobile-open & {
         opacity: 1;
@@ -206,6 +216,9 @@
       font-weight: vr.$font-weight-normal;
       transition: all 0.15s ease-out;
       min-height: 44px;
+      width: 100%;
+      max-width: 100%;
+      overflow: hidden;
 
       &:hover {
         background: rgba(255, 255, 255, 0.1);
@@ -293,6 +306,10 @@
       word-wrap: break-word;
       hyphens: auto;
       text-align-last: left;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      max-width: 100%;
     }
 
     // Текст в активном состоянии

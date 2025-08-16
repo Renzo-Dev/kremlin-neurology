@@ -4,7 +4,6 @@
     <EducationInfo />
     <EducationPrograms />
     <EducationFeatures />
-
   </div>
 </template>
 
@@ -14,7 +13,6 @@ import EducationHero from '@/components/pages/Education/EducationHero/EducationH
 import EducationInfo from '@/components/pages/Education/EducationInfo/EducationInfo.vue'
 import EducationPrograms from '@/components/pages/Education/EducationPrograms/EducationPrograms.vue'
 
-
 export default {
   name: 'EducationPage',
   components: {
@@ -22,7 +20,6 @@ export default {
     EducationInfo,
     EducationPrograms,
     EducationFeatures,
-
   },
   metaInfo: {
     title: 'Образование - Кафедра неврологии',
