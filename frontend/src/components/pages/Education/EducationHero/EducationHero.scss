@@ -1,0 +1,182 @@
+@use '@/assets/styles/variables' as vr;
+
+.education-hero {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  padding: vr.$spacing-3xl 0;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(0, 123, 255, 0.1) 0%, transparent 70%);
+    border-radius: 50%;
+    z-index: 1;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 vr.$spacing-lg;
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-content {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .hero-title {
+    margin-bottom: vr.$spacing-xl;
+    
+    .title-main {
+      display: block;
+      font-size: 3.5rem;
+      font-weight: 700;
+      color: vr.$primary-color;
+      margin-bottom: vr.$spacing-sm;
+      line-height: 1.2;
+    }
+
+    .title-subtitle {
+      display: block;
+      font-size: 2rem;
+      font-weight: 400;
+      color: vr.$secondary-color;
+      line-height: 1.3;
+    }
+  }
+
+  .hero-description {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    color: vr.$gray-700;
+    margin-bottom: vr.$spacing-xl;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .hero-stats {
+    display: flex;
+    justify-content: center;
+    gap: vr.$spacing-xl;
+    flex-wrap: wrap;
+
+    .stat-item {
+      text-align: center;
+      padding: vr.$spacing-lg;
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      border-radius: vr.$border-radius-lg;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      min-width: 120px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+      &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+      }
+
+      .stat-number {
+        display: block;
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: #ffffff;
+        margin-bottom: vr.$spacing-sm;
+      }
+
+      .stat-label {
+        display: block;
+        font-size: 0.9rem;
+        color: #cbd5e1;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+    }
+  }
+}
+
+// Responsive Design
+@media (max-width: vr.$breakpoint-lg) {
+  .education-hero {
+    padding: vr.$spacing-xl 0;
+
+    .hero-title {
+      .title-main {
+        font-size: 3rem;
+      }
+
+      .title-subtitle {
+        font-size: 1.8rem;
+      }
+    }
+
+    .hero-stats {
+      gap: vr.$spacing-lg;
+    }
+  }
+}
+
+@media (max-width: vr.$breakpoint-md) {
+  .education-hero {
+    padding: vr.$spacing-lg 0;
+
+    .hero-title {
+      .title-main {
+        font-size: 2.5rem;
+      }
+
+      .title-subtitle {
+        font-size: 1.5rem;
+      }
+    }
+
+    .hero-description {
+      font-size: 1.1rem;
+    }
+
+    .hero-stats {
+      gap: vr.$spacing-md;
+
+      .stat-item {
+        min-width: 100px;
+        padding: vr.$spacing-md;
+
+        .stat-number {
+          font-size: 2rem;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: vr.$breakpoint-sm) {
+  .education-hero {
+    .hero-title {
+      .title-main {
+        font-size: 2rem;
+      }
+
+      .title-subtitle {
+        font-size: 1.2rem;
+      }
+    }
+
+    .hero-stats {
+      flex-direction: column;
+      align-items: center;
+      gap: vr.$spacing-md;
+
+      .stat-item {
+        width: 100%;
+        max-width: 200px;
+      }
+    }
+  }
+}

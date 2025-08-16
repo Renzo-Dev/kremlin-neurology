@@ -11,9 +11,7 @@
           :aria-controls="`collapse${index}`"
         >
           <span class="section-title">{{ section.title }}</span>
-          <span class="accordion-icon">
-            <i class="fas fa-chevron-down" :class="{ rotated: isOpen }"></i>
-          </span>
+
         </button>
       </h2>
 
@@ -110,6 +108,23 @@ export default {
     outline: none;
   }
 
+  &::after {
+    content: '';
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-top: 12px solid rgba(255, 255, 255, 0.9);
+    border-radius: 2px;
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+    filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.2));
+  }
+
+  &:not(.collapsed)::after {
+    transform: rotate(180deg);
+  }
+
   &.collapsed {
     background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
   }
@@ -137,9 +152,7 @@ export default {
   margin-right: vr.$spacing-md;
 }
 
-.accordion-icon {
-  display: none;
-}
+
 
 .accordion-collapse {
   max-height: 0;
@@ -211,6 +224,12 @@ export default {
       border-right: 7px solid transparent;
       border-top: 10px solid rgba(255, 255, 255, 0.9);
     }
+
+    &::after {
+      border-left: 7px solid transparent;
+      border-right: 7px solid transparent;
+      border-top: 10px solid rgba(255, 255, 255, 0.9);
+    }
   }
 
   .accordion-body {
@@ -230,6 +249,13 @@ export default {
     align-items: center;
     gap: vr.$spacing-md;
     min-height: 52px;
+
+    &::after {
+      border-left: 6px solid transparent;
+      border-right: 6px solid transparent;
+      border-top: 8px solid rgba(255, 255, 255, 0.9);
+      filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3));
+    }
 
     &::after {
       border-left: 6px solid transparent;

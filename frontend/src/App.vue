@@ -11,7 +11,7 @@
 
 <script>
 import Footer from '@/components/Footer/Footer.vue'
-import Header from '@/components/Header/Header.vue'
+import Header from '@/components/Header/Header/Header.vue'
 import ScrollToTop from '@/components/ScrollToTop/ScrollToTop.vue'
 
 export default {

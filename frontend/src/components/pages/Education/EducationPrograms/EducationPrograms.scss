@@ -1,0 +1,185 @@
+@use '@/assets/styles/variables' as vr;
+
+.education-programs {
+  padding: vr.$spacing-3xl 0;
+  background: #f8f9fa;
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 vr.$spacing-lg;
+  }
+
+  .section-title {
+    text-align: center;
+    font-size: 2.5rem;
+    font-weight: 700;
+          color: vr.$primary-color;
+          margin-bottom: vr.$spacing-3xl;
+    line-height: 1.2;
+  }
+
+  .programs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: vr.$spacing-lg;
+  }
+
+  .program-card {
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    border-radius: vr.$border-radius-lg;
+    padding: vr.$spacing-xl;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 20px rgba(15, 23, 42, 0.2);
+
+    &:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 40px rgba(15, 23, 42, 0.4);
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: vr.$spacing-lg;
+
+      .program-icon {
+        font-size: 2.5rem;
+        margin-right: vr.$spacing-md;
+      }
+
+      .program-title {
+        font-size: 1.4rem;
+        font-weight: 600;
+        color: #ffffff;
+        margin: 0;
+        line-height: 1.3;
+      }
+    }
+
+    .card-content {
+      margin-bottom: vr.$spacing-lg;
+
+      .program-description {
+        font-size: 1rem;
+        line-height: 1.6;
+        color: #cbd5e1;
+        margin-bottom: vr.$spacing-md;
+      }
+
+      .program-details {
+        display: flex;
+        flex-wrap: wrap;
+        gap: vr.$spacing-sm;
+
+        .detail-item {
+          background: rgba(255, 255, 255, 0.1);
+          padding: vr.$spacing-xs vr.$spacing-sm;
+          border-radius: vr.$border-radius-sm;
+          font-size: 0.85rem;
+          color: #e2e8f0;
+          border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+      }
+    }
+
+    .card-footer {
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: vr.$spacing-md;
+
+      .learn-more {
+        color: #60a5fa;
+        font-weight: 500;
+        font-size: 0.95rem;
+        transition: color 0.3s ease;
+
+        &:hover {
+          color: #93c5fd;
+        }
+      }
+    }
+  }
+}
+
+// Responsive Design
+@media (max-width: vr.$breakpoint-lg) {
+  .education-programs {
+    padding: vr.$spacing-xl 0;
+
+    .section-title {
+      font-size: 2.2rem;
+      margin-bottom: vr.$spacing-xl;
+    }
+
+    .programs-grid {
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: vr.$spacing-md;
+    }
+  }
+}
+
+@media (max-width: vr.$breakpoint-md) {
+  .education-programs {
+    padding: vr.$spacing-lg 0;
+
+    .section-title {
+      font-size: 2rem;
+      margin-bottom: vr.$spacing-lg;
+    }
+
+    .programs-grid {
+      grid-template-columns: 1fr;
+      gap: vr.$spacing-md;
+    }
+
+    .program-card {
+      padding: vr.$spacing-lg;
+
+      .card-header {
+        .program-icon {
+          font-size: 2rem;
+        }
+
+        .program-title {
+          font-size: 1.3rem;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: vr.$breakpoint-sm) {
+  .education-programs {
+    .section-title {
+      font-size: 1.8rem;
+    }
+
+    .program-card {
+      padding: vr.$spacing-md;
+
+      .card-header {
+        .program-icon {
+          font-size: 1.8rem;
+        }
+
+        .program-title {
+          font-size: 1.2rem;
+        }
+      }
+
+      .card-content {
+        .program-description {
+          font-size: 0.95rem;
+        }
+
+        .program-details {
+          .detail-item {
+            font-size: 0.8rem;
+            padding: vr.$spacing-xs;
+          }
+        }
+      }
+    }
+  }
+}

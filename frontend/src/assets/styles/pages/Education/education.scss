@@ -1,0 +1,24 @@
+@use '@/assets/styles/variables' as vr;
+
+.education-page {
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 vr.$spacing-lg;
+}
+
+// Responsive Design
+@media (max-width: vr.$breakpoint-md) {
+  .container {
+    padding: 0 vr.$spacing-md;
+  }
+}
+
+@media (max-width: vr.$breakpoint-sm) {
+  .container {
+    padding: 0 vr.$spacing-sm;
+  }
+}

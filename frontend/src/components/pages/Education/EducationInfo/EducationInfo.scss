@@ -1,0 +1,156 @@
+@use '@/assets/styles/variables' as vr;
+
+.education-info {
+  padding: vr.$spacing-3xl 0;
+  background: #ffffff;
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 vr.$spacing-lg;
+  }
+
+  .info-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: vr.$spacing-3xl;
+    align-items: start;
+  }
+
+  .info-text {
+    .section-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: vr.$primary-color;
+      margin-bottom: vr.$spacing-xl;
+      line-height: 1.2;
+    }
+
+    .info-description {
+      font-size: 1.1rem;
+      line-height: 1.7;
+      color: vr.$gray-700;
+      margin-bottom: vr.$spacing-lg;
+      
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  .info-features {
+    display: flex;
+    flex-direction: column;
+    gap: vr.$spacing-lg;
+
+    .feature-item {
+      padding: vr.$spacing-lg;
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      border-radius: vr.$border-radius-lg;
+      color: white;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+      &:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 30px rgba(15, 23, 42, 0.3);
+      }
+
+      .feature-icon {
+        font-size: 2rem;
+        margin-bottom: vr.$spacing-md;
+        display: block;
+      }
+
+      .feature-title {
+        font-size: 1.3rem;
+        font-weight: 600;
+        margin-bottom: vr.$spacing-sm;
+        color: #ffffff;
+      }
+
+      .feature-text {
+        font-size: 1rem;
+        line-height: 1.5;
+        color: #cbd5e1;
+        margin: 0;
+      }
+    }
+  }
+}
+
+// Responsive Design
+@media (max-width: vr.$breakpoint-lg) {
+  .education-info {
+    padding: vr.$spacing-xl 0;
+
+    .info-content {
+      gap: vr.$spacing-xl;
+    }
+
+    .info-text {
+      .section-title {
+        font-size: 2.2rem;
+      }
+    }
+  }
+}
+
+@media (max-width: vr.$breakpoint-md) {
+  .education-info {
+    padding: vr.$spacing-lg 0;
+
+    .info-content {
+      grid-template-columns: 1fr;
+      gap: vr.$spacing-lg;
+    }
+
+    .info-text {
+      .section-title {
+        font-size: 2rem;
+        margin-bottom: vr.$spacing-lg;
+      }
+
+      .info-description {
+        font-size: 1rem;
+      }
+    }
+
+    .info-features {
+      gap: vr.$spacing-md;
+
+      .feature-item {
+        padding: vr.$spacing-md;
+
+        .feature-icon {
+          font-size: 1.8rem;
+        }
+
+        .feature-title {
+          font-size: 1.2rem;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: vr.$breakpoint-sm) {
+  .education-info {
+    .info-text {
+      .section-title {
+        font-size: 1.8rem;
+      }
+    }
+
+    .info-features {
+      .feature-item {
+        .feature-icon {
+          font-size: 1.5rem;
+        }
+
+        .feature-title {
+          font-size: 1.1rem;
+        }
+      }
+    }
+  }
+}

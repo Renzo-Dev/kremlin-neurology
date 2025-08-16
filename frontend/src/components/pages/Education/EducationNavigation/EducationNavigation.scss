@@ -1,0 +1,171 @@
+@use '@/assets/styles/variables' as vr;
+
+.education-navigation {
+  padding: vr.$spacing-3xl 0;
+  background: #f8f9fa;
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 vr.$spacing-lg;
+  }
+
+  .section-title {
+    text-align: center;
+    font-size: 2.5rem;
+    font-weight: 700;
+          color: vr.$primary-color;
+          margin-bottom: vr.$spacing-3xl;
+    line-height: 1.2;
+  }
+
+  .navigation-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: vr.$spacing-lg;
+  }
+
+  .nav-card {
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    border-radius: vr.$border-radius-lg;
+    padding: vr.$spacing-xl;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 20px rgba(15, 23, 42, 0.2);
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba(96, 165, 250, 0.1) 0%, transparent 100%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 40px rgba(15, 23, 42, 0.4);
+
+      &::before {
+        opacity: 1;
+      }
+
+      .nav-arrow {
+        transform: translateX(5px);
+        color: #60a5fa;
+      }
+    }
+
+    .nav-icon {
+      font-size: 2.5rem;
+      margin-bottom: vr.$spacing-md;
+      display: block;
+    }
+
+    .nav-title {
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-bottom: vr.$spacing-md;
+      color: #ffffff;
+      line-height: 1.3;
+    }
+
+    .nav-description {
+      font-size: 1rem;
+      line-height: 1.6;
+      color: #cbd5e1;
+      margin-bottom: vr.$spacing-lg;
+    }
+
+    .nav-arrow {
+      font-size: 1.5rem;
+      color: #60a5fa;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      text-align: right;
+    }
+  }
+}
+
+// Responsive Design
+@media (max-width: vr.$breakpoint-lg) {
+  .education-navigation {
+    padding: vr.$spacing-xl 0;
+
+    .section-title {
+      font-size: 2.2rem;
+      margin-bottom: vr.$spacing-xl;
+    }
+
+    .navigation-grid {
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: vr.$spacing-md;
+    }
+  }
+}
+
+@media (max-width: vr.$breakpoint-md) {
+  .education-navigation {
+    padding: vr.$spacing-lg 0;
+
+    .section-title {
+      font-size: 2rem;
+      margin-bottom: vr.$spacing-lg;
+    }
+
+    .navigation-grid {
+      grid-template-columns: 1fr;
+      gap: vr.$spacing-md;
+    }
+
+    .nav-card {
+      padding: vr.$spacing-lg;
+
+      .nav-icon {
+        font-size: 2rem;
+      }
+
+      .nav-title {
+        font-size: 1.2rem;
+      }
+
+      .nav-description {
+        font-size: 0.95rem;
+      }
+    }
+  }
+}
+
+@media (max-width: vr.$breakpoint-sm) {
+  .education-navigation {
+    .section-title {
+      font-size: 1.8rem;
+    }
+
+    .nav-card {
+      padding: vr.$spacing-md;
+
+      .nav-icon {
+        font-size: 1.8rem;
+      }
+
+      .nav-title {
+        font-size: 1.1rem;
+      }
+
+      .nav-description {
+        font-size: 0.9rem;
+      }
+
+      .nav-arrow {
+        font-size: 1.3rem;
+      }
+    }
+  }
+}
