@@ -1,0 +1,193 @@
+@use '@/assets/styles/variables' as vr;
+
+.base-card {
+  background: vr.$white;
+  border-radius: vr.$border-radius-xl;
+  box-shadow: vr.$shadow-md;
+  padding: vr.$spacing-xl;
+  transition: all vr.$transition-normal;
+  cursor: pointer;
+  border: 1px solid vr.$gray-200;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(135deg, vr.$primary-color, vr.$primary-light);
+    transform: scaleX(0);
+    transition: transform vr.$transition-normal;
+  }
+
+  &:hover {
+    transform: translateY(-8px);
+    box-shadow: vr.$shadow-xl;
+    border-color: vr.$primary-light;
+
+    &::before {
+      transform: scaleX(1);
+    }
+
+    .learn-more-btn {
+      background: vr.$primary-color;
+      color: vr.$white;
+      
+      .arrow {
+        transform: translateX(4px);
+      }
+    }
+  }
+
+  &:active {
+    transform: translateY(-4px);
+  }
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: vr.$spacing-lg;
+}
+
+.base-icon {
+  font-size: 2.5rem;
+  line-height: 1;
+}
+
+.base-type {
+  background: linear-gradient(135deg, vr.$secondary-color, vr.$secondary-light);
+  color: vr.$white;
+  padding: vr.$spacing-sm vr.$spacing-md;
+  border-radius: vr.$border-radius-full;
+  font-size: vr.$font-size-sm;
+  font-weight: vr.$font-weight-medium;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.card-content {
+  margin-bottom: vr.$spacing-xl;
+}
+
+.base-title {
+  font-size: vr.$font-size-2xl;
+  font-weight: vr.$font-weight-bold;
+  color: vr.$primary-color;
+  margin-bottom: vr.$spacing-sm;
+  line-height: vr.$line-height-tight;
+}
+
+.base-full-title {
+  font-size: vr.$font-size-sm;
+  color: vr.$secondary-color;
+  margin-bottom: vr.$spacing-md;
+  font-style: italic;
+  line-height: vr.$line-height-normal;
+}
+
+.base-description {
+  font-size: vr.$font-size-base;
+  line-height: vr.$line-height-relaxed;
+  color: vr.$gray-700;
+  margin-bottom: vr.$spacing-lg;
+}
+
+.base-features {
+  .features-title {
+    font-size: vr.$font-size-lg;
+    font-weight: vr.$font-weight-semibold;
+    color: vr.$gray-800;
+    margin-bottom: vr.$spacing-md;
+  }
+
+  .features-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .feature-item {
+    position: relative;
+    padding-left: vr.$spacing-lg;
+    margin-bottom: vr.$spacing-sm;
+    font-size: vr.$font-size-sm;
+    color: vr.$gray-600;
+    line-height: vr.$line-height-normal;
+
+    &::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: vr.$success-color;
+      font-weight: vr.$font-weight-bold;
+      font-size: vr.$font-size-sm;
+    }
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.card-footer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.learn-more-btn {
+  background: transparent;
+  color: vr.$primary-color;
+  border: 2px solid vr.$primary-color;
+  padding: vr.$spacing-sm vr.$spacing-lg;
+  border-radius: vr.$border-radius-lg;
+  font-size: vr.$font-size-sm;
+  font-weight: vr.$font-weight-medium;
+  cursor: pointer;
+  transition: all vr.$transition-normal;
+  display: flex;
+  align-items: center;
+  gap: vr.$spacing-sm;
+
+  .arrow {
+    transition: transform vr.$transition-normal;
+    font-weight: vr.$font-weight-bold;
+  }
+
+  &:hover {
+    background: vr.$primary-color;
+    color: vr.$white;
+  }
+}
+
+// Адаптивность
+@media (max-width: vr.$breakpoint-md) {
+  .base-card {
+    padding: vr.$spacing-lg;
+  }
+
+  .base-title {
+    font-size: vr.$font-size-xl;
+  }
+
+  .base-icon {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: vr.$breakpoint-sm) {
+  .card-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: vr.$spacing-sm;
+  }
+
+  .base-type {
+    align-self: flex-start;
+  }
+}

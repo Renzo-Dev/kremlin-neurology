@@ -1,0 +1,117 @@
+@use '@/assets/styles/variables' as vr;
+
+.hero-section {
+  position: relative;
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+  color: vr.$white;
+  overflow: hidden;
+  background: linear-gradient(135deg, vr.$primary-color 0%, vr.$primary-dark 100%);
+}
+
+.hero-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -2;
+}
+
+.facade-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('@/assets/images/fasad.jpg') center/cover no-repeat;
+  filter: brightness(0.2) contrast(1.1) saturate(0.8);
+  background-attachment: fixed;
+  will-change: transform;
+  transform: scale(1.01);
+  transition: transform 0.3s ease-out;
+  z-index: -2;
+
+  @media (min-width: vr.$breakpoint-md) {
+    background-attachment: scroll;
+    transform: scale(1.02);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    background-attachment: scroll;
+    transform: none;
+    transition: none;
+  }
+}
+
+.facade-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(vr.$primary-color, 0.7) 0%,
+    rgba(vr.$primary-dark, 0.8) 100%
+  );
+  z-index: 0;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.hero-title {
+  font-size: 3.5rem;
+  font-weight: vr.$font-weight-bold;
+  line-height: 0.9;
+  margin-bottom: vr.$spacing-lg;
+
+  .title-accent {
+    background: linear-gradient(
+      135deg,
+      vr.$white 0%,
+      rgba(vr.$white, 0.9) 100%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  @media (max-width: vr.$breakpoint-md) {
+    font-size: 2.5rem;
+  }
+
+  @media (max-width: vr.$breakpoint-sm) {
+    font-size: 2rem;
+  }
+}
+
+.hero-subtitle {
+  font-size: vr.$font-size-xl;
+  line-height: vr.$line-height-relaxed;
+  margin-bottom: vr.$spacing-2xl;
+  opacity: 0.95;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+
+  @media (max-width: vr.$breakpoint-md) {
+    font-size: vr.$font-size-lg;
+  }
+}
+
+
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 vr.$spacing-lg;
+}

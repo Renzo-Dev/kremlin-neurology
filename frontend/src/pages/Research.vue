@@ -1,13 +1,32 @@
 <template>
   <div class="research-page">
-    <h1>Научная работа</h1>
-    <p>Страница находится в разработке</p>
+    <ResearchHero />
+    <ResearchHistory />
+    <ResearchAchievements />
+    <ResearchCurrent />
+    <ResearchStats />
   </div>
 </template>
 
 <script>
+import ResearchHero from '@/components/pages/Research/ResearchHero/ResearchHero.vue'
+import ResearchHistory from '@/components/pages/Research/ResearchHistory/ResearchHistory.vue'
+import ResearchAchievements from '@/components/pages/Research/ResearchAchievements/ResearchAchievements.vue'
+import ResearchCurrent from '@/components/pages/Research/ResearchCurrent/ResearchCurrent.vue'
+import ResearchStats from '@/components/pages/Research/ResearchStats/ResearchStats.vue'
+
 export default {
   name: 'Research',
+  components: {
+    ResearchHero,
+    ResearchHistory,
+    ResearchAchievements,
+    ResearchCurrent,
+    ResearchStats,
+  },
+  metaInfo: {
+    title: 'Научно-исследовательская деятельность - Кафедра неврологии',
+  },
 }
 </script>
 
@@ -15,7 +34,6 @@ export default {
 @use '@/assets/styles/variables' as v;
 
 .research-page {
-  padding: 2rem;
-  text-align: center;
+  background: v.$white;
 }
 </style>

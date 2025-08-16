@@ -1,0 +1,160 @@
+@use "@/assets/styles/variables" as v;
+
+.research-achievements {
+  padding: v.$spacing-3xl 0;
+  background: v.$gray-50;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 v.$spacing-lg;
+}
+
+.section-intro {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto v.$spacing-3xl;
+
+  .section-tag {
+    display: inline-block;
+    background: v.$primary-color;
+    color: v.$white;
+    padding: v.$spacing-xs v.$spacing-lg;
+    border-radius: v.$border-radius-full;
+    font-size: v.$font-size-sm;
+    font-weight: v.$font-weight-medium;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: v.$spacing-lg;
+  }
+
+  .section-title {
+    font-size: v.$font-size-3xl;
+    font-weight: v.$font-weight-bold;
+    color: v.$gray-900;
+    margin-bottom: v.$spacing-lg;
+    line-height: 1.1;
+
+    .title-accent {
+      color: v.$primary-color;
+    }
+
+    @media (max-width: v.$breakpoint-md) {
+      font-size: v.$font-size-2xl;
+    }
+  }
+
+  .section-description {
+    font-size: v.$font-size-lg;
+    color: v.$gray-600;
+    line-height: v.$line-height-relaxed;
+  }
+}
+
+.achievements-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: v.$spacing-2xl;
+  margin-bottom: v.$spacing-3xl;
+
+  .achievement-card {
+    background: v.$white;
+    padding: v.$spacing-2xl;
+    border-radius: v.$border-radius-xl;
+    box-shadow: v.$shadow-lg;
+    border: 1px solid v.$gray-100;
+    transition: all v.$transition-normal;
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, v.$primary-color, v.$primary-light);
+    }
+
+    &:hover {
+      transform: translateY(-8px);
+      box-shadow: v.$shadow-xl;
+      border-color: v.$primary-color;
+    }
+
+    .card-icon {
+      font-size: 3rem;
+      margin-bottom: v.$spacing-lg;
+      display: block;
+    }
+
+    h3 {
+      font-size: v.$font-size-xl;
+      font-weight: v.$font-weight-semibold;
+      color: v.$gray-900;
+      margin-bottom: v.$spacing-md;
+    }
+
+    p {
+      color: v.$gray-600;
+      line-height: v.$line-height-relaxed;
+      margin: 0;
+    }
+  }
+}
+
+.patents-summary {
+  background: v.$white;
+  padding: v.$spacing-2xl;
+  border-radius: v.$border-radius-xl;
+  box-shadow: v.$shadow-lg;
+  border: 1px solid v.$gray-100;
+
+  .summary-header {
+    text-align: center;
+    margin-bottom: v.$spacing-2xl;
+
+    h3 {
+      font-size: v.$font-size-xl;
+      font-weight: v.$font-weight-semibold;
+      color: v.$gray-900;
+      margin-bottom: v.$spacing-md;
+    }
+
+    .patent-count {
+      font-size: 3rem;
+      font-weight: v.$font-weight-bold;
+      color: v.$primary-color;
+      line-height: 1;
+    }
+  }
+
+  .patent-breakdown {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: v.$spacing-lg;
+
+    .patent-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: v.$spacing-lg;
+      background: v.$gray-50;
+      border-radius: v.$border-radius-lg;
+      border: 1px solid v.$gray-200;
+
+      .researcher {
+        font-weight: v.$font-weight-medium;
+        color: v.$gray-700;
+      }
+
+      .count {
+        font-weight: v.$font-weight-bold;
+        color: v.$primary-color;
+        font-size: v.$font-size-lg;
+      }
+    }
+  }
+}

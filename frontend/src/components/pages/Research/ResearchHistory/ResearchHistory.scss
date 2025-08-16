@@ -1,0 +1,188 @@
+@use "@/assets/styles/variables" as v;
+
+.research-history {
+  padding: v.$spacing-3xl 0;
+  background: v.$white;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 v.$spacing-lg;
+}
+
+.section-intro {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto v.$spacing-3xl;
+
+  .section-tag {
+    display: inline-block;
+    background: v.$primary-color;
+    color: v.$white;
+    padding: v.$spacing-xs v.$spacing-lg;
+    border-radius: v.$border-radius-full;
+    font-size: v.$font-size-sm;
+    font-weight: v.$font-weight-medium;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: v.$spacing-lg;
+  }
+
+  .section-title {
+    font-size: v.$font-size-3xl;
+    font-weight: v.$font-weight-bold;
+    color: v.$gray-900;
+    margin-bottom: v.$spacing-lg;
+    line-height: 1.1;
+
+    .title-accent {
+      color: v.$primary-color;
+    }
+
+    @media (max-width: v.$breakpoint-md) {
+      font-size: v.$font-size-2xl;
+    }
+  }
+
+  .section-description {
+    font-size: v.$font-size-lg;
+    color: v.$gray-600;
+    line-height: v.$line-height-relaxed;
+  }
+}
+
+.history-timeline {
+  max-width: 900px;
+  margin: 0 auto v.$spacing-3xl;
+  position: relative;
+
+  &::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, v.$primary-color, v.$primary-light);
+    transform: translateX(-50%);
+
+    @media (max-width: v.$breakpoint-md) {
+      left: 20px;
+    }
+  }
+
+  .timeline-item {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: v.$spacing-2xl;
+    position: relative;
+
+    &:nth-child(odd) {
+      flex-direction: row;
+
+      @media (max-width: v.$breakpoint-md) {
+        flex-direction: column;
+        margin-left: 40px;
+      }
+    }
+
+    &:nth-child(even) {
+      flex-direction: row-reverse;
+
+      @media (max-width: v.$breakpoint-md) {
+        flex-direction: column;
+        margin-left: 40px;
+      }
+    }
+
+    .timeline-date {
+      background: v.$primary-color;
+      color: v.$white;
+      padding: v.$spacing-sm v.$spacing-lg;
+      border-radius: v.$border-radius-full;
+      font-weight: v.$font-weight-bold;
+      font-size: v.$font-size-lg;
+      min-width: 80px;
+  text-align: center;
+      position: relative;
+      z-index: 2;
+
+      @media (max-width: v.$breakpoint-md) {
+        align-self: flex-start;
+        margin-bottom: v.$spacing-md;
+      }
+    }
+
+    .timeline-content {
+      background: v.$white;
+      padding: v.$spacing-xl;
+      border-radius: v.$border-radius-lg;
+      box-shadow: v.$shadow-md;
+      border: 1px solid v.$gray-100;
+      margin: 0 v.$spacing-xl;
+      flex: 1;
+      transition: all v.$transition-normal;
+
+      &:hover {
+        transform: translateY(-4px);
+        box-shadow: v.$shadow-lg;
+        border-color: v.$primary-color;
+      }
+
+      h3 {
+        font-size: v.$font-size-xl;
+        font-weight: v.$font-weight-semibold;
+        color: v.$gray-900;
+        margin-bottom: v.$spacing-md;
+      }
+
+      p {
+        color: v.$gray-600;
+        line-height: v.$line-height-relaxed;
+        margin: 0;
+      }
+
+      @media (max-width: v.$breakpoint-md) {
+        margin: 0;
+      }
+    }
+  }
+}
+
+.history-highlight {
+  background: linear-gradient(135deg, v.$primary-color, v.$primary-light);
+  color: v.$white;
+  padding: v.$spacing-2xl;
+  border-radius: v.$border-radius-xl;
+  display: flex;
+  align-items: center;
+  gap: v.$spacing-xl;
+  max-width: 900px;
+  margin: 0 auto;
+
+  @media (max-width: v.$breakpoint-md) {
+    flex-direction: column;
+    text-align: center;
+    padding: v.$spacing-xl;
+  }
+
+  .highlight-icon {
+    font-size: 3rem;
+    flex-shrink: 0;
+  }
+
+  .highlight-content {
+    h3 {
+      font-size: v.$font-size-xl;
+      font-weight: v.$font-weight-semibold;
+      margin-bottom: v.$spacing-md;
+    }
+
+    p {
+      line-height: v.$line-height-relaxed;
+      margin: 0;
+      opacity: 0.95;
+    }
+  }
+}

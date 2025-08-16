@@ -1,0 +1,146 @@
+@use '@/assets/styles/variables' as vr;
+
+.clients-page {
+  min-height: 100vh;
+  background: vr.$white;
+}
+
+// Глобальные стили для страницы
+:global(.clients-page) {
+  // Плавная прокрутка
+  scroll-behavior: smooth;
+  
+  // Отступ для фиксированного header
+  scroll-padding-top: 80px;
+}
+
+// Стили для контейнеров
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 vr.$spacing-lg;
+}
+
+// Адаптивные изображения
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+// Улучшенная типографика для медицинского контента
+h1, h2, h3, h4, h5, h6 {
+  font-family: vr.$font-family-primary;
+  line-height: vr.$line-height-tight;
+  color: vr.$gray-900;
+}
+
+p {
+  font-family: vr.$font-family-primary;
+  line-height: vr.$line-height-relaxed;
+  color: vr.$gray-700;
+}
+
+// Стили для кнопок
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: vr.$spacing-md vr.$spacing-xl;
+  border-radius: vr.$border-radius-lg;
+  font-weight: vr.$font-weight-medium;
+  text-decoration: none;
+  transition: all vr.$transition-normal;
+  cursor: pointer;
+  border: none;
+  font-size: vr.$font-size-base;
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: vr.$shadow-lg;
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+// Утилиты для отступов
+.section-padding {
+  padding: vr.$spacing-3xl 0;
+}
+
+.section-padding-sm {
+  padding: vr.$spacing-2xl 0;
+}
+
+// Утилиты для текста
+.text-center {
+  text-align: center;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-right {
+  text-align: right;
+}
+
+// Утилиты для цветов
+.text-primary {
+  color: vr.$primary-color;
+}
+
+.text-secondary {
+  color: vr.$secondary-color;
+}
+
+.text-success {
+  color: vr.$success-color;
+}
+
+.text-info {
+  color: vr.$info-color;
+}
+
+// Адаптивные утилиты
+@media (max-width: vr.$breakpoint-md) {
+  .container {
+    padding: 0 vr.$spacing-md;
+  }
+  
+  .section-padding {
+    padding: vr.$spacing-2xl 0;
+  }
+  
+  .section-padding-sm {
+    padding: vr.$spacing-xl 0;
+  }
+}
+
+@media (max-width: vr.$breakpoint-sm) {
+  .container {
+    padding: 0 vr.$spacing-sm;
+  }
+  
+  .section-padding {
+    padding: vr.$spacing-xl 0;
+  }
+  
+  .section-padding-sm {
+    padding: vr.$spacing-lg 0;
+  }
+}
+
+// Стили для печати
+@media print {
+  .clients-page {
+    background: vr.$white;
+  }
+  
+  .container {
+    max-width: none;
+    padding: 0;
+  }
+}

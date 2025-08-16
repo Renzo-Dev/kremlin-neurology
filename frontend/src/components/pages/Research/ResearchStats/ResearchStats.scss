@@ -1,0 +1,167 @@
+@use "@/assets/styles/variables" as v;
+
+.research-stats {
+  padding: v.$spacing-3xl 0;
+  background: v.$gray-50;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 v.$spacing-lg;
+}
+
+.section-intro {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto v.$spacing-3xl;
+
+  .section-tag {
+    display: inline-block;
+    background: v.$primary-color;
+    color: v.$white;
+    padding: v.$spacing-xs v.$spacing-lg;
+    border-radius: v.$border-radius-full;
+    font-size: v.$font-size-sm;
+    font-weight: v.$font-weight-medium;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: v.$spacing-lg;
+  }
+
+  .section-title {
+    font-size: v.$font-size-3xl;
+    font-weight: v.$font-weight-bold;
+    color: v.$gray-900;
+    margin-bottom: v.$spacing-lg;
+    line-height: 1.1;
+
+    .title-accent {
+      color: v.$primary-color;
+    }
+
+    @media (max-width: v.$breakpoint-md) {
+      font-size: v.$font-size-2xl;
+    }
+  }
+
+  .section-description {
+    font-size: v.$font-size-lg;
+    color: v.$gray-600;
+    line-height: v.$line-height-relaxed;
+  }
+}
+
+.stats-overview {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: v.$spacing-2xl;
+  margin-bottom: v.$spacing-3xl;
+
+  .overview-card {
+    background: v.$white;
+    padding: v.$spacing-2xl;
+    border-radius: v.$border-radius-xl;
+    box-shadow: v.$shadow-lg;
+    border: 1px solid v.$gray-100;
+    transition: all v.$transition-normal;
+
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: v.$shadow-xl;
+      border-color: v.$primary-color;
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: v.$spacing-lg;
+      margin-bottom: v.$spacing-xl;
+
+      .card-icon {
+        font-size: 2.5rem;
+      }
+
+      h3 {
+        font-size: v.$font-size-xl;
+        font-weight: v.$font-weight-semibold;
+        color: v.$gray-900;
+        margin: 0;
+      }
+    }
+
+    .stats-list {
+      .stat-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: v.$spacing-md 0;
+        border-bottom: 1px solid v.$gray-200;
+
+        &:last-child {
+          border-bottom: none;
+        }
+
+        .stat-label {
+          color: v.$gray-600;
+          font-weight: v.$font-weight-medium;
+        }
+
+        .stat-value {
+          font-weight: v.$font-weight-bold;
+          color: v.$primary-color;
+          font-size: v.$font-size-lg;
+        }
+      }
+    }
+  }
+}
+
+.achievement-highlight {
+  background: linear-gradient(135deg, v.$warning-color, v.$primary-color);
+  color: v.$white;
+  padding: v.$spacing-2xl;
+  border-radius: v.$border-radius-xl;
+  display: flex;
+  align-items: center;
+  gap: v.$spacing-xl;
+  max-width: 900px;
+  margin: 0 auto;
+
+  @media (max-width: v.$breakpoint-md) {
+    flex-direction: column;
+    text-align: center;
+    padding: v.$spacing-xl;
+  }
+
+  .highlight-content {
+    flex: 1;
+
+    h3 {
+      font-size: v.$font-size-xl;
+      font-weight: v.$font-weight-semibold;
+      margin-bottom: v.$spacing-md;
+    }
+
+    p {
+      line-height: v.$line-height-relaxed;
+      margin-bottom: v.$spacing-lg;
+      opacity: 0.95;
+    }
+
+    .award-details {
+      .award-number {
+        background: rgba(255, 255, 255, 0.2);
+        padding: v.$spacing-sm v.$spacing-lg;
+        border-radius: v.$border-radius-full;
+        font-weight: v.$font-weight-bold;
+        font-size: v.$font-size-sm;
+      }
+    }
+  }
+
+  .highlight-icon {
+    font-size: 4rem;
+    flex-shrink: 0;
+  }
+}

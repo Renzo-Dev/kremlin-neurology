@@ -1,0 +1,111 @@
+@use '@/assets/styles/variables' as v;
+
+.research-hero {
+  padding: v.$spacing-3xl 0;
+  background: linear-gradient(135deg, v.$gray-50 0%, v.$white 100%);
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(v.$primary-color, 0.1) 0%, transparent 70%);
+    border-radius: 50%;
+    transform: translate(50%, -50%);
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 v.$spacing-lg;
+  }
+
+  .hero-content {
+    text-align: center;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .section-tag {
+    display: inline-block;
+    background: v.$primary-color;
+    color: v.$white;
+    padding: v.$spacing-xs v.$spacing-lg;
+    border-radius: v.$border-radius-full;
+    font-size: v.$font-size-sm;
+    font-weight: v.$font-weight-medium;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: v.$spacing-lg;
+  }
+
+  .hero-title {
+    font-size: v.$font-size-4xl;
+    font-weight: v.$font-weight-bold;
+    color: v.$gray-900;
+    margin-bottom: v.$spacing-lg;
+    line-height: 1.1;
+
+    .title-accent {
+      color: v.$primary-color;
+    }
+
+    @media (max-width: v.$breakpoint-md) {
+      font-size: v.$font-size-3xl;
+    }
+  }
+
+  .hero-description {
+    font-size: v.$font-size-lg;
+    color: v.$gray-600;
+    line-height: v.$line-height-relaxed;
+    margin-bottom: v.$spacing-2xl;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .hero-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: v.$spacing-xl;
+    max-width: 600px;
+    margin: 0 auto;
+
+    .stat-item {
+      text-align: center;
+      padding: v.$spacing-lg;
+      background: v.$white;
+      border-radius: v.$border-radius-lg;
+      box-shadow: v.$shadow-md;
+      border: 1px solid v.$gray-100;
+      transition: all v.$transition-normal;
+
+      &:hover {
+        transform: translateY(-4px);
+        box-shadow: v.$shadow-lg;
+        border-color: v.$primary-color;
+      }
+
+      .stat-number {
+        font-size: 2.5rem;
+        font-weight: v.$font-weight-bold;
+        color: v.$primary-color;
+        margin-bottom: v.$spacing-sm;
+        line-height: 1;
+      }
+
+      .stat-label {
+        font-size: v.$font-size-sm;
+        color: v.$gray-600;
+        font-weight: v.$font-weight-medium;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+    }
+  }
+}

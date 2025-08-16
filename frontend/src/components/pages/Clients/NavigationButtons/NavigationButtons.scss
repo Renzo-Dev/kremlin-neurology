@@ -1,0 +1,256 @@
+@use '@/assets/styles/variables' as vr;
+
+.navigation-section {
+  padding: vr.$spacing-3xl 0;
+  background: vr.$white;
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, vr.$gray-200, transparent);
+  }
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 vr.$spacing-lg;
+}
+
+.navigation-content {
+  text-align: center;
+  margin-bottom: vr.$spacing-3xl;
+}
+
+.navigation-title {
+  font-size: vr.$font-size-4xl;
+  font-weight: vr.$font-weight-bold;
+  color: vr.$gray-900;
+  margin-bottom: vr.$spacing-lg;
+  line-height: vr.$line-height-tight;
+
+  @media (max-width: vr.$breakpoint-md) {
+    font-size: vr.$font-size-3xl;
+  }
+}
+
+.navigation-description {
+  font-size: vr.$font-size-lg;
+  line-height: vr.$line-height-relaxed;
+  color: vr.$gray-600;
+  margin: 0;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.navigation-buttons {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: vr.$spacing-xl;
+  margin-top: vr.$spacing-2xl;
+
+  @media (max-width: vr.$breakpoint-lg) {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: vr.$spacing-lg;
+  }
+
+  @media (max-width: vr.$breakpoint-md) {
+    grid-template-columns: 1fr;
+    gap: vr.$spacing-md;
+  }
+}
+
+.nav-button {
+  display: flex;
+  align-items: center;
+  padding: vr.$spacing-xl;
+  border-radius: vr.$border-radius-xl;
+  text-decoration: none;
+  transition: all vr.$transition-normal;
+  position: relative;
+  overflow: hidden;
+  border: 2px solid transparent;
+  background: vr.$gray-50;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transform: translateX(-100%);
+    transition: transform vr.$transition-normal;
+  }
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: vr.$shadow-xl;
+    border-color: currentColor;
+
+    &::before {
+      transform: translateX(100%);
+    }
+
+    .button-arrow {
+      transform: translateX(8px);
+    }
+  }
+
+  &:active {
+    transform: translateY(-2px);
+  }
+
+  // Варианты кнопок
+  &.primary {
+    color: vr.$primary-color;
+    border-color: vr.$primary-color;
+    
+    &:hover {
+      background: vr.$primary-color;
+      color: vr.$white;
+    }
+  }
+
+  &.secondary {
+    color: vr.$secondary-color;
+    border-color: vr.$secondary-color;
+    
+    &:hover {
+      background: vr.$secondary-color;
+      color: vr.$white;
+    }
+  }
+
+  &.success {
+    color: vr.$success-color;
+    border-color: vr.$success-color;
+    
+    &:hover {
+      background: vr.$success-color;
+      color: vr.$white;
+    }
+  }
+
+  &.info {
+    color: vr.$info-color;
+    border-color: vr.$info-color;
+    
+    &:hover {
+      background: vr.$info-color;
+      color: vr.$white;
+    }
+  }
+}
+
+.button-icon {
+  font-size: 2.5rem;
+  margin-right: vr.$spacing-lg;
+  flex-shrink: 0;
+  transition: transform vr.$transition-normal;
+
+  .nav-button:hover & {
+    transform: scale(1.1);
+  }
+}
+
+.button-content {
+  flex: 1;
+  text-align: left;
+}
+
+.button-title {
+  font-size: vr.$font-size-lg;
+  font-weight: vr.$font-weight-semibold;
+  margin: 0 0 vr.$spacing-sm 0;
+  line-height: vr.$line-height-tight;
+}
+
+.button-description {
+  font-size: vr.$font-size-sm;
+  margin: 0;
+  opacity: 0.8;
+  line-height: vr.$line-height-normal;
+}
+
+.button-arrow {
+  font-size: vr.$font-size-xl;
+  font-weight: vr.$font-weight-bold;
+  margin-left: vr.$spacing-md;
+  transition: transform vr.$transition-normal;
+  flex-shrink: 0;
+}
+
+// Анимация появления кнопок
+.navigation-buttons > * {
+  animation: fadeInUp 0.6s ease-out forwards;
+  opacity: 0;
+  transform: translateY(30px);
+
+  &:nth-child(1) {
+    animation-delay: 0.4s;
+  }
+
+  &:nth-child(2) {
+    animation-delay: 0.5s;
+  }
+
+  &:nth-child(3) {
+    animation-delay: 0.6s;
+  }
+
+  &:nth-child(4) {
+    animation-delay: 0.7s;
+  }
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Адаптивность для мобильных устройств
+@media (max-width: vr.$breakpoint-sm) {
+  .nav-button {
+    padding: vr.$spacing-lg;
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .button-icon {
+    margin-right: 0;
+    margin-bottom: vr.$spacing-md;
+  }
+
+  .button-content {
+    text-align: center;
+    margin-bottom: vr.$spacing-md;
+  }
+
+  .button-arrow {
+    margin-left: 0;
+  }
+}
+
+// Стили для печати
+@media print {
+  .navigation-section {
+    background: vr.$white;
+    padding: vr.$spacing-lg 0;
+  }
+
+  .navigation-buttons {
+    grid-template-columns: repeat(2, 1fr);
+    gap: vr.$spacing-lg;
+  }
+}

@@ -1,0 +1,121 @@
+@use '@/assets/styles/variables' as vr;
+
+.clinical-bases-section {
+  padding: vr.$spacing-3xl 0;
+  background: linear-gradient(135deg, vr.$gray-50 0%, vr.$white 100%);
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, vr.$gray-200, transparent);
+  }
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 vr.$spacing-lg;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: vr.$spacing-3xl;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.section-title {
+  font-size: vr.$font-size-4xl;
+  font-weight: vr.$font-weight-bold;
+  color: vr.$gray-900;
+  margin-bottom: vr.$spacing-lg;
+  line-height: vr.$line-height-tight;
+
+  @media (max-width: vr.$breakpoint-md) {
+    font-size: vr.$font-size-3xl;
+  }
+
+  @media (max-width: vr.$breakpoint-sm) {
+    font-size: vr.$font-size-2xl;
+  }
+}
+
+.section-description {
+  font-size: vr.$font-size-lg;
+  line-height: vr.$line-height-relaxed;
+  color: vr.$gray-600;
+  margin: 0;
+}
+
+.bases-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: vr.$spacing-2xl;
+  margin-top: vr.$spacing-2xl;
+
+  @media (max-width: vr.$breakpoint-lg) {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: vr.$spacing-xl;
+  }
+
+  @media (max-width: vr.$breakpoint-md) {
+    grid-template-columns: 1fr;
+    gap: vr.$spacing-lg;
+  }
+}
+
+// Анимация появления карточек
+.bases-grid > * {
+  animation: fadeInUp 0.6s ease-out forwards;
+  opacity: 0;
+  transform: translateY(30px);
+
+  &:nth-child(1) {
+    animation-delay: 0.1s;
+  }
+
+  &:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+
+  &:nth-child(3) {
+    animation-delay: 0.3s;
+  }
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Дополнительные стили для лучшего отображения на больших экранах
+@media (min-width: vr.$breakpoint-xl) {
+  .bases-grid {
+    grid-template-columns: repeat(3, 1fr);
+    max-width: 1100px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+// Стили для печати
+@media print {
+  .clinical-bases-section {
+    background: vr.$white;
+    padding: vr.$spacing-lg 0;
+  }
+
+  .bases-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: vr.$spacing-lg;
+  }
+}
