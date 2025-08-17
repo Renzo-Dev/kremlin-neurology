@@ -30,6 +30,11 @@ export const routers = [
     component: () => import('@/pages/Clients.vue'),
   },
   {
+    path: '/gkb51',
+    name: 'ГКБ51ДЗМ',
+    component: () => import('@/pages/ГКБ51ДЗМ.vue'),
+  },
+  {
     path: '/conferences',
     name: 'Conferences',
     component: () => import('@/pages/Conferences.vue'),

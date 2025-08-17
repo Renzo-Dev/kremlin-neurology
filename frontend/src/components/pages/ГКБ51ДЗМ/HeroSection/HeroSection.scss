@@ -1,0 +1,210 @@
+@use '@/assets/styles/variables' as vr;
+
+.hero-section {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  color: vr.$white;
+  overflow: hidden;
+}
+
+.hero-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -2;
+}
+
+.hospital-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+  filter: brightness(0.8) contrast(1.1);
+  z-index: -2;
+}
+
+.hospital-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(vr.$primary-color, 0.6) 0%,
+    rgba(vr.$primary-dark, 0.7) 100%
+  );
+  z-index: 0;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 0;
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.hero-title {
+  font-size: 3.5rem;
+  font-weight: vr.$font-weight-bold;
+  line-height: 0.9;
+  margin-bottom: vr.$spacing-lg;
+
+  .title-accent {
+    background: linear-gradient(
+      135deg,
+      vr.$white 0%,
+      rgba(vr.$white, 0.9) 100%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  @media (max-width: vr.$breakpoint-md) {
+    font-size: 2.5rem;
+  }
+
+  @media (max-width: vr.$breakpoint-sm) {
+    font-size: 2rem;
+  }
+}
+
+.hero-subtitle {
+  font-size: vr.$font-size-lg;
+  opacity: 0.9;
+  line-height: vr.$line-height-relaxed;
+  margin-bottom: vr.$spacing-2xl;
+  font-weight: vr.$font-weight-light;
+}
+
+.hero-actions {
+  display: flex;
+  gap: vr.$spacing-lg;
+  justify-content: center;
+  flex-wrap: wrap;
+
+  .btn-primary,
+  .btn-secondary {
+    padding: vr.$spacing-md vr.$spacing-2xl;
+    border-radius: vr.$border-radius-full;
+    text-decoration: none;
+    font-weight: vr.$font-weight-medium;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 2px solid transparent;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: inherit;
+    background: none;
+    color: inherit;
+    position: relative;
+    overflow: hidden;
+    z-index: 3;
+    pointer-events: auto;
+
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(vr.$white, 0.3);
+    }
+
+    &:active {
+      transform: translateY(0);
+      transition: transform 0.1s ease;
+    }
+  }
+
+  .btn-primary {
+    background: vr.$white;
+    color: vr.$primary-color;
+
+    &:hover {
+      background: transparent;
+      color: vr.$white;
+      border-color: vr.$white;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(vr.$white, 0.3);
+    }
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: vr.$white;
+    border-color: vr.$white;
+
+    &:hover {
+      background: vr.$white;
+      color: vr.$primary-color;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(vr.$white, 0.2);
+    }
+  }
+}
+
+.scroll-indicator {
+  position: absolute;
+  bottom: vr.$spacing-2xl;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 0;
+
+  .scroll-arrow {
+    width: 2px;
+    height: 40px;
+    background: vr.$white;
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: -3px;
+      width: 8px;
+      height: 8px;
+      border-right: 2px solid vr.$white;
+      border-bottom: 2px solid vr.$white;
+      transform: rotate(45deg);
+    }
+  }
+}
+
+@media (max-width: vr.$breakpoint-md) {
+  .hero-title {
+    font-size: 2.5rem;
+  }
+
+  .hero-actions {
+    flex-direction: column;
+    align-items: center;
+
+    .btn-primary,
+    .btn-secondary {
+      width: 100%;
+      max-width: 300px;
+    }
+  }
+}
+
+@media (max-width: vr.$breakpoint-sm) {
+  .hero-title {
+    font-size: 2rem;
+  }
+}
+
+@media (max-height: 600px) {
+  .scroll-indicator {
+    display: none;
+  }
+}
+
+@media (max-height: 500px) {
+  .hero-actions {
+    margin-bottom: vr.$spacing-sm;
+  }
+}

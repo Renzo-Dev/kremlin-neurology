@@ -1,0 +1,115 @@
+@use '@/assets/styles/variables' as vr;
+
+.about-section {
+  padding: vr.$spacing-3xl 0;
+  background: vr.$gray-50;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 vr.$spacing-lg;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: vr.$spacing-3xl;
+}
+
+.section-title {
+  font-size: vr.$font-size-4xl;
+  font-weight: vr.$font-weight-bold;
+  color: vr.$gray-900;
+  margin-bottom: vr.$spacing-lg;
+}
+
+.section-divider {
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(135deg, vr.$primary-color, vr.$primary-light);
+  margin: 0 auto;
+  border-radius: vr.$border-radius-full;
+}
+
+.about-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: vr.$spacing-3xl;
+  align-items: start;
+
+  @media (max-width: vr.$breakpoint-lg) {
+    grid-template-columns: 1fr;
+    gap: vr.$spacing-2xl;
+  }
+}
+
+.about-text {
+  .about-paragraph {
+    font-size: vr.$font-size-lg;
+    line-height: vr.$line-height-relaxed;
+    color: vr.$gray-700;
+    margin-bottom: vr.$spacing-lg;
+    
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: vr.$spacing-xl;
+}
+
+.stat-item {
+  text-align: center;
+  padding: vr.$spacing-xl;
+  background: vr.$white;
+  border-radius: vr.$border-radius-xl;
+  box-shadow: vr.$shadow-md;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: vr.$shadow-lg;
+  }
+}
+
+.stat-number {
+  font-size: vr.$font-size-4xl;
+  font-weight: vr.$font-weight-bold;
+  color: vr.$primary-color;
+  margin-bottom: vr.$spacing-sm;
+}
+
+.stat-label {
+  font-size: vr.$font-size-sm;
+  color: vr.$gray-600;
+  font-weight: vr.$font-weight-medium;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+@media (max-width: vr.$breakpoint-md) {
+  .about-section {
+    padding: vr.$spacing-2xl 0;
+  }
+  
+  .section-title {
+    font-size: vr.$font-size-3xl;
+  }
+  
+  .stats-grid {
+    grid-template-columns: 1fr;
+    gap: vr.$spacing-lg;
+  }
+  
+  .stat-item {
+    padding: vr.$spacing-lg;
+  }
+  
+  .stat-number {
+    font-size: vr.$font-size-3xl;
+  }
+}
