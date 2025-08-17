@@ -7,9 +7,9 @@
 </template>
 
 <script>
-import ClinicalBasesSection from '@/components/pages/Clients/ClinicalBasesSection/ClinicalBasesSection.vue';
-import HeroSection from '@/components/pages/Clients/HeroSection/HeroSection.vue';
-import NavigationButtons from '@/components/pages/Clients/NavigationButtons/NavigationButtons.vue';
+import ClinicalBasesSection from '@/components/pages/Clients/ClinicalBasesSection/ClinicalBasesSection.vue'
+import HeroSection from '@/components/pages/Clients/HeroSection/HeroSection.vue'
+import NavigationButtons from '@/components/pages/Clients/NavigationButtons/NavigationButtons.vue'
 
 export default {
   name: 'ClientsPage',

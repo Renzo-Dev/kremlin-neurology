@@ -35,6 +35,16 @@ export const routers = [
     component: () => import('@/pages/ГКБ51ДЗМ.vue'),
   },
   {
+    path: '/ckbp',
+    name: 'ЦКБП',
+    component: () => import('@/pages/ЦКБП.vue'),
+  },
+  {
+    path: '/kb1vol',
+    name: 'КБ1Волынская',
+    component: () => import('@/pages/КБ1Волынская.vue'),
+  },
+  {
     path: '/conferences',
     name: 'Conferences',
     component: () => import('@/pages/Conferences.vue'),

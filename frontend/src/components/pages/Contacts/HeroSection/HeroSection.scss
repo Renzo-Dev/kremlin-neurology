@@ -1,0 +1,88 @@
+@use '@/assets/styles/variables' as vr;
+@use '@/assets/styles/mixins' as mx;
+
+.hero-section {
+  padding: vr.$spacing-3xl 0;
+  background: linear-gradient(135deg, vr.$primary-color, vr.$primary-dark);
+  color: vr.$white;
+  text-align: center;
+
+  @include mx.mobile {
+    padding: vr.$spacing-2xl 0;
+  }
+}
+
+.hero-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.hero-tag {
+  display: inline-block;
+  background: rgba(vr.$white, 0.2);
+  color: vr.$white;
+  padding: vr.$spacing-sm vr.$spacing-lg;
+  border-radius: vr.$border-radius-full;
+  font-size: vr.$font-size-sm;
+  font-weight: vr.$font-weight-medium;
+  margin-bottom: vr.$spacing-lg;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(vr.$white, 0.3);
+
+  @include mx.mobile {
+    font-size: vr.$font-size-xs;
+    padding: vr.$spacing-xs vr.$spacing-md;
+    margin-bottom: vr.$spacing-md;
+  }
+}
+
+.hero-title {
+  font-size: vr.$font-size-4xl;
+  font-weight: vr.$font-weight-bold;
+  line-height: vr.$line-height-tight;
+  margin-bottom: vr.$spacing-lg;
+  color: vr.$white;
+
+  @include mx.tablet {
+    font-size: vr.$font-size-3xl;
+  }
+
+  @include mx.mobile {
+    font-size: vr.$font-size-2xl;
+    margin-bottom: vr.$spacing-md;
+  }
+}
+
+.title-accent {
+  color: rgba(vr.$white, 0.9);
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: vr.$white;
+    border-radius: vr.$border-radius-sm;
+
+    @include mx.mobile {
+      bottom: -4px;
+      height: 2px;
+    }
+  }
+}
+
+.hero-description {
+  font-size: vr.$font-size-lg;
+  line-height: vr.$line-height-relaxed;
+  color: rgba(vr.$white, 0.9);
+  max-width: 600px;
+  margin: 0 auto;
+
+  @include mx.mobile {
+    font-size: vr.$font-size-base;
+    line-height: vr.$line-height-normal;
+  }
+}

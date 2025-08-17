@@ -1,0 +1,131 @@
+@use '@/assets/styles/variables' as vr;
+
+.contact-section {
+  padding: vr.$spacing-3xl 0;
+  background: vr.$gray-50;
+  position: relative;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: vr.$spacing-3xl;
+}
+
+.section-title {
+  font-size: vr.$font-size-4xl;
+  font-weight: vr.$font-weight-bold;
+  color: vr.$primary-color;
+  margin-bottom: vr.$spacing-lg;
+
+  @media (max-width: vr.$breakpoint-md) {
+    font-size: vr.$font-size-3xl;
+  }
+}
+
+.section-subtitle {
+  font-size: vr.$font-size-xl;
+  color: vr.$gray-600;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: vr.$line-height-relaxed;
+}
+
+.contact-content {
+  display: flex;
+  justify-content: center;
+}
+
+.contact-info {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: vr.$spacing-xl;
+  max-width: 800px;
+
+  @media (max-width: vr.$breakpoint-md) {
+    grid-template-columns: 1fr;
+    gap: vr.$spacing-lg;
+  }
+}
+
+.contact-block {
+  display: flex;
+  align-items: flex-start;
+  gap: vr.$spacing-lg;
+  background: vr.$white;
+  padding: vr.$spacing-xl;
+  border-radius: vr.$border-radius-lg;
+  box-shadow: vr.$shadow-sm;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: vr.$shadow-md;
+  }
+
+  .contact-icon {
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, vr.$primary-color, vr.$primary-light);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: vr.$white;
+    flex-shrink: 0;
+
+    svg {
+      width: 24px;
+      height: 24px;
+    }
+  }
+
+  .contact-details {
+    h3 {
+      font-size: vr.$font-size-lg;
+      font-weight: vr.$font-weight-semibold;
+      color: vr.$primary-color;
+      margin-bottom: vr.$spacing-sm;
+    }
+
+    p {
+      font-size: vr.$font-size-base;
+      color: vr.$gray-700;
+      margin: 0 0 vr.$spacing-xs 0;
+      line-height: vr.$line-height-normal;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+}
+
+// Адаптивность
+@media (max-width: vr.$breakpoint-md) {
+  .contact-block {
+    padding: vr.$spacing-lg;
+
+    .contact-icon {
+      width: 40px;
+      height: 40px;
+
+      svg {
+        width: 20px;
+        height: 20px;
+      }
+    }
+  }
+}
+
+@media (max-width: vr.$breakpoint-sm) {
+  .contact-block {
+    flex-direction: column;
+    text-align: center;
+
+    .contact-icon {
+      margin: 0 auto vr.$spacing-md;
+    }
+  }
+}

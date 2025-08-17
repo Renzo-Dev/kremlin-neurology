@@ -1,0 +1,76 @@
+@use '@/assets/styles/variables' as v;
+
+.news-filter {
+  margin-bottom: v.$spacing-2xl;
+}
+
+.filter-container {
+  background: v.$white;
+  border-radius: v.$border-radius-xl;
+  padding: v.$spacing-lg;
+  box-shadow: v.$shadow-md;
+  border: 1px solid v.$gray-200;
+}
+
+.filter-group {
+  display: flex;
+  align-items: center;
+  gap: v.$spacing-lg;
+  flex-wrap: wrap;
+
+  @media (max-width: v.$breakpoint-md) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: v.$spacing-md;
+  }
+}
+
+.filter-label {
+  font-weight: v.$font-weight-semibold;
+  color: v.$gray-700;
+  font-size: v.$font-size-base;
+  white-space: nowrap;
+}
+
+.filter-buttons {
+  display: flex;
+  gap: v.$spacing-sm;
+  flex-wrap: wrap;
+}
+
+.filter-btn {
+  padding: v.$spacing-sm v.$spacing-md;
+  border: 2px solid v.$gray-200;
+  border-radius: v.$border-radius-lg;
+  background: v.$white;
+  color: v.$gray-600;
+  font-weight: v.$font-weight-medium;
+  font-size: v.$font-size-sm;
+  cursor: pointer;
+  transition: all v.$transition-normal;
+
+  &:hover {
+    border-color: v.$primary-color;
+    color: v.$primary-color;
+    transform: translateY(-1px);
+    box-shadow: v.$shadow-sm;
+  }
+
+  &--active {
+    background: v.$primary-color;
+    border-color: v.$primary-color;
+    color: v.$white;
+    box-shadow: v.$shadow-md;
+
+    &:hover {
+      background: v.$primary-dark;
+      border-color: v.$primary-dark;
+      transform: translateY(-1px);
+    }
+  }
+
+  @media (max-width: v.$breakpoint-sm) {
+    padding: v.$spacing-xs v.$spacing-sm;
+    font-size: v.$font-size-xs;
+  }
+}

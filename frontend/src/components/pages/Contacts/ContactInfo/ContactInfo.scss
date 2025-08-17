@@ -1,0 +1,340 @@
+@use '@/assets/styles/variables' as vr;
+@use '@/assets/styles/mixins' as mx;
+
+.contact-info-section {
+  padding: vr.$spacing-3xl 0;
+  background: vr.$white;
+
+  @include mx.mobile {
+    padding: vr.$spacing-2xl 0;
+  }
+}
+
+.section-intro {
+  text-align: center;
+  margin-bottom: vr.$spacing-3xl;
+
+  @include mx.mobile {
+    margin-bottom: vr.$spacing-2xl;
+  }
+}
+
+.section-tag {
+  display: inline-block;
+  background: rgba(vr.$primary-color, 0.1);
+  color: vr.$primary-color;
+  padding: vr.$spacing-sm vr.$spacing-lg;
+  border-radius: vr.$border-radius-full;
+  font-size: vr.$font-size-sm;
+  font-weight: vr.$font-weight-medium;
+  margin-bottom: vr.$spacing-lg;
+
+  @include mx.mobile {
+    font-size: vr.$font-size-xs;
+    padding: vr.$spacing-xs vr.$spacing-md;
+    margin-bottom: vr.$spacing-md;
+  }
+}
+
+.section-title {
+  font-size: vr.$font-size-3xl;
+  font-weight: vr.$font-weight-bold;
+  line-height: vr.$line-height-tight;
+  margin-bottom: vr.$spacing-lg;
+  color: vr.$gray-900;
+
+  @include mx.tablet {
+    font-size: vr.$font-size-2xl;
+  }
+
+  @include mx.mobile {
+    font-size: vr.$font-size-xl;
+    margin-bottom: vr.$spacing-md;
+  }
+}
+
+.title-accent {
+  color: vr.$primary-color;
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: vr.$primary-color;
+    border-radius: vr.$border-radius-sm;
+
+    @include mx.mobile {
+      bottom: -4px;
+      height: 2px;
+    }
+  }
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: vr.$spacing-2xl;
+
+  @include mx.tablet {
+    grid-template-columns: 1fr;
+    gap: vr.$spacing-xl;
+  }
+
+  @include mx.mobile {
+    gap: vr.$spacing-lg;
+  }
+}
+
+.contact-card {
+  background: vr.$white;
+  padding: vr.$spacing-2xl;
+  border-radius: vr.$border-radius-xl;
+  box-shadow: vr.$shadow-lg;
+  border: 1px solid vr.$gray-100;
+  transition: all vr.$transition-normal;
+
+  @include mx.mobile {
+    padding: vr.$spacing-lg;
+    border-radius: vr.$border-radius-lg;
+  }
+
+  .contact-icon {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, vr.$primary-color, vr.$primary-light);
+    border-radius: vr.$border-radius-lg;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto vr.$spacing-lg;
+
+    @include mx.mobile {
+      width: 50px;
+      height: 50px;
+      margin-bottom: vr.$spacing-md;
+    }
+
+    svg {
+      width: 28px;
+      height: 28px;
+      color: vr.$white;
+
+      @include mx.mobile {
+        width: 24px;
+        height: 24px;
+      }
+    }
+  }
+
+  h3 {
+    font-size: vr.$font-size-xl;
+    font-weight: vr.$font-weight-semibold;
+    color: vr.$gray-900;
+    margin-bottom: vr.$spacing-lg;
+    text-align: center;
+
+    @include mx.mobile {
+      font-size: vr.$font-size-lg;
+      margin-bottom: vr.$spacing-md;
+    }
+  }
+
+  .contact-details {
+    text-align: left;
+  }
+
+  .contact-item {
+    margin-bottom: vr.$spacing-md;
+    padding: vr.$spacing-md;
+    background: vr.$gray-50;
+    border: 1px solid vr.$gray-200;
+    border-radius: vr.$border-radius-md;
+    transition: all vr.$transition-normal;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    @include mx.mobile {
+      margin-bottom: vr.$spacing-sm;
+      padding: vr.$spacing-sm;
+    }
+
+    .contact-label {
+      display: block;
+      font-weight: vr.$font-weight-medium;
+      color: vr.$gray-700;
+      margin-bottom: vr.$spacing-xs;
+      font-size: vr.$font-size-sm;
+
+      @include mx.mobile {
+        font-size: vr.$font-size-xs;
+        margin-bottom: vr.$spacing-xs;
+      }
+    }
+
+    .contact-actions {
+      display: flex;
+      align-items: center;
+      gap: vr.$spacing-sm;
+      justify-content: space-between;
+
+      @include mx.mobile {
+        gap: vr.$spacing-xs;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .contact-value,
+      .contact-email,
+      .contact-website {
+        color: vr.$primary-color;
+        text-decoration: none;
+        font-weight: vr.$font-weight-medium;
+        font-size: vr.$font-size-lg;
+        flex: 1;
+        min-width: 0;
+        display: flex;
+        align-items: center;
+        min-height: 36px;
+
+        @include mx.mobile {
+          font-size: vr.$font-size-base;
+          min-height: 32px;
+          word-break: break-word;
+        }
+      }
+
+      .copy-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 36px;
+        height: 36px;
+        padding: 0;
+        border: none;
+        background: rgba(vr.$primary-color, 0.1);
+        color: vr.$primary-color;
+        border-radius: vr.$border-radius-md;
+        cursor: pointer;
+        transition: all vr.$transition-normal;
+        flex-shrink: 0;
+        border: 1px solid rgba(vr.$primary-color, 0.2);
+
+        @include mx.mobile {
+          width: 44px;
+          height: 44px;
+          align-self: flex-end;
+          margin-top: vr.$spacing-xs;
+        }
+
+        svg {
+          width: 18px;
+          height: 18px;
+          stroke: currentColor;
+          stroke-width: 2;
+          fill: none;
+
+          @include mx.mobile {
+            width: 20px;
+            height: 20px;
+          }
+        }
+
+        &:active {
+          transform: scale(0.95);
+          box-shadow: 0 2px 6px rgba(vr.$primary-color, 0.15);
+        }
+
+        &:focus {
+          outline: none;
+          box-shadow: 0 0 0 3px rgba(vr.$primary-color, 0.3);
+        }
+      }
+    }
+
+    .contact-address {
+      color: vr.$gray-600;
+      line-height: vr.$line-height-relaxed;
+      margin: 0;
+      flex: 1;
+
+      @include mx.mobile {
+        font-size: vr.$font-size-sm;
+        line-height: vr.$line-height-normal;
+        word-break: break-word;
+      }
+    }
+  }
+}
+
+@include mx.tablet {
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-actions {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: vr.$spacing-xs;
+
+    .copy-btn {
+      align-self: flex-end;
+      margin-left: 0;
+      margin-top: vr.$spacing-xs;
+    }
+  }
+}
+
+@include mx.mobile {
+  .contact-card {
+    padding: vr.$spacing-lg;
+  }
+
+  .contact-section {
+    .container {
+      padding: 0 vr.$spacing-md;
+    }
+  }
+
+  .contact-value,
+  .contact-email,
+  .contact-website {
+    padding: vr.$spacing-xs 0;
+
+    &:active {
+      background: rgba(vr.$primary-color, 0.05);
+      border-radius: vr.$border-radius-sm;
+    }
+  }
+
+  @media (max-width: 360px) {
+    .contact-card {
+      padding: vr.$spacing-md;
+    }
+
+    .contact-icon {
+      width: 45px;
+      height: 45px;
+
+      svg {
+        width: 22px;
+        height: 22px;
+      }
+    }
+
+    h3 {
+      font-size: vr.$font-size-base;
+    }
+
+    .contact-value,
+    .contact-email,
+    .contact-website {
+      font-size: vr.$font-size-sm;
+    }
+  }
+}

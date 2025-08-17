@@ -9,7 +9,7 @@
 :global(.clients-page) {
   // Плавная прокрутка
   scroll-behavior: smooth;
-  
+
   // Отступ для фиксированного header
   scroll-padding-top: 80px;
 }
@@ -29,7 +29,12 @@ img {
 }
 
 // Улучшенная типографика для медицинского контента
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: vr.$font-family-primary;
   line-height: vr.$line-height-tight;
   color: vr.$gray-900;
@@ -54,12 +59,12 @@ p {
   cursor: pointer;
   border: none;
   font-size: vr.$font-size-base;
-  
+
   &:hover {
     transform: translateY(-2px);
     box-shadow: vr.$shadow-lg;
   }
-  
+
   &:active {
     transform: translateY(0);
   }
@@ -109,11 +114,11 @@ p {
   .container {
     padding: 0 vr.$spacing-md;
   }
-  
+
   .section-padding {
     padding: vr.$spacing-2xl 0;
   }
-  
+
   .section-padding-sm {
     padding: vr.$spacing-xl 0;
   }
@@ -123,11 +128,11 @@ p {
   .container {
     padding: 0 vr.$spacing-sm;
   }
-  
+
   .section-padding {
     padding: vr.$spacing-xl 0;
   }
-  
+
   .section-padding-sm {
     padding: vr.$spacing-lg 0;
   }
@@ -138,7 +143,7 @@ p {
   .clients-page {
     background: vr.$white;
   }
-  
+
   .container {
     max-width: none;
     padding: 0;

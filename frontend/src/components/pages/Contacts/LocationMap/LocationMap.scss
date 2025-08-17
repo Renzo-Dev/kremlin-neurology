@@ -1,0 +1,303 @@
+@use '@/assets/styles/variables' as vr;
+@use '@/assets/styles/mixins' as mx;
+
+.location-map-section {
+  padding: vr.$spacing-3xl 0;
+  background: linear-gradient(135deg, vr.$gray-50, vr.$white);
+
+  @include mx.mobile {
+    padding: vr.$spacing-2xl 0;
+  }
+}
+
+.section-intro {
+  text-align: center;
+  margin-bottom: vr.$spacing-3xl;
+
+  @include mx.mobile {
+    margin-bottom: vr.$spacing-2xl;
+  }
+}
+
+.section-tag {
+  display: inline-block;
+  background: rgba(vr.$primary-color, 0.1);
+  color: vr.$primary-color;
+  padding: vr.$spacing-sm vr.$spacing-lg;
+  border-radius: vr.$border-radius-full;
+  font-size: vr.$font-size-sm;
+  font-weight: vr.$font-weight-medium;
+  margin-bottom: vr.$spacing-lg;
+
+  @include mx.mobile {
+    font-size: vr.$font-size-xs;
+    padding: vr.$spacing-xs vr.$spacing-md;
+    margin-bottom: vr.$spacing-md;
+  }
+}
+
+.section-title {
+  font-size: vr.$font-size-3xl;
+  font-weight: vr.$font-weight-bold;
+  line-height: vr.$line-height-tight;
+  margin-bottom: vr.$spacing-lg;
+  color: vr.$gray-900;
+
+  @include mx.tablet {
+    font-size: vr.$font-size-2xl;
+  }
+
+  @include mx.mobile {
+    font-size: vr.$font-size-xl;
+    margin-bottom: vr.$spacing-md;
+  }
+}
+
+.title-accent {
+  color: vr.$primary-color;
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: vr.$primary-color;
+    border-radius: vr.$border-radius-sm;
+
+    @include mx.mobile {
+      bottom: -4px;
+      height: 2px;
+    }
+  }
+}
+
+.maps-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+  gap: vr.$spacing-2xl;
+  margin-bottom: vr.$spacing-3xl;
+
+  @include mx.tablet {
+    grid-template-columns: 1fr;
+    gap: vr.$spacing-xl;
+  }
+
+  @include mx.mobile {
+    gap: vr.$spacing-lg;
+    margin-bottom: vr.$spacing-2xl;
+  }
+}
+
+.map-card {
+  background: vr.$white;
+  border-radius: vr.$border-radius-xl;
+  box-shadow: vr.$shadow-lg;
+  border: 1px solid vr.$gray-100;
+  overflow: hidden;
+  transition: all vr.$transition-normal;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: vr.$shadow-xl;
+  }
+
+  @include mx.mobile {
+    border-radius: vr.$border-radius-lg;
+  }
+}
+
+.map-header {
+  padding: vr.$spacing-2xl;
+  background: linear-gradient(135deg, vr.$primary-color, vr.$primary-dark);
+  color: vr.$white;
+  text-align: center;
+
+  @include mx.mobile {
+    padding: vr.$spacing-lg;
+  }
+
+  .map-icon {
+    width: 60px;
+    height: 60px;
+    background: rgba(vr.$white, 0.2);
+    border-radius: vr.$border-radius-lg;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto vr.$spacing-lg;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(vr.$white, 0.3);
+
+    @include mx.mobile {
+      width: 50px;
+      height: 50px;
+      margin-bottom: vr.$spacing-md;
+    }
+
+    svg {
+      width: 28px;
+      height: 28px;
+      color: vr.$white;
+
+      @include mx.mobile {
+        width: 24px;
+        height: 24px;
+      }
+    }
+  }
+
+  h3 {
+    font-size: vr.$font-size-xl;
+    font-weight: vr.$font-weight-semibold;
+    margin-bottom: vr.$spacing-md;
+    color: vr.$white;
+
+    @include mx.mobile {
+      font-size: vr.$font-size-lg;
+      margin-bottom: vr.$spacing-sm;
+    }
+  }
+
+  .map-description {
+    font-size: vr.$font-size-base;
+    color: rgba(vr.$white, 0.9);
+    margin: 0;
+    line-height: vr.$line-height-normal;
+
+    @include mx.mobile {
+      font-size: vr.$font-size-sm;
+    }
+  }
+}
+
+.map-container {
+  position: relative;
+  width: 100%;
+  height: 400px;
+  background: vr.$gray-100;
+
+  iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: block;
+  }
+
+  @include mx.mobile {
+    height: 300px;
+  }
+}
+
+.map-notice {
+  background: linear-gradient(135deg, vr.$warning-color, #f97316);
+  color: vr.$white;
+  padding: vr.$spacing-2xl;
+  border-radius: vr.$border-radius-xl;
+  display: flex;
+  align-items: flex-start;
+  gap: vr.$spacing-lg;
+  box-shadow: vr.$shadow-lg;
+
+  @include mx.tablet {
+    flex-direction: column;
+    text-align: center;
+    gap: vr.$spacing-md;
+  }
+
+  @include mx.mobile {
+    padding: vr.$spacing-lg;
+    border-radius: vr.$border-radius-lg;
+  }
+
+  .notice-icon {
+    width: 48px;
+    height: 48px;
+    background: rgba(vr.$white, 0.2);
+    border-radius: vr.$border-radius-lg;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(vr.$white, 0.3);
+
+    @include mx.mobile {
+      width: 40px;
+      height: 40px;
+    }
+
+    svg {
+      width: 24px;
+      height: 24px;
+      color: vr.$white;
+
+      @include mx.mobile {
+        width: 20px;
+        height: 20px;
+      }
+    }
+  }
+
+  .notice-content {
+    flex: 1;
+
+    h4 {
+      font-size: vr.$font-size-lg;
+      font-weight: vr.$font-weight-semibold;
+      margin: 0 0 vr.$spacing-sm 0;
+      color: vr.$white;
+
+      @include mx.mobile {
+        font-size: vr.$font-size-base;
+        margin-bottom: vr.$spacing-xs;
+      }
+    }
+
+    p {
+      font-size: vr.$font-size-base;
+      line-height: vr.$line-height-relaxed;
+      margin: 0;
+      color: rgba(vr.$white, 0.95);
+
+      @include mx.mobile {
+        font-size: vr.$font-size-sm;
+        line-height: vr.$line-height-normal;
+      }
+    }
+  }
+}
+
+// Адаптивность для очень маленьких экранов
+@media (max-width: 480px) {
+  .maps-grid {
+    grid-template-columns: 1fr;
+    gap: vr.$spacing-lg;
+  }
+
+  .map-card {
+    .map-header {
+      padding: vr.$spacing-md;
+    }
+
+    .map-container {
+      height: 250px;
+    }
+  }
+
+  .map-notice {
+    padding: vr.$spacing-md;
+
+    .notice-content {
+      h4 {
+        font-size: vr.$font-size-sm;
+      }
+
+      p {
+        font-size: vr.$font-size-xs;
+      }
+    }
+  }
+}

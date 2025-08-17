@@ -1,0 +1,461 @@
+@use '@/assets/styles/variables' as vr;
+@use '@/assets/styles/mixins' as mx;
+
+.contact-person-section {
+  padding: vr.$spacing-3xl 0;
+  background: linear-gradient(135deg, vr.$gray-50, vr.$white);
+
+  @include mx.mobile {
+    padding: vr.$spacing-2xl 0;
+  }
+}
+
+.section-intro {
+  text-align: center;
+  margin-bottom: vr.$spacing-3xl;
+
+  @include mx.mobile {
+    margin-bottom: vr.$spacing-2xl;
+  }
+}
+
+.section-tag {
+  display: inline-block;
+  background: rgba(vr.$primary-color, 0.1);
+  color: vr.$primary-color;
+  padding: vr.$spacing-sm vr.$spacing-lg;
+  border-radius: vr.$border-radius-full;
+  font-size: vr.$font-size-sm;
+  font-weight: vr.$font-weight-medium;
+  margin-bottom: vr.$spacing-lg;
+
+  @include mx.mobile {
+    font-size: vr.$font-size-xs;
+    padding: vr.$spacing-xs vr.$spacing-md;
+    margin-bottom: vr.$spacing-md;
+  }
+}
+
+.section-title {
+  font-size: vr.$font-size-3xl;
+  font-weight: vr.$font-weight-bold;
+  line-height: vr.$line-height-tight;
+  margin-bottom: vr.$spacing-lg;
+  color: vr.$gray-900;
+
+  @include mx.tablet {
+    font-size: vr.$font-size-2xl;
+  }
+
+  @include mx.mobile {
+    font-size: vr.$font-size-xl;
+    margin-bottom: vr.$spacing-md;
+  }
+}
+
+.title-accent {
+  color: vr.$primary-color;
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: vr.$primary-color;
+    border-radius: vr.$border-radius-sm;
+
+    @include mx.mobile {
+      bottom: -4px;
+      height: 2px;
+    }
+  }
+}
+
+.person-card {
+  background: vr.$white;
+  border-radius: vr.$border-radius-2xl;
+  box-shadow: vr.$shadow-xl;
+  border: 1px solid vr.$gray-100;
+  overflow: hidden;
+  max-width: 800px;
+  margin: 0 auto;
+  transition: all vr.$transition-normal;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  }
+
+  @include mx.mobile {
+    border-radius: vr.$border-radius-xl;
+  }
+}
+
+.person-header {
+  background: linear-gradient(135deg, vr.$primary-color, vr.$primary-dark);
+  color: vr.$white;
+  padding: vr.$spacing-3xl;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(
+      circle,
+      rgba(255, 255, 255, 0.1) 0%,
+      transparent 70%
+    );
+    animation: float 6s ease-in-out infinite;
+  }
+
+  @include mx.mobile {
+    padding: vr.$spacing-2xl;
+  }
+
+  .person-avatar {
+    width: 120px;
+    height: 120px;
+    background: rgba(vr.$white, 0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto vr.$spacing-xl;
+    backdrop-filter: blur(10px);
+    border: 3px solid rgba(vr.$white, 0.3);
+    position: relative;
+    z-index: 1;
+
+    @include mx.mobile {
+      width: 100px;
+      height: 100px;
+      margin-bottom: vr.$spacing-lg;
+    }
+
+    svg {
+      width: 48px;
+      height: 48px;
+      color: vr.$white;
+
+      @include mx.mobile {
+        width: 40px;
+        height: 40px;
+      }
+    }
+  }
+
+  .person-info {
+    position: relative;
+    z-index: 1;
+
+    .person-name {
+      font-size: vr.$font-size-2xl;
+      font-weight: vr.$font-weight-bold;
+      margin: 0 0 vr.$spacing-md 0;
+      color: vr.$white;
+
+      @include mx.mobile {
+        font-size: vr.$font-size-xl;
+        margin-bottom: vr.$spacing-sm;
+      }
+    }
+
+    .person-position {
+      font-size: vr.$font-size-lg;
+      color: rgba(vr.$white, 0.9);
+      margin: 0 0 vr.$spacing-lg 0;
+      line-height: vr.$line-height-relaxed;
+
+      @include mx.mobile {
+        font-size: vr.$font-size-base;
+        margin-bottom: vr.$spacing-md;
+      }
+    }
+
+    .person-badges {
+      display: flex;
+      gap: vr.$spacing-md;
+      justify-content: center;
+      flex-wrap: wrap;
+
+      @include mx.mobile {
+        gap: vr.$spacing-sm;
+      }
+
+      .badge {
+        display: inline-block;
+        padding: vr.$spacing-sm vr.$spacing-lg;
+        border-radius: vr.$border-radius-full;
+        font-size: vr.$font-size-sm;
+        font-weight: vr.$font-weight-semibold;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        border: 1px solid rgba(vr.$white, 0.3);
+        backdrop-filter: blur(10px);
+
+        @include mx.mobile {
+          font-size: vr.$font-size-xs;
+          padding: vr.$spacing-xs vr.$spacing-md;
+        }
+
+        &.primary {
+          background: rgba(vr.$white, 0.2);
+          color: vr.$white;
+        }
+
+        &.secondary {
+          background: rgba(vr.$success-color, 0.8);
+          color: vr.$white;
+        }
+      }
+    }
+  }
+}
+
+.person-contacts {
+  padding: vr.$spacing-3xl;
+
+  @include mx.mobile {
+    padding: vr.$spacing-2xl;
+  }
+}
+
+.contact-item {
+  display: flex;
+  align-items: flex-start;
+  gap: vr.$spacing-lg;
+  padding: vr.$spacing-xl;
+  background: vr.$gray-50;
+  border: 1px solid vr.$gray-200;
+  border-radius: vr.$border-radius-lg;
+  margin-bottom: vr.$spacing-lg;
+  transition: all vr.$transition-normal;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  &:hover {
+    background: vr.$white;
+    border-color: vr.$primary-color;
+    box-shadow: vr.$shadow-md;
+    transform: translateX(4px);
+  }
+
+  @include mx.mobile {
+    flex-direction: column;
+    gap: vr.$spacing-md;
+    padding: vr.$spacing-lg;
+    margin-bottom: vr.$spacing-md;
+  }
+
+  .contact-icon {
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, vr.$primary-color, vr.$primary-light);
+    border-radius: vr.$border-radius-lg;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+
+    @include mx.mobile {
+      width: 40px;
+      height: 40px;
+    }
+
+    svg {
+      width: 24px;
+      height: 24px;
+      color: vr.$white;
+
+      @include mx.mobile {
+        width: 20px;
+        height: 20px;
+      }
+    }
+  }
+
+  .contact-details {
+    flex: 1;
+
+    .contact-label {
+      display: block;
+      font-weight: vr.$font-weight-medium;
+      color: vr.$gray-700;
+      margin-bottom: vr.$spacing-sm;
+      font-size: vr.$font-size-sm;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+
+      @include mx.mobile {
+        font-size: vr.$font-size-xs;
+        margin-bottom: vr.$spacing-xs;
+      }
+    }
+
+    .contact-actions {
+      display: flex;
+      align-items: center;
+      gap: vr.$spacing-sm;
+      justify-content: space-between;
+
+      @include mx.mobile {
+        gap: vr.$spacing-xs;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .contact-value,
+      .contact-email {
+        color: vr.$primary-color;
+        text-decoration: none;
+        font-weight: vr.$font-weight-medium;
+        font-size: vr.$font-size-lg;
+        flex: 1;
+        min-width: 0;
+        display: flex;
+        align-items: center;
+        min-height: 36px;
+
+        @include mx.mobile {
+          font-size: vr.$font-size-base;
+          min-height: 32px;
+          word-break: break-word;
+        }
+
+        &:hover {
+          color: vr.$primary-dark;
+          text-decoration: underline;
+        }
+      }
+
+      .copy-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 36px;
+        height: 36px;
+        padding: 0;
+        border: none;
+        background: rgba(vr.$primary-color, 0.1);
+        color: vr.$primary-color;
+        border-radius: vr.$border-radius-md;
+        cursor: pointer;
+        transition: all vr.$transition-normal;
+        flex-shrink: 0;
+        border: 1px solid rgba(vr.$primary-color, 0.2);
+
+        @include mx.mobile {
+          width: 44px;
+          height: 44px;
+          align-self: flex-end;
+          margin-top: vr.$spacing-xs;
+        }
+
+        svg {
+          width: 18px;
+          height: 18px;
+          stroke: currentColor;
+          stroke-width: 2;
+          fill: none;
+
+          @include mx.mobile {
+            width: 20px;
+            height: 20px;
+          }
+        }
+
+        &:hover {
+          background: vr.$primary-color;
+          color: vr.$white;
+          transform: scale(1.05);
+        }
+
+        &:active {
+          transform: scale(0.95);
+          box-shadow: 0 2px 6px rgba(vr.$primary-color, 0.15);
+        }
+
+        &:focus {
+          outline: none;
+          box-shadow: 0 0 0 3px rgba(vr.$primary-color, 0.3);
+        }
+      }
+    }
+  }
+}
+
+// Анимация для фона
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-20px) rotate(180deg);
+  }
+}
+
+// Адаптивность для очень маленьких экранов
+@media (max-width: 480px) {
+  .person-card {
+    .person-header {
+      padding: vr.$spacing-lg;
+
+      .person-avatar {
+        width: 80px;
+        height: 80px;
+
+        svg {
+          width: 32px;
+          height: 32px;
+        }
+      }
+
+      .person-info {
+        .person-name {
+          font-size: vr.$font-size-lg;
+        }
+
+        .person-position {
+          font-size: vr.$font-size-sm;
+        }
+
+        .person-badges {
+          .badge {
+            font-size: 10px;
+            padding: 4px 8px;
+          }
+        }
+      }
+    }
+
+    .person-contacts {
+      padding: vr.$spacing-lg;
+    }
+
+    .contact-item {
+      padding: vr.$spacing-md;
+
+      .contact-icon {
+        width: 36px;
+        height: 36px;
+
+        svg {
+          width: 18px;
+          height: 18px;
+        }
+      }
+    }
+  }
+}

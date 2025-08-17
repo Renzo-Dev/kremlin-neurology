@@ -1,0 +1,508 @@
+@use '@/assets/styles/variables' as vr;
+@use '@/assets/styles/mixins' as mx;
+
+.transport-info-section {
+  padding: vr.$spacing-3xl 0;
+  background: vr.$white;
+
+  @include mx.mobile {
+    padding: vr.$spacing-2xl 0;
+  }
+}
+
+.section-intro {
+  text-align: center;
+  margin-bottom: vr.$spacing-3xl;
+
+  @include mx.mobile {
+    margin-bottom: vr.$spacing-2xl;
+  }
+}
+
+.section-tag {
+  display: inline-block;
+  background: rgba(vr.$primary-color, 0.1);
+  color: vr.$primary-color;
+  padding: vr.$spacing-sm vr.$spacing-lg;
+  border-radius: vr.$border-radius-full;
+  font-size: vr.$font-size-sm;
+  font-weight: vr.$font-weight-medium;
+  margin-bottom: vr.$spacing-lg;
+
+  @include mx.mobile {
+    font-size: vr.$font-size-xs;
+    padding: vr.$spacing-xs vr.$spacing-md;
+    margin-bottom: vr.$spacing-md;
+  }
+}
+
+.section-title {
+  font-size: vr.$font-size-3xl;
+  font-weight: vr.$font-weight-bold;
+  line-height: vr.$line-height-tight;
+  margin-bottom: vr.$spacing-lg;
+  color: vr.$gray-900;
+
+  @include mx.tablet {
+    font-size: vr.$font-size-2xl;
+  }
+
+  @include mx.mobile {
+    font-size: vr.$font-size-xl;
+    margin-bottom: vr.$spacing-md;
+  }
+}
+
+.title-accent {
+  color: vr.$primary-color;
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: vr.$primary-color;
+    border-radius: vr.$border-radius-sm;
+
+    @include mx.mobile {
+      bottom: -4px;
+      height: 2px;
+    }
+  }
+}
+
+.transport-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: vr.$spacing-2xl;
+  margin-bottom: vr.$spacing-3xl;
+
+  @include mx.tablet {
+    grid-template-columns: 1fr;
+    gap: vr.$spacing-xl;
+  }
+
+  @include mx.mobile {
+    gap: vr.$spacing-lg;
+    margin-bottom: vr.$spacing-2xl;
+  }
+}
+
+.transport-card {
+  background: vr.$white;
+  border-radius: vr.$border-radius-xl;
+  box-shadow: vr.$shadow-lg;
+  border: 1px solid vr.$gray-100;
+  overflow: hidden;
+  transition: all vr.$transition-normal;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: vr.$shadow-xl;
+  }
+
+  @include mx.mobile {
+    border-radius: vr.$border-radius-lg;
+  }
+}
+
+.transport-header {
+  padding: vr.$spacing-2xl;
+  background: linear-gradient(135deg, vr.$info-color, #0891b2);
+  color: vr.$white;
+  text-align: center;
+
+  @include mx.mobile {
+    padding: vr.$spacing-lg;
+  }
+
+  .transport-icon {
+    width: 60px;
+    height: 60px;
+    background: rgba(vr.$white, 0.2);
+    border-radius: vr.$border-radius-lg;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto vr.$spacing-lg;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(vr.$white, 0.3);
+
+    @include mx.mobile {
+      width: 50px;
+      height: 50px;
+      margin-bottom: vr.$spacing-md;
+    }
+
+    svg {
+      width: 28px;
+      height: 28px;
+      color: vr.$white;
+
+      @include mx.mobile {
+        width: 24px;
+        height: 24px;
+      }
+    }
+
+    &.metro {
+      background: linear-gradient(135deg, #dc2626, #b91c1c);
+    }
+  }
+
+  h3 {
+    font-size: vr.$font-size-xl;
+    font-weight: vr.$font-weight-semibold;
+    margin-bottom: vr.$spacing-md;
+    color: vr.$white;
+
+    @include mx.mobile {
+      font-size: vr.$font-size-lg;
+      margin-bottom: vr.$spacing-sm;
+    }
+  }
+
+  .transport-description {
+    font-size: vr.$font-size-base;
+    color: rgba(vr.$white, 0.9);
+    margin: 0;
+    line-height: vr.$line-height-normal;
+
+    @include mx.mobile {
+      font-size: vr.$font-size-sm;
+    }
+  }
+}
+
+.transport-details {
+  padding: vr.$spacing-2xl;
+
+  @include mx.mobile {
+    padding: vr.$spacing-lg;
+  }
+}
+
+.route-item {
+  display: flex;
+  align-items: flex-start;
+  gap: vr.$spacing-lg;
+  padding: vr.$spacing-lg;
+  background: vr.$gray-50;
+  border-radius: vr.$border-radius-lg;
+  border: 1px solid vr.$gray-200;
+
+  @include mx.mobile {
+    flex-direction: column;
+    gap: vr.$spacing-md;
+    padding: vr.$spacing-md;
+  }
+
+  .route-icon {
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, vr.$success-color, #059669);
+    border-radius: vr.$border-radius-lg;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+
+    @include mx.mobile {
+      width: 40px;
+      height: 40px;
+    }
+
+    svg {
+      width: 24px;
+      height: 24px;
+      color: vr.$white;
+
+      @include mx.mobile {
+        width: 20px;
+        height: 20px;
+      }
+    }
+  }
+
+  .route-info {
+    flex: 1;
+
+    h4 {
+      font-size: vr.$font-size-lg;
+      font-weight: vr.$font-weight-semibold;
+      margin: 0 0 vr.$spacing-sm 0;
+      color: vr.$gray-900;
+
+      @include mx.mobile {
+        font-size: vr.$font-size-base;
+        margin-bottom: vr.$spacing-xs;
+      }
+    }
+
+    p {
+      font-size: vr.$font-size-base;
+      line-height: vr.$line-height-relaxed;
+      margin: 0 0 vr.$spacing-xs 0;
+      color: vr.$gray-600;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+
+      @include mx.mobile {
+        font-size: vr.$font-size-sm;
+        line-height: vr.$line-height-normal;
+      }
+    }
+  }
+}
+
+.entrance-info {
+  background: linear-gradient(135deg, vr.$gray-50, vr.$white);
+  padding: vr.$spacing-2xl;
+  border-radius: vr.$border-radius-xl;
+  border: 1px solid vr.$gray-200;
+
+  @include mx.mobile {
+    padding: vr.$spacing-lg;
+    border-radius: vr.$border-radius-lg;
+  }
+}
+
+.entrance-header {
+  display: flex;
+  align-items: center;
+  gap: vr.$spacing-lg;
+  margin-bottom: vr.$spacing-2xl;
+  text-align: center;
+
+  @include mx.tablet {
+    flex-direction: column;
+    gap: vr.$spacing-md;
+    margin-bottom: vr.$spacing-xl;
+  }
+
+  @include mx.mobile {
+    margin-bottom: vr.$spacing-lg;
+  }
+
+  .entrance-icon {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(
+      135deg,
+      vr.$secondary-color,
+      vr.$secondary-dark
+    );
+    border-radius: vr.$border-radius-lg;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+
+    @include mx.mobile {
+      width: 50px;
+      height: 50px;
+    }
+
+    svg {
+      width: 28px;
+      height: 28px;
+      color: vr.$white;
+
+      @include mx.mobile {
+        width: 24px;
+        height: 24px;
+      }
+    }
+  }
+
+  h3 {
+    font-size: vr.$font-size-2xl;
+    font-weight: vr.$font-weight-bold;
+    margin: 0;
+    color: vr.$gray-900;
+
+    @include mx.mobile {
+      font-size: vr.$font-size-xl;
+    }
+  }
+}
+
+.entrance-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: vr.$spacing-xl;
+  margin-bottom: vr.$spacing-2xl;
+
+  @include mx.mobile {
+    grid-template-columns: 1fr;
+    gap: vr.$spacing-lg;
+    margin-bottom: vr.$spacing-xl;
+  }
+}
+
+.entrance-item {
+  text-align: center;
+  padding: vr.$spacing-xl;
+  background: vr.$white;
+  border-radius: vr.$border-radius-lg;
+  border: 1px solid vr.$gray-200;
+  box-shadow: vr.$shadow-sm;
+  transition: all vr.$transition-normal;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: vr.$shadow-md;
+  }
+
+  @include mx.mobile {
+    padding: vr.$spacing-lg;
+  }
+
+  .entrance-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, vr.$primary-color, vr.$primary-dark);
+    color: vr.$white;
+    padding: vr.$spacing-sm vr.$spacing-lg;
+    border-radius: vr.$border-radius-full;
+    font-size: vr.$font-size-sm;
+    font-weight: vr.$font-weight-semibold;
+    margin-bottom: vr.$spacing-md;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+
+    @include mx.mobile {
+      font-size: vr.$font-size-xs;
+      padding: vr.$spacing-xs vr.$spacing-md;
+      margin-bottom: vr.$spacing-sm;
+    }
+  }
+
+  p {
+    font-size: vr.$font-size-base;
+    color: vr.$gray-600;
+    margin: 0;
+    line-height: vr.$line-height-normal;
+
+    @include mx.mobile {
+      font-size: vr.$font-size-sm;
+    }
+  }
+}
+
+.entrance-notice {
+  background: linear-gradient(135deg, vr.$info-color, #0891b2);
+  color: vr.$white;
+  padding: vr.$spacing-2xl;
+  border-radius: vr.$border-radius-xl;
+  display: flex;
+  align-items: flex-start;
+  gap: vr.$spacing-lg;
+  box-shadow: vr.$shadow-lg;
+
+  @include mx.tablet {
+    flex-direction: column;
+    text-align: center;
+    gap: vr.$spacing-md;
+  }
+
+  @include mx.mobile {
+    padding: vr.$spacing-lg;
+    border-radius: vr.$border-radius-lg;
+  }
+
+  .notice-icon {
+    width: 48px;
+    height: 48px;
+    background: rgba(vr.$white, 0.2);
+    border-radius: vr.$border-radius-lg;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(vr.$white, 0.3);
+
+    @include mx.mobile {
+      width: 40px;
+      height: 40px;
+    }
+
+    svg {
+      width: 24px;
+      height: 24px;
+      color: vr.$white;
+
+      @include mx.mobile {
+        width: 20px;
+        height: 20px;
+      }
+    }
+  }
+
+  .notice-content {
+    flex: 1;
+
+    h4 {
+      font-size: vr.$font-size-lg;
+      font-weight: vr.$font-weight-semibold;
+      margin: 0 0 vr.$spacing-sm 0;
+      color: vr.$white;
+
+      @include mx.mobile {
+        font-size: vr.$font-size-base;
+        margin-bottom: vr.$spacing-xs;
+      }
+    }
+
+    p {
+      font-size: vr.$font-size-base;
+      line-height: vr.$line-height-relaxed;
+      margin: 0;
+      color: rgba(vr.$white, 0.95);
+
+      @include mx.mobile {
+        font-size: vr.$font-size-sm;
+        line-height: vr.$line-height-normal;
+      }
+    }
+  }
+}
+
+// Адаптивность для очень маленьких экранов
+@media (max-width: 480px) {
+  .transport-grid {
+    grid-template-columns: 1fr;
+    gap: vr.$spacing-lg;
+  }
+
+  .transport-card {
+    .transport-header {
+      padding: vr.$spacing-md;
+    }
+
+    .transport-details {
+      padding: vr.$spacing-md;
+    }
+  }
+
+  .entrance-info {
+    padding: vr.$spacing-md;
+  }
+
+  .entrance-grid {
+    gap: vr.$spacing-md;
+  }
+
+  .entrance-item {
+    padding: vr.$spacing-md;
+  }
+
+  .entrance-notice {
+    padding: vr.$spacing-md;
+  }
+}

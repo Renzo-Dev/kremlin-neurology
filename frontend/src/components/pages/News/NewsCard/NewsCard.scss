@@ -1,0 +1,214 @@
+@use '@/assets/styles/variables' as v;
+
+.news-card {
+  background: v.$white;
+  border-radius: v.$border-radius-xl;
+  padding: v.$spacing-lg;
+  box-shadow: v.$shadow-md;
+  border: 1px solid v.$gray-200;
+  transition: all v.$transition-normal;
+  position: relative;
+  overflow: hidden;
+  height: fit-content;
+  min-height: 280px;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(
+      90deg,
+      v.$primary-color 0%,
+      v.$primary-light 100%
+    );
+    transform: scaleX(0);
+    transition: transform v.$transition-normal;
+  }
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: v.$shadow-xl;
+    border-color: v.$primary-color;
+
+    &::before {
+      transform: scaleX(1);
+    }
+  }
+
+  &--important {
+    border-color: v.$warning-color;
+    box-shadow:
+      0 0 0 1px rgba(v.$warning-color, 0.1),
+      v.$shadow-md;
+
+    &::before {
+      background: linear-gradient(
+        90deg,
+        v.$warning-color 0%,
+        v.$warning-color 100%
+      );
+    }
+
+    &:hover {
+      border-color: v.$warning-color;
+      box-shadow:
+        0 0 0 1px rgba(v.$warning-color, 0.2),
+        v.$shadow-xl;
+    }
+  }
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: v.$spacing-md;
+  gap: v.$spacing-sm;
+}
+
+.card-meta {
+  display: flex;
+  flex-direction: column;
+  gap: v.$spacing-xs;
+}
+
+.news-date {
+  font-size: v.$font-size-sm;
+  color: v.$gray-500;
+  font-weight: v.$font-weight-medium;
+}
+
+.news-category {
+  display: inline-block;
+  padding: v.$spacing-xs v.$spacing-sm;
+  background: v.$gray-100;
+  color: v.$gray-600;
+  border-radius: v.$border-radius-full;
+  font-size: v.$font-size-xs;
+  font-weight: v.$font-weight-medium;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.important-badge {
+  display: flex;
+  align-items: center;
+  gap: v.$spacing-xs;
+  padding: v.$spacing-xs v.$spacing-sm;
+  background: linear-gradient(135deg, v.$warning-color 0%, #d97706 100%);
+  color: v.$white;
+  border-radius: v.$border-radius-full;
+  font-size: v.$font-size-xs;
+  font-weight: v.$font-weight-semibold;
+
+  .badge-icon {
+    font-size: v.$font-size-sm;
+  }
+}
+
+.card-content {
+  margin-bottom: v.$spacing-lg;
+  flex: 1;
+}
+
+.news-title {
+  font-size: v.$font-size-lg;
+  font-weight: v.$font-weight-bold;
+  color: v.$gray-900;
+  margin: 0 0 v.$spacing-md 0;
+  line-height: v.$line-height-tight;
+
+  @media (max-width: v.$breakpoint-md) {
+    font-size: v.$font-size-base;
+  }
+
+  .news-title-link {
+    color: inherit;
+    text-decoration: none;
+    transition: color v.$transition-normal;
+
+    &:hover {
+      color: v.$primary-color;
+    }
+  }
+}
+
+.news-description {
+  color: v.$gray-600;
+  line-height: v.$line-height-relaxed;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  transition: all v.$transition-normal;
+
+  @media (max-width: v.$breakpoint-md) {
+    -webkit-line-clamp: 4;
+  }
+
+  &--expanded {
+    -webkit-line-clamp: unset;
+    max-height: none;
+    overflow: visible;
+  }
+}
+
+.card-footer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: auto;
+}
+
+.read-more-btn {
+  display: flex;
+  align-items: center;
+  gap: v.$spacing-xs;
+  padding: v.$spacing-sm v.$spacing-md;
+  background: transparent;
+  border: 2px solid v.$primary-color;
+  color: v.$primary-color;
+  border-radius: v.$border-radius-lg;
+  font-weight: v.$font-weight-medium;
+  font-size: v.$font-size-sm;
+  cursor: pointer;
+  transition: all v.$transition-normal;
+
+  &:hover {
+    background: v.$primary-color;
+    color: v.$white;
+    transform: translateY(-1px);
+    box-shadow: v.$shadow-sm;
+  }
+
+  .btn-icon {
+    font-size: v.$font-size-xs;
+    transition: transform v.$transition-normal;
+  }
+
+  &:hover .btn-icon {
+    transform: translateY(-1px);
+  }
+}
+
+// Анимации для важных новостей
+.news-card--important {
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    box-shadow:
+      0 0 0 1px rgba(v.$warning-color, 0.1),
+      v.$shadow-md;
+  }
+  50% {
+    box-shadow:
+      0 0 0 1px rgba(v.$warning-color, 0.3),
+      v.$shadow-lg;
+  }
+}

@@ -4,12 +4,13 @@
       <div class="navigation-content">
         <h2 class="navigation-title">Дополнительная информация</h2>
         <p class="navigation-description">
-          Изучите другие разделы кафедры неврологии для получения полной информации
+          Изучите другие разделы кафедры неврологии для получения полной
+          информации
         </p>
-        
+
         <div class="navigation-buttons">
-          <router-link 
-            v-for="button in navigationButtons" 
+          <router-link
+            v-for="button in navigationButtons"
             :key="button.id"
             :to="button.route"
             class="nav-button"
@@ -40,7 +41,7 @@ export default {
           description: 'Программы обучения и курсы повышения квалификации',
           route: '/education',
           icon: '🎓',
-          variant: 'primary'
+          variant: 'primary',
         },
         {
           id: 2,
@@ -48,7 +49,7 @@ export default {
           description: 'Актуальные направления исследований и публикации',
           route: '/research',
           icon: '🔬',
-          variant: 'secondary'
+          variant: 'secondary',
         },
         {
           id: 3,
@@ -56,7 +57,7 @@ export default {
           description: 'История развития и достижения кафедры',
           route: '/history',
           icon: '📚',
-          variant: 'success'
+          variant: 'success',
         },
         {
           id: 4,
@@ -64,11 +65,11 @@ export default {
           description: 'Свяжитесь с нами для получения информации',
           route: '/contacts',
           icon: '📞',
-          variant: 'info'
-        }
-      ]
+          variant: 'info',
+        },
+      ],
     }
-  }
+  },
 }
 </script>
 

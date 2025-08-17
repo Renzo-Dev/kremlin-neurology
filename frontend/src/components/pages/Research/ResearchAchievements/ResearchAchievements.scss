@@ -1,4 +1,4 @@
-@use "@/assets/styles/variables" as v;
+@use '@/assets/styles/variables' as v;
 
 .research-achievements {
   padding: v.$spacing-3xl 0;
@@ -69,7 +69,7 @@
     overflow: hidden;
 
     &::before {
-      content: "";
+      content: '';
       position: absolute;
       top: 0;
       left: 0;

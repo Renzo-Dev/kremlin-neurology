@@ -1,0 +1,144 @@
+@use '@/assets/styles/variables' as vr;
+
+.features-section {
+  padding: vr.$spacing-3xl 0;
+  background: vr.$white;
+  position: relative;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: vr.$spacing-3xl;
+}
+
+.section-title {
+  font-size: vr.$font-size-4xl;
+  font-weight: vr.$font-weight-bold;
+  color: vr.$primary-color;
+  margin-bottom: vr.$spacing-lg;
+
+  @media (max-width: vr.$breakpoint-md) {
+    font-size: vr.$font-size-3xl;
+  }
+}
+
+.section-subtitle {
+  font-size: vr.$font-size-xl;
+  color: vr.$gray-600;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: vr.$line-height-relaxed;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: vr.$spacing-2xl;
+
+  @media (max-width: vr.$breakpoint-md) {
+    grid-template-columns: 1fr;
+    gap: vr.$spacing-xl;
+  }
+}
+
+.feature-card {
+  background: vr.$gray-50;
+  padding: vr.$spacing-2xl;
+  border-radius: vr.$border-radius-xl;
+  text-align: center;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 2px solid transparent;
+
+  &:hover {
+    transform: translateY(-8px);
+    box-shadow: vr.$shadow-xl;
+    border-color: vr.$primary-color;
+    background: vr.$white;
+  }
+
+  .feature-icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto vr.$spacing-xl;
+    background: linear-gradient(135deg, vr.$primary-color, vr.$primary-light);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: vr.$white;
+
+    svg {
+      width: 40px;
+      height: 40px;
+    }
+  }
+
+  h3 {
+    font-size: vr.$font-size-xl;
+    font-weight: vr.$font-weight-semibold;
+    color: vr.$primary-color;
+    margin-bottom: vr.$spacing-md;
+  }
+
+  p {
+    font-size: vr.$font-size-base;
+    line-height: vr.$line-height-relaxed;
+    color: vr.$gray-700;
+    margin: 0;
+  }
+}
+
+// Анимация появления карточек
+.feature-card {
+  opacity: 0;
+  animation: fadeInUp 0.6s ease forwards;
+
+  @for $i from 1 through 6 {
+    &:nth-child(#{$i}) {
+      animation-delay: #{$i * 0.1}s;
+    }
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Hover эффекты для иконок
+.feature-card:hover .feature-icon {
+  transform: scale(1.1);
+  transition: transform 0.3s ease;
+}
+
+// Адаптивность для маленьких экранов
+@media (max-width: vr.$breakpoint-sm) {
+  .feature-card {
+    padding: vr.$spacing-xl;
+
+    .feature-icon {
+      width: 60px;
+      height: 60px;
+      margin-bottom: vr.$spacing-lg;
+
+      svg {
+        width: 30px;
+        height: 30px;
+      }
+    }
+
+    h3 {
+      font-size: vr.$font-size-lg;
+    }
+
+    p {
+      font-size: vr.$font-size-sm;
+    }
+  }
+}

@@ -13,19 +13,46 @@
 .history-header {
   text-align: center;
   margin-bottom: vr.$spacing-xl;
+  margin-top: vr.$spacing-2xl;
 
   .header-badge {
     display: inline-block;
-    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    background: linear-gradient(
+      135deg,
+      vr.$primary-color 0%,
+      vr.$primary-dark 100%
+    );
     color: white;
-    padding: vr.$spacing-sm vr.$spacing-md;
-    border-radius: 20px;
-    font-size: 0.875rem;
-    font-weight: 600;
+    padding: vr.$spacing-lg vr.$spacing-xl;
+    border-radius: vr.$border-radius-full;
+    font-size: vr.$font-size-base;
+    font-weight: vr.$font-weight-semibold;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
-    margin-bottom: vr.$spacing-md;
-    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.3);
+    letter-spacing: 1px;
+    margin-bottom: vr.$spacing-xl;
+    box-shadow: 0 8px 25px rgba(vr.$primary-color, 0.3);
+    position: relative;
+    overflow: hidden;
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      border-radius: vr.$border-radius-full;
+      padding: 2px;
+      background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.3),
+        transparent
+      );
+      mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+      mask-composite: exclude;
+    }
   }
 
   h1 {
@@ -152,12 +179,20 @@
   }
 
   .history-header {
+    margin-top: vr.$spacing-xl;
+
     h1 {
       font-size: 2rem;
     }
 
     p {
       font-size: 1rem;
+    }
+
+    .header-badge {
+      margin-bottom: vr.$spacing-lg;
+      padding: vr.$spacing-md vr.$spacing-lg;
+      font-size: vr.$font-size-sm;
     }
   }
 
@@ -186,12 +221,20 @@
 
 @media (max-width: vr.$breakpoint-sm) {
   .history-header {
+    margin-top: vr.$spacing-lg;
+
     h1 {
       font-size: 1.75rem;
     }
 
     p {
       font-size: 0.95rem;
+    }
+
+    .header-badge {
+      margin-bottom: vr.$spacing-md;
+      padding: vr.$spacing-sm vr.$spacing-md;
+      font-size: vr.$font-size-xs;
     }
   }
 

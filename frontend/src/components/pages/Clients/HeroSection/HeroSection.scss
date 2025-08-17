@@ -7,7 +7,11 @@
   align-items: center;
   color: vr.$white;
   overflow: hidden;
-  background: linear-gradient(135deg, vr.$primary-color 0%, vr.$primary-dark 100%);
+  background: linear-gradient(
+    135deg,
+    vr.$primary-color 0%,
+    vr.$primary-dark 100%
+  );
 }
 
 .hero-background {
@@ -106,8 +110,6 @@
     font-size: vr.$font-size-lg;
   }
 }
-
-
 
 .container {
   width: 100%;

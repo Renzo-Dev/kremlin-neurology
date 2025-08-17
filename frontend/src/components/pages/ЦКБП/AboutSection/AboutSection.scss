@@ -1,0 +1,128 @@
+@use '@/assets/styles/variables' as vr;
+
+.about-section {
+  padding: vr.$spacing-3xl 0;
+  background: vr.$gray-50;
+  position: relative;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: vr.$spacing-3xl;
+}
+
+.section-title {
+  font-size: vr.$font-size-4xl;
+  font-weight: vr.$font-weight-bold;
+  color: vr.$primary-color;
+  margin-bottom: vr.$spacing-lg;
+
+  @media (max-width: vr.$breakpoint-md) {
+    font-size: vr.$font-size-3xl;
+  }
+}
+
+.section-subtitle {
+  font-size: vr.$font-size-xl;
+  color: vr.$gray-600;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: vr.$line-height-relaxed;
+}
+
+.about-content {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: vr.$spacing-3xl;
+  align-items: start;
+
+  @media (max-width: vr.$breakpoint-lg) {
+    grid-template-columns: 1fr;
+    gap: vr.$spacing-2xl;
+  }
+}
+
+.about-text {
+  display: flex;
+  flex-direction: column;
+  gap: vr.$spacing-2xl;
+}
+
+.about-block {
+  background: vr.$white;
+  padding: vr.$spacing-2xl;
+  border-radius: vr.$border-radius-xl;
+  box-shadow: vr.$shadow-md;
+  border-left: 4px solid vr.$primary-color;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: vr.$shadow-lg;
+  }
+
+  h3 {
+    font-size: vr.$font-size-2xl;
+    font-weight: vr.$font-weight-semibold;
+    color: vr.$primary-color;
+    margin-bottom: vr.$spacing-md;
+  }
+
+  p {
+    font-size: vr.$font-size-lg;
+    line-height: vr.$line-height-relaxed;
+    color: vr.$gray-700;
+    margin: 0;
+  }
+}
+
+.about-stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: vr.$spacing-lg;
+
+  @media (max-width: vr.$breakpoint-md) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: vr.$breakpoint-sm) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.stat-item {
+  background: vr.$white;
+  padding: vr.$spacing-xl;
+  border-radius: vr.$border-radius-lg;
+  text-align: center;
+  box-shadow: vr.$shadow-sm;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: vr.$shadow-md;
+  }
+}
+
+.stat-number {
+  font-size: vr.$font-size-4xl;
+  font-weight: vr.$font-weight-bold;
+  color: vr.$primary-color;
+  margin-bottom: vr.$spacing-sm;
+
+  @media (max-width: vr.$breakpoint-md) {
+    font-size: vr.$font-size-3xl;
+  }
+}
+
+.stat-label {
+  font-size: vr.$font-size-base;
+  color: vr.$gray-600;
+  font-weight: vr.$font-weight-medium;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}

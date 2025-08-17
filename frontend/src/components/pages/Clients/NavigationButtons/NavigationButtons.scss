@@ -86,7 +86,12 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(135deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    background: linear-gradient(
+      135deg,
+      transparent,
+      rgba(255, 255, 255, 0.1),
+      transparent
+    );
     transform: translateX(-100%);
     transition: transform vr.$transition-normal;
   }
@@ -113,7 +118,7 @@
   &.primary {
     color: vr.$primary-color;
     border-color: vr.$primary-color;
-    
+
     &:hover {
       background: vr.$primary-color;
       color: vr.$white;
@@ -123,7 +128,7 @@
   &.secondary {
     color: vr.$secondary-color;
     border-color: vr.$secondary-color;
-    
+
     &:hover {
       background: vr.$secondary-color;
       color: vr.$white;
@@ -133,7 +138,7 @@
   &.success {
     color: vr.$success-color;
     border-color: vr.$success-color;
-    
+
     &:hover {
       background: vr.$success-color;
       color: vr.$white;
@@ -143,7 +148,7 @@
   &.info {
     color: vr.$info-color;
     border-color: vr.$info-color;
-    
+
     &:hover {
       background: vr.$info-color;
       color: vr.$white;

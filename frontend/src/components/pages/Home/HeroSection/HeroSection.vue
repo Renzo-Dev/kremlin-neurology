@@ -31,37 +31,12 @@
 </template>
 
 <script>
-import { easeInOutFast } from '@/utils/helpers/easing'
+import { scrollToSection } from '@/utils/helpers/smoothScroll'
 
 export default {
   name: 'HeroSection',
   methods: {
-    scrollToSection(sectionId) {
-      const targetElement = document.getElementById(sectionId)
-      if (targetElement) {
-        const headerHeight = 80
-        const targetPosition = targetElement.offsetTop - headerHeight
-        const startPosition = window.pageYOffset
-        const distance = targetPosition - startPosition
-        const duration = 600 // Уменьшил с 1000 до 600мс для быстрого движения
-        let start = null
-
-        const animation = currentTime => {
-          if (start === null) start = currentTime
-          const timeElapsed = currentTime - start
-          const run = easeInOutFast(
-            timeElapsed,
-            startPosition,
-            distance,
-            duration
-          )
-          window.scrollTo(0, run)
-          if (timeElapsed < duration) requestAnimationFrame(animation)
-        }
-
-        requestAnimationFrame(animation)
-      }
-    },
+    scrollToSection,
   },
 }
 </script>

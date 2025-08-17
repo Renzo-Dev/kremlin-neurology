@@ -1,0 +1,172 @@
+@use '@/assets/styles/variables' as vr;
+@use '@/assets/styles/mixins' as mx;
+
+.contacts-page {
+  min-height: 100vh;
+  background: linear-gradient(180deg, vr.$white 0%, vr.$gray-50 100%);
+
+  // Плавная прокрутка для всей страницы
+  scroll-behavior: smooth;
+
+  // Анимации появления элементов при скролле
+  .fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s ease-out;
+
+    &.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  // Hover эффекты для интерактивных элементов
+  .interactive {
+    transition: all vr.$transition-normal;
+    cursor: pointer;
+
+    &:hover {
+      transform: translateY(-2px);
+    }
+  }
+
+  // Стили для уведомлений о копировании
+  .copy-notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: vr.$spacing-md vr.$spacing-lg;
+    border-radius: vr.$border-radius-lg;
+    color: vr.$white;
+    font-size: vr.$font-size-sm;
+    font-weight: vr.$font-weight-medium;
+    z-index: 10000;
+    opacity: 0;
+    transform: translateX(100%);
+    transition: all 0.3s ease;
+    max-width: 300px;
+    word-wrap: break-word;
+    box-shadow: vr.$shadow-lg;
+
+    &--success {
+      background: linear-gradient(135deg, vr.$success-color, #059669);
+    }
+
+    &--error {
+      background: linear-gradient(135deg, vr.$error-color, #dc2626);
+    }
+
+    &.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  // Адаптивные улучшения для мобильных устройств
+  @include mx.mobile {
+    .container {
+      padding: 0 vr.$spacing-sm;
+    }
+
+    // Улучшенная читаемость на маленьких экранах
+    h1,
+    h2,
+    h3 {
+      word-wrap: break-word;
+      hyphens: auto;
+    }
+
+    // Оптимизация для touch устройств
+    button,
+    a {
+      min-height: 44px;
+      min-width: 44px;
+    }
+  }
+
+  // Улучшения для планшетов
+  @include mx.tablet {
+    .container {
+      padding: 0 vr.$spacing-md;
+    }
+  }
+
+  // Анимации для улучшения UX
+  @keyframes slideInFromBottom {
+    from {
+      opacity: 0;
+      transform: translateY(50px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fadeInScale {
+    from {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  // Применение анимаций к секциям
+  section {
+    animation: slideInFromBottom 0.8s ease-out;
+
+    &:nth-child(even) {
+      animation-delay: 0.1s;
+    }
+
+    &:nth-child(odd) {
+      animation-delay: 0.2s;
+    }
+  }
+
+  // Улучшенные стили для фокуса для accessibility
+  *:focus {
+    outline: 2px solid vr.$primary-color;
+    outline-offset: 2px;
+  }
+
+  // Стили для скроллбара
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: vr.$gray-100;
+    border-radius: vr.$border-radius-full;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, vr.$primary-color, vr.$primary-dark);
+    border-radius: vr.$border-radius-full;
+
+    &:hover {
+      background: linear-gradient(135deg, vr.$primary-dark, vr.$primary-color);
+    }
+  }
+
+  // Улучшения для печати
+  @media print {
+    .copy-btn,
+    .interactive {
+      display: none !important;
+    }
+
+    .container {
+      max-width: none;
+      padding: 0;
+    }
+
+    section {
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+  }
+}

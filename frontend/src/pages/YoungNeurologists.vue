@@ -1,21 +1,31 @@
 <template>
   <div class="young-neurologists-page">
-    <h1>Научный кружок "Школа молодых неврологов"</h1>
-    <p>Страница находится в разработке</p>
+    <HeroSection />
+    <AboutSection />
+    <ScheduleSection />
+    <ArchiveSection />
   </div>
 </template>
 
 <script>
+import AboutSection from '@/components/pages/YoungNeurologists/AboutSection/AboutSection.vue'
+import ArchiveSection from '@/components/pages/YoungNeurologists/ArchiveSection/ArchiveSection.vue'
+import HeroSection from '@/components/pages/YoungNeurologists/HeroSection/HeroSection.vue'
+import ScheduleSection from '@/components/pages/YoungNeurologists/ScheduleSection/ScheduleSection.vue'
+
 export default {
   name: 'YoungNeurologists',
+  components: {
+    HeroSection,
+    AboutSection,
+    ScheduleSection,
+    ArchiveSection,
+  },
 }
 </script>
 
 <style lang="scss" scoped>
-@use '@/assets/styles/variables' as v;
-
 .young-neurologists-page {
-  padding: 2rem;
-  text-align: center;
+  min-height: 100vh;
 }
 </style>
