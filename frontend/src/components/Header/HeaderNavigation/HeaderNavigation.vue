@@ -200,81 +200,28 @@
 </template>
 
 <script>
+import { useMobileMenu } from '@/composables/useMobileMenu'
+
 export default {
   name: 'HeaderNavigation',
-  data() {
+  setup() {
+    const {
+      isMobileMenuOpen,
+      toggleMobileMenu,
+      closeMobileMenu,
+      handleRouteChange,
+    } = useMobileMenu()
+
     return {
-      isMobileMenuOpen: false,
+      isMobileMenuOpen,
+      toggleMobileMenu,
+      closeMobileMenu,
+      handleRouteChange,
     }
   },
   watch: {
     $route() {
-      this.closeMobileMenu()
-    },
-  },
-  mounted() {
-    // Закрытие меню при клике вне его
-    document.addEventListener('click', this.handleClickOutside)
-
-    // Закрытие меню при нажатии Escape
-    document.addEventListener('keydown', this.handleKeydown)
-
-    // Закрытие меню при изменении размера экрана
-    window.addEventListener('resize', this.handleResize)
-  },
-  beforeUnmount() {
-    document.removeEventListener('click', this.handleClickOutside)
-    document.removeEventListener('keydown', this.handleKeydown)
-    window.removeEventListener('resize', this.handleResize)
-  },
-  methods: {
-    toggleMobileMenu() {
-      this.isMobileMenuOpen = !this.isMobileMenuOpen
-      this.updateBodyOverflow()
-      this.toggleHeroSection()
-    },
-
-    closeMobileMenu() {
-      this.isMobileMenuOpen = false
-      this.updateBodyOverflow()
-      this.toggleHeroSection()
-    },
-
-    toggleHeroSection() {
-      const heroSection = document.querySelector('.hero-section')
-      if (heroSection) {
-        if (this.isMobileMenuOpen) {
-          // Сразу меняем z-index при открытии
-          heroSection.classList.add('hero-section--menu-open')
-        } else {
-          setTimeout(() => {
-            // Убираем класс только после полного закрытия
-            heroSection.classList.remove('hero-section--menu-open')
-          }, 150) // Синхронизировано с CSS анимацией
-        }
-      }
-    },
-
-    updateBodyOverflow() {
-      document.body.style.overflow = this.isMobileMenuOpen ? 'hidden' : ''
-    },
-
-    handleClickOutside(event) {
-      if (this.isMobileMenuOpen && !this.$el.contains(event.target)) {
-        this.closeMobileMenu()
-      }
-    },
-
-    handleKeydown(event) {
-      if (event.key === 'Escape' && this.isMobileMenuOpen) {
-        this.closeMobileMenu()
-      }
-    },
-
-    handleResize() {
-      if (window.innerWidth > 768 && this.isMobileMenuOpen) {
-        this.closeMobileMenu()
-      }
+      this.handleRouteChange()
     },
   },
 }
