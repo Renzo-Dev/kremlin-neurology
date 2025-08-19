@@ -1,87 +1,91 @@
 <?php
 
-require_once __DIR__ . '/../utils/respondHandler.php';
+require_once __DIR__ . '/../services/ResponseService.php';
 require_once __DIR__ . '/../services/CatalogService.php';
-require_once __DIR__ . '/../services/FileService.php';
 
+/** Контроллер каталога - только получение данных */
 class CatalogController
 {
-    public function __construct()
+    private $catalogService;
+
+    public function __construct(CatalogService $catalogService)
     {
+        $this->catalogService = $catalogService;
     }
 
-    static function getCatalog()
+    /** Получает каталог, сгруппированный по авторам */
+    public function getCatalog()
     {
         try {
-            $catalog = CatalogService::loadCatalogFromFile();
-            $catalog = CatalogService::groupCatalogByAuthorFirstLetter($catalog);
-            // Возвращаем успешный ответ с каталогом
-            respondHandler::respond($catalog);
+            $catalog = $this->catalogService->getCatalogGroupedByAuthors();
+            ResponseService::success($catalog);
         } catch (Exception $e) {
-            respondHandler::respond(array(
-                'error' => 'Error loading catalog',
-                'message' => $e->getMessage()
-            ), 500);
+            ResponseService::errorFromException($e, 'Error loading catalog');
         }
     }
 
-    public static function saveFile()
+    /** Получает публичный каталог (без аутентификации) */
+    public function getPublicCatalog()
     {
         try {
-            // Проверяем, существует ли файл
-            if (!isset($_FILES['file']) || $_FILES['file']['error'] !== UPLOAD_ERR_OK) {
-                throw new Exception('File not found or upload error');
-            }
-
-            // Проверяем, что title и authors не пустые
-            if (empty($_POST['title']) || empty($_POST['authors'])) {
-                throw new Exception('Title or authors are empty');
-            }
-
-            // добавляем файл в каталог
-            // если успешно добавили файл в каталог
-            if (CatalogService::addItemToCatalog()) {
-                // сохраняем файл в папку
-                $fileInfo = FileService::saveFile($_FILES['file'], $_POST['title'], $_POST['authors']);
-                // Возвращаем успешный ответ с информацией о файле
-                respondHandler::respond(array(
-                    'message' => 'File saved successfully',
-                    'fileInfo' => $fileInfo
-                ), 200);
-            }
-
+            $catalog = $this->catalogService->getPublicCatalog();
+            ResponseService::success($catalog);
         } catch (Exception $e) {
-            // Обработка исключения
-            respondHandler::respond(array(
-                'error' => 'Error saving file',
-                'message' => $e->getMessage()
-            ), 500);
+            ResponseService::errorFromException($e, 'Error loading public catalog');
         }
     }
 
-    public static function deleteFile()
+    /** Получает приватный каталог (требует аутентификации) */
+    public function getPrivateCatalog()
     {
-        // получаем fileName который хотим удалить
         try {
-            $rawInput = file_get_contents('php://input');
-            $data = json_decode($rawInput, true);
-            $fileName = isset($data['fileName']) ? trim($data['fileName']) : '';
-
-            if ($fileName === '') {
-                throw new Exception('File name are empty ', 500);
-            }
-            if (CatalogService::deleteFile($fileName)) {
-                respondHandler::respond(array(
-                    'message' => 'File deleted successfully',
-                ), 200);
-            }
-
+            $catalog = $this->catalogService->getPrivateCatalog();
+            ResponseService::success($catalog);
         } catch (Exception $e) {
-            respondHandler::respond(array(
-                'error' => 'Error delete file',
-                'message' => $e->getMessage()
-            ), $e->getCode());
+            ResponseService::errorFromException($e, 'Error loading private catalog');
         }
-        return true;
+    }
+
+    /** Получает каталог с фильтрацией по автору */
+    public function getCatalogByAuthor(string $author)
+    {
+        try {
+            if (empty(trim($author))) {
+                ResponseService::badRequest('Author name is required');
+                return;
+            }
+
+            $catalog = $this->catalogService->getCatalogByAuthor($author);
+            ResponseService::success($catalog);
+        } catch (Exception $e) {
+            ResponseService::errorFromException($e, 'Error loading catalog by author');
+        }
+    }
+
+    /** Получает каталог с пагинацией */
+    public function getCatalogPaginated(int $page = 1, int $limit = 20)
+    {
+        try {
+            if ($page < 1 || $limit < 1 || $limit > 100) {
+                ResponseService::badRequest('Invalid pagination parameters');
+                return;
+            }
+
+            $catalog = $this->catalogService->getCatalogPaginated($page, $limit);
+            ResponseService::success($catalog);
+        } catch (Exception $e) {
+            ResponseService::errorFromException($e, 'Error loading paginated catalog');
+        }
+    }
+
+    /** Получает статистику каталога */
+    public function getCatalogStats()
+    {
+        try {
+            $stats = $this->catalogService->getCatalogStats();
+            ResponseService::success($stats);
+        } catch (Exception $e) {
+            ResponseService::errorFromException($e, 'Error loading catalog statistics');
+        }
     }
 }
