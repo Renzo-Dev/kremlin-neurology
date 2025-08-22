@@ -54,7 +54,7 @@ export function useMobileMenu() {
   /**
    * Обработчик клика вне меню
    */
-  const handleClickOutside = (event) => {
+  const handleClickOutside = event => {
     if (isMobileMenuOpen.value && !event.target.closest('.header-navigation')) {
       closeMobileMenu()
     }
@@ -63,7 +63,7 @@ export function useMobileMenu() {
   /**
    * Обработчик нажатия клавиш
    */
-  const handleKeydown = (event) => {
+  const handleKeydown = event => {
     if (event.key === 'Escape' && isMobileMenuOpen.value) {
       closeMobileMenu()
     }
@@ -96,7 +96,7 @@ export function useMobileMenu() {
     document.removeEventListener('click', handleClickOutside)
     document.removeEventListener('keydown', handleKeydown)
     window.removeEventListener('resize', handleResize)
-    
+
     if (scrollTimeout.value) {
       clearTimeout(scrollTimeout.value)
     }
@@ -105,12 +105,12 @@ export function useMobileMenu() {
   return {
     // Состояние
     isMobileMenuOpen,
-    
+
     // Методы
     toggleMobileMenu,
     closeMobileMenu,
     handleRouteChange,
-    
+
     // Внутренние методы (для тестирования)
     _updateBodyOverflow: updateBodyOverflow,
     _toggleHeroSection: toggleHeroSection,
