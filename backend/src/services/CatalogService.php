@@ -5,114 +5,97 @@ require_once __DIR__ . '/../utils/respondHandler.php';
 /** Единый сервис для работы с каталогом - чтение и управление */
 class CatalogService
 {
-    private $catalogPath;
+    private $publicCatalogPath;
+    private $privateCatalogPath;
 
     public function __construct()
     {
-        $this->catalogPath = __DIR__ . '/../data/catalog.json';
+        $this->publicCatalogPath = __DIR__ . '/../data/public/catalog.json';
+        $this->privateCatalogPath = __DIR__ . '/../data/private/catalog.json';
     }
 
-    // === МЕТОДЫ ЧТЕНИЯ (Query) ===
+    // === ОСНОВНАЯ ФУНКЦИЯ ПОЛУЧЕНИЯ КАТАЛОГА ===
 
-    /** Получает полный каталог, сгруппированный по авторам */
-    public function getCatalogGroupedByAuthors(): array
+    /**
+     * Универсальная функция получения каталога
+     * @param string $type - 'public' или 'private'
+     * @return array - каталог, сгруппированный по авторам
+     */
+    public function getCatalog(string $type = 'public'): array
     {
-        $catalog = $this->loadCatalogFromFile();
-        return $this->groupCatalogByAuthorFirstLetter($catalog);
+        try {
+            // Определяем путь к файлу каталога
+            $catalogPath = $this->getCatalogPath($type);
+            
+            // Загружаем каталог из соответствующего файла
+            $catalog = $this->loadCatalogFromFile($catalogPath);
+            
+            // Группируем по авторам и возвращаем
+            return $this->groupCatalogByAuthorFirstLetter($catalog);
+            
+        } catch (Exception $e) {
+            throw new Exception('Error loading catalog: ' . $e->getMessage(), $e->getCode());
+        }
     }
 
-    /** Получает публичный каталог (файлы из публичной папки) */
-    public function getPublicCatalog(): array
-    {
-        $catalog = $this->loadCatalogFromFile();
-        $publicCatalog = $this->filterPublicCatalog($catalog);
-        return $this->groupCatalogByAuthorFirstLetter($publicCatalog);
-    }
-
-    /** Получает приватный каталог (файлы из приватной папки) */
-    public function getPrivateCatalog(): array
-    {
-        $catalog = $this->loadCatalogFromFile();
-        $privateCatalog = $this->filterPrivateCatalog($catalog);
-        return $this->groupCatalogByAuthorFirstLetter($privateCatalog);
-    }
+    // === ДОПОЛНИТЕЛЬНЫЕ МЕТОДЫ ===
 
     /** Получает каталог по конкретному автору */
-    public function getCatalogByAuthor(string $author): array
+    public function getCatalogByAuthor(string $author, string $type = 'public'): array
     {
-        $catalog = $this->loadCatalogFromFile();
-        $filteredCatalog = array_filter($catalog, function($item) use ($author) {
-            return stripos($item['authors'], $author) !== false;
-        });
-        
-        return array_values($filteredCatalog);
+        try {
+            $catalogPath = $this->getCatalogPath($type);
+            $catalog = $this->loadCatalogFromFile($catalogPath);
+            
+            $filteredCatalog = array_filter($catalog, function($item) use ($author) {
+                return stripos($item['authors'], $author) !== false;
+            });
+            
+            return array_values($filteredCatalog);
+            
+        } catch (Exception $e) {
+            throw new Exception('Error getting catalog by author: ' . $e->getMessage(), $e->getCode());
+        }
     }
 
     /** Получает каталог с пагинацией */
-    public function getCatalogPaginated(int $page = 1, int $limit = 20): array
+    public function getCatalogPaginated(int $page = 1, int $limit = 20, string $type = 'public'): array
     {
-        $catalog = $this->loadCatalogFromFile();
-        $totalItems = count($catalog);
-        $totalPages = ceil($totalItems / $limit);
-        
-        $offset = ($page - 1) * $limit;
-        $items = array_slice($catalog, $offset, $limit);
-        
-        return [
-            'items' => $items,
-            'pagination' => [
-                'currentPage' => $page,
-                'totalPages' => $totalPages,
-                'totalItems' => $totalItems,
-                'itemsPerPage' => $limit,
-                'hasNextPage' => $page < $totalPages,
-                'hasPrevPage' => $page > 1
-            ]
-        ];
-    }
-
-    /** Получает каталог по типу файла */
-    public function getCatalogByFileType(string $fileType): array
-    {
-        $catalog = $this->loadCatalogFromFile();
-        $filteredCatalog = array_filter($catalog, function($item) use ($fileType) {
-            $itemFileType = $this->getFileType($item['fileName']);
-            return $itemFileType === $fileType;
-        });
-        
-        return array_values($filteredCatalog);
-    }
-
-    /** Получает статистику каталога */
-    public function getCatalogStats(): array
-    {
-        $catalog = $this->loadCatalogFromFile();
-        
-        $stats = [
-            'totalFiles' => count($catalog),
-            'totalAuthors' => count(array_unique(array_column($catalog, 'authors'))),
-            'fileTypes' => [],
-            'authorsCount' => []
-        ];
-
-        foreach ($catalog as $item) {
-            $fileType = $this->getFileType($item['fileName']);
-            $stats['fileTypes'][$fileType] = ($stats['fileTypes'][$fileType] ?? 0) + 1;
+        try {
+            $catalogPath = $this->getCatalogPath($type);
+            $catalog = $this->loadCatalogFromFile($catalogPath);
             
-            $author = $item['authors'];
-            $stats['authorsCount'][$author] = ($stats['authorsCount'][$author] ?? 0) + 1;
+            $totalItems = count($catalog);
+            $totalPages = ceil($totalItems / $limit);
+            
+            $offset = ($page - 1) * $limit;
+            $items = array_slice($catalog, $offset, $limit);
+            
+            return [
+                'items' => $items,
+                'pagination' => [
+                    'currentPage' => $page,
+                    'totalPages' => $totalPages,
+                    'totalItems' => $totalItems,
+                    'itemsPerPage' => $limit,
+                    'hasNextPage' => $page < $totalPages,
+                    'hasPrevPage' => $page > 1
+                ]
+            ];
+            
+        } catch (Exception $e) {
+            throw new Exception('Error getting paginated catalog: ' . $e->getMessage(), $e->getCode());
         }
-
-        return $stats;
     }
 
-    // === МЕТОДЫ УПРАВЛЕНИЯ (Management) ===
+    // === МЕТОДЫ УПРАВЛЕНИЯ (только для приватного каталога) ===
 
-    /** Добавляет новый файл в каталог */
+    /** Добавляет новый файл в приватный каталог */
     public function addFileToCatalog(array $fileData): bool
     {
         try {
-            $catalog = $this->loadCatalogFromFile();
+            // Файлы добавляются только в приватный каталог
+            $catalog = $this->loadCatalogFromFile($this->privateCatalogPath);
             
             // Проверяем, существует ли файл
             if ($this->fileExistsInCatalog($fileData['fileName'], $catalog)) {
@@ -129,7 +112,7 @@ class CatalogService
                 'description' => $fileData['description'] ?? null
             ];
 
-            $this->saveCatalogToFile($catalog);
+            $this->saveCatalogToFile($catalog, $this->privateCatalogPath);
             return true;
 
         } catch (Exception $e) {
@@ -137,11 +120,11 @@ class CatalogService
         }
     }
 
-    /** Удаляет файл из каталога */
+    /** Удаляет файл из приватного каталога */
     public function removeFileFromCatalog(string $fileName): bool
     {
         try {
-            $catalog = $this->loadCatalogFromFile();
+            $catalog = $this->loadCatalogFromFile($this->privateCatalogPath);
             
             if (!$this->fileExistsInCatalog($fileName, $catalog)) {
                 throw new Exception('File not found in catalog', 404);
@@ -152,7 +135,7 @@ class CatalogService
                 return $item['fileName'] !== $fileName;
             });
 
-            $this->saveCatalogToFile(array_values($catalog));
+            $this->saveCatalogToFile(array_values($catalog), $this->privateCatalogPath);
             return true;
 
         } catch (Exception $e) {
@@ -161,10 +144,11 @@ class CatalogService
     }
 
     /** Получает информацию о файле */
-    public function getFileInfo(string $fileName): ?array
+    public function getFileInfo(string $fileName, string $type = 'public'): ?array
     {
         try {
-            $catalog = $this->loadCatalogFromFile();
+            $catalogPath = $this->getCatalogPath($type);
+            $catalog = $this->loadCatalogFromFile($catalogPath);
             
             foreach ($catalog as $item) {
                 if ($item['fileName'] === $fileName) {
@@ -180,10 +164,11 @@ class CatalogService
     }
 
     /** Проверяет существование файла в каталоге */
-    public function fileExists(string $fileName): bool
+    public function fileExists(string $fileName, string $type = 'public'): bool
     {
         try {
-            $catalog = $this->loadCatalogFromFile();
+            $catalogPath = $this->getCatalogPath($type);
+            $catalog = $this->loadCatalogFromFile($catalogPath);
             return $this->fileExistsInCatalog($fileName, $catalog);
         } catch (Exception $e) {
             return false;
@@ -191,37 +176,53 @@ class CatalogService
     }
 
     /** Получает размер каталога */
-    public function getCatalogSize(): int
+    public function getCatalogSize(string $type = 'public'): int
     {
         try {
-            $catalog = $this->loadCatalogFromFile();
+            $catalogPath = $this->getCatalogPath($type);
+            $catalog = $this->loadCatalogFromFile($catalogPath);
             return count($catalog);
         } catch (Exception $e) {
             return 0;
         }
     }
 
-    /** Очищает каталог (удаляет все записи) */
-    public function clearCatalog(): bool
+    /** Очищает приватный каталог (удаляет все записи) */
+    public function clearPrivateCatalog(): bool
     {
         try {
-            $this->saveCatalogToFile([]);
+            $this->saveCatalogToFile([], $this->privateCatalogPath);
             return true;
         } catch (Exception $e) {
-            throw new Exception('Error clearing catalog: ' . $e->getMessage(), $e->getCode());
+            throw new Exception('Error clearing private catalog: ' . $e->getMessage(), $e->getCode());
         }
     }
 
     // === ПРИВАТНЫЕ МЕТОДЫ ===
 
-    /** Загружает каталог из файла */
-    private function loadCatalogFromFile(): array
+    /**
+     * Определяет путь к файлу каталога по типу
+     */
+    private function getCatalogPath(string $type): string
     {
-        if (!file_exists($this->catalogPath)) {
+        switch (strtolower($type)) {
+            case 'public':
+                return $this->publicCatalogPath;
+            case 'private':
+                return $this->privateCatalogPath;
+            default:
+                throw new Exception('Invalid catalog type. Use "public" or "private"', 400);
+        }
+    }
+
+    /** Загружает каталог из файла */
+    private function loadCatalogFromFile(string $catalogPath): array
+    {
+        if (!file_exists($catalogPath)) {
             return [];
         }
 
-        $json = file_get_contents($this->catalogPath);
+        $json = file_get_contents($catalogPath);
         $catalog = json_decode($json, true);
 
         if (!is_array($catalog)) {
@@ -232,11 +233,11 @@ class CatalogService
     }
 
     /** Сохраняет каталог в файл */
-    private function saveCatalogToFile(array $catalog): void
+    private function saveCatalogToFile(array $catalog, string $catalogPath): void
     {
         $json = json_encode($catalog, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
         
-        if (file_put_contents($this->catalogPath, $json) === false) {
+        if (file_put_contents($catalogPath, $json) === false) {
             throw new Exception('Failed to save catalog to file', 500);
         }
     }
@@ -270,51 +271,6 @@ class CatalogService
 
         ksort($groupedCatalog);
         return $groupedCatalog;
-    }
-
-    /** Фильтрует публичный каталог */
-    private function filterPublicCatalog(array $catalog): array
-    {
-        $publicCatalog = [];
-        
-        foreach ($catalog as $file) {
-            if ($this->isFilePublic($file['fileName'])) {
-                $publicCatalog[] = [
-                    'title' => $file['title'],
-                    'authors' => $file['authors'],
-                    'type' => $this->getFileType($file['fileName']),
-                    'uploadDate' => $file['uploadDate'] ?? null
-                ];
-            }
-        }
-        
-        return $publicCatalog;
-    }
-
-    /** Фильтрует приватный каталог */
-    private function filterPrivateCatalog(array $catalog): array
-    {
-        $privateCatalog = [];
-        
-        foreach ($catalog as $file) {
-            if (!$this->isFilePublic($file['fileName'])) {
-                $privateCatalog[] = [
-                    'title' => $file['title'],
-                    'authors' => $file['authors'],
-                    'type' => $this->getFileType($file['fileName']),
-                    'uploadDate' => $file['uploadDate'] ?? null
-                ];
-            }
-        }
-        
-        return $privateCatalog;
-    }
-
-    /** Проверяет, является ли файл публичным */
-    private function isFilePublic(string $fileName): bool
-    {
-        require_once __DIR__ . '/FileService.php';
-        return FileService::isFilePublic($fileName);
     }
 
     /** Определяет тип файла по расширению */

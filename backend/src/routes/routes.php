@@ -42,40 +42,55 @@ try {
             AuthController::auth();
             break;
         
-        // Каталог - получение данных
-        case $request === '/api/catalog' && $method === 'GET':
-            $catalogController->getCatalog();
-            break;
+        // === КАТАЛОГ - получение данных ===
+        
+        // Публичный каталог (без аутентификации)
         case $request === '/api/catalog/public' && $method === 'GET':
             $catalogController->getPublicCatalog();
             break;
+            
+        // Приватный каталог (требует аутентификации)
         case $request === '/api/catalog/private' && $method === 'GET':
             $catalogController->getPrivateCatalog();
             break;
-        case $request === '/api/catalog/stats' && $method === 'GET':
-            $catalogController->getCatalogStats();
+            
+        // Каталог с пагинацией
+        case $request === '/api/catalog/paginated' && $method === 'GET':
+            $catalogController->getCatalogPaginated();
             break;
         
-        // Управление файлами (требует аутентификации)
+        // === УПРАВЛЕНИЕ ФАЙЛАМИ (только приватный каталог) ===
+        
+        // Добавление файла в приватный каталог (требует аутентификации)
         case $request === '/api/catalog' && $method === 'POST':
             $fileController->saveFile();
             break;
+            
+        // Удаление файла из приватного каталога (требует аутентификации)
         case $request === '/api/catalog' && $method === 'DELETE':
             $fileController->deleteFile();
             break;
         
-        // Скачивание файлов
+        // === СКАЧИВАНИЕ ФАЙЛОВ ===
+        
+        // Скачивание публичных файлов
         case $request === '/api/download' && $method === 'POST':
             $fileController->downloadFile(false);
             break;
+            
+        // Скачивание приватных файлов (требует аутентификации)
         case $request === '/api/privateDownload' && $method === 'POST':
             $fileController->downloadFile(true);
             break;
         
-        // Информация о файлах
+        // === ИНФОРМАЦИЯ О ФАЙЛАХ ===
+        
+        // Информация о файле
         case $request === '/api/file/info' && $method === 'POST':
             $fileController->getFileInfo();
             break;
+        
+        // === СТАТИСТИКА ХРАНИЛИЩА ===
         
         // Статистика хранилища
         case $request === '/api/storage/stats' && $method === 'GET':

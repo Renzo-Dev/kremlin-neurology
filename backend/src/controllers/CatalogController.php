@@ -13,22 +13,11 @@ class CatalogController
         $this->catalogService = $catalogService;
     }
 
-    /** Получает каталог, сгруппированный по авторам */
-    public function getCatalog()
-    {
-        try {
-            $catalog = $this->catalogService->getCatalogGroupedByAuthors();
-            ResponseService::success($catalog);
-        } catch (Exception $e) {
-            ResponseService::errorFromException($e, 'Error loading catalog');
-        }
-    }
-
     /** Получает публичный каталог (без аутентификации) */
     public function getPublicCatalog()
     {
         try {
-            $catalog = $this->catalogService->getPublicCatalog();
+            $catalog = $this->catalogService->getCatalog('public');
             ResponseService::success($catalog);
         } catch (Exception $e) {
             ResponseService::errorFromException($e, 'Error loading public catalog');
@@ -39,7 +28,7 @@ class CatalogController
     public function getPrivateCatalog()
     {
         try {
-            $catalog = $this->catalogService->getPrivateCatalog();
+            $catalog = $this->catalogService->getCatalog('private');
             ResponseService::success($catalog);
         } catch (Exception $e) {
             ResponseService::errorFromException($e, 'Error loading private catalog');
@@ -55,7 +44,15 @@ class CatalogController
                 return;
             }
 
-            $catalog = $this->catalogService->getCatalogByAuthor($author);
+            // Получаем тип каталога из GET параметра, по умолчанию 'public'
+            $type = $_GET['type'] ?? 'public';
+            
+            if (!in_array($type, ['public', 'private'])) {
+                ResponseService::badRequest('Invalid catalog type. Use "public" or "private"');
+                return;
+            }
+
+            $catalog = $this->catalogService->getCatalogByAuthor($author, $type);
             ResponseService::success($catalog);
         } catch (Exception $e) {
             ResponseService::errorFromException($e, 'Error loading catalog by author');
@@ -63,29 +60,31 @@ class CatalogController
     }
 
     /** Получает каталог с пагинацией */
-    public function getCatalogPaginated(int $page = 1, int $limit = 20)
+    public function getCatalogPaginated()
     {
         try {
+            // Получаем параметры пагинации из GET запроса
+            $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+            $limit = isset($_GET['limit']) ? (int)$_GET['limit'] : 20;
+            
+            // Валидация параметров
             if ($page < 1 || $limit < 1 || $limit > 100) {
-                ResponseService::badRequest('Invalid pagination parameters');
+                ResponseService::badRequest('Invalid pagination parameters. Page must be >= 1, limit must be 1-100');
                 return;
             }
 
-            $catalog = $this->catalogService->getCatalogPaginated($page, $limit);
+            // Получаем тип каталога из GET параметра, по умолчанию 'public'
+            $type = $_GET['type'] ?? 'public';
+            
+            if (!in_array($type, ['public', 'private'])) {
+                ResponseService::badRequest('Invalid catalog type. Use "public" or "private"');
+                return;
+            }
+
+            $catalog = $this->catalogService->getCatalogPaginated($page, $limit, $type);
             ResponseService::success($catalog);
         } catch (Exception $e) {
             ResponseService::errorFromException($e, 'Error loading paginated catalog');
-        }
-    }
-
-    /** Получает статистику каталога */
-    public function getCatalogStats()
-    {
-        try {
-            $stats = $this->catalogService->getCatalogStats();
-            ResponseService::success($stats);
-        } catch (Exception $e) {
-            ResponseService::errorFromException($e, 'Error loading catalog statistics');
         }
     }
 }
