@@ -53,7 +53,6 @@ export default {
   methods: {
     navigateToSection(section) {
       // Здесь будет навигация на соответствующие страницы
-      console.log('Переход к разделу:', section)
       // this.$router.push(`/education/${section}`)
     },
   },

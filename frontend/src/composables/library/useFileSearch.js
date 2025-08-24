@@ -7,11 +7,26 @@ const selectedType = ref('')
 const sortBy = ref('uploadDate')
 const sortOrder = ref('desc')
 
+// Debounce для поиска
+let searchTimeout = null
+const searchDebounceDelay = 300
+
 export function useFileSearch() {
   const clearFilters = () => {
     searchQuery.value = ''
     selectedAuthor.value = ''
     selectedType.value = ''
+  }
+
+  // Debounced поиск
+  const debouncedSearch = (callback) => {
+    if (searchTimeout) {
+      clearTimeout(searchTimeout)
+    }
+    
+    searchTimeout = setTimeout(() => {
+      callback()
+    }, searchDebounceDelay)
   }
 
   const searchFiles = files => {
@@ -93,5 +108,6 @@ export function useFileSearch() {
     getUniqueAuthors,
     getUniqueTypes,
     toggleSortOrder,
+    debouncedSearch,
   }
 }

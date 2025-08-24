@@ -87,8 +87,6 @@ export default {
   },
   methods: {
     handleBaseClick(base) {
-      console.log('Клиническая база выбрана:', base.title)
-
       // Навигация на соответствующие страницы
       switch (base.id) {
         case 1: // ГКБ №51 ДЗМ
@@ -101,7 +99,8 @@ export default {
           this.$router.push('/kb1vol')
           break
         default:
-          console.log('Неизвестная клиническая база:', base.title)
+          // Обработка неизвестной клинической базы
+          break
       }
     },
   },

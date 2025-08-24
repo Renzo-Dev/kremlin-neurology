@@ -41,21 +41,17 @@ export function useFileAccess() {
       const response = await apiService.login({ password: password.value })
       
       if (response.success) {
-        console.log('useFileAccess - аутентификация успешна, устанавливаем isAuthenticated = true')
         isAuthenticated.value = true
-        closePasswordModal()
-        // Автоматически переключаемся на приватную библиотеку
-        console.log('useFileAccess - переключаемся на приватную библиотеку')
-        switchToPrivate()
+        hasAccess.value = true
         return true
       } else {
-        console.log('useFileAccess - аутентификация неуспешна:', response.message)
-        error.value = response.message || 'Неверный пароль'
+        isAuthenticated.value = false
+        hasAccess.value = false
         return false
       }
     } catch (err) {
-      console.error('Ошибка аутентификации:', err)
-      error.value = 'Ошибка подключения к серверу'
+      isAuthenticated.value = false
+      hasAccess.value = false
       return false
     } finally {
       isLoading.value = false

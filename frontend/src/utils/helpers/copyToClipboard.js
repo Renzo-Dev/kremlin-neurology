@@ -30,19 +30,17 @@ export const copyToClipboard = async (text, options = {}) => {
       document.body.appendChild(textArea)
       textArea.focus()
       textArea.select()
-
-      const result = document.execCommand('copy')
-      document.body.removeChild(textArea)
-
-      if (result) {
+      
+      try {
+        document.execCommand('copy')
         showNotification(successMessage, 'success', duration)
         return true
-      } else {
-        throw new Error('execCommand failed')
+      } catch (execError) {
+        showNotification(errorMessage, 'error', duration)
+        return false
       }
     }
   } catch (error) {
-    console.error('Copy to clipboard failed:', error)
     showNotification(errorMessage, 'error', duration)
     return false
   }

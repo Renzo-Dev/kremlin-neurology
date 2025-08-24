@@ -14,6 +14,7 @@
       <FileSearch
         :files="currentFiles"
         :filtered-files-count="filteredFiles.length"
+        :is-searching="isSearching"
         @search="handleSearch"
         @filter="handleFilter"
       />
@@ -70,6 +71,7 @@ export default {
     const files = ref([])
     const isLoading = ref(false)
     const isPageLoading = ref(false) // Загрузка конкретной страницы
+    const isSearching = ref(false) // Загрузка поиска
     const error = ref('')
     const apiService = new ApiService()
     
@@ -92,7 +94,6 @@ export default {
       
       // Проверяем, что files.value это массив
       if (!Array.isArray(files.value)) {
-        console.warn('🔍 Library.currentFiles - files.value не является массивом:', files.value)
         return []
       }
       
@@ -181,8 +182,6 @@ export default {
           throw new Error(response.message || 'Ошибка загрузки файлов')
         }
       } catch (err) {
-        console.error('Ошибка загрузки файлов:', err)
-        
         // Retry механизм для сетевых ошибок
         if (retryCount < 2 && (err.message.includes('сети') || err.message.includes('CORS'))) {
           error.value = `Попытка ${retryCount + 1}/3: ${err.message}`
@@ -210,11 +209,18 @@ export default {
     }
 
     const handleSearch = async () => {
-      // Очищаем кэш при поиске
-      pageCache.value.clear()
-      // Сброс на первую страницу при поиске
-      currentPage.value = 1
-      await loadFiles(0, 1)
+      // Показываем состояние загрузки поиска
+      isSearching.value = true
+      
+      try {
+        // Очищаем кэш при поиске
+        pageCache.value.clear()
+        // Сброс на первую страницу при поиске
+        currentPage.value = 1
+        await loadFiles(0, 1)
+      } finally {
+        isSearching.value = false
+      }
     }
 
     const handleFilter = async () => {
@@ -230,7 +236,6 @@ export default {
         const { downloadFile } = useFileDownload()
         await downloadFile(file, isPrivateMode.value)
       } catch (error) {
-        console.error('Ошибка скачивания:', error)
         error.value = 'Не удалось скачать файл'
       }
     }
@@ -278,6 +283,7 @@ export default {
       handleSearch,
       handleFilter,
       handleDownload,
+      isSearching,
     }
   },
 }

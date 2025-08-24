@@ -41,8 +41,7 @@ export function useFileDownload() {
         downloadProgress.value = 0
       }, 1000)
     } catch (error) {
-      console.error('Ошибка скачивания:', error)
-      throw error
+      throw new Error('Ошибка скачивания файла')
     } finally {
       isDownloading.value = false
     }

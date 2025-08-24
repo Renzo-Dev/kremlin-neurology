@@ -7,8 +7,6 @@ export class ApiService {
   // Базовый метод для HTTP запросов
   async request(endpoint, options = {}) {
     const url = `${this.baseUrl}${endpoint}`
-    console.log('🔍 ApiService.request - URL:', url)
-    console.log('🔍 ApiService.request - options:', options)
     
     const config = {
       headers: {
@@ -20,22 +18,14 @@ export class ApiService {
 
     try {
       const response = await fetch(url, config)
-      console.log('🔍 ApiService.response - status:', response.status)
-      console.log('🔍 ApiService.response - headers:', response.headers)
       
       // Проверяем, есть ли тело ответа
       let data
       const contentType = response.headers.get('content-type')
-      console.log('🔍 ApiService.response - contentType:', contentType)
       
       if (contentType && contentType.includes('application/json')) {
         data = await response.json()
-        console.log('🔍 ApiService.response - JSON data:', data)
       } else {
-        console.log('🔍 ApiService.response - не JSON, statusText:', response.statusText)
-        console.log('🔍 ApiService.response - response.ok:', response.ok)
-        console.log('🔍 ApiService.response - response.status:', response.status)
-        
         // Для скачивания файлов возвращаем blob
         if (endpoint.includes('download')) {
           const blob = await response.blob()
@@ -50,10 +40,8 @@ export class ApiService {
         if (response.ok) {
           try {
             const jsonData = await response.json()
-            console.log('🔍 ApiService.response - попытка JSON:', jsonData)
             data = jsonData
           } catch (jsonError) {
-            console.log('🔍 ApiService.response - JSON parse error:', jsonError)
             data = { message: response.statusText || 'Неизвестный формат ответа' }
           }
         } else {
@@ -74,7 +62,6 @@ export class ApiService {
       if (error.name === 'TypeError' && error.message.includes('fetch')) {
         throw new Error('CORS ошибка: сервер не разрешает запросы с этого домена')
       }
-      console.error('API request failed:', error)
       throw error
     }
   }

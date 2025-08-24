@@ -19,6 +19,9 @@
           placeholder="Поиск по названию или автору..."
           @input="handleSearch"
         />
+        <div v-if="isSearching" class="search-loading">
+          <div class="search-spinner"></div>
+        </div>
         <button
           v-if="searchQuery"
           class="clear-search"
@@ -150,6 +153,10 @@ export default {
       type: Number,
       default: 0,
     },
+    isSearching: {
+      type: Boolean,
+      default: false,
+    },
   },
   emits: ['search', 'filter'],
   setup(props, { emit }) {
@@ -163,6 +170,7 @@ export default {
       getUniqueAuthors,
       getUniqueTypes,
       toggleSortOrder,
+      debouncedSearch,
     } = useFileSearch()
 
     const uniqueAuthors = computed(() => getUniqueAuthors(props.files))
@@ -173,15 +181,20 @@ export default {
     )
 
     const handleSearch = () => {
-      emit('search')
+      // Используем debounced поиск для input
+      debouncedSearch(() => {
+        emit('search')
+      })
     }
 
     const handleFilterChange = () => {
+      // Фильтры применяются сразу без debounce
       emit('filter')
     }
 
     const clearSearch = () => {
       searchQuery.value = ''
+      // При очистке поиска применяем сразу
       emit('search')
     }
 

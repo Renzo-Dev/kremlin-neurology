@@ -93,8 +93,6 @@ export default {
   methods: {
     navigateToProgram(program) {
       // Здесь будет навигация на соответствующие страницы
-      console.log('Переход к программе:', program)
-      // this.$router.push(`/education/${program}`)
     },
   },
 }

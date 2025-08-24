@@ -88,8 +88,7 @@ export default {
       try {
         await downloadFile(props.file, props.isPrivate)
       } catch (error) {
-        console.error('Ошибка скачивания:', error)
-        // Здесь можно добавить уведомление об ошибке
+        // Обработка ошибки скачивания
       }
     }
 
