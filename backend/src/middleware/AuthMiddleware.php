@@ -39,7 +39,9 @@ class AuthMiddleware extends Middleware
 
     public function shouldRun($route, $method)
     {
-        // Защищенные маршруты - все приватные операции
+        // ПРОСТАЯ ЛОГИКА: только защищенные маршруты требуют аутентификации
+        
+        // Защищенные маршруты (требуют аутентификации)
         $protectedRoutes = [
             '/api/catalog' => ['POST', 'DELETE'],              // Управление файлами
             '/api/privateDownload' => ['POST'],                // Скачивание приватных файлов
@@ -47,6 +49,12 @@ class AuthMiddleware extends Middleware
             '/api/file/info' => ['POST']                       // Информация о файле
         ];
 
-        return isset($protectedRoutes[$route]) && in_array($method, $protectedRoutes[$route]);
+        // Если маршрут в списке защищенных - требуем аутентификацию
+        if (isset($protectedRoutes[$route]) && in_array($method, $protectedRoutes[$route])) {
+            return true; // Требует аутентификации
+        }
+
+        // ВСЕ ОСТАЛЬНЫЕ маршруты - публичные (НЕ требуют аутентификации)
+        return false;
     }
 }

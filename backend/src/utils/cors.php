@@ -1,12 +1,22 @@
 <?php
-//header('Access-Control-Allow-Origin: http://localhost:3000');
+// Определяем origin для CORS
+$allowedOrigins = [
+    'http://localhost:5173',  // Vite dev server
+    'http://localhost:3000',  // Альтернативный порт
+    'http://127.0.0.1:5173', // IP адрес
+    'http://127.0.0.1:3000'  // IP адрес альтернативный
+];
+
+$origin = $_SERVER['HTTP_ORIGIN'] ?? '';
+if (in_array($origin, $allowedOrigins)) {
+    header("Access-Control-Allow-Origin: $origin");
+}
+
 header('Access-Control-Allow-Methods: POST, GET, OPTIONS, DELETE, PUT');
-header('Access-Control-Allow-Headers: Content-Type');
+header('Access-Control-Allow-Headers: Content-Type, Authorization');
 header('Access-Control-Allow-Credentials: true');
-//header('Content-Type: application/json');
 
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
-//    http_response_code(204);
     header("HTTP/1.1 204 No Content");
     exit;
 }

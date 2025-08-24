@@ -8,7 +8,16 @@ class ResponseService
     /** Отправляет успешный ответ */
     public static function success($data, int $code = 200): void
     {
-        respondHandler::respond($data, $code);
+        // Если данные уже в нужном формате, отправляем как есть
+        if (is_array($data) && isset($data['success'])) {
+            respondHandler::respond($data, $code);
+        } else {
+            // Иначе оборачиваем в стандартный формат
+            respondHandler::respond([
+                'success' => true,
+                'data' => $data
+            ], $code);
+        }
     }
 
     /** Отправляет ответ с ошибкой */

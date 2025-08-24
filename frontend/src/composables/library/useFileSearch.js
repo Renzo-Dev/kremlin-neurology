@@ -15,7 +15,9 @@ export function useFileSearch() {
   }
 
   const searchFiles = files => {
-    if (!files || !Array.isArray(files)) return []
+    if (!files || !Array.isArray(files)) {
+      return []
+    }
 
     let filteredFiles = [...files]
 

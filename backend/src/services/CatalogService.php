@@ -58,21 +58,27 @@ class CatalogService
         }
     }
 
-    /** Получает каталог с пагинацией */
-    public function getCatalogPaginated(int $page = 1, int $limit = 20, string $type = 'public'): array
+    /** Получает каталог с пагинацией и поиском */
+    public function getCatalogPaginated(int $page = 1, int $limit = 20, string $type = 'public', array $filters = []): array
     {
         try {
             $catalogPath = $this->getCatalogPath($type);
             $catalog = $this->loadCatalogFromFile($catalogPath);
             
-            $totalItems = count($catalog);
+            // Применяем фильтры
+            $filteredCatalog = $this->applyFilters($catalog, $filters);
+            
+            $totalItems = count($filteredCatalog);
             $totalPages = ceil($totalItems / $limit);
             
             $offset = ($page - 1) * $limit;
-            $items = array_slice($catalog, $offset, $limit);
+            $items = array_slice($filteredCatalog, $offset, $limit);
+            
+            // Группируем по авторам для совместимости с frontend
+            $groupedItems = $this->groupCatalogByAuthorFirstLetter($items);
             
             return [
-                'items' => $items,
+                'items' => $groupedItems,
                 'pagination' => [
                     'currentPage' => $page,
                     'totalPages' => $totalPages,
@@ -284,5 +290,49 @@ class CatalogService
         if (in_array($ext, ['jpg', 'jpeg', 'png', 'gif'])) return 'image';
         
         return 'other';
+    }
+
+    /** Применяет фильтры к каталогу */
+    private function applyFilters(array $catalog, array $filters): array
+    {
+        if (empty($filters)) {
+            return $catalog;
+        }
+
+        return array_filter($catalog, function($item) use ($filters) {
+            // Поиск по названию
+            if (isset($filters['search']) && !empty($filters['search'])) {
+                $search = strtolower($filters['search']);
+                $title = strtolower($item['title'] ?? '');
+                $authors = strtolower($item['authors'] ?? '');
+                $description = strtolower($item['description'] ?? '');
+                
+                if (strpos($title, $search) === false && 
+                    strpos($authors, $search) === false && 
+                    strpos($description, $search) === false) {
+                    return false;
+                }
+            }
+            
+            // Фильтр по автору
+            if (isset($filters['author']) && !empty($filters['author'])) {
+                $author = strtolower($filters['author']);
+                $itemAuthors = strtolower($item['authors'] ?? '');
+                if (strpos($itemAuthors, $author) === false) {
+                    return false;
+                }
+            }
+            
+            // Фильтр по типу файла
+            if (isset($filters['fileType']) && !empty($filters['fileType'])) {
+                $fileType = strtolower($filters['fileType']);
+                $fileName = strtolower($item['fileName'] ?? '');
+                if (strpos($fileName, $fileType) === false) {
+                    return false;
+                }
+            }
+            
+            return true;
+        });
     }
 }

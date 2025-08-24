@@ -15,22 +15,7 @@ services:
     networks:
       - app_network
 
-  frontend:
-    container_name: frontend
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
-    volumes:
-      - ./frontend:/app
-    ports:
-      - '3000:3000'
-    environment:
-      - NODE_ENV=development
-      - CHOKIDAR_USEPOLLING=true
-    networks:
-      - app_network
-    depends_on:
-      - backend
+
 
 networks:
   app_network:

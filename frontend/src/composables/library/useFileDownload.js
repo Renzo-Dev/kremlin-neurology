@@ -1,8 +1,10 @@
+import { ApiService } from '@/services/apiService'
 import { ref } from 'vue'
 
 export function useFileDownload() {
   const isDownloading = ref(false)
   const downloadProgress = ref(0)
+  const apiService = new ApiService()
 
   const downloadFile = async (file, isPrivate = false) => {
     if (isDownloading.value) return
@@ -11,41 +13,28 @@ export function useFileDownload() {
     downloadProgress.value = 0
 
     try {
-      const endpoint = isPrivate ? '/api/privateDownload' : '/api/download'
+      // Используем API сервис для скачивания
+      const response = await apiService.downloadFile(file.fileName, isPrivate)
+      
+      if (response.success && response.data) {
+        // Создаем ссылку для скачивания
+        const url = window.URL.createObjectURL(response.data)
+        const link = document.createElement('a')
+        link.href = url
+        link.download = file.fileName
 
-      const response = await fetch(endpoint, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          fileName: file.fileName,
-          title: file.title,
-        }),
-      })
+        // Добавляем ссылку в DOM и кликаем по ней
+        document.body.appendChild(link)
+        link.click()
 
-      if (!response.ok) {
-        throw new Error('Ошибка скачивания')
+        // Очищаем
+        document.body.removeChild(link)
+        window.URL.revokeObjectURL(url)
+
+        downloadProgress.value = 100
+      } else {
+        throw new Error(response.message || 'Ошибка скачивания')
       }
-
-      // Получаем blob для скачивания
-      const blob = await response.blob()
-
-      // Создаем ссылку для скачивания
-      const url = window.URL.createObjectURL(blob)
-      const link = document.createElement('a')
-      link.href = url
-      link.download = file.fileName
-
-      // Добавляем ссылку в DOM и кликаем по ней
-      document.body.appendChild(link)
-      link.click()
-
-      // Очищаем
-      document.body.removeChild(link)
-      window.URL.revokeObjectURL(url)
-
-      downloadProgress.value = 100
 
       // Сброс прогресса через секунду
       setTimeout(() => {

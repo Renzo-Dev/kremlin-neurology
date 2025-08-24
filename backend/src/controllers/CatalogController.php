@@ -81,7 +81,19 @@ class CatalogController
                 return;
             }
 
-            $catalog = $this->catalogService->getCatalogPaginated($page, $limit, $type);
+            // Собираем фильтры
+            $filters = [];
+            if (isset($_GET['search']) && !empty($_GET['search'])) {
+                $filters['search'] = $_GET['search'];
+            }
+            if (isset($_GET['author']) && !empty($_GET['author'])) {
+                $filters['author'] = $_GET['author'];
+            }
+            if (isset($_GET['fileType']) && !empty($_GET['fileType'])) {
+                $filters['fileType'] = $_GET['fileType'];
+            }
+
+            $catalog = $this->catalogService->getCatalogPaginated($page, $limit, $type, $filters);
             ResponseService::success($catalog);
         } catch (Exception $e) {
             ResponseService::errorFromException($e, 'Error loading paginated catalog');

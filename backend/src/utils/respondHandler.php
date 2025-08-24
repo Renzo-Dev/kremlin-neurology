@@ -6,6 +6,7 @@ class respondHandler
     {
         try {
             header('HTTP/1.1 ' . $code);
+            header('Content-Type: application/json; charset=UTF-8');
             if (!isset($sendData)) {
                 throw new Exception('No data to send');
             }
@@ -13,6 +14,7 @@ class respondHandler
             exit();
         } catch (Exception $e) {
             header('HTTP/1.1 500 Internal Server Error');
+            header('Content-Type: application/json; charset=UTF-8');
             echo json_encode(array('error' => 'Internal Server Error', 'message' => $e->getMessage()));
             exit();
         }

@@ -55,7 +55,7 @@ try {
             break;
             
         // Каталог с пагинацией
-        case $request === '/api/catalog/paginated' && $method === 'GET':
+        case strpos($request, '/api/catalog/paginated') === 0 && $method === 'GET':
             $catalogController->getCatalogPaginated();
             break;
         

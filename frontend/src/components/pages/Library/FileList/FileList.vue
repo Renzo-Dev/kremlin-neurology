@@ -1,6 +1,11 @@
 <template>
   <div class="file-list">
-    <div v-if="isLoading" class="loading-state">
+    <div v-if="isPageLoading" class="page-loading">
+      <div class="loading-spinner"></div>
+      <p class="loading-text">Загрузка страницы...</p>
+    </div>
+
+    <div v-else-if="isLoading" class="loading-state">
       <div class="loading-spinner"></div>
       <p class="loading-text">Загрузка файлов...</p>
     </div>
@@ -58,10 +63,10 @@
       />
     </div>
 
-    <div v-if="filteredFiles.length > itemsPerPage" class="pagination">
+    <div v-if="totalPages > 1" class="pagination">
       <button
         class="pagination-button"
-        :disabled="currentPage === 1"
+        :disabled="!hasPrevPage"
         @click="goToPage(currentPage - 1)"
       >
         <svg
@@ -90,7 +95,7 @@
 
       <button
         class="pagination-button"
-        :disabled="currentPage === totalPages"
+        :disabled="!hasNextPage"
         @click="goToPage(currentPage + 1)"
       >
         Вперед
@@ -106,17 +111,17 @@
       </button>
     </div>
 
-    <div v-if="filteredFiles.length > 0" class="list-info">
+    <div v-if="totalItems > 0" class="list-info">
       <span class="info-text">
         Показано {{ startIndex + 1 }}-{{ endIndex }} из
-        {{ filteredFiles.length }} файлов
+        {{ totalItems }} файлов
       </span>
     </div>
   </div>
 </template>
 
 <script>
-import { computed, ref, watch } from 'vue'
+import { computed } from 'vue'
 import FileCard from '../FileCard/FileCard.vue'
 
 export default {
@@ -137,6 +142,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    isPageLoading: {
+      type: Boolean,
+      default: false,
+    },
     error: {
       type: String,
       default: '',
@@ -149,39 +158,52 @@ export default {
       type: Boolean,
       default: false,
     },
+    // Пагинация из backend
+    currentPage: {
+      type: Number,
+      default: 1,
+    },
+    totalPages: {
+      type: Number,
+      default: 1,
+    },
+    totalItems: {
+      type: Number,
+      default: 0,
+    },
+    hasNextPage: {
+      type: Boolean,
+      default: false,
+    },
+    hasPrevPage: {
+      type: Boolean,
+      default: false,
+    },
     itemsPerPage: {
       type: Number,
       default: 12,
     },
   },
-  emits: ['retry', 'download'],
-  setup(props) {
-    const currentPage = ref(1)
-
-    const totalPages = computed(() =>
-      Math.ceil(props.filteredFiles.length / props.itemsPerPage)
-    )
-
+  emits: ['retry', 'download', 'pageChange'],
+  setup(props, { emit }) {
     const startIndex = computed(
-      () => (currentPage.value - 1) * props.itemsPerPage
+      () => (props.currentPage - 1) * props.itemsPerPage
     )
 
     const endIndex = computed(() =>
       Math.min(
         startIndex.value + props.itemsPerPage,
-        props.filteredFiles.length
+        props.totalItems
       )
     )
 
-    const paginatedFiles = computed(() =>
-      props.filteredFiles.slice(startIndex.value, endIndex.value)
-    )
+    const paginatedFiles = computed(() => props.files)
 
     const visiblePages = computed(() => {
       const pages = []
       const maxVisible = 5
-      let start = Math.max(1, currentPage.value - Math.floor(maxVisible / 2))
-      let end = Math.min(totalPages.value, start + maxVisible - 1)
+      let start = Math.max(1, props.currentPage - Math.floor(maxVisible / 2))
+      let end = Math.min(props.totalPages, start + maxVisible - 1)
 
       if (end - start + 1 < maxVisible) {
         start = Math.max(1, end - maxVisible + 1)
@@ -195,23 +217,13 @@ export default {
     })
 
     const goToPage = page => {
-      if (page >= 1 && page <= totalPages.value) {
-        currentPage.value = page
+      if (page >= 1 && page <= props.totalPages) {
+        emit('pageChange', page)
         window.scrollTo({ top: 0, behavior: 'smooth' })
       }
     }
 
-    // Сброс на первую страницу при изменении фильтров
-    watch(
-      () => props.filteredFiles,
-      () => {
-        currentPage.value = 1
-      }
-    )
-
     return {
-      currentPage,
-      totalPages,
       startIndex,
       endIndex,
       paginatedFiles,

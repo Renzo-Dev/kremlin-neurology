@@ -1,5 +1,6 @@
 // Экспорт всех composables
-export { useMobileMenu } from './useMobileMenu'
+// export { useApiState } from './useApiState'
+export { useMobileMenu } from './useMobileMenu';
 
 // Здесь будут добавляться другие composables
 // export { useScrollToTop } from './useScrollToTop'
