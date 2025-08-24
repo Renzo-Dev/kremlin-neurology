@@ -57,10 +57,8 @@ class MiddlewareManager
         $this->middlewares = [
             new PrivateAccessMiddleware(),                    // 1. Проверка приватных параметров (первым!)
             new AuthMiddleware(false),                       // 2. Обычная аутентификация
-            new AuthMiddleware(true),                        // 3. Админ аутентификация
-            new ValidationMiddleware($authValidationRules),   // 4. Валидация аутентификации
-            new ValidationMiddleware($catalogPostValidationRules),   // 5. Валидация POST запросов
-            new ValidationMiddleware($catalogDeleteValidationRules)  // 6. Валидация DELETE запросов
+            new ValidationMiddleware($catalogPostValidationRules),   // 3. Валидация POST запросов каталога
+            new ValidationMiddleware($catalogDeleteValidationRules)  // 4. Валидация DELETE запросов каталога
         ];
     }
 
@@ -110,7 +108,8 @@ class MiddlewareManager
             'method' => $method,
             'get' => $_GET,
             'post' => $_POST,
-            'files' => $_FILES
+            'files' => $_FILES,
+            'json' => []
         ];
 
         // Добавляем JSON данные если есть

@@ -135,14 +135,17 @@ class ValidationMiddleware extends Middleware
 
     private function getFieldValue($field, $data)
     {
+        // Сначала проверяем в переданных данных
         if (isset($data[$field])) {
             return $data[$field];
         }
         
+        // Затем в POST данных
         if (isset($_POST[$field])) {
             return $_POST[$field];
         }
         
+        // Затем в GET данных
         if (isset($_GET[$field])) {
             return $_GET[$field];
         }
@@ -165,7 +168,6 @@ class ValidationMiddleware extends Middleware
     {
         // Маршруты, требующие валидации
         $validationRoutes = [
-            '/api/auth' => ['POST'],
             '/api/catalog' => ['POST', 'DELETE']
         ];
 

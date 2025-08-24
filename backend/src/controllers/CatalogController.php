@@ -81,6 +81,15 @@ class CatalogController
                 return;
             }
 
+            // Проверяем аутентификацию для приватного типа
+            if ($type === 'private') {
+                require_once __DIR__ . '/../services/AuthService.php';
+                if (!AuthService::getAuthenticated()) {
+                    ResponseService::error('Unauthorized access', 'Требуется аутентификация для доступа к приватным данным', 401);
+                    return;
+                }
+            }
+
             // Собираем фильтры
             $filters = [];
             if (isset($_GET['search']) && !empty($_GET['search'])) {

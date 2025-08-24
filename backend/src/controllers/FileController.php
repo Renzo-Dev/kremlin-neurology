@@ -9,12 +9,23 @@ require_once __DIR__ . '/../utils/respondHandler.php';
 class FileController
 {
     private $catalogService;
-    private $fileService;
+    private $fileService = null;
 
     public function __construct(CatalogService $catalogService)
     {
         $this->catalogService = $catalogService;
-        $this->fileService = new FileService();
+        // Убираем создание FileService из конструктора
+    }
+
+    /**
+     * Получает экземпляр FileService (ленивая инициализация)
+     */
+    private function getFileService()
+    {
+        if ($this->fileService === null) {
+            $this->fileService = new FileService();
+        }
+        return $this->fileService;
     }
 
     // === СКАЧИВАНИЕ ФАЙЛОВ ===
@@ -30,9 +41,9 @@ class FileController
             $fileName = basename($data['fileName']);
 
             if ($isPrivate) {
-                $this->fileService->getPrivateFile($fileName);
+                $this->getFileService()->getPrivateFile($fileName);
             } else {
-                $this->fileService->getPublicFile($fileName);
+                $this->getFileService()->getPublicFile($fileName);
             }
         } catch (Exception $e) {
             respondHandler::respond(array(
@@ -61,7 +72,7 @@ class FileController
             }
 
             // Сохраняем файл на диск через FileService
-            $fileInfo = $this->fileService->saveUploadedFile(
+            $fileInfo = $this->getFileService()->saveUploadedFile(
                 $_FILES['file'],
                 $_POST['title'],
                 $_POST['authors']
@@ -105,7 +116,7 @@ class FileController
             $this->catalogService->removeFileFromCatalog($fileName);
             
             // Удаляем файл с диска через FileService
-            $this->fileService->deleteFile($fileName);
+            $this->getFileService()->deleteFile($fileName);
 
             ResponseService::success([
                 'message' => 'File deleted successfully'
@@ -128,7 +139,7 @@ class FileController
                 return;
             }
 
-            $fileInfo = $this->fileService->getFileInfo($fileName);
+            $fileInfo = $this->getFileService()->getFileInfo($fileName);
             ResponseService::success($fileInfo);
 
         } catch (Exception $e) {
@@ -140,7 +151,7 @@ class FileController
     public function getStorageStats()
     {
         try {
-            $storageStats = $this->fileService->getStorageSize();
+            $storageStats = $this->getFileService()->getStorageSize();
             $catalogStats = [
                 'catalogSize' => $this->catalogService->getCatalogSize(),
                 'publicFiles' => count($this->catalogService->getPublicCatalog()),

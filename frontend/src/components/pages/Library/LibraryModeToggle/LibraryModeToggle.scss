@@ -92,6 +92,36 @@
   .status-text {
     white-space: nowrap;
   }
+
+  .logout-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border: none;
+    background: transparent;
+    color: #1e40af;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+    margin-left: 0.5rem;
+
+    &:hover {
+      background: rgba(30, 64, 175, 0.1);
+      transform: scale(1.1);
+    }
+
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px rgba(30, 64, 175, 0.3);
+    }
+  }
+
+  .logout-icon {
+    width: 16px;
+    height: 16px;
+  }
 }
 
 // Адаптивность

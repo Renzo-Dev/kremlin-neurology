@@ -40,18 +40,20 @@ export function useFileAccess() {
       // Проверка пароля через backend API
       const response = await apiService.login({ password: password.value })
       
-      if (response.success) {
+      if (response.authenticated) {
         isAuthenticated.value = true
-        hasAccess.value = true
+        closePasswordModal()
+        // Автоматически переключаемся на приватную библиотеку
+        switchToPrivate()
         return true
       } else {
+        error.value = response.message || 'Неверный пароль'
         isAuthenticated.value = false
-        hasAccess.value = false
         return false
       }
     } catch (err) {
+      error.value = 'Ошибка подключения к серверу'
       isAuthenticated.value = false
-      hasAccess.value = false
       return false
     } finally {
       isLoading.value = false

@@ -10,12 +10,13 @@ class FileService
 
     public function __construct()
     {
-        $this->privatePath = __DIR__ . '/../data/files/private/';
-        $this->publicPath = __DIR__ . '/../data/files/public/';
+        $this->privatePath = __DIR__ . '/../data/private/';
+        $this->publicPath = __DIR__ . '/../data/public/';
         $this->allowedTypes = ['pdf', 'doc', 'docx', 'txt', 'zip', 'rar', 'jpg', 'jpeg', 'png'];
         $this->maxFileSize = 100 * 1024 * 1024; // 100MB
         
-        $this->ensureDirectoriesExist();
+        // Убираем автоматическое создание директорий
+        // this->ensureDirectoriesExist();
     }
 
     // === СКАЧИВАНИЕ ФАЙЛОВ ===
@@ -79,6 +80,9 @@ class FileService
         try {
             // Валидация файла
             $this->validateUploadedFile($file);
+            
+            // Создаем директории только при необходимости
+            $this->ensureDirectoriesExist();
             
             // Генерируем уникальное имя файла
             $fileName = $this->generateUniqueFileName($file['name'], $title);
@@ -302,15 +306,11 @@ class FileService
     private function ensureDirectoriesExist(): void
     {
         if (!is_dir($this->privatePath)) {
-            if (!mkdir($this->privatePath, 0755, true)) {
-                throw new Exception('Failed to create private directory', 500);
-            }
+            mkdir($this->privatePath, 0755, true);
         }
         
         if (!is_dir($this->publicPath)) {
-            if (!mkdir($this->publicPath, 0755, true)) {
-                throw new Exception('Failed to create public directory', 500);
-            }
+            mkdir($this->publicPath, 0755, true);
         }
     }
 

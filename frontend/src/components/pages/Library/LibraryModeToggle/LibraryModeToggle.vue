@@ -4,7 +4,7 @@
       <button
         class="mode-button"
         :class="{ 'mode-button--active': isPublicMode }"
-        @click="switchToPublic"
+        @click="handlePublicModeClick"
         :disabled="isPublicMode"
       >
         <svg
@@ -58,6 +58,23 @@
           <polyline points="22,4 12,14.01 9,11.01" />
         </svg>
         <span class="status-text">Доступ разрешен</span>
+        <button
+          class="logout-button"
+          @click="handleLogout"
+          title="Выйти из приватной библиотеки"
+        >
+          <svg
+            class="logout-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+            <polyline points="16,17 21,12 16,7" />
+            <line x1="21" y1="12" x2="9" y2="12" />
+          </svg>
+        </button>
       </div>
 
       <div
@@ -90,7 +107,7 @@ export default {
     const { isPublicMode, isPrivateMode, switchToPublic, switchToPrivate } =
       useLibraryMode()
 
-    const { hasAccess, openPasswordModal } = useFileAccess()
+    const { hasAccess, openPasswordModal, logout } = useFileAccess()
 
     const handlePrivateModeClick = () => {
       if (!hasAccess.value) {
@@ -100,12 +117,23 @@ export default {
       }
     }
 
+    const handlePublicModeClick = () => {
+      switchToPublic()
+    }
+
+    const handleLogout = () => {
+      logout()
+      switchToPublic()
+    }
+
     return {
       isPublicMode,
       isPrivateMode,
       hasAccess,
       switchToPublic,
       handlePrivateModeClick,
+      handlePublicModeClick,
+      handleLogout,
     }
   },
 }

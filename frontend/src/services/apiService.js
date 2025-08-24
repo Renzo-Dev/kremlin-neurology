@@ -9,6 +9,7 @@ export class ApiService {
     const url = `${this.baseUrl}${endpoint}`
     
     const config = {
+      credentials: 'include', // Добавляем для передачи cookies
       headers: {
         'Content-Type': 'application/json',
         ...options.headers,

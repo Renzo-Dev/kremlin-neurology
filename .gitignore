@@ -1,0 +1,51 @@
+# Игнорируем папки с файлами библиотеки
+backend/src/data/public/
+backend/src/data/private/
+
+# Игнорируем все файлы в папке data (кроме README и catalog.json)
+backend/src/data/*/
+!backend/src/data/*/catalog.json
+!backend/src/data/*/README.md
+
+# Игнорируем загруженные файлы
+*.pdf
+*.doc
+*.docx
+*.txt
+*.zip
+*.rar
+*.jpg
+*.jpeg
+*.png
+*.djvu
+*.rtf
+*.htm
+
+# Игнорируем временные файлы
+*.tmp
+*.temp
+cookies.txt
+cookies_admin.txt
+
+# Игнорируем системные файлы
+.DS_Store
+Thumbs.db
+
+# Игнорируем логи
+*.log
+
+# Игнорируем зависимости
+node_modules/
+vendor/
+
+# Игнорируем IDE файлы
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Игнорируем скомпилированные файлы
+dist/
+build/
+*.min.js
+*.min.css

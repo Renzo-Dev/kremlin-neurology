@@ -19,6 +19,31 @@
         @filter="handleFilter"
       />
 
+      <div v-if="isPrivateMode && !hasAccess" class="private-access-notice">
+        <div class="notice-content">
+          <svg
+            class="notice-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+            <circle cx="12" cy="16" r="1" />
+            <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+          </svg>
+          <div class="notice-text">
+            <h3 class="notice-title">Приватная библиотека</h3>
+            <p class="notice-description">
+              Для доступа к приватным материалам кафедры введите пароль
+            </p>
+            <button class="notice-button" @click="openPasswordModal">
+              Ввести пароль
+            </button>
+          </div>
+        </div>
+      </div>
+
       <FileList
         :files="currentFiles"
         :filtered-files="filteredFiles"
@@ -65,7 +90,7 @@ export default {
   },
   setup() {
     const { libraryMode, isPrivateMode } = useLibraryMode()
-    const { hasAccess } = useFileAccess()
+    const { hasAccess, openPasswordModal } = useFileAccess()
     const { searchFiles, searchQuery } = useFileSearch()
 
     const files = ref([])
@@ -107,6 +132,12 @@ export default {
     })
 
     const loadFiles = async (retryCount = 0, page = 1) => {
+      // Если приватный режим без доступа - не загружаем
+      if (isPrivateMode.value && !hasAccess.value) {
+        files.value = []
+        return
+      }
+
       isLoading.value = true
       error.value = ''
 
@@ -271,6 +302,7 @@ export default {
       error,
       searchQuery,
       isPrivateMode,
+      hasAccess,
       // Пагинация
       currentPage,
       totalPages,
@@ -284,6 +316,7 @@ export default {
       handleFilter,
       handleDownload,
       isSearching,
+      openPasswordModal,
     }
   },
 }
