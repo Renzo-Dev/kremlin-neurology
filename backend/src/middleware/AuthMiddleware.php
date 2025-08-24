@@ -1,7 +1,7 @@
 <?php
 
 require_once __DIR__ . '/../services/AuthService.php';
-require_once __DIR__ . '/Middleware.php';
+require_once __DIR__ . '/../middleware/Middleware.php';
 
 class AuthMiddleware extends Middleware
 {
@@ -39,10 +39,12 @@ class AuthMiddleware extends Middleware
 
     public function shouldRun($route, $method)
     {
-        // Защищенные маршруты
+        // Защищенные маршруты - все приватные операции
         $protectedRoutes = [
-            '/api/catalog' => ['GET', 'POST', 'DELETE'],
-            '/api/privateDownload' => ['POST']
+            '/api/catalog' => ['POST', 'DELETE'],              // Управление файлами
+            '/api/privateDownload' => ['POST'],                // Скачивание приватных файлов
+            '/api/catalog/private' => ['GET'],                 // Приватный каталог
+            '/api/file/info' => ['POST']                       // Информация о файле
         ];
 
         return isset($protectedRoutes[$route]) && in_array($method, $protectedRoutes[$route]);

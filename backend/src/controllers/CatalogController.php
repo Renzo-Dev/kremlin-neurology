@@ -77,7 +77,7 @@ class CatalogController
             $type = $_GET['type'] ?? 'public';
             
             if (!in_array($type, ['public', 'private'])) {
-                ResponseService::badRequest('Invalid catalog type. Use "public" or "private"');
+                ResponseService::error('Invalid catalog type. Use "public" or "private"', 'Invalid catalog type', 400);
                 return;
             }
 

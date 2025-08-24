@@ -1,8 +1,9 @@
 <?php
 
-require_once __DIR__ . '/Middleware.php';
-require_once __DIR__ . '/AuthMiddleware.php';
-require_once __DIR__ . '/ValidationMiddleware.php';
+require_once __DIR__ . '/../middleware/Middleware.php';
+require_once __DIR__ . '/../middleware/AuthMiddleware.php';
+require_once __DIR__ . '/../middleware/ValidationMiddleware.php';
+require_once __DIR__ . '/../middleware/PrivateAccessMiddleware.php';
 
 class MiddlewareManager
 {
@@ -52,13 +53,14 @@ class MiddlewareManager
             ]
         ];
 
-        // Регистрируем middleware
+        // Регистрируем middleware в правильном порядке
         $this->middlewares = [
-            new AuthMiddleware(false), // Обычная аутентификация
-            new AuthMiddleware(true),  // Админ аутентификация
-            new ValidationMiddleware($authValidationRules),
-            new ValidationMiddleware($catalogPostValidationRules),
-            new ValidationMiddleware($catalogDeleteValidationRules)
+            new PrivateAccessMiddleware(),                    // 1. Проверка приватных параметров (первым!)
+            new AuthMiddleware(false),                       // 2. Обычная аутентификация
+            new AuthMiddleware(true),                        // 3. Админ аутентификация
+            new ValidationMiddleware($authValidationRules),   // 4. Валидация аутентификации
+            new ValidationMiddleware($catalogPostValidationRules),   // 5. Валидация POST запросов
+            new ValidationMiddleware($catalogDeleteValidationRules)  // 6. Валидация DELETE запросов
         ];
     }
 
