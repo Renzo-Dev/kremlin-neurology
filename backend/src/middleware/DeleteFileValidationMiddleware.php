@@ -2,21 +2,23 @@
 
 require_once __DIR__ . '/Middleware.php';
 
-class ValidationMiddleware extends Middleware
+/**
+ * Middleware для валидации удаления файлов
+ * Проверяет только обязательное поле fileName
+ */
+class DeleteFileValidationMiddleware extends Middleware
 {
-    private $rules;
-
-    public function __construct($rules = [])
-    {
-        $this->rules = $rules;
-    }
+    private $rules = [
+        'fileName' => [
+            ['type' => 'required', 'message' => 'Имя файла обязательно'],
+            ['type' => 'minLength', 'value' => 1, 'message' => 'Имя файла не может быть пустым'],
+            ['type' => 'maxLength', 'value' => 255, 'message' => 'Имя файла слишком длинное'],
+            ['type' => 'regex', 'pattern' => '/^[a-zA-Z0-9._\-\s]+$/', 'message' => 'Имя файла содержит недопустимые символы']
+        ]
+    ];
 
     public function handle($request)
     {
-        if (empty($this->rules)) {
-            return true;
-        }
-
         $errors = [];
         $data = $this->getRequestData($request);
 
@@ -68,42 +70,9 @@ class ValidationMiddleware extends Middleware
                 }
                 break;
 
-            case 'email':
-                if (!empty($value) && !filter_var($value, FILTER_VALIDATE_EMAIL)) {
-                    return $rule['message'] ?? "Поле '{$field}' должно быть корректным email адресом";
-                }
-                break;
-
-            case 'file':
-                if (!isset($_FILES[$field]) || $_FILES[$field]['error'] !== UPLOAD_ERR_OK) {
-                    return $rule['message'] ?? "Файл '{$field}' обязателен";
-                }
-                
-                $file = $_FILES[$field];
-                
-                // Проверка размера
-                if (isset($rule['maxSize']) && $file['size'] > $rule['maxSize']) {
-                    return "Размер файла не должен превышать " . $this->formatBytes($rule['maxSize']);
-                }
-                
-                // Проверка типа
-                if (isset($rule['allowedTypes'])) {
-                    $fileExtension = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
-                    if (!in_array($fileExtension, $rule['allowedTypes'])) {
-                        return "Тип файла должен быть одним из: " . implode(', ', $rule['allowedTypes']);
-                    }
-                }
-                break;
-
             case 'regex':
                 if (!empty($value) && !preg_match($rule['pattern'], $value)) {
                     return $rule['message'] ?? "Поле '{$field}' имеет недопустимый формат";
-                }
-                break;
-
-            case 'in':
-                if (!empty($value) && !in_array($value, $rule['values'])) {
-                    return $rule['message'] ?? "Поле '{$field}' должно быть одним из: " . implode(', ', $rule['values']);
                 }
                 break;
         }
@@ -153,24 +122,9 @@ class ValidationMiddleware extends Middleware
         return null;
     }
 
-    private function formatBytes($bytes, $precision = 2)
-    {
-        $units = ['B', 'KB', 'MB', 'GB'];
-        
-        for ($i = 0; $bytes > 1024 && $i < count($units) - 1; $i++) {
-            $bytes /= 1024;
-        }
-        
-        return round($bytes, $precision) . ' ' . $units[$i];
-    }
-
     public function shouldRun($route, $method)
     {
-        // Маршруты, требующие валидации
-        $validationRoutes = [
-            '/api/catalog/update' => ['PUT'] // Валидация для обновления файлов
-        ];
-
-        return isset($validationRoutes[$route]) && in_array($method, $validationRoutes[$route]);
+        // Применяем только к DELETE запросам каталога
+        return $route === '/api/catalog' && $method === 'DELETE';
     }
 }

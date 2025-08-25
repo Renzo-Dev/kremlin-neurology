@@ -76,6 +76,21 @@
         </div>
 
         <div class="filter-group">
+          <label for="category-filter" class="filter-label">Категория</label>
+          <select
+            id="category-filter"
+            v-model="selectedCategory"
+            class="filter-select"
+            @change="handleFilterChange"
+          >
+            <option value="">Все категории</option>
+            <option v-for="category in uniqueCategories" :key="category" :value="category">
+              {{ category }}
+            </option>
+          </select>
+        </div>
+
+        <div class="filter-group">
           <label for="sort-filter" class="filter-label">Сортировка</label>
           <div class="sort-controls">
             <select
@@ -131,9 +146,23 @@
     </div>
 
     <div v-if="searchQuery || hasActiveFilters" class="search-results-info">
-      <span class="results-count">
-        Найдено файлов: {{ filteredFilesCount }}
-      </span>
+      <div class="results-count">
+        <span class="results-icon">🔍</span>
+        <span class="results-text">
+          Найдено файлов: <strong>{{ filteredFilesCount }}</strong>
+        </span>
+        <button 
+          v-if="hasActiveFilters" 
+          @click="clearAllFilters" 
+          class="quick-clear-btn"
+          title="Быстро очистить все фильтры"
+        >
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"/>
+            <line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+      </div>
     </div>
   </div>
 </template>
@@ -164,20 +193,23 @@ export default {
       searchQuery,
       selectedAuthor,
       selectedType,
+      selectedCategory,
       sortBy,
       sortOrder,
       clearFilters,
       getUniqueAuthors,
       getUniqueTypes,
+      getUniqueCategories,
       toggleSortOrder,
       debouncedSearch,
     } = useFileSearch()
 
     const uniqueAuthors = computed(() => getUniqueAuthors(props.files))
     const uniqueTypes = computed(() => getUniqueTypes(props.files))
+    const uniqueCategories = computed(() => getUniqueCategories(props.files))
 
     const hasActiveFilters = computed(
-      () => searchQuery.value || selectedAuthor.value || selectedType.value
+      () => searchQuery.value || selectedAuthor.value || selectedType.value || selectedCategory.value
     )
 
     const handleSearch = () => {
@@ -207,10 +239,12 @@ export default {
       searchQuery,
       selectedAuthor,
       selectedType,
+      selectedCategory,
       sortBy,
       sortOrder,
       uniqueAuthors,
       uniqueTypes,
+      uniqueCategories,
       hasActiveFilters,
       handleSearch,
       handleFilterChange,

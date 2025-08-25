@@ -100,6 +100,9 @@ class CatalogService
     public function addFileToCatalog(array $fileData): bool
     {
         try {
+            error_log("=== CatalogService::addFileToCatalog DEBUG ===");
+            error_log("File data received: " . print_r($fileData, true));
+            
             // Файлы добавляются только в приватный каталог
             $catalog = $this->loadCatalogFromFile($this->privateCatalogPath);
             
@@ -115,10 +118,15 @@ class CatalogService
                 'fileName' => $fileData['fileName'],
                 'uploadDate' => date('Y-m-d H:i:s'),
                 'fileSize' => $fileData['fileSize'] ?? null,
+                'category' => $fileData['category'] ?? null,
                 'description' => $fileData['description'] ?? null
             ];
 
             $this->saveCatalogToFile($catalog, $this->privateCatalogPath);
+            
+            error_log("New catalog entry: " . print_r(end($catalog), true));
+            error_log("Catalog updated successfully");
+            
             return true;
 
         } catch (Exception $e) {
@@ -146,6 +154,53 @@ class CatalogService
 
         } catch (Exception $e) {
             throw new Exception('Error removing file from catalog: ' . $e->getMessage(), $e->getCode());
+        }
+    }
+
+    /** Обновляет файл в приватном каталоге */
+    public function updateFileInCatalog(array $updateData): bool
+    {
+        try {
+            error_log("=== CatalogService::updateFileInCatalog DEBUG ===");
+            error_log("Update data: " . print_r($updateData, true));
+            
+            $catalog = $this->loadCatalogFromFile($this->privateCatalogPath);
+            
+            // Ищем файл в каталоге
+            $fileIndex = -1;
+            foreach ($catalog as $index => $file) {
+                if ($file['fileName'] === $updateData['fileName']) {
+                    $fileIndex = $index;
+                    break;
+                }
+            }
+            
+            if ($fileIndex === -1) {
+                error_log("File not found in private catalog: " . $updateData['fileName']);
+                throw new Exception('File not found in private catalog', 404);
+            }
+            
+            error_log("Found file at index: $fileIndex");
+            error_log("Original file data: " . print_r($catalog[$fileIndex], true));
+            
+            // Обновляем данные файла
+            $catalog[$fileIndex]['title'] = $updateData['title'];
+            $catalog[$fileIndex]['authors'] = $updateData['authors'];
+            $catalog[$fileIndex]['category'] = $updateData['category'] ?? null;
+            $catalog[$fileIndex]['description'] = $updateData['description'];
+            $catalog[$fileIndex]['updatedAt'] = date('Y-m-d H:i:s');
+            
+            error_log("Updated file data: " . print_r($catalog[$fileIndex], true));
+            
+            // Сохраняем обновленный каталог
+            $this->saveCatalogToFile($catalog, $this->privateCatalogPath);
+            
+            error_log("Catalog updated successfully");
+            return true;
+            
+        } catch (Exception $e) {
+            error_log("Error updating file in catalog: " . $e->getMessage());
+            throw new Exception('Error updating file in catalog: ' . $e->getMessage(), $e->getCode());
         }
     }
 

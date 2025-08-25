@@ -1,10 +1,20 @@
 [
-  {
-    "title": "Принципы диагностики и лечения хронических непрогрессирующих головных болей различной этиологии в условиях специализированного поликлинического отделения",
-    "authors": "Андреева Т.Е., Богачева Л.А., Седова Т.Н.",
-    "fileName": "AndreevaTE.doc",
-    "uploadDate": "2024-08-23 16:29:00",
-    "fileSize": 60928,
-    "description": "Кремлевская медицина. Клинический вестник – 2000. - №3. – С. 35-36"
-  }
+    {
+        "title": "Conference_neuro-2013_itog",
+        "authors": "Test",
+        "fileName": "Conferenceneuro2013itog_1756145564_68aca79ce665b.pdf",
+        "uploadDate": "2025-08-25 18:12:44",
+        "fileSize": 2876919,
+        "category": "Протоколы",
+        "description": "Test"
+    },
+    {
+        "title": "AndreevaTE",
+        "authors": "Test",
+        "fileName": "AndreevaTE_1756145876_68aca8d48e6c9.doc",
+        "uploadDate": "2025-08-25 18:17:56",
+        "fileSize": 60928,
+        "category": "Test",
+        "description": "Test"
+    }
 ]

@@ -70,6 +70,11 @@ try {
         case $request === '/api/catalog' && $method === 'DELETE':
             $fileController->deleteFile();
             break;
+            
+        // Обновление файла в приватном каталоге (требует аутентификации)
+        case $request === '/api/catalog/update' && $method === 'PUT':
+            $fileController->updateFile();
+            break;
         
         // === СКАЧИВАНИЕ ФАЙЛОВ ===
         

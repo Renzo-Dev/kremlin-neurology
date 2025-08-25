@@ -2,10 +2,9 @@
 backend/src/data/public/
 backend/src/data/private/
 
-# Игнорируем все файлы в папке data (кроме README и catalog.json)
+# Игнорируем все файлы в папке data (кроме catalog.json)
 backend/src/data/*/
 !backend/src/data/*/catalog.json
-!backend/src/data/*/README.md
 
 # Игнорируем загруженные файлы
 *.pdf

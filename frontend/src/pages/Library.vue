@@ -11,6 +11,17 @@
 
       <LibraryModeToggle />
 
+      <!-- Кнопка админ-панели для авторизованных админов -->
+      <div v-if="hasAccess && isAdmin" class="admin-panel-access">
+        <button class="admin-panel-button" @click="goToAdminPanel">
+          <svg class="admin-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+            <path d="M12 22V12"/>
+          </svg>
+          Админ панель
+        </button>
+      </div>
+
       <FileSearch
         :files="currentFiles"
         :filtered-files-count="filteredFiles.length"
@@ -90,7 +101,7 @@ export default {
   },
   setup() {
     const { libraryMode, isPrivateMode } = useLibraryMode()
-    const { hasAccess, openPasswordModal } = useFileAccess()
+    const { hasAccess, openPasswordModal, isAdmin } = useFileAccess()
     const { searchFiles, searchQuery } = useFileSearch()
 
     const files = ref([])
@@ -271,6 +282,11 @@ export default {
       }
     }
 
+    const goToAdminPanel = () => {
+      // Переход на админ панель
+      window.location.href = '/admin'
+    }
+
     // Загрузка файлов при изменении режима
     watch([libraryMode, hasAccess], (newValues, oldValues) => {
       // Пропускаем первый вызов при инициализации
@@ -317,6 +333,8 @@ export default {
       handleDownload,
       isSearching,
       openPasswordModal,
+      goToAdminPanel,
+      isAdmin,
     }
   },
 }
@@ -324,4 +342,36 @@ export default {
 
 <style lang="scss" scoped>
 @use '@/assets/styles/pages/Library/Library.scss';
+
+// Стили для кнопки админ-панели
+.admin-panel-access {
+  margin: 1rem 0;
+  text-align: center;
+}
+
+.admin-panel-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 2rem;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 20px rgba(102, 126, 234, 0.3);
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(102, 126, 234, 0.4);
+  }
+  
+  .admin-icon {
+    width: 24px;
+    height: 24px;
+  }
+}
 </style>

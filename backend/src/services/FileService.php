@@ -12,8 +12,8 @@ class FileService
     {
         $this->privatePath = __DIR__ . '/../data/private/';
         $this->publicPath = __DIR__ . '/../data/public/';
-        $this->allowedTypes = ['pdf', 'doc', 'docx', 'txt', 'zip', 'rar', 'jpg', 'jpeg', 'png'];
-        $this->maxFileSize = 100 * 1024 * 1024; // 100MB
+        $this->allowedTypes = ['pdf', 'doc', 'docx', 'txt']; // Соответствует frontend
+        $this->maxFileSize = 50 * 1024 * 1024; // 50MB (соответствует frontend)
         
         // Убираем автоматическое создание директорий
         // this->ensureDirectoriesExist();
@@ -40,9 +40,20 @@ class FileService
     public function getPrivateFile($fileName)
     {
         try {
+            error_log("=== FileService::getPrivateFile DEBUG ===");
+            error_log("Requested file: '$fileName'");
+            
             $filePath = $this->privatePath . $fileName;
+            error_log("Full file path: '$filePath'");
+            error_log("File exists: " . (file_exists($filePath) ? 'yes' : 'no'));
+            
+            if (file_exists($filePath)) {
+                error_log("File size: " . filesize($filePath) . " bytes");
+            }
+            
             $this->loadFile($filePath, $fileName);
         } catch (Exception $e) {
+            error_log("getPrivateFile error: " . $e->getMessage());
             throw new Exception($e->getMessage(), $e->getCode());
         }
     }
@@ -52,22 +63,41 @@ class FileService
      */
     private function loadFile($filePath, $fileName)
     {
-        if (!file_exists($filePath)) {
-            throw new Exception('File not found', 404);
+        try {
+            error_log("=== FileService::loadFile DEBUG ===");
+            error_log("Loading file: '$fileName' from path: '$filePath'");
+            
+            if (!file_exists($filePath)) {
+                error_log("File not found: '$filePath'");
+                throw new Exception('File not found', 404);
+            }
+            
+            $fileSize = filesize($filePath);
+            error_log("File size: $fileSize bytes");
+            error_log("Setting headers for file download...");
+            
+            header('Content-Description: File Transfer');
+            header('Content-Type: application/octet-stream');
+            header('Content-Disposition: attachment; filename="' . $fileName . '"');
+            header('Expires: 0');
+            header('Cache-Control: must-revalidate');
+            header('Pragma: public');
+            header('Content-Length: ' . $fileSize);
+            
+            error_log("Headers set, starting file read...");
+            
+            if (readfile($filePath) === false) {
+                error_log("Error reading file: '$filePath'");
+                throw new Exception('Error reading file', 500);
+            }
+            
+            error_log("File read successful, exiting...");
+            exit;
+            
+        } catch (Exception $e) {
+            error_log("loadFile error: " . $e->getMessage());
+            throw $e;
         }
-        
-        header('Content-Description: File Transfer');
-        header('Content-Type: application/octet-stream');
-        header('Content-Disposition: attachment; fileName="' . $fileName . '"');
-        header('Expires: 0');
-        header('Cache-Control: must-revalidate');
-        header('Pragma: public');
-        header('Content-Length: ' . filesize($filePath));
-
-        if (readfile($filePath) === false) {
-            throw new Exception('Error reading file', 500);
-        }
-        exit;
     }
 
     // === ЗАГРУЗКА И СОХРАНЕНИЕ ФАЙЛОВ ===
@@ -78,6 +108,11 @@ class FileService
     public function saveUploadedFile(array $file, string $title, string $authors): array
     {
         try {
+            error_log("=== FileService::saveUploadedFile DEBUG ===");
+            error_log("File data: " . print_r($file, true));
+            error_log("Title: '$title'");
+            error_log("Authors: '$authors'");
+            
             // Валидация файла
             $this->validateUploadedFile($file);
             
@@ -86,21 +121,31 @@ class FileService
             
             // Генерируем уникальное имя файла
             $fileName = $this->generateUniqueFileName($file['name'], $title);
+            error_log("Generated filename: '$fileName'");
             
             // Создаем путь для сохранения (по умолчанию в приватную папку)
             $filePath = $this->privatePath . $fileName;
+            error_log("File path: '$filePath'");
             
             // Перемещаем файл
             if (!move_uploaded_file($file['tmp_name'], $filePath)) {
+                error_log("Failed to move uploaded file from '{$file['tmp_name']}' to '$filePath'");
                 throw new Exception('Failed to move uploaded file', 500);
             }
+            
+            error_log("File successfully moved to: '$filePath'");
+            
+            // Проверяем реальный размер сохраненного файла
+            $actualFileSize = filesize($filePath);
+            error_log("Original file size from upload: " . $file['size']);
+            error_log("Actual file size after save: " . $actualFileSize);
             
             // Получаем информацию о файле
             $fileInfo = [
                 'fileName' => $fileName,
                 'originalName' => $file['name'],
                 'filePath' => $filePath,
-                'fileSize' => $file['size'],
+                'fileSize' => $actualFileSize, // Используем реальный размер
                 'fileType' => $this->getFileExtension($file['name']),
                 'title' => $title,
                 'authors' => $authors,
@@ -108,6 +153,7 @@ class FileService
                 'mimeType' => $file['type']
             ];
             
+            error_log("File info: " . print_r($fileInfo, true));
             return $fileInfo;
 
         } catch (Exception $e) {
@@ -319,18 +365,33 @@ class FileService
      */
     private function validateUploadedFile(array $file): void
     {
+        error_log("=== FileService::validateUploadedFile DEBUG ===");
+        error_log("File error code: " . $file['error']);
+        error_log("File size: " . $file['size'] . " bytes");
+        error_log("Max allowed size: " . $this->maxFileSize . " bytes");
+        error_log("File name: " . $file['name']);
+        error_log("File type: " . $file['type']);
+        
         if ($file['error'] !== UPLOAD_ERR_OK) {
+            error_log("File upload error: " . $file['error']);
             throw new Exception('File upload error: ' . $file['error'], 400);
         }
         
         if ($file['size'] > $this->maxFileSize) {
+            error_log("File size validation failed: {$file['size']} > {$this->maxFileSize}");
             throw new Exception('File size exceeds maximum allowed size', 400);
         }
         
         $extension = strtolower($this->getFileExtension($file['name']));
+        error_log("File extension: '$extension'");
+        error_log("Allowed types: " . print_r($this->allowedTypes, true));
+        
         if (!in_array($extension, $this->allowedTypes)) {
+            error_log("File type validation failed: '$extension' not in allowed types");
             throw new Exception('File type not allowed', 400);
         }
+        
+        error_log("File validation passed successfully");
     }
 
     /**
@@ -376,12 +437,7 @@ class FileService
             'pdf' => 'application/pdf',
             'doc' => 'application/msword',
             'docx' => 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-            'txt' => 'text/plain',
-            'zip' => 'application/zip',
-            'rar' => 'application/x-rar-compressed',
-            'jpg' => 'image/jpeg',
-            'jpeg' => 'image/jpeg',
-            'png' => 'image/png'
+            'txt' => 'text/plain'
         ];
         
         return $mimeTypes[$extension] ?? 'application/octet-stream';

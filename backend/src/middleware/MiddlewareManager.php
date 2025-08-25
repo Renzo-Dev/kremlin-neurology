@@ -4,6 +4,7 @@ require_once __DIR__ . '/../middleware/Middleware.php';
 require_once __DIR__ . '/../middleware/AuthMiddleware.php';
 require_once __DIR__ . '/../middleware/ValidationMiddleware.php';
 require_once __DIR__ . '/../middleware/PrivateAccessMiddleware.php';
+require_once __DIR__ . '/../middleware/DeleteFileValidationMiddleware.php';
 
 class MiddlewareManager
 {
@@ -29,20 +30,7 @@ class MiddlewareManager
             ]
         ];
 
-        $catalogPostValidationRules = [
-            'title' => [
-                ['type' => 'required', 'message' => 'Название файла обязательно'],
-                ['type' => 'minLength', 'value' => 2, 'message' => 'Название должно содержать минимум 2 символа'],
-                ['type' => 'maxLength', 'value' => 255, 'message' => 'Название не должно превышать 255 символов']
-            ],
-            'authors' => [
-                ['type' => 'required', 'message' => 'Авторы обязательны'],
-                ['type' => 'minLength', 'value' => 2, 'message' => 'Имена авторов должны содержать минимум 2 символа']
-            ],
-            'file' => [
-                ['type' => 'file', 'allowedTypes' => ['pdf', 'doc', 'docx', 'txt'], 'maxSize' => 50 * 1024 * 1024, 'message' => 'Файл должен быть PDF, DOC, DOCX или TXT и не превышать 50MB']
-            ]
-        ];
+        // Валидация POST запросов перенесена в FileController
 
         $catalogDeleteValidationRules = [
             'fileName' => [
@@ -53,12 +41,30 @@ class MiddlewareManager
             ]
         ];
 
+        $catalogUpdateValidationRules = [
+            'fileName' => [
+                ['type' => 'required', 'message' => 'Имя файла обязательно'],
+                ['type' => 'minLength', 'value' => 1, 'message' => 'Имя файла не может быть пустым'],
+                ['type' => 'maxLength', 'value' => 255, 'message' => 'Имя файла слишком длинное'],
+                ['type' => 'regex', 'pattern' => '/^[a-zA-Z0-9._\-\s]+$/', 'message' => 'Имя файла содержит недопустимые символы']
+            ],
+            'title' => [
+                ['type' => 'required', 'message' => 'Название файла обязательно'],
+                ['type' => 'minLength', 'value' => 2, 'message' => 'Название должно содержать минимум 2 символов'],
+                ['type' => 'maxLength', 'value' => 255, 'message' => 'Название не должно превышать 255 символов']
+            ],
+            'authors' => [
+                ['type' => 'required', 'message' => 'Авторы обязательны'],
+                ['type' => 'minLength', 'value' => 2, 'message' => 'Имена авторов должны содержать минимум 2 символа']
+            ]
+        ];
+
         // Регистрируем middleware в правильном порядке
         $this->middlewares = [
             new PrivateAccessMiddleware(),                    // 1. Проверка приватных параметров (первым!)
             new AuthMiddleware(false),                       // 2. Обычная аутентификация
-            new ValidationMiddleware($catalogPostValidationRules),   // 3. Валидация POST запросов каталога
-            new ValidationMiddleware($catalogDeleteValidationRules)  // 4. Валидация DELETE запросов каталога
+            new DeleteFileValidationMiddleware(),            // 3. Валидация DELETE запросов (только fileName)
+            new ValidationMiddleware($catalogUpdateValidationRules)  // 4. Валидация PUT запросов обновления каталога
         ];
     }
 
