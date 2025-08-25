@@ -128,16 +128,16 @@
   margin-bottom: 2rem;
 }
 
+// Стили для пагинации
 .pagination {
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
   gap: 1rem;
   margin: 2rem 0;
   padding: 1rem;
-  background: #fff;
+  background: #f9fafb;
   border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   border: 1px solid #e5e7eb;
 }
 
@@ -145,34 +145,32 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  background: #f3f4f6;
-  color: #374151;
-  border: none;
-  border-radius: 8px;
   padding: 0.75rem 1rem;
+  background: #ffffff;
+  color: #374151;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 0.875rem;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease;
 
   &:hover:not(:disabled) {
-    background: #e5e7eb;
-    color: #1f2937;
+    background: #f3f4f6;
+    border-color: #9ca3af;
+    transform: translateY(-1px);
   }
 
   &:disabled {
-    cursor: not-allowed;
     opacity: 0.5;
+    cursor: not-allowed;
+    background: #f9fafb;
   }
 
-  &:focus {
-    outline: none;
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+  .pagination-icon {
+    width: 16px;
+    height: 16px;
   }
-}
-
-.pagination-icon {
-  width: 16px;
-  height: 16px;
 }
 
 .page-numbers {
@@ -181,64 +179,60 @@
 }
 
 .page-number {
-  background: none;
+  padding: 0.75rem 1rem;
+  background: #ffffff;
+  color: #374151;
   border: 1px solid #d1d5db;
-  border-radius: 6px;
-  padding: 0.5rem 0.75rem;
+  border-radius: 8px;
+  font-size: 0.875rem;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease;
-  min-width: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  min-width: 44px;
+  text-align: center;
 
   &:hover:not(.page-number--active) {
     background: #f3f4f6;
     border-color: #9ca3af;
   }
 
-  &:focus {
-    outline: none;
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
-  }
-
   &--active {
     background: #3b82f6;
-    color: #fff;
+    color: #ffffff;
     border-color: #3b82f6;
+    font-weight: 600;
   }
 }
 
-.list-info {
+.pagination-info {
   text-align: center;
+  margin: 1rem 0;
   padding: 1rem;
   background: #f9fafb;
   border-radius: 8px;
-  margin-top: 1rem;
+  border: 1px solid #e5e7eb;
 }
 
-.info-text {
-  font-size: 0.875rem;
+.pagination-text {
   color: #6b7280;
+  font-size: 0.875rem;
   font-weight: 500;
 }
 
-// Адаптивность
+// Адаптивность для пагинации
 @media (max-width: 768px) {
-  .files-grid {
-    grid-template-columns: 1fr;
-    gap: 1rem;
-  }
-
   .pagination {
     flex-direction: column;
     gap: 0.75rem;
-    padding: 1rem;
   }
 
   .page-numbers {
     order: -1;
+  }
+
+  .pagination-button {
+    width: 100%;
+    justify-content: center;
   }
 }
 

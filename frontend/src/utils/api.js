@@ -12,6 +12,7 @@ export const API_CONFIG = {
   ENDPOINTS: {
     CATALOG_PUBLIC: '/api/catalog/public',
     CATALOG_PRIVATE: '/api/catalog/private',
+    CATALOG_CATEGORIES: '/api/catalog/categories',
     DOWNLOAD: '/api/download',
     PRIVATE_DOWNLOAD: '/api/privateDownload',
     VERIFY_PASSWORD: '/api/library/verify-password',

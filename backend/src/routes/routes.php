@@ -58,6 +58,16 @@ try {
         case strpos($request, '/api/catalog/paginated') === 0 && $method === 'GET':
             $catalogController->getCatalogPaginated();
             break;
+            
+        // Каталог с полной фильтрацией, сортировкой и пагинацией
+        case $request === '/api/catalog/filters' && $method === 'POST':
+            $catalogController->getCatalogWithFilters();
+            break;
+            
+        // Получение списка категорий из приватного каталога
+        case $request === '/api/catalog/categories' && $method === 'GET':
+            $catalogController->getCategories();
+            break;
         
         // === УПРАВЛЕНИЕ ФАЙЛАМИ (только приватный каталог) ===
         
@@ -69,6 +79,11 @@ try {
         // Удаление файла из приватного каталога (требует аутентификации)
         case $request === '/api/catalog' && $method === 'DELETE':
             $fileController->deleteFile();
+            break;
+            
+        // Обновление файла в приватном каталоге (требует аутентификации)
+        case $request === '/api/catalog/update' && $method === 'PUT':
+            $fileController->updateFile();
             break;
         
         // === СКАЧИВАНИЕ ФАЙЛОВ ===

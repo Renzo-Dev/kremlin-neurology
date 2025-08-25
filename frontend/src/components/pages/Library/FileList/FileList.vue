@@ -1,11 +1,6 @@
 <template>
   <div class="file-list">
-    <div v-if="isPageLoading" class="page-loading">
-      <div class="loading-spinner"></div>
-      <p class="loading-text">Загрузка страницы...</p>
-    </div>
-
-    <div v-else-if="isLoading" class="loading-state">
+    <div v-if="isLoading" class="loading-state">
       <div class="loading-spinner"></div>
       <p class="loading-text">Загрузка файлов...</p>
     </div>
@@ -29,7 +24,7 @@
       </button>
     </div>
 
-    <div v-else-if="filteredFiles.length === 0" class="empty-state">
+    <div v-else-if="files.length === 0" class="empty-state">
       <svg
         class="empty-icon"
         viewBox="0 0 24 24"
@@ -45,17 +40,13 @@
       </svg>
       <h3 class="empty-title">Файлы не найдены</h3>
       <p class="empty-message">
-        {{
-          searchQuery
-            ? 'Попробуйте изменить параметры поиска'
-            : 'В этой библиотеке пока нет файлов'
-        }}
+        В этой библиотеке пока нет файлов
       </p>
     </div>
 
     <div v-else class="files-grid">
       <FileCard
-        v-for="file in paginatedFiles"
+        v-for="file in files"
         :key="`${file.fileName}-${file.uploadDate}`"
         :file="file"
         :is-private="isPrivate"
@@ -63,11 +54,12 @@
       />
     </div>
 
-    <div v-if="totalPages > 1" class="pagination">
+    <!-- Пагинация -->
+    <div v-if="pagination && pagination.totalPages > 1" class="pagination">
       <button
         class="pagination-button"
-        :disabled="!hasPrevPage"
-        @click="goToPage(currentPage - 1)"
+        :disabled="!pagination.hasPrevPage"
+        @click="$emit('page-change', pagination.currentPage - 1)"
       >
         <svg
           class="pagination-icon"
@@ -86,8 +78,8 @@
           v-for="page in visiblePages"
           :key="page"
           class="page-number"
-          :class="{ 'page-number--active': page === currentPage }"
-          @click="goToPage(page)"
+          :class="{ 'page-number--active': page === pagination.currentPage }"
+          @click="$emit('page-change', page)"
         >
           {{ page }}
         </button>
@@ -95,8 +87,8 @@
 
       <button
         class="pagination-button"
-        :disabled="!hasNextPage"
-        @click="goToPage(currentPage + 1)"
+        :disabled="!pagination.hasNextPage"
+        @click="$emit('page-change', pagination.currentPage + 1)"
       >
         Вперед
         <svg
@@ -111,17 +103,17 @@
       </button>
     </div>
 
-    <div v-if="totalItems > 0" class="list-info">
-      <span class="info-text">
-        Показано {{ startIndex + 1 }}-{{ endIndex }} из
-        {{ totalItems }} файлов
+    <!-- Информация о страницах -->
+    <div v-if="pagination && pagination.totalItems > 0" class="pagination-info">
+      <span class="pagination-text">
+        Страница {{ pagination.currentPage }} из {{ pagination.totalPages }}
+        (всего {{ pagination.totalItems }} файлов)
       </span>
     </div>
   </div>
 </template>
 
 <script>
-import { computed } from 'vue'
 import FileCard from '../FileCard/FileCard.vue'
 
 export default {
@@ -134,15 +126,7 @@ export default {
       type: Array,
       default: () => [],
     },
-    filteredFiles: {
-      type: Array,
-      default: () => [],
-    },
     isLoading: {
-      type: Boolean,
-      default: false,
-    },
-    isPageLoading: {
       type: Boolean,
       default: false,
     },
@@ -150,87 +134,26 @@ export default {
       type: String,
       default: '',
     },
-    searchQuery: {
-      type: String,
-      default: '',
-    },
     isPrivate: {
       type: Boolean,
       default: false,
     },
-    // Пагинация из backend
-    currentPage: {
-      type: Number,
-      default: 1,
+    pagination: {
+      type: Object,
+      default: () => ({
+        currentPage: 1,
+        totalPages: 1,
+        totalItems: 0,
+        hasPrevPage: false,
+        hasNextPage: false,
+      }),
     },
-    totalPages: {
-      type: Number,
-      default: 1,
-    },
-    totalItems: {
-      type: Number,
-      default: 0,
-    },
-    hasNextPage: {
-      type: Boolean,
-      default: false,
-    },
-    hasPrevPage: {
-      type: Boolean,
-      default: false,
-    },
-    itemsPerPage: {
-      type: Number,
-      default: 12,
+    visiblePages: {
+      type: Array,
+      default: () => [],
     },
   },
-  emits: ['retry', 'download', 'pageChange'],
-  setup(props, { emit }) {
-    const startIndex = computed(
-      () => (props.currentPage - 1) * props.itemsPerPage
-    )
-
-    const endIndex = computed(() =>
-      Math.min(
-        startIndex.value + props.itemsPerPage,
-        props.totalItems
-      )
-    )
-
-    const paginatedFiles = computed(() => props.files)
-
-    const visiblePages = computed(() => {
-      const pages = []
-      const maxVisible = 5
-      let start = Math.max(1, props.currentPage - Math.floor(maxVisible / 2))
-      let end = Math.min(props.totalPages, start + maxVisible - 1)
-
-      if (end - start + 1 < maxVisible) {
-        start = Math.max(1, end - maxVisible + 1)
-      }
-
-      for (let i = start; i <= end; i++) {
-        pages.push(i)
-      }
-
-      return pages
-    })
-
-    const goToPage = page => {
-      if (page >= 1 && page <= props.totalPages) {
-        emit('pageChange', page)
-        window.scrollTo({ top: 0, behavior: 'smooth' })
-      }
-    }
-
-    return {
-      startIndex,
-      endIndex,
-      paginatedFiles,
-      visiblePages,
-      goToPage,
-    }
-  },
+  emits: ['retry', 'download', 'page-change'],
 }
 </script>
 

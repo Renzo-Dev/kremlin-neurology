@@ -33,6 +33,10 @@
     </div>
 
     <div class="file-details">
+      <div v-if="isPrivate" class="detail-item">
+        <span class="detail-label">Категория:</span>
+        <span class="detail-value">{{ file.category }}</span>
+      </div>
       <div class="detail-item">
         <span class="detail-label">Тип:</span>
         <span class="detail-value">{{ file.type.toUpperCase() }}</span>

@@ -108,4 +108,65 @@ class CatalogController
             ResponseService::errorFromException($e, 'Error loading paginated catalog');
         }
     }
+
+    /** Получает каталог с полной фильтрацией, сортировкой и пагинацией */
+    public function getCatalogWithFilters()
+    {
+        try {
+            // Получаем данные из POST запроса
+            $input = json_decode(file_get_contents('php://input'), true);
+            
+            if (!$input) {
+                ResponseService::badRequest('Invalid JSON data');
+                return;
+            }
+
+            // Валидация обязательных параметров
+            if (!isset($input['type']) || !in_array($input['type'], ['public', 'private'])) {
+                ResponseService::badRequest('Invalid catalog type. Use "public" or "private"');
+                return;
+            }
+
+            // Проверяем аутентификацию для приватного типа
+            if ($input['type'] === 'private') {
+                require_once __DIR__ . '/../services/AuthService.php';
+                if (!AuthService::getAuthenticated()) {
+                    ResponseService::error('Unauthorized access', 'Требуется аутентификация для доступа к приватным данным', 401);
+                    return;
+                }
+            }
+
+            // Валидация пагинации
+            $page = $input['page'] ?? 1;
+            $limit = $input['limit'] ?? 20;
+            
+            if ($page < 1 || $limit < 1 || $limit > 100) {
+                ResponseService::badRequest('Invalid pagination parameters. Page must be >= 1, limit must be 1-100');
+                return;
+            }
+
+            $catalog = $this->catalogService->getCatalogWithFilters($input);
+            ResponseService::success($catalog);
+        } catch (Exception $e) {
+            ResponseService::errorFromException($e, 'Error loading catalog with filters');
+        }
+    }
+
+    /** Получает список уникальных категорий из приватного каталога */
+    public function getCategories()
+    {
+        try {
+            // Проверяем аутентификацию для доступа к приватным данным
+            require_once __DIR__ . '/../services/AuthService.php';
+            if (!AuthService::getAuthenticated()) {
+                ResponseService::error('Unauthorized access', 'Требуется аутентификация для доступа к приватным данным', 401);
+                return;
+            }
+
+            $categories = $this->catalogService->getCategories();
+            ResponseService::success($categories);
+        } catch (Exception $e) {
+            ResponseService::errorFromException($e, 'Error loading categories');
+        }
+    }
 }
