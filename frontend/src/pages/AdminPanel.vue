@@ -5,22 +5,26 @@
       <div class="admin-header">
         <div class="header-content">
           <h1 class="admin-title">Админ панель</h1>
+          <p class="admin-subtitle">Управление приватной библиотекой кафедры неврологии</p>
         </div>
         <div class="header-actions">
           <button class="add-file-button" @click="openAddFileModal">
-              <path d="M12 5v14M5 12h14" />
+            <svg class="add-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 5v14M5 12h14"/>
             </svg>
             Добавить файл
           </button>
           <button class="back-button" @click="goBack">
-              <path d="M19 12H5M12 19l-7-7 7-7" />
+            <svg class="back-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M19 12H5M12 19l-7-7 7-7"/>
             </svg>
             Назад к библиотеке
           </button>
           <button class="logout-button" @click="handleLogout">
-              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
-              <polyline points="16,17 21,12 16,7" />
-              <line x1="21" y1="12" x2="9" y2="12" />
+            <svg class="logout-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+              <polyline points="16,17 21,12 16,7"/>
+              <line x1="21" y1="12" x2="9" y2="12"/>
             </svg>
             Выйти
           </button>
@@ -31,10 +35,12 @@
       <div class="admin-stats">
         <div class="stat-card">
           <div class="stat-icon">
-              <polyline points="14,2 14,8 20,8" />
-              <line x1="16" y1="13" x2="8" y2="13" />
-              <line x1="16" y1="17" x2="8" y2="17" />
-              <polyline points="10,9 9,9 8,9" />
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+              <polyline points="14,2 14,8 20,8"/>
+              <line x1="16" y1="13" x2="8" y2="13"/>
+              <line x1="16" y1="17" x2="8" y2="17"/>
+              <polyline points="10,9 9,9 8,9"/>
             </svg>
           </div>
           <div class="stat-content">
@@ -42,9 +48,11 @@
             <div class="stat-label">Всего файлов</div>
           </div>
         </div>
-
+        
         <div class="stat-card">
           <div class="stat-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
             </svg>
           </div>
           <div class="stat-content">
@@ -52,10 +60,12 @@
             <div class="stat-label">Общий размер</div>
           </div>
         </div>
-
+        
         <div class="stat-card">
           <div class="stat-icon">
-              <rect x="8" y="2" width="8" height="4" rx="1" ry="1" />
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
+              <rect x="8" y="2" width="8" height="4" rx="1" ry="1"/>
             </svg>
           </div>
           <div class="stat-content">
@@ -69,8 +79,9 @@
       <div class="admin-controls">
         <div class="search-section">
           <div class="search-input-wrapper">
-              <circle cx="11" cy="11" r="8" />
-              <path d="m21 21-4.35-4.35" />
+            <svg v-if="!isSearching" class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8"/>
+              <path d="m21 21-4.35-4.35"/>
             </svg>
             <div v-else class="search-spinner"></div>
             <input
@@ -80,41 +91,45 @@
               class="search-input"
               @input="handleSearch"
             />
-            <button
-              v-if="searchQuery"
-              @click="clearSearch"
+            <button 
+              v-if="searchQuery" 
+              @click="clearSearch" 
               class="clear-search-btn"
               title="Очистить поиск"
             >
-                <line x1="18" y1="6" x2="6" y2="18" />
-                <line x1="6" y1="6" x2="18" y2="18" />
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="18" y1="6" x2="6" y2="18"/>
+                <line x1="6" y1="6" x2="18" y2="18"/>
               </svg>
             </button>
           </div>
         </div>
-
+        
         <div class="filter-section">
+          <select v-model="selectedCategory" class="category-filter" @change="handleFilter">
             <option value="">Все категории</option>
+            <option v-for="category in categories" :key="category" :value="category">
               {{ category }}
             </option>
           </select>
-
+          
           <select v-model="sortBy" class="sort-filter" @change="handleSort">
             <option value="uploadDate">По дате загрузки</option>
             <option value="title">По названию</option>
             <option value="authors">По авторам</option>
             <option value="fileSize">По размеру</option>
           </select>
-
-          <button
-            v-if="selectedCategory || sortBy !== 'uploadDate'"
-            @click="clearFilters"
+          
+          <button 
+            v-if="selectedCategory || sortBy !== 'uploadDate'" 
+            @click="clearFilters" 
             class="clear-filters-btn"
             title="Сбросить фильтры"
           >
-              <path d="M3 6h18" />
-              <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6" />
-              <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M3 6h18"/>
+              <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/>
+              <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
             </svg>
             Сбросить
           </button>
@@ -128,8 +143,11 @@
           <span v-if="searchQuery || selectedCategory">
             Найдено {{ filteredFiles.length }} из {{ totalFiles }} файлов
           </span>
+          <span v-else>
+            Всего файлов: {{ totalFiles }}
+          </span>
         </div>
-
+        
         <div v-if="isLoading" class="loading-state">
           <div class="loading-spinner"></div>
           <p>Загрузка файлов...</p>
@@ -145,6 +163,7 @@
           <div class="empty-icon">🔍</div>
           <p v-if="searchQuery || selectedCategory">
             По вашему запросу файлы не найдены
+            <br>
             <small>Попробуйте изменить параметры поиска или фильтры</small>
           </p>
           <p v-else>Файлы не найдены</p>
@@ -161,24 +180,34 @@
                 {{ getFileTypeIcon(file.fileName) }}
               </div>
               <div class="file-actions">
-                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                    <polyline points="7,10 12,15 17,10" />
-                    <line x1="12" y1="15" x2="12" y2="3" />
+                <button class="action-button download" @click="downloadFile(file)" title="Скачать">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                    <polyline points="7,10 12,15 17,10"/>
+                    <line x1="12" y1="15" x2="12" y2="3"/>
                   </svg>
                 </button>
+                <button class="action-button edit" @click="editFile(file)" title="Редактировать">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
                   </svg>
                 </button>
-                    <polyline points="3,6 5,6 21,6" />
+                <button class="action-button delete" @click="deleteFile(file)" title="Удалить">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="3,6 5,6 21,6"/>
+                    <path d="M19,6v14a2,2,0,0,1-2,2H7a2,2,0,0,1-2-2V6m3,0V4a2,2,0,0,1,2-2h4a2,2,0,0,1,2,2V6"/>
                   </svg>
                 </button>
               </div>
             </div>
-
+            
             <div class="file-content">
               <h3 class="file-title">{{ file.title }}</h3>
               <p class="file-authors">{{ file.authors }}</p>
               <p class="file-category">{{ file.category }}</p>
               <div class="file-meta">
+                <span class="file-size">{{ formatFileSize(file.fileSize) }}</span>
                 <span class="file-date">{{ formatDate(file.uploadDate) }}</span>
               </div>
             </div>
@@ -192,10 +221,11 @@
             @click="changePage(currentPage - 1)"
             class="page-button prev"
           >
-              <path d="M15 18l-6-6 6-6" />
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M15 18l-6-6 6-6"/>
             </svg>
           </button>
-
+          
           <div class="page-numbers">
             <button
               v-for="page in visiblePages"
@@ -206,13 +236,14 @@
               {{ page }}
             </button>
           </div>
-
+          
           <button
             :disabled="currentPage === totalPages"
             @click="changePage(currentPage + 1)"
             class="page-button next"
           >
-              <path d="M9 18l6-6-6-6" />
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M9 18l6-6-6-6"/>
             </svg>
           </button>
         </div>
@@ -242,12 +273,12 @@ export default {
   },
   setup() {
     const apiService = new ApiService()
-
+    
     // Дополнительная проверка прав доступа
     const checkAccess = () => {
       const isAuthenticated = localStorage.getItem('isAuthenticated') === 'true'
       const isAdmin = localStorage.getItem('isAdmin') === 'true'
-
+      
       if (!isAuthenticated || !isAdmin) {
         // Если нет прав - перенаправляем на библиотеку
         window.location.href = '/library'
@@ -255,7 +286,7 @@ export default {
       }
       return true
     }
-
+    
     // Состояние
     const files = ref([])
     const isLoading = ref(false)
@@ -267,7 +298,7 @@ export default {
     const itemsPerPage = ref(12)
     const totalPages = ref(0)
     const totalItems = ref(0)
-
+    
     // Модальное окно
     const showFileModal = ref(false)
     const editingFile = ref(null)
@@ -275,6 +306,7 @@ export default {
 
     // Вычисляемые свойства
     const categories = computed(() => {
+      const cats = [...new Set(files.value.map(file => file.category).filter(Boolean))]
       return cats.sort()
     })
 
@@ -288,9 +320,10 @@ export default {
           const title = (file.title || '').toLowerCase()
           const authors = (file.authors || '').toLowerCase()
           const description = (file.description || '').toLowerCase()
-
-            authors.includes(query) ||
-            description.includes(query)
+          
+          return title.includes(query) || 
+                 authors.includes(query) || 
+                 description.includes(query)
         })
       }
 
@@ -304,15 +337,17 @@ export default {
 
     const sortedFiles = computed(() => {
       const sorted = [...filteredFiles.value]
-
+      
       switch (sortBy.value) {
         case 'title':
           return sorted.sort((a, b) => a.title.localeCompare(b.title))
         case 'authors':
           return sorted.sort((a, b) => a.authors.localeCompare(b.authors))
         case 'fileSize':
+          return sorted.sort((a, b) => parseFileSize(a.fileSize) - parseFileSize(b.fileSize))
         case 'uploadDate':
         default:
+          return sorted.sort((a, b) => new Date(b.uploadDate) - new Date(a.uploadDate))
       }
     })
 
@@ -324,6 +359,7 @@ export default {
 
     const totalFiles = computed(() => files.value.length)
     const totalSize = computed(() => {
+      const total = files.value.reduce((sum, file) => sum + parseFileSize(file.fileSize), 0)
       return formatFileSize(total)
     })
     const totalCategories = computed(() => categories.value.length)
@@ -333,15 +369,15 @@ export default {
       const maxVisible = 5
       let start = Math.max(1, currentPage.value - Math.floor(maxVisible / 2))
       let end = Math.min(totalPages.value, start + maxVisible - 1)
-
+      
       if (end - start + 1 < maxVisible) {
         start = Math.max(1, end - maxVisible + 1)
       }
-
+      
       for (let i = start; i <= end; i++) {
         pages.push(i)
       }
-
+      
       return pages
     })
 
@@ -356,11 +392,48 @@ export default {
           itemsPerPage.value,
           'private'
         )
-
+        
         if (response.success) {
           const catalogData = response.data || {}
-
-
+          
+          // Обрабатываем данные каталога
+          const allFiles = []
+          if (catalogData.items) {
+            // Проверяем, является ли items массивом (плоские данные) или объектом (сгруппированные данные)
+            if (Array.isArray(catalogData.items)) {
+              // Плоские данные - добавляем файлы напрямую
+              catalogData.items.forEach(file => {
+                allFiles.push({
+                  ...file,
+                  // Тип файла всегда определяем по расширению
+                  type: getFileTypeIcon(file.fileName),
+                  // В приватном режиме используем category из файла
+                  category: file.category || 'Без категории',
+                  isPublic: false
+                })
+              })
+            } else {
+              // Сгруппированные данные - обрабатываем как раньше
+              Object.keys(catalogData.items).forEach(groupKey => {
+                if (Array.isArray(catalogData.items[groupKey])) {
+                  catalogData.items[groupKey].forEach(file => {
+                    allFiles.push({
+                      ...file,
+                      // Тип файла всегда определяем по расширению
+                      type: getFileTypeIcon(file.fileName),
+                      // В приватном режиме используем category из файла
+                      category: file.category || 'Без категории',
+                      isPublic: false
+                    })
+                  })
+                }
+              })
+            }
+          }
+          
+          files.value = allFiles
+          
+          // Обновляем пагинацию
           if (catalogData.pagination) {
             totalPages.value = catalogData.pagination.totalPages
             totalItems.value = catalogData.pagination.totalItems
@@ -377,16 +450,16 @@ export default {
 
     let searchTimeout = null
     const isSearching = ref(false)
-
+    
     const handleSearch = () => {
       // Очищаем предыдущий таймаут
       if (searchTimeout) {
         clearTimeout(searchTimeout)
       }
-
+      
       // Показываем индикатор поиска
       isSearching.value = true
-
+      
       // Устанавливаем новый таймаут для поиска через 300ms
       searchTimeout = setTimeout(() => {
         currentPage.value = 1
@@ -418,6 +491,7 @@ export default {
       updatePagination()
     }
 
+    const changePage = (page) => {
       if (page >= 1 && page <= totalPages.value) {
         currentPage.value = page
         updatePagination()
@@ -428,7 +502,7 @@ export default {
       const total = filteredFiles.value.length
       totalPages.value = Math.ceil(total / itemsPerPage.value)
       totalItems.value = total
-
+      
       if (currentPage.value > totalPages.value) {
         currentPage.value = totalPages.value || 1
       }
@@ -440,11 +514,13 @@ export default {
       showFileModal.value = true
     }
 
+    const editFile = (file) => {
       editingFile.value = { ...file }
       isEditing.value = true
       showFileModal.value = true
     }
 
+    const deleteFile = async (file) => {
       if (!confirm(`Удалить файл "${file.title}"?`)) {
         return
       }
@@ -461,9 +537,12 @@ export default {
       }
     }
 
+    const downloadFile = async (file) => {
       try {
+        
         // Скачиваем приватный файл
         await apiService.downloadFile(file.fileName, true)
+        
       } catch (err) {
         error.value = err.message || 'Не удалось скачать файл'
       }
@@ -475,6 +554,7 @@ export default {
       isEditing.value = false
     }
 
+    const handleFileSave = async (fileData) => {
       try {
         if (isEditing.value) {
           // Обновление файла
@@ -496,6 +576,7 @@ export default {
           }
         }
       } catch (err) {
+        
         // Обработка ошибок валидации
         if (err.validationErrors) {
           const validationMessages = Object.values(err.validationErrors)
@@ -516,51 +597,63 @@ export default {
       // Очищаем localStorage
       localStorage.removeItem('isAuthenticated')
       localStorage.removeItem('isAdmin')
-
+      
       // Перенаправляем на библиотеку
       window.location.href = '/library'
     }
 
+    const getFileTypeIcon = (fileName) => {
       const ext = fileName.split('.').pop()?.toLowerCase()
       switch (ext) {
+        case 'pdf': return '📄'
+        case 'doc': case 'docx': return '📝'
+        case 'txt': return '📃'
+        default: return '📁'
       }
     }
 
+    const formatFileSize = (size) => {
       if (typeof size === 'string') {
         return size
       }
-
+      
       const units = ['B', 'KB', 'MB', 'GB']
       let value = size
       let unitIndex = 0
-
+      
       while (value >= 1024 && unitIndex < units.length - 1) {
         value /= 1024
         unitIndex++
       }
-
+      
       return `${value.toFixed(1)} ${units[unitIndex]}`
     }
 
+    const parseFileSize = (size) => {
       // Если size уже число, возвращаем как есть
       if (typeof size === 'number') return size
-
+      
       // Если size null, undefined или пустая строка, возвращаем 0
       if (!size || typeof size !== 'string') return 0
-
+      
       // Парсим строку размера (например: "1.5 MB", "500 KB", "2.1 GB")
       const match = size.toString().match(/^([\d.]+)\s*([KMGT]?B)$/i)
       if (!match) return 0
-
+      
       const value = parseFloat(match[1])
       const unit = match[2].toUpperCase()
-
-      const multipliers = {
+      
+      const multipliers = { 
+        'B': 1, 
+        'KB': 1024, 
+        'MB': 1024*1024, 
+        'GB': 1024*1024*1024 
       }
-
+      
       return value * (multipliers[unit] || 1)
     }
 
+    const formatDate = (dateString) => {
       const date = new Date(dateString)
       return date.toLocaleDateString('ru-RU')
     }
@@ -594,7 +687,7 @@ export default {
       editingFile,
       isEditing,
       isSearching,
-
+      
       // Вычисляемые свойства
       categories,
       filteredFiles,
@@ -603,7 +696,7 @@ export default {
       totalSize,
       totalCategories,
       visiblePages,
-
+      
       // Методы
       loadFiles,
       handleSearch,
@@ -662,7 +755,7 @@ export default {
     color: #2d3748;
     margin: 0 0 0.5rem 0;
   }
-
+  
   .admin-subtitle {
     font-size: 1.1rem;
     color: #718096;
@@ -673,7 +766,7 @@ export default {
 .header-actions {
   display: flex;
   gap: 1rem;
-
+  
   .add-file-button {
     display: flex;
     align-items: center;
@@ -686,18 +779,18 @@ export default {
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
-
+    
     &:hover {
       transform: translateY(-2px);
       box-shadow: 0 8px 25px rgba(72, 187, 120, 0.3);
     }
-
+    
     .add-icon {
       width: 20px;
       height: 20px;
     }
   }
-
+  
   .back-button,
   .logout-button {
     display: flex;
@@ -710,32 +803,32 @@ export default {
     transition: all 0.3s ease;
     border: 1px solid rgba(113, 128, 150, 0.2);
   }
-
+  
   .back-button {
     background: rgba(113, 128, 150, 0.1);
     color: #4a5568;
-
+    
     &:hover {
       background: rgba(113, 128, 150, 0.2);
       border-color: rgba(113, 128, 150, 0.3);
     }
-
+    
     .back-icon {
       width: 20px;
       height: 20px;
     }
   }
-
+  
   .logout-button {
     background: rgba(245, 101, 101, 0.1);
     color: #e53e3e;
     border-color: rgba(245, 101, 101, 0.2);
-
+    
     &:hover {
       background: rgba(245, 101, 101, 0.2);
       border-color: rgba(245, 101, 101, 0.3);
     }
-
+    
     .logout-icon {
       width: 20px;
       height: 20px;
@@ -760,7 +853,7 @@ export default {
   border-radius: 12px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(10px);
-
+  
   .stat-icon {
     width: 48px;
     height: 48px;
@@ -770,13 +863,13 @@ export default {
     align-items: center;
     justify-content: center;
     color: white;
-
+    
     svg {
       width: 24px;
       height: 24px;
     }
   }
-
+  
   .stat-content {
     .stat-value {
       font-size: 2rem;
@@ -784,7 +877,7 @@ export default {
       color: #2d3748;
       line-height: 1;
     }
-
+    
     .stat-label {
       font-size: 0.9rem;
       color: #718096;
@@ -809,11 +902,11 @@ export default {
 .search-section {
   flex: 1;
   max-width: 400px;
-
+  
   .search-input-wrapper {
     position: relative;
     width: 100%;
-
+    
     .search-icon,
     .search-spinner {
       position: absolute;
@@ -825,14 +918,14 @@ export default {
       color: #a0aec0;
       pointer-events: none;
     }
-
+    
     .search-spinner {
       border: 2px solid rgba(160, 174, 192, 0.2);
       border-top: 2px solid #667eea;
       border-radius: 50%;
       animation: spin 1s linear infinite;
     }
-
+    
     .search-input {
       width: 100%;
       padding: 0.75rem 1rem 0.75rem 3rem;
@@ -840,18 +933,18 @@ export default {
       border-radius: 8px;
       font-size: 1rem;
       transition: all 0.3s ease;
-
+      
       &:focus {
         outline: none;
         border-color: #667eea;
         box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
       }
-
+      
       &::placeholder {
         color: #a0aec0;
       }
     }
-
+    
     .clear-search-btn {
       position: absolute;
       right: 0.75rem;
@@ -867,11 +960,11 @@ export default {
       display: flex;
       align-items: center;
       justify-content: center;
-
+      
       &:hover {
         color: #e53e3e;
       }
-
+      
       svg {
         width: 16px;
         height: 16px;
@@ -883,7 +976,7 @@ export default {
 .filter-section {
   display: flex;
   gap: 1rem;
-
+  
   select {
     padding: 0.75rem 1rem;
     border: 2px solid rgba(113, 128, 150, 0.2);
@@ -893,18 +986,18 @@ export default {
     cursor: pointer;
     transition: all 0.3s ease;
     min-width: 150px;
-
+    
     &:focus {
       outline: none;
       border-color: #667eea;
       box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
     }
-
+    
     &:hover {
       border-color: rgba(113, 128, 150, 0.4);
     }
   }
-
+  
   .clear-filters-btn {
     display: flex;
     align-items: center;
@@ -917,12 +1010,12 @@ export default {
     color: #e53e3e;
     cursor: pointer;
     transition: all 0.3s ease;
-
+    
     &:hover {
       background: rgba(245, 101, 101, 0.2);
       border-color: rgba(245, 101, 101, 0.5);
     }
-
+    
     svg {
       width: 16px;
       height: 16px;
@@ -947,7 +1040,7 @@ export default {
   border-radius: 8px;
   color: #4a5568;
   font-weight: 500;
-
+  
   small {
     color: #718096;
     font-weight: 400;
@@ -959,7 +1052,7 @@ export default {
 .empty-state {
   text-align: center;
   padding: 3rem 1rem;
-
+  
   .loading-spinner {
     width: 48px;
     height: 48px;
@@ -969,13 +1062,13 @@ export default {
     animation: spin 1s linear infinite;
     margin: 0 auto 1rem;
   }
-
+  
   .error-icon,
   .empty-icon {
     font-size: 3rem;
     margin-bottom: 1rem;
   }
-
+  
   .retry-button {
     margin-top: 1rem;
     padding: 0.75rem 1.5rem;
@@ -985,7 +1078,7 @@ export default {
     border-radius: 8px;
     font-weight: 600;
     cursor: pointer;
-
+    
     &:hover {
       background: #5a67d8;
     }
@@ -1018,7 +1111,7 @@ export default {
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
   transition: all 0.3s ease;
   border: 1px solid rgba(113, 128, 150, 0.1);
-
+  
   &:hover {
     transform: translateY(-4px);
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
@@ -1030,15 +1123,15 @@ export default {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 1rem;
-
+  
   .file-type-icon {
     font-size: 2rem;
   }
-
+  
   .file-actions {
     display: flex;
     gap: 0.5rem;
-
+    
     .action-button {
       width: 36px;
       height: 36px;
@@ -1049,34 +1142,34 @@ export default {
       align-items: center;
       justify-content: center;
       transition: all 0.3s ease;
-
+      
       svg {
         width: 16px;
         height: 16px;
       }
-
+      
       &.download {
         background: rgba(72, 187, 120, 0.1);
         color: #38a169;
-
+        
         &:hover {
           background: rgba(72, 187, 120, 0.2);
         }
       }
-
+      
       &.edit {
         background: rgba(66, 153, 225, 0.1);
         color: #3182ce;
-
+        
         &:hover {
           background: rgba(66, 153, 225, 0.2);
         }
       }
-
+      
       &.delete {
         background: rgba(245, 101, 101, 0.1);
         color: #e53e3e;
-
+        
         &:hover {
           background: rgba(245, 101, 101, 0.2);
         }
@@ -1093,13 +1186,13 @@ export default {
     margin: 0 0 0.5rem 0;
     line-height: 1.4;
   }
-
+  
   .file-authors {
     font-size: 0.9rem;
     color: #4a5568;
     margin: 0 0 0.5rem 0;
   }
-
+  
   .file-category {
     display: inline-block;
     padding: 0.25rem 0.75rem;
@@ -1110,13 +1203,13 @@ export default {
     font-weight: 500;
     margin-bottom: 1rem;
   }
-
+  
   .file-meta {
     display: flex;
     justify-content: space-between;
     font-size: 0.8rem;
     color: #718096;
-
+    
     .file-size,
     .file-date {
       background: rgba(113, 128, 150, 0.1);
@@ -1144,24 +1237,24 @@ export default {
   cursor: pointer;
   transition: all 0.3s ease;
   min-width: 40px;
-
+  
   &:hover:not(:disabled) {
     background: rgba(102, 126, 234, 0.1);
     border-color: #667eea;
     color: #667eea;
   }
-
+  
   &:disabled {
     opacity: 0.5;
     cursor: not-allowed;
   }
-
+  
   &.active {
     background: #667eea;
     color: white;
     border-color: #667eea;
   }
-
+  
   &.prev,
   &.next {
     svg {
@@ -1177,6 +1270,8 @@ export default {
 }
 
 @keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
 // Адаптивность
@@ -1186,30 +1281,30 @@ export default {
     gap: 1rem;
     text-align: center;
   }
-
+  
   .header-actions {
     flex-direction: column;
     width: 100%;
   }
-
+  
   .admin-controls {
     flex-direction: column;
     gap: 1rem;
     align-items: stretch;
   }
-
+  
   .search-section {
     max-width: none;
   }
-
+  
   .filter-section {
     flex-direction: column;
   }
-
+  
   .files-grid {
     grid-template-columns: 1fr;
   }
-
+  
   .admin-stats {
     grid-template-columns: 1fr;
   }

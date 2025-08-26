@@ -12,8 +12,8 @@ class FileService
     {
         $this->privatePath = __DIR__ . '/../data/private/';
         $this->publicPath = __DIR__ . '/../data/public/';
-        $this->allowedTypes = ['pdf', 'doc', 'docx', 'txt', 'zip', 'rar', 'jpg', 'jpeg', 'png'];
-        $this->maxFileSize = 100 * 1024 * 1024; // 100MB
+        $this->allowedTypes = ['pdf', 'doc', 'docx', 'txt']; // Соответствует frontend
+        $this->maxFileSize = 50 * 1024 * 1024; // 50MB (соответствует frontend)
         
         // Убираем автоматическое создание директорий
         // this->ensureDirectoriesExist();
@@ -52,22 +52,30 @@ class FileService
      */
     private function loadFile($filePath, $fileName)
     {
-        if (!file_exists($filePath)) {
-            throw new Exception('File not found', 404);
+        try {
+            if (!file_exists($filePath)) {
+                throw new Exception('File not found', 404);
+            }
+            
+            $fileSize = filesize($filePath);
+            
+            header('Content-Description: File Transfer');
+            header('Content-Type: application/octet-stream');
+            header('Content-Disposition: attachment; filename="' . $fileName . '"');
+            header('Expires: 0');
+            header('Cache-Control: must-revalidate');
+            header('Pragma: public');
+            header('Content-Length: ' . $fileSize);
+            
+            if (readfile($filePath) === false) {
+                throw new Exception('Error reading file', 500);
+            }
+            
+            exit;
+            
+        } catch (Exception $e) {
+            throw $e;
         }
-        
-        header('Content-Description: File Transfer');
-        header('Content-Type: application/octet-stream');
-        header('Content-Disposition: attachment; fileName="' . $fileName . '"');
-        header('Expires: 0');
-        header('Cache-Control: must-revalidate');
-        header('Pragma: public');
-        header('Content-Length: ' . filesize($filePath));
-
-        if (readfile($filePath) === false) {
-            throw new Exception('Error reading file', 500);
-        }
-        exit;
     }
 
     // === ЗАГРУЗКА И СОХРАНЕНИЕ ФАЙЛОВ ===
@@ -95,12 +103,15 @@ class FileService
                 throw new Exception('Failed to move uploaded file', 500);
             }
             
+            // Проверяем реальный размер сохраненного файла
+            $actualFileSize = filesize($filePath);
+            
             // Получаем информацию о файле
             $fileInfo = [
                 'fileName' => $fileName,
                 'originalName' => $file['name'],
                 'filePath' => $filePath,
-                'fileSize' => $file['size'],
+                'fileSize' => $actualFileSize, // Используем реальный размер
                 'fileType' => $this->getFileExtension($file['name']),
                 'title' => $title,
                 'authors' => $authors,
@@ -328,6 +339,7 @@ class FileService
         }
         
         $extension = strtolower($this->getFileExtension($file['name']));
+        
         if (!in_array($extension, $this->allowedTypes)) {
             throw new Exception('File type not allowed', 400);
         }
@@ -376,12 +388,7 @@ class FileService
             'pdf' => 'application/pdf',
             'doc' => 'application/msword',
             'docx' => 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-            'txt' => 'text/plain',
-            'zip' => 'application/zip',
-            'rar' => 'application/x-rar-compressed',
-            'jpg' => 'image/jpeg',
-            'jpeg' => 'image/jpeg',
-            'png' => 'image/png'
+            'txt' => 'text/plain'
         ];
         
         return $mimeTypes[$extension] ?? 'application/octet-stream';

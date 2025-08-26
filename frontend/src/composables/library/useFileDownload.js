@@ -15,7 +15,7 @@ export function useFileDownload() {
     try {
       // Используем API сервис для скачивания
       const response = await apiService.downloadFile(file.fileName, isPrivate)
-
+      
       if (response.success && response.data) {
         // Создаем ссылку для скачивания
         const url = window.URL.createObjectURL(response.data)
