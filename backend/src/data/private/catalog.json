@@ -1,12 +1,20 @@
 [
     {
-        "title": "ГОБЛИН",
-        "authors": "ЧЛЕН",
-        "fileName": "BSS30307_1756209339_68ada0bb4cf80.pdf",
-        "uploadDate": "2025-08-26 11:55:39",
-        "fileSize": 109262,
-        "category": "ХУЙ",
-        "description": "Я ЕБАЛ РОТ",
-        "updatedAt": "2025-08-26 13:02:42"
+        "title": "Conference_neuro-2018 (А5)",
+        "authors": "Привет",
+        "fileName": "Conferenceneuro2018_5_1756213644_68adb18c7168a.pdf",
+        "uploadDate": "2025-08-26 13:07:24",
+        "fileSize": 2267045,
+        "category": "Отчеты",
+        "description": "йцуйуйу"
+    },
+    {
+        "title": "Conference_neuro-2012",
+        "authors": "Test",
+        "fileName": "Conferenceneuro2012_1756213710_68adb1ce2660e.pdf",
+        "uploadDate": "2025-08-26 13:08:30",
+        "fileSize": 3066035,
+        "category": "Публикации",
+        "description": "TestTest"
     }
 ]
