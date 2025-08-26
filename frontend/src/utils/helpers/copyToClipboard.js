@@ -30,7 +30,7 @@ export const copyToClipboard = async (text, options = {}) => {
       document.body.appendChild(textArea)
       textArea.focus()
       textArea.select()
-      
+
       try {
         document.execCommand('copy')
         showNotification(successMessage, 'success', duration)

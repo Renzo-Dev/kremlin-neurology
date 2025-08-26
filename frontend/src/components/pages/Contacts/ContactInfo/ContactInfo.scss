@@ -13,10 +13,6 @@
 .section-intro {
   text-align: center;
   margin-bottom: vr.$spacing-3xl;
-
-  @include mx.mobile {
-    margin-bottom: vr.$spacing-2xl;
-  }
 }
 
 .section-tag {
@@ -78,6 +74,7 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
   gap: vr.$spacing-2xl;
+  margin-bottom: vr.$spacing-3xl;
 
   @include mx.tablet {
     grid-template-columns: 1fr;
@@ -96,6 +93,11 @@
   box-shadow: vr.$shadow-lg;
   border: 1px solid vr.$gray-100;
   transition: all vr.$transition-normal;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: vr.$shadow-xl;
+  }
 
   @include mx.mobile {
     padding: vr.$spacing-lg;
@@ -168,7 +170,7 @@
       display: block;
       font-weight: vr.$font-weight-medium;
       color: vr.$gray-700;
-      margin-bottom: vr.$spacing-xs;
+      margin-bottom: vr.$spacing-sm;
       font-size: vr.$font-size-sm;
 
       @include mx.mobile {
@@ -206,6 +208,11 @@
           font-size: vr.$font-size-base;
           min-height: 32px;
           word-break: break-word;
+        }
+
+        &:hover {
+          color: vr.$primary-dark;
+          text-decoration: underline;
         }
       }
 
@@ -245,6 +252,12 @@
           }
         }
 
+        &:hover {
+          background: vr.$primary-color;
+          color: vr.$white;
+          transform: scale(1.05);
+        }
+
         &:active {
           transform: scale(0.95);
           box-shadow: 0 2px 6px rgba(vr.$primary-color, 0.15);
@@ -256,18 +269,18 @@
         }
       }
     }
+  }
 
-    .contact-address {
-      color: vr.$gray-600;
-      line-height: vr.$line-height-relaxed;
-      margin: 0;
-      flex: 1;
+  .contact-address {
+    color: vr.$gray-600;
+    line-height: vr.$line-height-relaxed;
+    margin: 0;
+    flex: 1;
 
-      @include mx.mobile {
-        font-size: vr.$font-size-sm;
-        line-height: vr.$line-height-normal;
-        word-break: break-word;
-      }
+    @include mx.mobile {
+      font-size: vr.$font-size-sm;
+      line-height: vr.$line-height-normal;
+      word-break: break-word;
     }
   }
 }

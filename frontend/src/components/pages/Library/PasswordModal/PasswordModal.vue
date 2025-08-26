@@ -34,7 +34,7 @@
                   <input
                     id="password"
                     v-model="password"
-                    type="password"
+                    :type="showPassword ? 'text' : 'password'"
                     class="password-input"
                     :class="{ 'password-input--error': error }"
                     placeholder="Введите пароль для доступа"
@@ -72,16 +72,17 @@
                     </svg>
                   </button>
                 </div>
-                
+
                 <!-- Ошибки -->
                 <div v-if="error" class="error-message">
                   <div class="error-text">{{ error }}</div>
-                  
+
                   <!-- Rate limiting информация -->
                   <div v-if="isRateLimited" class="rate-limit-info">
                     <div class="retry-timer">
                       <span class="timer-icon">⏰</span>
-                      Следующая попытка через: <strong>{{ formatRetryTime(retryAfter) }}</strong>
+                      Следующая попытка через:
+                      <strong>{{ formatRetryTime(retryAfter) }}</strong>
                     </div>
                     <div class="rate-limit-tip">
                       💡 Подождите немного перед следующей попыткой
@@ -139,16 +140,19 @@ export default {
 
     // Вычисляем, заблокирован ли пользователь
     const isRateLimited = computed(() => {
-      return error.value.includes('превышено') || error.value.includes('слишком много')
+      return (
+        error.value.includes('превышено') ||
+        error.value.includes('слишком много')
+      )
     })
 
     // Форматирование времени до следующей попытки
-    const formatRetryTime = (seconds) => {
+    const formatRetryTime = seconds => {
       if (seconds <= 0) return 'сейчас'
-      
+
       const minutes = Math.floor(seconds / 60)
       const remainingSeconds = seconds % 60
-      
+
       if (minutes > 0) {
         return `${minutes} мин ${remainingSeconds} сек`
       }
@@ -164,12 +168,12 @@ export default {
       const storedRetryAfter = localStorage.getItem('retryAfter')
       if (storedRetryAfter) {
         retryAfter.value = parseInt(storedRetryAfter)
-        
+
         if (retryAfter.value > 0) {
           retryTimer.value = setInterval(() => {
             retryAfter.value--
             localStorage.setItem('retryAfter', retryAfter.value.toString())
-            
+
             if (retryAfter.value <= 0) {
               localStorage.removeItem('retryAfter')
               clearInterval(retryTimer.value)
@@ -233,7 +237,9 @@ export default {
   padding: 0;
   width: 90%;
   max-width: 400px;
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  box-shadow:
+    0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04);
 }
 
 .modal-header {
@@ -440,8 +446,12 @@ export default {
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 // Анимации

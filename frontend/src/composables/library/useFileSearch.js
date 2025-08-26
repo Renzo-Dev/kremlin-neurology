@@ -13,27 +13,27 @@ let searchTimeout = null
 const searchDebounceDelay = 300
 
 // Функция для парсинга размера файла
-const parseFileSize = (size) => {
+const parseFileSize = size => {
   // Если size уже число, возвращаем как есть
   if (typeof size === 'number') return size
-  
+
   // Если size null, undefined или пустая строка, возвращаем 0
   if (!size || typeof size !== 'string') return 0
-  
+
   // Парсим строку размера (например: "1.5 MB", "500 KB", "2.1 GB")
   const match = size.toString().match(/^([\d.]+)\s*([KMGT]?B)$/i)
   if (!match) return 0
-  
+
   const value = parseFloat(match[1])
   const unit = match[2].toUpperCase()
-  
-  const multipliers = { 
-    'B': 1, 
-    'KB': 1024, 
-    'MB': 1024*1024, 
-    'GB': 1024*1024*1024 
+
+  const multipliers = {
+    B: 1,
+    KB: 1024,
+    MB: 1024 * 1024,
+    GB: 1024 * 1024 * 1024,
   }
-  
+
   return value * (multipliers[unit] || 1)
 }
 
@@ -46,11 +46,11 @@ export function useFileSearch() {
   }
 
   // Debounced поиск
-  const debouncedSearch = (callback) => {
+  const debouncedSearch = callback => {
     if (searchTimeout) {
       clearTimeout(searchTimeout)
     }
-    
+
     searchTimeout = setTimeout(() => {
       callback()
     }, searchDebounceDelay)
@@ -70,10 +70,12 @@ export function useFileSearch() {
         const title = (file.title || '').toLowerCase()
         const authors = (file.authors || '').toLowerCase()
         const description = (file.description || '').toLowerCase()
-        
-        return title.includes(query) || 
-               authors.includes(query) || 
-               description.includes(query)
+
+        return (
+          title.includes(query) ||
+          authors.includes(query) ||
+          description.includes(query)
+        )
       })
     }
 

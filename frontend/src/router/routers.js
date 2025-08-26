@@ -28,7 +28,7 @@ export const routers = [
     path: '/admin',
     name: 'AdminPanel',
     component: () => import('@/pages/AdminPanel.vue'),
-    meta: { requiresAuth: true, requiresAdmin: true }
+    meta: { requiresAuth: true, requiresAdmin: true },
   },
   {
     path: '/clients',

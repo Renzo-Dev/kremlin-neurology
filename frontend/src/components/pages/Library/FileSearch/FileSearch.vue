@@ -84,7 +84,11 @@
             @change="handleFilterChange"
           >
             <option value="">Все категории</option>
-            <option v-for="category in uniqueCategories" :key="category" :value="category">
+            <option
+              v-for="category in uniqueCategories"
+              :key="category"
+              :value="category"
+            >
               {{ category }}
             </option>
           </select>
@@ -151,15 +155,20 @@
         <span class="results-text">
           Найдено файлов: <strong>{{ filteredFilesCount }}</strong>
         </span>
-        <button 
-          v-if="hasActiveFilters" 
-          @click="clearAllFilters" 
+        <button
+          v-if="hasActiveFilters"
+          @click="clearAllFilters"
           class="quick-clear-btn"
           title="Быстро очистить все фильтры"
         >
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <line x1="18" y1="6" x2="6" y2="18"/>
-            <line x1="6" y1="6" x2="18" y2="18"/>
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <line x1="18" y1="6" x2="6" y2="18" />
+            <line x1="6" y1="6" x2="18" y2="18" />
           </svg>
         </button>
       </div>
@@ -209,7 +218,11 @@ export default {
     const uniqueCategories = computed(() => getUniqueCategories(props.files))
 
     const hasActiveFilters = computed(
-      () => searchQuery.value || selectedAuthor.value || selectedType.value || selectedCategory.value
+      () =>
+        searchQuery.value ||
+        selectedAuthor.value ||
+        selectedType.value ||
+        selectedCategory.value
     )
 
     const handleSearch = () => {

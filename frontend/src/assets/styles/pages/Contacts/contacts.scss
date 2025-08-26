@@ -114,19 +114,6 @@
     }
   }
 
-  // Применение анимаций к секциям
-  section {
-    animation: slideInFromBottom 0.8s ease-out;
-
-    &:nth-child(even) {
-      animation-delay: 0.1s;
-    }
-
-    &:nth-child(odd) {
-      animation-delay: 0.2s;
-    }
-  }
-
   // Улучшенные стили для фокуса для accessibility
   *:focus {
     outline: 2px solid vr.$primary-color;

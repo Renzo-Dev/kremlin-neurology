@@ -13,10 +13,6 @@
 .section-intro {
   text-align: center;
   margin-bottom: vr.$spacing-3xl;
-
-  @include mx.mobile {
-    margin-bottom: vr.$spacing-2xl;
-  }
 }
 
 .section-tag {
@@ -99,26 +95,9 @@
   color: vr.$white;
   padding: vr.$spacing-3xl;
   text-align: center;
-  position: relative;
-  overflow: hidden;
-
-  &::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    right: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(
-      circle,
-      rgba(255, 255, 255, 0.1) 0%,
-      transparent 70%
-    );
-    animation: float 6s ease-in-out infinite;
-  }
 
   @include mx.mobile {
-    padding: vr.$spacing-2xl;
+    padding: vr.$spacing-lg;
   }
 
   .person-avatar {
@@ -294,8 +273,6 @@
       color: vr.$gray-700;
       margin-bottom: vr.$spacing-sm;
       font-size: vr.$font-size-sm;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
 
       @include mx.mobile {
         font-size: vr.$font-size-xs;
@@ -411,50 +388,50 @@
   .person-card {
     .person-header {
       padding: vr.$spacing-lg;
+    }
 
-      .person-avatar {
-        width: 80px;
-        height: 80px;
+    .person-avatar {
+      width: 80px;
+      height: 80px;
 
-        svg {
-          width: 32px;
-          height: 32px;
-        }
-      }
-
-      .person-info {
-        .person-name {
-          font-size: vr.$font-size-lg;
-        }
-
-        .person-position {
-          font-size: vr.$font-size-sm;
-        }
-
-        .person-badges {
-          .badge {
-            font-size: 10px;
-            padding: 4px 8px;
-          }
-        }
+      svg {
+        width: 32px;
+        height: 32px;
       }
     }
 
-    .person-contacts {
-      padding: vr.$spacing-lg;
-    }
+    .person-info {
+      .person-name {
+        font-size: vr.$font-size-lg;
+      }
 
-    .contact-item {
-      padding: vr.$spacing-md;
+      .person-position {
+        font-size: vr.$font-size-sm;
+      }
 
-      .contact-icon {
-        width: 36px;
-        height: 36px;
-
-        svg {
-          width: 18px;
-          height: 18px;
+      .person-badges {
+        .badge {
+          font-size: 10px;
+          padding: 4px 8px;
         }
+      }
+    }
+  }
+
+  .person-contacts {
+    padding: vr.$spacing-lg;
+  }
+
+  .contact-item {
+    padding: vr.$spacing-md;
+
+    .contact-icon {
+      width: 36px;
+      height: 36px;
+
+      svg {
+        width: 18px;
+        height: 18px;
       }
     }
   }

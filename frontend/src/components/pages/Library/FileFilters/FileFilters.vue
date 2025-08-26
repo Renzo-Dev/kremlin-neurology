@@ -2,8 +2,8 @@
   <div class="file-filters">
     <div class="filters-header">
       <h3 class="filters-title">Фильтры и сортировка</h3>
-      <button 
-        class="clear-filters-btn" 
+      <button
+        class="clear-filters-btn"
         @click="clearFilters"
         :disabled="!hasActiveFilters"
       >
@@ -39,7 +39,11 @@
       <!-- Тип файла -->
       <div class="filter-group">
         <label class="filter-label">Тип файла</label>
-        <select v-model="filters.fileType" class="filter-select" @change="handleFilterChange">
+        <select
+          v-model="filters.fileType"
+          class="filter-select"
+          @change="handleFilterChange"
+        >
           <option value="">Все типы</option>
           <option value="pdf">PDF</option>
           <option value="doc">DOC</option>
@@ -51,25 +55,32 @@
       <!-- Категория (только для приватного режима) -->
       <div v-if="isPrivate" class="filter-group">
         <label class="filter-label">Категория</label>
-        <select 
-          v-model="filters.category" 
-          class="filter-select" 
-          :class="{ 'loading': isLoadingCategories }"
+        <select
+          v-model="filters.category"
+          class="filter-select"
+          :class="{ loading: isLoadingCategories }"
           @change="handleFilterChange"
           :disabled="isLoadingCategories"
         >
           <option value="">Все категории</option>
-          <option v-if="isLoadingCategories" value="" disabled>Загрузка категорий...</option>
-          <option v-else-if="categoriesError" value="" disabled>Ошибка загрузки</option>
-          <option v-else v-for="category in categories" :key="category" :value="category">
+          <option v-if="isLoadingCategories" value="" disabled>
+            Загрузка категорий...
+          </option>
+          <option v-else-if="categoriesError" value="" disabled>
+            Ошибка загрузки
+          </option>
+          <option
+            v-else
+            v-for="category in categories"
+            :key="category"
+            :value="category"
+          >
             {{ category }}
           </option>
         </select>
         <div v-if="categoriesError" class="filter-error">
           {{ categoriesError }}
-          <button @click="loadCategories" class="retry-btn">
-            Повторить
-          </button>
+          <button @click="loadCategories" class="retry-btn">Повторить</button>
         </div>
       </div>
 
@@ -77,29 +88,37 @@
       <div class="filter-group">
         <label class="filter-label">Сортировка</label>
         <div class="sorting-controls">
-          <select v-model="sorting.field" class="filter-select" @change="handleSortingChange">
+          <select
+            v-model="sorting.field"
+            class="filter-select"
+            @change="handleSortingChange"
+          >
             <option value="uploadDate">По дате</option>
             <option value="title">По названию</option>
             <option value="authors">По автору</option>
             <option value="fileSize">По размеру</option>
           </select>
-          <button 
+          <button
             class="sort-direction-btn"
             @click="toggleSortDirection"
-            :title="sorting.direction === 'asc' ? 'По возрастанию' : 'По убыванию'"
+            :title="
+              sorting.direction === 'asc' ? 'По возрастанию' : 'По убыванию'
+            "
           >
-            <svg class="sort-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path v-if="sorting.direction === 'asc'" d="M7 14l5-5 5 5"/>
-              <path v-else d="M7 10l5 5 5-5"/>
+            <svg
+              class="sort-icon"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path v-if="sorting.direction === 'asc'" d="M7 14l5-5 5 5" />
+              <path v-else d="M7 10l5 5 5-5" />
             </svg>
           </button>
         </div>
       </div>
-
-
     </div>
-
-
   </div>
 </template>
 
@@ -118,7 +137,7 @@ export default {
   emits: ['filters-change'],
   setup(props, { emit }) {
     const apiService = new ApiService()
-    
+
     // Состояние фильтров
     const filters = ref({
       search: '',
@@ -145,16 +164,17 @@ export default {
     // Загрузка категорий
     const loadCategories = async () => {
       if (!props.isPrivate) return
-      
+
       isLoadingCategories.value = true
       categoriesError.value = ''
-      
+
       try {
         const response = await apiService.getCategories()
         if (response.success) {
           categories.value = response.data
         } else {
-          categoriesError.value = response.message || 'Ошибка загрузки категорий'
+          categoriesError.value =
+            response.message || 'Ошибка загрузки категорий'
         }
       } catch (error) {
         console.error('Error loading categories:', error)
@@ -172,24 +192,31 @@ export default {
     })
 
     // Следим за изменениями isPrivate и загружаем категории при необходимости
-    watch(() => props.isPrivate, (newValue) => {
-      if (newValue) {
-        loadCategories()
-      } else {
-        filters.value.category = ''
-        categories.value = []
-        categoriesError.value = ''
+    watch(
+      () => props.isPrivate,
+      newValue => {
+        if (newValue) {
+          loadCategories()
+        } else {
+          filters.value.category = ''
+          categories.value = []
+          categoriesError.value = ''
+        }
       }
-    })
+    )
 
     // Debounce для поиска
     let searchTimeout = null
 
     // Проверяем, есть ли активные фильтры
     const hasActiveFilters = computed(() => {
-      return Object.values(filters.value).some(value => value !== '' && value !== null) ||
-             sorting.value.field !== 'uploadDate' ||
-             sorting.value.direction !== 'desc'
+      return (
+        Object.values(filters.value).some(
+          value => value !== '' && value !== null
+        ) ||
+        sorting.value.field !== 'uploadDate' ||
+        sorting.value.direction !== 'desc'
+      )
     })
 
     // Обработчики
@@ -210,10 +237,9 @@ export default {
       emitFiltersChange()
     }
 
-
-
     const toggleSortDirection = () => {
-      sorting.value.direction = sorting.value.direction === 'asc' ? 'desc' : 'asc'
+      sorting.value.direction =
+        sorting.value.direction === 'asc' ? 'desc' : 'asc'
       emitFiltersChange()
     }
 
@@ -237,8 +263,6 @@ export default {
       }
       emitFiltersChange()
     }
-
-
 
     const emitFiltersChange = () => {
       emit('filters-change', {

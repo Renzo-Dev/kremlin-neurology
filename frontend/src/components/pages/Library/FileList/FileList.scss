@@ -84,12 +84,7 @@
     padding: 0.75rem 1.5rem;
     font-weight: 500;
     cursor: pointer;
-    transition: all 0.2s ease;
-
-    &:hover {
-      background: #2563eb;
-      transform: translateY(-1px);
-    }
+    transition: none;
 
     &:focus {
       outline: none;
@@ -153,13 +148,7 @@
   font-size: 0.875rem;
   font-weight: 500;
   cursor: pointer;
-  transition: all 0.2s ease;
-
-  &:hover:not(:disabled) {
-    background: #f3f4f6;
-    border-color: #9ca3af;
-    transform: translateY(-1px);
-  }
+  transition: none;
 
   &:disabled {
     opacity: 0.5;
@@ -187,14 +176,9 @@
   font-size: 0.875rem;
   font-weight: 500;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: none;
   min-width: 44px;
   text-align: center;
-
-  &:hover:not(.page-number--active) {
-    background: #f3f4f6;
-    border-color: #9ca3af;
-  }
 
   &--active {
     background: #3b82f6;

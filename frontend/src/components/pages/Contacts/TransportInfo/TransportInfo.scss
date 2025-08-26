@@ -13,10 +13,6 @@
 .section-intro {
   text-align: center;
   margin-bottom: vr.$spacing-3xl;
-
-  @include mx.mobile {
-    margin-bottom: vr.$spacing-2xl;
-  }
 }
 
 .section-tag {
@@ -191,13 +187,27 @@
   gap: vr.$spacing-lg;
   padding: vr.$spacing-lg;
   background: vr.$gray-50;
-  border-radius: vr.$border-radius-lg;
   border: 1px solid vr.$gray-200;
+  border-radius: vr.$border-radius-lg;
+  margin-bottom: vr.$spacing-lg;
+  transition: all vr.$transition-normal;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  &:hover {
+    background: vr.$white;
+    border-color: vr.$primary-color;
+    box-shadow: vr.$shadow-md;
+    transform: translateX(4px);
+  }
 
   @include mx.mobile {
     flex-direction: column;
     gap: vr.$spacing-md;
     padding: vr.$spacing-md;
+    margin-bottom: vr.$spacing-md;
   }
 
   .route-icon {
@@ -264,7 +274,7 @@
   background: linear-gradient(135deg, vr.$gray-50, vr.$white);
   padding: vr.$spacing-2xl;
   border-radius: vr.$border-radius-xl;
-  border: 1px solid vr.$gray-200;
+  margin-bottom: vr.$spacing-2xl;
 
   @include mx.mobile {
     padding: vr.$spacing-lg;
@@ -277,7 +287,6 @@
   align-items: center;
   gap: vr.$spacing-lg;
   margin-bottom: vr.$spacing-2xl;
-  text-align: center;
 
   @include mx.tablet {
     flex-direction: column;
@@ -339,7 +348,6 @@
   margin-bottom: vr.$spacing-2xl;
 
   @include mx.mobile {
-    grid-template-columns: 1fr;
     gap: vr.$spacing-lg;
     margin-bottom: vr.$spacing-xl;
   }
@@ -395,7 +403,7 @@
 }
 
 .entrance-notice {
-  background: linear-gradient(135deg, vr.$info-color, #0891b2);
+  background: linear-gradient(135deg, vr.$warning-color, #f97316);
   color: vr.$white;
   padding: vr.$spacing-2xl;
   border-radius: vr.$border-radius-xl;
@@ -504,5 +512,15 @@
 
   .entrance-notice {
     padding: vr.$spacing-md;
+
+    .notice-content {
+      h4 {
+        font-size: vr.$font-size-sm;
+      }
+
+      p {
+        font-size: vr.$font-size-xs;
+      }
+    }
   }
 }

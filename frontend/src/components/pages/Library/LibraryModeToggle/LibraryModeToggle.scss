@@ -27,13 +27,8 @@
     color: #6b7280;
     font-weight: 500;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: none;
     flex: 1;
-
-    &:hover:not(:disabled) {
-      background: #e5e7eb;
-      color: #374151;
-    }
 
     &:disabled {
       cursor: not-allowed;
@@ -104,13 +99,8 @@
     color: #1e40af;
     cursor: pointer;
     border-radius: 4px;
-    transition: all 0.2s ease;
+    transition: none;
     margin-left: 0.5rem;
-
-    &:hover {
-      background: rgba(30, 64, 175, 0.1);
-      transform: scale(1.1);
-    }
 
     &:focus {
       outline: none;

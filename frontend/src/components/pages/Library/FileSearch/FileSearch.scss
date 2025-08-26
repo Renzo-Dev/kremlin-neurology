@@ -34,13 +34,8 @@
   background: rgba(255, 255, 255, 0.5);
   border-radius: 16px;
   border: 1px solid rgba(113, 128, 150, 0.1);
-  transition: all 0.3s ease;
-  
-  &:hover {
-    background: rgba(255, 255, 255, 0.8);
-    border-color: rgba(113, 128, 150, 0.2);
-  }
-  
+  transition: none;
+
   &:focus-within {
     background: rgba(255, 255, 255, 0.9);
     border-color: rgba(102, 126, 234, 0.3);
@@ -84,18 +79,13 @@
   border: 2px solid rgba(113, 128, 150, 0.2);
   border-radius: 8px;
   font-size: 1rem;
-  transition: all 0.3s ease;
+  transition: none;
   background: #fff;
 
   &:focus {
     outline: none;
     border-color: #667eea;
     box-shadow: none;
-    transform: translateY(-1px);
-  }
-
-  &:hover {
-    border-color: rgba(113, 128, 150, 0.4);
   }
 
   &::placeholder {
@@ -112,17 +102,7 @@
   cursor: pointer;
   color: #a0aec0;
   border-radius: 4px;
-  transition: all 0.3s ease;
-
-  &:hover {
-    background: #f3f4f6;
-    color: #e53e3e;
-    transform: scale(1.1);
-  }
-
-  &:active {
-    transform: scale(0.95);
-  }
+  transition: none;
 
   svg {
     width: 18px;
@@ -144,29 +124,18 @@
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
-  transition: all 0.3s ease;
+  transition: none;
   padding: 1rem;
   background: rgba(255, 255, 255, 0.5);
   border-radius: 12px;
   border: 1px solid rgba(113, 128, 150, 0.1);
-  
-  &:hover {
-    transform: translateY(-2px);
-    background: rgba(255, 255, 255, 0.8);
-    border-color: rgba(113, 128, 150, 0.2);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  }
 }
 
 .filter-label {
   font-size: 0.875rem;
   font-weight: 600;
   color: #2d3748;
-  transition: color 0.3s ease;
-  
-  &:hover {
-    color: #667eea;
-  }
+  transition: none;
 }
 
 .filter-select {
@@ -176,18 +145,13 @@
   font-size: 0.875rem;
   background: #fff;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: none;
   min-width: 150px;
 
   &:focus {
     outline: none;
     border-color: #667eea;
     box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-  }
-
-  &:hover {
-    border-color: rgba(113, 128, 150, 0.4);
-    transform: translateY(-1px);
   }
 }
 
@@ -204,33 +168,22 @@
   padding: 0.75rem;
   cursor: pointer;
   color: #a0aec0;
-  transition: all 0.3s ease;
+  transition: none;
   display: flex;
   align-items: center;
   justify-content: center;
-
-  &:hover {
-    border-color: rgba(113, 128, 150, 0.4);
-    color: #2d3748;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  }
 
   &:focus {
     outline: none;
     border-color: #667eea;
     box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
   }
-  
-  &:active {
-    transform: translateY(0);
-  }
 }
 
 .sort-icon {
   width: 16px;
   height: 16px;
-  transition: transform 0.3s ease;
+  transition: none;
 
   &--reversed {
     transform: rotate(180deg);
@@ -249,15 +202,8 @@
   font-size: 0.875rem;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: none;
   align-self: flex-start;
-
-  &:hover {
-    background: rgba(245, 101, 101, 0.2);
-    border-color: rgba(245, 101, 101, 0.5);
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.2);
-  }
 
   &:focus {
     outline: none;
@@ -287,20 +233,20 @@
   background: rgba(102, 126, 234, 0.1);
   border-radius: 12px;
   border: 1px solid rgba(102, 126, 234, 0.2);
-  
+
   .results-icon {
     font-size: 1.25rem;
   }
-  
+
   .results-text {
     flex: 1;
-    
+
     strong {
       color: #667eea;
       font-weight: 700;
     }
   }
-  
+
   .quick-clear-btn {
     background: none;
     border: none;
@@ -308,21 +254,11 @@
     cursor: pointer;
     color: #a0aec0;
     border-radius: 8px;
-    transition: all 0.3s ease;
+    transition: none;
     display: flex;
     align-items: center;
     justify-content: center;
-    
-    &:hover {
-      background: rgba(160, 174, 192, 0.1);
-      color: #4a5568;
-      transform: scale(1.1);
-    }
-    
-    &:active {
-      transform: scale(0.95);
-    }
-    
+
     svg {
       width: 16px;
       height: 16px;
@@ -345,11 +281,11 @@
     align-self: stretch;
     justify-content: center;
   }
-  
+
   .search-input-wrapper {
     padding: 0.875rem;
   }
-  
+
   .filter-group {
     padding: 0.875rem;
   }
@@ -375,26 +311,26 @@
     width: 18px;
     height: 18px;
   }
-  
+
   .clear-search {
     right: 1.75rem;
   }
-  
+
   .results-count {
     flex-direction: column;
     gap: 0.5rem;
     text-align: center;
-    
+
     .quick-clear-btn {
       align-self: center;
     }
   }
-  
+
   .search-filters {
     padding: 0.75rem;
     gap: 1rem;
   }
-  
+
   .filter-group {
     padding: 0.75rem;
   }
