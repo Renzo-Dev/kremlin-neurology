@@ -94,54 +94,6 @@ class CatalogService
         }
     }
 
-    /**
-     * Получает каталог с полной фильтрацией, сортировкой, группировкой и пагинацией
-     * @param array $params - все параметры в одном запросе
-     * @return array - каталог с пагинацией
-     */
-    public function getCatalogWithFilters(array $params): array
-    {
-        try {
-            $type = $params['type'] ?? 'public';
-            $page = $params['page'] ?? 1;
-            $limit = $params['limit'] ?? 20;
-            
-            $catalogPath = $this->getCatalogPath($type);
-            $catalog = $this->loadCatalogFromFile($catalogPath);
-            
-            // Применяем фильтры
-            $filteredCatalog = $this->applyAdvancedFilters($catalog, $params['filters'] ?? []);
-            
-            // Применяем сортировку
-            $sortedCatalog = $this->applySorting($filteredCatalog, $params['sorting'] ?? []);
-            
-            // Сначала применяем пагинацию к плоскому массиву
-            $totalItems = count($sortedCatalog);
-            $totalPages = ceil($totalItems / $limit);
-            
-            $offset = ($page - 1) * $limit;
-            $paginatedItems = array_slice($sortedCatalog, $offset, $limit);
-            
-            // Затем применяем группировку к пагинированным данным
-            $groupedCatalog = $this->applyGrouping($paginatedItems, $params['grouping'] ?? []);
-            
-            return [
-                'items' => $groupedCatalog,
-                'pagination' => [
-                    'currentPage' => $page,
-                    'totalPages' => $totalPages,
-                    'totalItems' => $totalItems,
-                    'itemsPerPage' => $limit,
-                    'hasNextPage' => $page < $totalPages,
-                    'hasPrevPage' => $page > 1
-                ]
-            ];
-            
-        } catch (Exception $e) {
-            throw new Exception('Error getting catalog with filters: ' . $e->getMessage(), $e->getCode());
-        }
-    }
-
     // === МЕТОДЫ УПРАВЛЕНИЯ (только для приватного каталога) ===
 
     /** Добавляет новый файл в приватный каталог */
@@ -163,12 +115,10 @@ class CatalogService
                 'fileName' => $fileData['fileName'],
                 'uploadDate' => date('Y-m-d H:i:s'),
                 'fileSize' => $fileData['fileSize'] ?? null,
-                'category' => $fileData['category'] ?? null,
                 'description' => $fileData['description'] ?? null
             ];
 
             $this->saveCatalogToFile($catalog, $this->privateCatalogPath);
-            
             return true;
 
         } catch (Exception $e) {
@@ -196,42 +146,6 @@ class CatalogService
 
         } catch (Exception $e) {
             throw new Exception('Error removing file from catalog: ' . $e->getMessage(), $e->getCode());
-        }
-    }
-
-    /** Обновляет файл в приватном каталоге */
-    public function updateFileInCatalog(array $updateData): bool
-    {
-        try {
-            $catalog = $this->loadCatalogFromFile($this->privateCatalogPath);
-            
-            // Ищем файл в каталоге
-            $fileIndex = -1;
-            foreach ($catalog as $index => $file) {
-                if ($file['fileName'] === $updateData['fileName']) {
-                    $fileIndex = $index;
-                    break;
-                }
-            }
-            
-            if ($fileIndex === -1) {
-                throw new Exception('File not found in private catalog', 404);
-            }
-            
-            // Обновляем данные файла
-            $catalog[$fileIndex]['title'] = $updateData['title'];
-            $catalog[$fileIndex]['authors'] = $updateData['authors'];
-            $catalog[$fileIndex]['category'] = $updateData['category'] ?? null;
-            $catalog[$fileIndex]['description'] = $updateData['description'];
-            $catalog[$fileIndex]['updatedAt'] = date('Y-m-d H:i:s');
-            
-            // Сохраняем обновленный каталог
-            $this->saveCatalogToFile($catalog, $this->privateCatalogPath);
-            
-            return true;
-            
-        } catch (Exception $e) {
-            throw new Exception('Error updating file in catalog: ' . $e->getMessage(), $e->getCode());
         }
     }
 
@@ -287,31 +201,6 @@ class CatalogService
             return true;
         } catch (Exception $e) {
             throw new Exception('Error clearing private catalog: ' . $e->getMessage(), $e->getCode());
-        }
-    }
-
-    /** Получает список уникальных категорий из приватного каталога */
-    public function getCategories(): array
-    {
-        try {
-            $catalog = $this->loadCatalogFromFile($this->privateCatalogPath);
-            
-            // Извлекаем все категории
-            $categories = [];
-            foreach ($catalog as $item) {
-                if (isset($item['category']) && !empty($item['category'])) {
-                    $categories[] = $item['category'];
-                }
-            }
-            
-            // Убираем дубликаты и сортируем
-            $uniqueCategories = array_unique($categories);
-            sort($uniqueCategories);
-            
-            return $uniqueCategories;
-            
-        } catch (Exception $e) {
-            throw new Exception('Error getting categories: ' . $e->getMessage(), $e->getCode());
         }
     }
 
@@ -445,175 +334,5 @@ class CatalogService
             
             return true;
         });
-    }
-
-    /**
-     * Применяет расширенные фильтры к каталогу
-     */
-    private function applyAdvancedFilters(array $catalog, array $filters): array
-    {
-        if (empty($filters)) {
-            return $catalog;
-        }
-
-        return array_filter($catalog, function($item) use ($filters) {
-            // Поиск по названию, авторам, описанию
-            if (isset($filters['search']) && !empty($filters['search'])) {
-                $search = strtolower($filters['search']);
-                $title = strtolower($item['title'] ?? '');
-                $authors = strtolower($item['authors'] ?? '');
-                $description = strtolower($item['description'] ?? '');
-                
-                if (strpos($title, $search) === false && 
-                    strpos($authors, $search) === false && 
-                    strpos($description, $search) === false) {
-                    return false;
-                }
-            }
-            
-            // Фильтр по автору
-            if (isset($filters['author']) && !empty($filters['author'])) {
-                $author = strtolower($filters['author']);
-                $itemAuthors = strtolower($item['authors'] ?? '');
-                if (strpos($itemAuthors, $author) === false) {
-                    return false;
-                }
-            }
-            
-            // Фильтр по типу файла
-            if (isset($filters['fileType']) && !empty($filters['fileType'])) {
-                $fileType = strtolower($filters['fileType']);
-                $fileName = strtolower($item['fileName'] ?? '');
-                if (strpos($fileName, $fileType) === false) {
-                    return false;
-                }
-            }
-            
-            // Фильтр по категории
-            if (isset($filters['category']) && !empty($filters['category'])) {
-                $category = strtolower($filters['category']);
-                $itemCategory = strtolower($item['category'] ?? '');
-                if (strpos($itemCategory, $category) === false) {
-                    return false;
-                }
-            }
-            
-            // Фильтр по размеру файла
-            if (isset($filters['minSize']) && !empty($filters['minSize'])) {
-                if (($item['fileSize'] ?? 0) < $filters['minSize']) {
-                    return false;
-                }
-            }
-            
-            if (isset($filters['maxSize']) && !empty($filters['maxSize'])) {
-                if (($item['fileSize'] ?? 0) > $filters['maxSize']) {
-                    return false;
-                }
-            }
-            
-            // Фильтр по дате
-            if (isset($filters['dateFrom']) && !empty($filters['dateFrom'])) {
-                $itemDate = strtotime($item['uploadDate'] ?? '');
-                $fromDate = strtotime($filters['dateFrom']);
-                if ($itemDate < $fromDate) {
-                    return false;
-                }
-            }
-            
-            if (isset($filters['dateTo']) && !empty($filters['dateTo'])) {
-                $itemDate = strtotime($item['uploadDate'] ?? '');
-                $toDate = strtotime($filters['dateTo']);
-                if ($itemDate > $toDate) {
-                    return false;
-                }
-            }
-            
-            return true;
-        });
-    }
-
-    /**
-     * Применяет сортировку к каталогу
-     */
-    private function applySorting(array $catalog, array $sorting): array
-    {
-        if (empty($sorting) || empty($sorting['field'])) {
-            return $catalog;
-        }
-
-        $field = $sorting['field'];
-        $direction = $sorting['direction'] ?? 'asc';
-
-        usort($catalog, function($a, $b) use ($field, $direction) {
-            $valueA = $a[$field] ?? '';
-            $valueB = $b[$field] ?? '';
-
-            // Специальная обработка для дат
-            if ($field === 'uploadDate') {
-                $valueA = strtotime($valueA);
-                $valueB = strtotime($valueB);
-            }
-            
-            // Специальная обработка для размера файла
-            if ($field === 'fileSize') {
-                $valueA = (int)$valueA;
-                $valueB = (int)$valueB;
-            }
-
-            if ($direction === 'asc') {
-                return $valueA <=> $valueB;
-            } else {
-                return $valueB <=> $valueA;
-            }
-        });
-
-        return $catalog;
-    }
-
-    /**
-     * Применяет группировку к каталогу
-     */
-    private function applyGrouping(array $catalog, array $grouping): array
-    {
-        if (empty($grouping) || empty($grouping['by']) || $grouping['by'] === 'none') {
-            // Если группировка не указана или 'none', возвращаем плоский массив
-            return $catalog;
-        }
-
-        $groupBy = $grouping['by'];
-        $groupedCatalog = [];
-
-        foreach ($catalog as $file) {
-            $groupKey = '';
-            
-            switch ($groupBy) {
-                case 'author':
-                    $groupKey = mb_strtoupper(mb_substr($file['authors'] ?? '', 0, 1, 'UTF-8'), 'UTF-8');
-                    break;
-                case 'category':
-                    $groupKey = $file['category'] ?? 'Без категории';
-                    break;
-                case 'type':
-                    $groupKey = $this->getFileType($file['fileName'] ?? '');
-                    break;
-                case 'date':
-                    $date = new DateTime($file['uploadDate'] ?? '');
-                    $groupKey = $date->format('Y-m');
-                    break;
-                default:
-                    $groupKey = 'Все файлы';
-            }
-            
-            if (!isset($groupedCatalog[$groupKey])) {
-                $groupedCatalog[$groupKey] = [];
-            }
-            
-            $groupedCatalog[$groupKey][] = $file;
-        }
-
-        // Сортируем группы
-        ksort($groupedCatalog);
-        
-        return $groupedCatalog;
     }
 }

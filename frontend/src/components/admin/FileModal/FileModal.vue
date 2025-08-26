@@ -7,12 +7,6 @@
           {{ isEditing ? 'Редактировать файл' : 'Добавить новый файл' }}
         </h2>
         <button class="close-button" @click="$emit('close')">
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-          >
             <path d="M18 6L6 18M6 6l12 12" />
           </svg>
         </button>
@@ -36,23 +30,10 @@
             />
 
             <div v-if="!selectedFile && !isEditing" class="upload-placeholder">
-              <svg
-                class="upload-icon"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-              >
                 <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
                 <polyline points="7,10 12,15 17,10" />
                 <line x1="12" y1="15" x2="12" y2="3" />
               </svg>
-              <p class="upload-text">
-                Нажмите для выбора файла или перетащите сюда
-              </p>
-              <p class="upload-hint">
-                Поддерживаемые форматы: PDF, DOC, DOCX, TXT (до 50MB)
-              </p>
             </div>
 
             <div v-else-if="selectedFile" class="file-info">
@@ -69,12 +50,6 @@
                 @click="removeFile"
                 :title="`Удалить файл ${selectedFile?.name}`"
               >
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                >
                   <path d="M18 6L6 18M6 6l12 12" />
                 </svg>
               </button>
@@ -106,9 +81,6 @@
             placeholder="Введите имена авторов"
             required
           />
-          <div v-if="errors.authors" class="form-error">
-            {{ errors.authors }}
-          </div>
         </div>
 
         <!-- Категория -->
@@ -117,11 +89,6 @@
           <div class="category-selector">
             <select v-model="formData.category" class="form-select">
               <option value="">Выберите категорию</option>
-              <option
-                v-for="category in predefinedCategories"
-                :key="category"
-                :value="category"
-              >
                 {{ category }}
               </option>
               <option value="custom">Другая категория</option>
@@ -134,9 +101,6 @@
               class="form-input custom-category-input"
               placeholder="Введите название категории"
             />
-          </div>
-          <div v-if="errors.category" class="form-error">
-            {{ errors.category }}
           </div>
         </div>
 
@@ -174,12 +138,9 @@ export default {
   props: {
     file: {
       type: Object,
-      default: null,
     },
     isEditing: {
       type: Boolean,
-      default: false,
-    },
   },
   emits: ['close', 'save'],
   setup(props, { emit }) {
@@ -191,7 +152,6 @@ export default {
       authors: '',
       category: '',
       customCategory: '',
-      description: '',
     })
 
     const selectedFile = ref(null)
@@ -208,7 +168,6 @@ export default {
       'Презентации',
       'Отчеты',
       'Протоколы',
-      'Учебные материалы',
     ]
 
     // Вычисляемые свойства
@@ -220,7 +179,6 @@ export default {
     })
 
     // Методы
-    const handleFileSelect = event => {
       const file = event.target.files[0]
       if (file) {
         // Проверка размера файла (50MB)
@@ -234,8 +192,6 @@ export default {
         const fileExtension = '.' + file.name.split('.').pop().toLowerCase()
 
         if (!allowedTypes.includes(fileExtension)) {
-          fileError.value =
-            'Неподдерживаемый тип файла. Разрешены: PDF, DOC, DOCX, TXT'
           return
         }
 
@@ -288,11 +244,6 @@ export default {
       }
 
       // Проверка пользовательской категории
-      if (
-        formData.value.category === 'custom' &&
-        (!formData.value.customCategory ||
-          !formData.value.customCategory.trim())
-      ) {
         errors.value.category = 'Введите название категории'
       }
 
@@ -313,13 +264,8 @@ export default {
         const fileData = {
           ...formData.value,
           category: finalCategory.value,
-          file: selectedFile.value,
         }
 
-        // При редактировании добавляем fileName
-        if (props.isEditing && props.file) {
-          fileData.fileName = props.file.fileName
-        }
 
         emit('save', fileData)
       } catch (error) {
@@ -328,28 +274,16 @@ export default {
       }
     }
 
-    const handleOverlayClick = event => {
       if (event.target.classList.contains('file-modal-overlay')) {
         emit('close')
       }
     }
 
-    const getFileTypeIcon = fileName => {
       const ext = fileName.split('.').pop()?.toLowerCase()
       switch (ext) {
-        case 'pdf':
-          return '📄'
-        case 'doc':
-        case 'docx':
-          return '📝'
-        case 'txt':
-          return '📃'
-        default:
-          return '📁'
       }
     }
 
-    const formatFileSize = size => {
       const units = ['B', 'KB', 'MB', 'GB']
       let value = size
       let unitIndex = 0
@@ -370,14 +304,9 @@ export default {
           authors: props.file.authors || '',
           category: props.file.category || '',
           customCategory: '',
-          description: props.file.description || '',
         }
 
         // Если категория не в списке предопределенных, устанавливаем как custom
-        if (
-          props.file.category &&
-          !predefinedCategories.includes(props.file.category)
-        ) {
           formData.value.category = 'custom'
           formData.value.customCategory = props.file.category
         }
@@ -388,16 +317,13 @@ export default {
     watch(() => props.file, initializeForm, { immediate: true })
 
     // Обработка drag & drop
-    const handleDragOver = event => {
       event.preventDefault()
       event.currentTarget.classList.add('drag-over')
     }
 
-    const handleDragLeave = event => {
       event.currentTarget.classList.remove('drag-over')
     }
 
-    const handleDrop = event => {
       event.preventDefault()
       event.currentTarget.classList.remove('drag-over')
 
@@ -748,12 +674,6 @@ export default {
 }
 
 @keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
 }
 
 // Адаптивность

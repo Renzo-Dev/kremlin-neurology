@@ -5,43 +5,19 @@
       <div class="admin-header">
         <div class="header-content">
           <h1 class="admin-title">Админ панель</h1>
-          <p class="admin-subtitle">
-            Управление приватной библиотекой кафедры неврологии
-          </p>
         </div>
         <div class="header-actions">
           <button class="add-file-button" @click="openAddFileModal">
-            <svg
-              class="add-icon"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-            >
               <path d="M12 5v14M5 12h14" />
             </svg>
             Добавить файл
           </button>
           <button class="back-button" @click="goBack">
-            <svg
-              class="back-icon"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-            >
               <path d="M19 12H5M12 19l-7-7 7-7" />
             </svg>
             Назад к библиотеке
           </button>
           <button class="logout-button" @click="handleLogout">
-            <svg
-              class="logout-icon"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-            >
               <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
               <polyline points="16,17 21,12 16,7" />
               <line x1="21" y1="12" x2="9" y2="12" />
@@ -55,15 +31,6 @@
       <div class="admin-stats">
         <div class="stat-card">
           <div class="stat-icon">
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-            >
-              <path
-                d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
-              />
               <polyline points="14,2 14,8 20,8" />
               <line x1="16" y1="13" x2="8" y2="13" />
               <line x1="16" y1="17" x2="8" y2="17" />
@@ -78,15 +45,6 @@
 
         <div class="stat-card">
           <div class="stat-icon">
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-            >
-              <path
-                d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"
-              />
             </svg>
           </div>
           <div class="stat-content">
@@ -97,15 +55,6 @@
 
         <div class="stat-card">
           <div class="stat-icon">
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-            >
-              <path
-                d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"
-              />
               <rect x="8" y="2" width="8" height="4" rx="1" ry="1" />
             </svg>
           </div>
@@ -120,14 +69,6 @@
       <div class="admin-controls">
         <div class="search-section">
           <div class="search-input-wrapper">
-            <svg
-              v-if="!isSearching"
-              class="search-icon"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-            >
               <circle cx="11" cy="11" r="8" />
               <path d="m21 21-4.35-4.35" />
             </svg>
@@ -145,12 +86,6 @@
               class="clear-search-btn"
               title="Очистить поиск"
             >
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-              >
                 <line x1="18" y1="6" x2="6" y2="18" />
                 <line x1="6" y1="6" x2="18" y2="18" />
               </svg>
@@ -159,17 +94,7 @@
         </div>
 
         <div class="filter-section">
-          <select
-            v-model="selectedCategory"
-            class="category-filter"
-            @change="handleFilter"
-          >
             <option value="">Все категории</option>
-            <option
-              v-for="category in categories"
-              :key="category"
-              :value="category"
-            >
               {{ category }}
             </option>
           </select>
@@ -187,12 +112,6 @@
             class="clear-filters-btn"
             title="Сбросить фильтры"
           >
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-            >
               <path d="M3 6h18" />
               <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6" />
               <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
@@ -209,7 +128,6 @@
           <span v-if="searchQuery || selectedCategory">
             Найдено {{ filteredFiles.length }} из {{ totalFiles }} файлов
           </span>
-          <span v-else> Всего файлов: {{ totalFiles }} </span>
         </div>
 
         <div v-if="isLoading" class="loading-state">
@@ -227,7 +145,6 @@
           <div class="empty-icon">🔍</div>
           <p v-if="searchQuery || selectedCategory">
             По вашему запросу файлы не найдены
-            <br />
             <small>Попробуйте изменить параметры поиска или фильтры</small>
           </p>
           <p v-else>Файлы не найдены</p>
@@ -244,56 +161,14 @@
                 {{ getFileTypeIcon(file.fileName) }}
               </div>
               <div class="file-actions">
-                <button
-                  class="action-button download"
-                  @click="downloadFile(file)"
-                  title="Скачать"
-                >
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                  >
                     <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
                     <polyline points="7,10 12,15 17,10" />
                     <line x1="12" y1="15" x2="12" y2="3" />
                   </svg>
                 </button>
-                <button
-                  class="action-button edit"
-                  @click="editFile(file)"
-                  title="Редактировать"
-                >
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                  >
-                    <path
-                      d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"
-                    />
-                    <path
-                      d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"
-                    />
                   </svg>
                 </button>
-                <button
-                  class="action-button delete"
-                  @click="deleteFile(file)"
-                  title="Удалить"
-                >
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                  >
                     <polyline points="3,6 5,6 21,6" />
-                    <path
-                      d="M19,6v14a2,2,0,0,1-2,2H7a2,2,0,0,1-2-2V6m3,0V4a2,2,0,0,1,2-2h4a2,2,0,0,1,2,2V6"
-                    />
                   </svg>
                 </button>
               </div>
@@ -304,9 +179,6 @@
               <p class="file-authors">{{ file.authors }}</p>
               <p class="file-category">{{ file.category }}</p>
               <div class="file-meta">
-                <span class="file-size">{{
-                  formatFileSize(file.fileSize)
-                }}</span>
                 <span class="file-date">{{ formatDate(file.uploadDate) }}</span>
               </div>
             </div>
@@ -320,12 +192,6 @@
             @click="changePage(currentPage - 1)"
             class="page-button prev"
           >
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-            >
               <path d="M15 18l-6-6 6-6" />
             </svg>
           </button>
@@ -346,12 +212,6 @@
             @click="changePage(currentPage + 1)"
             class="page-button next"
           >
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-            >
               <path d="M9 18l6-6-6-6" />
             </svg>
           </button>
@@ -415,9 +275,6 @@ export default {
 
     // Вычисляемые свойства
     const categories = computed(() => {
-      const cats = [
-        ...new Set(files.value.map(file => file.category).filter(Boolean)),
-      ]
       return cats.sort()
     })
 
@@ -432,11 +289,8 @@ export default {
           const authors = (file.authors || '').toLowerCase()
           const description = (file.description || '').toLowerCase()
 
-          return (
-            title.includes(query) ||
             authors.includes(query) ||
             description.includes(query)
-          )
         })
       }
 
@@ -457,14 +311,8 @@ export default {
         case 'authors':
           return sorted.sort((a, b) => a.authors.localeCompare(b.authors))
         case 'fileSize':
-          return sorted.sort(
-            (a, b) => parseFileSize(a.fileSize) - parseFileSize(b.fileSize)
-          )
         case 'uploadDate':
         default:
-          return sorted.sort(
-            (a, b) => new Date(b.uploadDate) - new Date(a.uploadDate)
-          )
       }
     })
 
@@ -476,10 +324,6 @@ export default {
 
     const totalFiles = computed(() => files.value.length)
     const totalSize = computed(() => {
-      const total = files.value.reduce(
-        (sum, file) => sum + parseFileSize(file.fileSize),
-        0
-      )
       return formatFileSize(total)
     })
     const totalCategories = computed(() => categories.value.length)
@@ -516,44 +360,7 @@ export default {
         if (response.success) {
           const catalogData = response.data || {}
 
-          // Обрабатываем данные каталога
-          const allFiles = []
-          if (catalogData.items) {
-            // Проверяем, является ли items массивом (плоские данные) или объектом (сгруппированные данные)
-            if (Array.isArray(catalogData.items)) {
-              // Плоские данные - добавляем файлы напрямую
-              catalogData.items.forEach(file => {
-                allFiles.push({
-                  ...file,
-                  // Тип файла всегда определяем по расширению
-                  type: getFileTypeIcon(file.fileName),
-                  // В приватном режиме используем category из файла
-                  category: file.category || 'Без категории',
-                  isPublic: false,
-                })
-              })
-            } else {
-              // Сгруппированные данные - обрабатываем как раньше
-              Object.keys(catalogData.items).forEach(groupKey => {
-                if (Array.isArray(catalogData.items[groupKey])) {
-                  catalogData.items[groupKey].forEach(file => {
-                    allFiles.push({
-                      ...file,
-                      // Тип файла всегда определяем по расширению
-                      type: getFileTypeIcon(file.fileName),
-                      // В приватном режиме используем category из файла
-                      category: file.category || 'Без категории',
-                      isPublic: false,
-                    })
-                  })
-                }
-              })
-            }
-          }
 
-          files.value = allFiles
-
-          // Обновляем пагинацию
           if (catalogData.pagination) {
             totalPages.value = catalogData.pagination.totalPages
             totalItems.value = catalogData.pagination.totalItems
@@ -611,7 +418,6 @@ export default {
       updatePagination()
     }
 
-    const changePage = page => {
       if (page >= 1 && page <= totalPages.value) {
         currentPage.value = page
         updatePagination()
@@ -634,13 +440,11 @@ export default {
       showFileModal.value = true
     }
 
-    const editFile = file => {
       editingFile.value = { ...file }
       isEditing.value = true
       showFileModal.value = true
     }
 
-    const deleteFile = async file => {
       if (!confirm(`Удалить файл "${file.title}"?`)) {
         return
       }
@@ -657,7 +461,6 @@ export default {
       }
     }
 
-    const downloadFile = async file => {
       try {
         // Скачиваем приватный файл
         await apiService.downloadFile(file.fileName, true)
@@ -672,7 +475,6 @@ export default {
       isEditing.value = false
     }
 
-    const handleFileSave = async fileData => {
       try {
         if (isEditing.value) {
           // Обновление файла
@@ -719,22 +521,11 @@ export default {
       window.location.href = '/library'
     }
 
-    const getFileTypeIcon = fileName => {
       const ext = fileName.split('.').pop()?.toLowerCase()
       switch (ext) {
-        case 'pdf':
-          return '📄'
-        case 'doc':
-        case 'docx':
-          return '📝'
-        case 'txt':
-          return '📃'
-        default:
-          return '📁'
       }
     }
 
-    const formatFileSize = size => {
       if (typeof size === 'string') {
         return size
       }
@@ -751,7 +542,6 @@ export default {
       return `${value.toFixed(1)} ${units[unitIndex]}`
     }
 
-    const parseFileSize = size => {
       // Если size уже число, возвращаем как есть
       if (typeof size === 'number') return size
 
@@ -766,16 +556,11 @@ export default {
       const unit = match[2].toUpperCase()
 
       const multipliers = {
-        B: 1,
-        KB: 1024,
-        MB: 1024 * 1024,
-        GB: 1024 * 1024 * 1024,
       }
 
       return value * (multipliers[unit] || 1)
     }
 
-    const formatDate = dateString => {
       const date = new Date(dateString)
       return date.toLocaleDateString('ru-RU')
     }
@@ -1392,12 +1177,6 @@ export default {
 }
 
 @keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
 }
 
 // Адаптивность

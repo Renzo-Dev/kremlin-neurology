@@ -11,27 +11,12 @@
 
       <LibraryModeToggle />
 
-      <!-- Кнопка админ-панели для авторизованных админов -->
-      <div v-if="hasAccess && isAdmin" class="admin-panel-access">
-        <button class="admin-panel-button" @click="goToAdminPanel">
-          <svg
-            class="admin-icon"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-          >
-            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
-            <path d="M12 22V12" />
-          </svg>
-          Админ панель
-        </button>
-      </div>
-
-      <!-- Фильтры и сортировка -->
-      <FileFilters
-        :is-private="isPrivateMode"
-        @filters-change="handleFiltersChange"
+      <FileSearch
+        :files="currentFiles"
+        :filtered-files-count="filteredFiles.length"
+        :is-searching="isSearching"
+        @search="handleSearch"
+        @filter="handleFilter"
       />
 
       <div v-if="isPrivateMode && !hasAccess" class="private-access-notice">
@@ -61,14 +46,21 @@
 
       <FileList
         :files="currentFiles"
+        :filtered-files="filteredFiles"
         :is-loading="isLoading"
+        :is-page-loading="isPageLoading"
         :error="error"
+        :search-query="searchQuery"
         :is-private="isPrivateMode"
-        :pagination="pagination"
-        :visible-pages="visiblePages"
+        :current-page="currentPage"
+        :total-pages="totalPages"
+        :total-items="totalItems"
+        :has-next-page="hasNextPage"
+        :has-prev-page="hasPrevPage"
+        :items-per-page="itemsPerPage"
         @retry="loadFiles"
         @download="handleDownload"
-        @page-change="handlePageChange"
+        @page-change="loadPage"
       />
     </div>
 
@@ -77,12 +69,13 @@
 </template>
 
 <script>
-import FileFilters from '@/components/pages/Library/FileFilters/FileFilters.vue'
 import FileList from '@/components/pages/Library/FileList/FileList.vue'
+import FileSearch from '@/components/pages/Library/FileSearch/FileSearch.vue'
 import LibraryModeToggle from '@/components/pages/Library/LibraryModeToggle/LibraryModeToggle.vue'
 import PasswordModal from '@/components/pages/Library/PasswordModal/PasswordModal.vue'
 import { useFileAccess } from '@/composables/library/useFileAccess'
 import { useFileDownload } from '@/composables/library/useFileDownload'
+import { useFileSearch } from '@/composables/library/useFileSearch'
 import { useLibraryMode } from '@/composables/library/useLibraryMode'
 import { ApiService } from '@/services/apiService'
 import { computed, onMounted, ref, watch } from 'vue'
@@ -92,86 +85,56 @@ export default {
   components: {
     LibraryModeToggle,
     PasswordModal,
+    FileSearch,
     FileList,
-    FileFilters,
   },
   setup() {
     const { libraryMode, isPrivateMode } = useLibraryMode()
-    const { hasAccess, openPasswordModal, isAdmin } = useFileAccess()
-    const { downloadFile } = useFileDownload()
+    const { hasAccess, openPasswordModal } = useFileAccess()
+    const { searchFiles, searchQuery } = useFileSearch()
 
     const files = ref([])
     const isLoading = ref(false)
+    const isPageLoading = ref(false) // Загрузка конкретной страницы
+    const isSearching = ref(false) // Загрузка поиска
     const error = ref('')
     const apiService = new ApiService()
-
-    // Состояние фильтров и сортировки
-    const currentFilters = ref({
-      filters: {},
-      sorting: { field: 'uploadDate', direction: 'desc' },
-    })
-
-    // Состояние пагинации
-    const pagination = ref({
-      currentPage: 1,
-      totalPages: 1,
-      totalItems: 0,
-      hasNextPage: false,
-      hasPrevPage: false,
-      itemsPerPage: 20,
-    })
-
-    // Кэш загруженных страниц
+    
+    // Пагинация
+    const currentPage = ref(1)
+    const itemsPerPage = ref(12)
+    const totalItems = ref(0)
+    const totalPages = ref(0)
+    const hasNextPage = ref(false)
+    const hasPrevPage = ref(false)
+    
+    // Кэш для загруженных страниц
     const pageCache = ref(new Map())
-
-    // Вычисляемое свойство для видимых страниц пагинации
-    const visiblePages = computed(() => {
-      const pages = []
-      const maxVisible = 5
-      let start = Math.max(
-        1,
-        pagination.value.currentPage - Math.floor(maxVisible / 2)
-      )
-      let end = Math.min(pagination.value.totalPages, start + maxVisible - 1)
-
-      if (end - start + 1 < maxVisible) {
-        start = Math.max(1, end - maxVisible + 1)
-      }
-
-      for (let i = start; i <= end; i++) {
-        pages.push(i)
-      }
-
-      return pages
-    })
+    const cacheKey = (page, type, searchQuery) => `${type}-${page}-${searchQuery || 'no-search'}`
 
     const currentFiles = computed(() => {
       if (isPrivateMode.value && !hasAccess.value) {
         return []
       }
-
+      
       // Проверяем, что files.value это массив
       if (!Array.isArray(files.value)) {
         return []
       }
-
-      // Фильтруем файлы по режиму
+      
+      // Для публичного режима показываем файлы где isPublic === true
+      // Для приватного режима показываем файлы где isPublic === false
       return files.value.filter(file => file.isPublic !== isPrivateMode.value)
     })
 
-    const loadFiles = async (page = 1, useCache = true) => {
+    const filteredFiles = computed(() => {
+      return searchFiles(currentFiles.value)
+    })
+
+    const loadFiles = async (retryCount = 0, page = 1) => {
       // Если приватный режим без доступа - не загружаем
       if (isPrivateMode.value && !hasAccess.value) {
         files.value = []
-        return
-      }
-
-      // Проверяем кэш
-      const cacheKey = `${isPrivateMode.value ? 'private' : 'public'}-${page}-${JSON.stringify(currentFilters.value)}`
-      if (useCache && pageCache.value.has(cacheKey)) {
-        const cachedData = pageCache.value.get(cacheKey)
-        files.value = cachedData.files
-        pagination.value = cachedData.pagination
         return
       }
 
@@ -179,71 +142,68 @@ export default {
       error.value = ''
 
       try {
-        // Формируем параметры для API
-        const apiParams = {
-          type: isPrivateMode.value ? 'private' : 'public',
-          page: page,
-          limit: pagination.value.itemsPerPage,
-          ...currentFilters.value,
+        // Собираем фильтры для поиска
+        const filters = {}
+        if (searchQuery.value) {
+          filters.search = searchQuery.value
         }
-
-        const response = await apiService.getCatalogWithFilters(apiParams)
-
+        
+        // Проверяем кэш
+        const cacheKeyValue = cacheKey(page, isPrivateMode.value ? 'private' : 'public', searchQuery.value)
+        if (pageCache.value.has(cacheKeyValue)) {
+          const cachedData = pageCache.value.get(cacheKeyValue)
+          files.value = cachedData.files
+          currentPage.value = cachedData.pagination.currentPage
+          totalPages.value = cachedData.pagination.totalPages
+          totalItems.value = cachedData.pagination.totalItems
+          hasNextPage.value = cachedData.pagination.hasNextPage
+          hasPrevPage.value = cachedData.pagination.hasPrevPage
+          isLoading.value = false
+          return
+        }
+        
+        // Используем пагинированный API с фильтрами
+        const response = await apiService.getCatalogPaginated(
+          page, 
+          itemsPerPage.value, 
+          isPrivateMode.value ? 'private' : 'public',
+          filters
+        )
+        
         if (response.success) {
           const catalogData = response.data || {}
-
-          // Обрабатываем данные каталога
-          const allFiles = []
-          if (catalogData.items) {
-            // Проверяем, является ли items массивом (плоские данные) или объектом (сгруппированные данные)
-            if (Array.isArray(catalogData.items)) {
-              // Плоские данные - добавляем файлы напрямую
-              catalogData.items.forEach(file => {
-                allFiles.push({
-                  ...file,
-                  // Тип файла всегда определяем по расширению
-                  type: getFileType(file.fileName),
-                  // В приватном режиме используем category из файла, в публичном - определяем по типу
-                  category: isPrivateMode.value
-                    ? file.category || 'Без категории'
-                    : getFileType(file.fileName),
-                  isPublic: !isPrivateMode.value,
-                })
-              })
-            } else {
-              // Сгруппированные данные - обрабатываем как раньше
-              Object.keys(catalogData.items).forEach(groupKey => {
-                if (Array.isArray(catalogData.items[groupKey])) {
-                  catalogData.items[groupKey].forEach(file => {
-                    allFiles.push({
-                      ...file,
-                      // Тип файла всегда определяем по расширению
-                      type: getFileType(file.fileName),
-                      // В приватном режиме используем category из файла, в публичном - группировку по авторам
-                      category: isPrivateMode.value
-                        ? file.category || 'Без категории'
-                        : groupKey,
-                      isPublic: !isPrivateMode.value,
-                    })
-                  })
-                }
-              })
-            }
-          }
-
-          files.value = allFiles
-
+          
           // Обновляем пагинацию
           if (catalogData.pagination) {
-            pagination.value = { ...catalogData.pagination }
+            currentPage.value = catalogData.pagination.currentPage
+            totalPages.value = catalogData.pagination.totalPages
+            totalItems.value = catalogData.pagination.totalItems
+            hasNextPage.value = catalogData.pagination.hasNextPage
+            hasPrevPage.value = catalogData.pagination.hasPrevPage
           }
-
-          // Кэшируем результат
-          pageCache.value.set(cacheKey, {
-            files: allFiles,
-            pagination: { ...pagination.value },
+          
+          // items теперь объект с категориями (группировка по авторам)
+          const allFiles = []
+          Object.keys(catalogData.items || {}).forEach(category => {
+            if (Array.isArray(catalogData.items[category])) {
+              catalogData.items[category].forEach(file => {
+                allFiles.push({
+                  ...file,
+                  category: category,
+                  isPublic: !isPrivateMode.value
+                })
+              })
+            }
           })
-
+          
+          files.value = allFiles
+          
+          // Кэшируем результат
+          pageCache.value.set(cacheKeyValue, {
+            files: allFiles,
+            pagination: catalogData.pagination
+          })
+          
           // Ограничиваем размер кэша
           if (pageCache.value.size > 20) {
             const firstKey = pageCache.value.keys().next().value
@@ -253,59 +213,62 @@ export default {
           throw new Error(response.message || 'Ошибка загрузки файлов')
         }
       } catch (err) {
-        error.value =
-          err.message ||
-          'Не удалось загрузить файлы. Попробуйте обновить страницу.'
+        // Retry механизм для сетевых ошибок
+        if (retryCount < 2 && (err.message.includes('сети') || err.message.includes('CORS'))) {
+          error.value = `Попытка ${retryCount + 1}/3: ${err.message}`
+          setTimeout(() => {
+            loadFiles(retryCount + 1, page)
+          }, 2000)
+          return
+        }
+        
+        error.value = err.message || 'Не удалось загрузить файлы. Попробуйте обновить страницу.'
       } finally {
         isLoading.value = false
       }
     }
 
-    const handleFiltersChange = newFilters => {
-      // Обновляем фильтры
-      currentFilters.value = newFilters
-
-      // Сбрасываем на первую страницу
-      pagination.value.currentPage = 1
-
-      // Очищаем кэш при изменении фильтров
-      pageCache.value.clear()
-
-      // Загружаем файлы с новыми фильтрами
-      loadFiles(1, false)
+    const loadPage = async (page) => {
+      if (page >= 1 && page <= totalPages.value) {
+        isPageLoading.value = true
+        try {
+          await loadFiles(0, page)
+        } finally {
+          isPageLoading.value = false
+        }
+      }
     }
 
-    const handlePageChange = page => {
-      if (page >= 1 && page <= pagination.value.totalPages) {
-        pagination.value.currentPage = page
-        loadFiles(page, true) // Используем кэш для уже загруженных страниц
+    const handleSearch = async () => {
+      // Показываем состояние загрузки поиска
+      isSearching.value = true
+      
+      try {
+        // Очищаем кэш при поиске
+        pageCache.value.clear()
+        // Сброс на первую страницу при поиске
+        currentPage.value = 1
+        await loadFiles(0, 1)
+      } finally {
+        isSearching.value = false
       }
+    }
+
+    const handleFilter = async () => {
+      // Очищаем кэш при фильтрации
+      pageCache.value.clear()
+      // Сброс на первую страницу при фильтрации
+      currentPage.value = 1
+      await loadFiles(0, 1)
     }
 
     const handleDownload = async file => {
       try {
+        const { downloadFile } = useFileDownload()
         await downloadFile(file, isPrivateMode.value)
       } catch (error) {
         error.value = 'Не удалось скачать файл'
       }
-    }
-
-    const goToAdminPanel = () => {
-      // Переход на админ панель
-      window.location.href = '/admin'
-    }
-
-    // Метод для определения типа файла по расширению
-    const getFileType = fileName => {
-      if (!fileName) return 'other'
-      const ext = fileName.toLowerCase().split('.').pop()
-
-      if (ext === 'pdf') return 'PDF'
-      if (['doc', 'docx', 'rtf'].includes(ext)) return 'Word'
-      if (['zip', 'rar', '7z'].includes(ext)) return 'Archive'
-      if (['jpg', 'jpeg', 'png', 'gif'].includes(ext)) return 'Image'
-
-      return 'Other'
     }
 
     // Загрузка файлов при изменении режима
@@ -314,38 +277,46 @@ export default {
       if (oldValues[0] === undefined && oldValues[1] === undefined) {
         return
       }
-
+      
       if (isPrivateMode.value && !hasAccess.value) {
         files.value = []
         return
       }
-
+      
       // Очищаем кэш при изменении режима
       pageCache.value.clear()
-      pagination.value.currentPage = 1
-      loadFiles(1, false)
+      currentPage.value = 1 // Сброс на первую страницу
+      loadFiles()
     })
 
     onMounted(() => {
-      loadFiles(1, false)
+      loadFiles()
     })
 
     return {
       files,
       currentFiles,
+      filteredFiles,
       isLoading,
+      isPageLoading,
       error,
+      searchQuery,
       isPrivateMode,
       hasAccess,
-      pagination,
-      visiblePages,
+      // Пагинация
+      currentPage,
+      totalPages,
+      totalItems,
+      hasNextPage,
+      hasPrevPage,
+      itemsPerPage,
       loadFiles,
-      handleFiltersChange,
-      handlePageChange,
+      loadPage,
+      handleSearch,
+      handleFilter,
       handleDownload,
+      isSearching,
       openPasswordModal,
-      goToAdminPanel,
-      isAdmin,
     }
   },
 }
@@ -353,36 +324,4 @@ export default {
 
 <style lang="scss" scoped>
 @use '@/assets/styles/pages/Library/Library.scss';
-
-// Стили для кнопки админ-панели
-.admin-panel-access {
-  margin: 1rem 0;
-  text-align: center;
-}
-
-.admin-panel-button {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 1rem 2rem;
-  background: linear-gradient(135deg, #667eea, #764ba2);
-  color: white;
-  border: none;
-  border-radius: 12px;
-  font-size: 1.1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 20px rgba(102, 126, 234, 0.3);
-
-  &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 30px rgba(102, 126, 234, 0.4);
-  }
-
-  .admin-icon {
-    width: 24px;
-    height: 24px;
-  }
-}
 </style>
