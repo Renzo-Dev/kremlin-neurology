@@ -39,9 +39,7 @@
         <polyline points="10,9 9,9 8,9" />
       </svg>
       <h3 class="empty-title">Файлы не найдены</h3>
-      <p class="empty-message">
-        В этой библиотеке пока нет файлов
-      </p>
+      <p class="empty-message">В этой библиотеке пока нет файлов</p>
     </div>
 
     <div v-else class="files-grid">
@@ -106,8 +104,8 @@
     <!-- Информация о страницах -->
     <div v-if="pagination && pagination.totalItems > 0" class="pagination-info">
       <span class="pagination-text">
-        Страница {{ pagination.currentPage }} из {{ pagination.totalPages }}
-        (всего {{ pagination.totalItems }} файлов)
+        Страница {{ pagination.currentPage }} из
+        {{ pagination.totalPages }} (всего {{ pagination.totalItems }} файлов)
       </span>
     </div>
   </div>

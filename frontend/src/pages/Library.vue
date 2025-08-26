@@ -14,9 +14,15 @@
       <!-- Кнопка админ-панели для авторизованных админов -->
       <div v-if="hasAccess && isAdmin" class="admin-panel-access">
         <button class="admin-panel-button" @click="goToAdminPanel">
-          <svg class="admin-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
-            <path d="M12 22V12"/>
+          <svg
+            class="admin-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+            <path d="M12 22V12" />
           </svg>
           Админ панель
         </button>
@@ -98,13 +104,13 @@ export default {
     const isLoading = ref(false)
     const error = ref('')
     const apiService = new ApiService()
-    
-         // Состояние фильтров и сортировки
-     const currentFilters = ref({
-       filters: {},
-       sorting: { field: 'uploadDate', direction: 'desc' }
-     })
-    
+
+    // Состояние фильтров и сортировки
+    const currentFilters = ref({
+      filters: {},
+      sorting: { field: 'uploadDate', direction: 'desc' },
+    })
+
     // Состояние пагинации
     const pagination = ref({
       currentPage: 1,
@@ -112,17 +118,20 @@ export default {
       totalItems: 0,
       hasNextPage: false,
       hasPrevPage: false,
-      itemsPerPage: 20
+      itemsPerPage: 20,
     })
-    
+
     // Кэш загруженных страниц
     const pageCache = ref(new Map())
-    
+
     // Вычисляемое свойство для видимых страниц пагинации
     const visiblePages = computed(() => {
       const pages = []
       const maxVisible = 5
-      let start = Math.max(1, pagination.value.currentPage - Math.floor(maxVisible / 2))
+      let start = Math.max(
+        1,
+        pagination.value.currentPage - Math.floor(maxVisible / 2)
+      )
       let end = Math.min(pagination.value.totalPages, start + maxVisible - 1)
 
       if (end - start + 1 < maxVisible) {
@@ -140,12 +149,12 @@ export default {
       if (isPrivateMode.value && !hasAccess.value) {
         return []
       }
-      
+
       // Проверяем, что files.value это массив
       if (!Array.isArray(files.value)) {
         return []
       }
-      
+
       // Фильтруем файлы по режиму
       return files.value.filter(file => file.isPublic !== isPrivateMode.value)
     })
@@ -175,14 +184,14 @@ export default {
           type: isPrivateMode.value ? 'private' : 'public',
           page: page,
           limit: pagination.value.itemsPerPage,
-          ...currentFilters.value
+          ...currentFilters.value,
         }
-        
+
         const response = await apiService.getCatalogWithFilters(apiParams)
-        
+
         if (response.success) {
           const catalogData = response.data || {}
-          
+
           // Обрабатываем данные каталога
           const allFiles = []
           if (catalogData.items) {
@@ -195,8 +204,10 @@ export default {
                   // Тип файла всегда определяем по расширению
                   type: getFileType(file.fileName),
                   // В приватном режиме используем category из файла, в публичном - определяем по типу
-                  category: isPrivateMode.value ? (file.category || 'Без категории') : getFileType(file.fileName),
-                  isPublic: !isPrivateMode.value
+                  category: isPrivateMode.value
+                    ? file.category || 'Без категории'
+                    : getFileType(file.fileName),
+                  isPublic: !isPrivateMode.value,
                 })
               })
             } else {
@@ -209,28 +220,30 @@ export default {
                       // Тип файла всегда определяем по расширению
                       type: getFileType(file.fileName),
                       // В приватном режиме используем category из файла, в публичном - группировку по авторам
-                      category: isPrivateMode.value ? (file.category || 'Без категории') : groupKey,
-                      isPublic: !isPrivateMode.value
+                      category: isPrivateMode.value
+                        ? file.category || 'Без категории'
+                        : groupKey,
+                      isPublic: !isPrivateMode.value,
                     })
                   })
                 }
               })
             }
           }
-          
+
           files.value = allFiles
-          
+
           // Обновляем пагинацию
           if (catalogData.pagination) {
             pagination.value = { ...catalogData.pagination }
           }
-          
+
           // Кэшируем результат
           pageCache.value.set(cacheKey, {
             files: allFiles,
-            pagination: { ...pagination.value }
+            pagination: { ...pagination.value },
           })
-          
+
           // Ограничиваем размер кэша
           if (pageCache.value.size > 20) {
             const firstKey = pageCache.value.keys().next().value
@@ -240,27 +253,29 @@ export default {
           throw new Error(response.message || 'Ошибка загрузки файлов')
         }
       } catch (err) {
-        error.value = err.message || 'Не удалось загрузить файлы. Попробуйте обновить страницу.'
+        error.value =
+          err.message ||
+          'Не удалось загрузить файлы. Попробуйте обновить страницу.'
       } finally {
         isLoading.value = false
       }
     }
 
-    const handleFiltersChange = (newFilters) => {
+    const handleFiltersChange = newFilters => {
       // Обновляем фильтры
       currentFilters.value = newFilters
-      
+
       // Сбрасываем на первую страницу
       pagination.value.currentPage = 1
-      
+
       // Очищаем кэш при изменении фильтров
       pageCache.value.clear()
-      
+
       // Загружаем файлы с новыми фильтрами
       loadFiles(1, false)
     }
 
-    const handlePageChange = (page) => {
+    const handlePageChange = page => {
       if (page >= 1 && page <= pagination.value.totalPages) {
         pagination.value.currentPage = page
         loadFiles(page, true) // Используем кэш для уже загруженных страниц
@@ -281,15 +296,15 @@ export default {
     }
 
     // Метод для определения типа файла по расширению
-    const getFileType = (fileName) => {
+    const getFileType = fileName => {
       if (!fileName) return 'other'
       const ext = fileName.toLowerCase().split('.').pop()
-      
+
       if (ext === 'pdf') return 'PDF'
       if (['doc', 'docx', 'rtf'].includes(ext)) return 'Word'
       if (['zip', 'rar', '7z'].includes(ext)) return 'Archive'
       if (['jpg', 'jpeg', 'png', 'gif'].includes(ext)) return 'Image'
-      
+
       return 'Other'
     }
 
@@ -299,12 +314,12 @@ export default {
       if (oldValues[0] === undefined && oldValues[1] === undefined) {
         return
       }
-      
+
       if (isPrivateMode.value && !hasAccess.value) {
         files.value = []
         return
       }
-      
+
       // Очищаем кэш при изменении режима
       pageCache.value.clear()
       pagination.value.currentPage = 1
@@ -359,12 +374,12 @@ export default {
   cursor: pointer;
   transition: all 0.3s ease;
   box-shadow: 0 4px 20px rgba(102, 126, 234, 0.3);
-  
+
   &:hover {
     transform: translateY(-2px);
     box-shadow: 0 8px 30px rgba(102, 126, 234, 0.4);
   }
-  
+
   .admin-icon {
     width: 24px;
     height: 24px;

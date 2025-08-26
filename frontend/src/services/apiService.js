@@ -7,10 +7,11 @@ export class ApiService {
   // Базовый метод для HTTP запросов
   async request(endpoint, options = {}) {
     const url = `${this.baseUrl}${endpoint}`
-    
+
     // Определяем, нужно ли устанавливать Content-Type
-    const shouldSetContentType = !options.body || !(options.body instanceof FormData)
-    
+    const shouldSetContentType =
+      !options.body || !(options.body instanceof FormData)
+
     const config = {
       credentials: 'include', // Добавляем для передачи cookies
       headers: {
@@ -22,11 +23,11 @@ export class ApiService {
 
     try {
       const response = await fetch(url, config)
-      
+
       // Проверяем, есть ли тело ответа
       let data
       const contentType = response.headers.get('content-type')
-      
+
       if (contentType && contentType.includes('application/json')) {
         data = await response.json()
       } else {
@@ -36,17 +37,21 @@ export class ApiService {
           return {
             success: response.ok,
             data: blob,
-            message: response.ok ? 'Файл успешно загружен' : 'Ошибка загрузки файла'
+            message: response.ok
+              ? 'Файл успешно загружен'
+              : 'Ошибка загрузки файла',
           }
         }
-        
+
         // Если ответ успешный, но не JSON, попробуем прочитать как JSON
         if (response.ok) {
           try {
             const jsonData = await response.json()
             data = jsonData
           } catch (jsonError) {
-            data = { message: response.statusText || 'Неизвестный формат ответа' }
+            data = {
+              message: response.statusText || 'Неизвестный формат ответа',
+            }
           }
         } else {
           data = { message: response.statusText || 'Ошибка сервера' }
@@ -65,7 +70,9 @@ export class ApiService {
 
       if (!response.ok) {
         // Создаем ошибку с полной информацией
-        const error = new Error(data.message || data.error || `HTTP error! status: ${response.status}`)
+        const error = new Error(
+          data.message || data.error || `HTTP error! status: ${response.status}`
+        )
         error.status = response.status
         error.data = data
         error.originalMessage = data.message
@@ -87,8 +94,6 @@ export class ApiService {
     })
   }
 
-
-
   // Получение каталогов
   async getPublicCatalog() {
     return this.request('/catalog/public', {
@@ -108,7 +113,12 @@ export class ApiService {
     })
   }
 
-  async getCatalogPaginated(page = 1, limit = 20, type = 'public', filters = {}) {
+  async getCatalogPaginated(
+    page = 1,
+    limit = 20,
+    type = 'public',
+    filters = {}
+  ) {
     const params = new URLSearchParams({
       page: page.toString(),
       limit: limit.toString(),
@@ -117,7 +127,7 @@ export class ApiService {
       ...(filters.author && { author: filters.author }),
       ...(filters.fileType && { fileType: filters.fileType }),
     })
-    
+
     return this.request(`/catalog/paginated?${params}`, {
       method: 'GET',
     })
@@ -135,7 +145,13 @@ export class ApiService {
   }
 
   // Поиск и фильтрация
-  async searchFiles(query, filters = {}, type = 'public', page = 1, limit = 20) {
+  async searchFiles(
+    query,
+    filters = {},
+    type = 'public',
+    page = 1,
+    limit = 20
+  ) {
     // Используем пагинированный API с поиском
     const params = new URLSearchParams({
       page: page.toString(),
@@ -145,7 +161,7 @@ export class ApiService {
       ...(filters.author && { author: filters.author }),
       ...(filters.type && { fileType: filters.type }),
     })
-    
+
     return this.request(`/catalog/paginated?${params}`, {
       method: 'GET',
     })
@@ -154,7 +170,7 @@ export class ApiService {
   // Скачивание файлов
   async downloadFile(fileName, isPrivate = false) {
     const endpoint = isPrivate ? '/privateDownload' : '/download'
-    
+
     try {
       const response = await fetch(`${this.baseUrl}${endpoint}`, {
         method: 'POST',
@@ -167,18 +183,20 @@ export class ApiService {
 
       if (!response.ok) {
         const errorData = await response.json()
-        throw new Error(errorData.message || `HTTP error! status: ${response.status}`)
+        throw new Error(
+          errorData.message || `HTTP error! status: ${response.status}`
+        )
       }
 
       // Получаем имя файла из заголовка или используем переданное
       const contentDisposition = response.headers.get('Content-Disposition')
-      const downloadFileName = contentDisposition 
-        ? contentDisposition.split('filename=')[1]?.replace(/"/g, '') 
+      const downloadFileName = contentDisposition
+        ? contentDisposition.split('filename=')[1]?.replace(/"/g, '')
         : fileName
 
       // Создаем blob из ответа
       const blob = await response.blob()
-      
+
       // Создаем ссылку для скачивания
       const url = window.URL.createObjectURL(blob)
       const link = document.createElement('a')
@@ -187,10 +205,10 @@ export class ApiService {
       document.body.appendChild(link)
       link.click()
       document.body.removeChild(link)
-      
+
       // Освобождаем память
       window.URL.revokeObjectURL(url)
-      
+
       return { success: true, message: 'File downloaded successfully' }
     } catch (error) {
       throw error
@@ -224,28 +242,28 @@ export class ApiService {
   async uploadFile(fileData) {
     // Создаем FormData для отправки файла
     const formData = new FormData()
-    
+
     // Добавляем файл (обязательно)
     if (fileData.file) {
       formData.append('file', fileData.file)
     } else {
       throw new Error('File is required for upload')
     }
-    
+
     // Добавляем обязательные данные
     formData.append('title', fileData.title)
     formData.append('authors', fileData.authors)
-    
+
     // Добавляем необязательные данные
     if (fileData.description && fileData.description.trim()) {
       formData.append('description', fileData.description.trim())
     }
-    
+
     // Добавляем категорию
     if (fileData.category && fileData.category.trim()) {
       formData.append('category', fileData.category.trim())
     }
-    
+
     return this.request('/catalog', {
       method: 'POST',
       body: formData,
@@ -260,9 +278,9 @@ export class ApiService {
       title: fileData.title,
       authors: fileData.authors,
       category: fileData.category || null,
-      description: fileData.description || null
+      description: fileData.description || null,
     }
-    
+
     return this.request('/catalog/update', {
       method: 'PUT',
       body: JSON.stringify(updateData),

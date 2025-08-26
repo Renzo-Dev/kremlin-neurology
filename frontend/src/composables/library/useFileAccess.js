@@ -46,17 +46,17 @@ export function useFileAccess() {
     try {
       // Проверка пароля через backend API
       const response = await apiService.login({ password: password.value })
-      
+
       if (response.authenticated) {
         isAuthenticated.value = true
         isAdmin.value = response.isAdmin || false
-        
+
         // Сохраняем состояние в localStorage для Navigation Guards
         localStorage.setItem('isAuthenticated', 'true')
         localStorage.setItem('isAdmin', response.isAdmin ? 'true' : 'false')
-        
+
         closePasswordModal()
-        
+
         // Если админ - переходим на админ панель, иначе на приватную библиотеку
         if (response.isAdmin) {
           window.location.href = '/admin'
@@ -78,37 +78,44 @@ export function useFileAccess() {
         } else {
           error.value = response.error || response.message || 'Неверный пароль'
         }
-        
+
         isAuthenticated.value = false
         isAdmin.value = false
-        
+
         // Очищаем localStorage
         localStorage.removeItem('isAuthenticated')
         localStorage.removeItem('isAdmin')
-        
+
         return false
       }
     } catch (err) {
       // Простая обработка ошибок
-      if (err.status === 429 || err.message?.includes('Rate limit exceeded') || err.message?.includes('заблокирован')) {
+      if (
+        err.status === 429 ||
+        err.message?.includes('Rate limit exceeded') ||
+        err.message?.includes('заблокирован')
+      ) {
         error.value = 'Превышено количество попыток входа. Подождите.'
         // Сохраняем время до следующей попытки
         if (err.data && err.data.retry_after) {
           localStorage.setItem('retryAfter', err.data.retry_after)
         }
-      } else if (err.status === 401 || err.message?.includes('Invalid password')) {
+      } else if (
+        err.status === 401 ||
+        err.message?.includes('Invalid password')
+      ) {
         error.value = 'Неверный пароль'
       } else {
         error.value = 'Ошибка подключения к серверу'
       }
-      
+
       isAuthenticated.value = false
       isAdmin.value = false
-      
+
       // Очищаем localStorage при ошибке
       localStorage.removeItem('isAuthenticated')
       localStorage.removeItem('isAdmin')
-      
+
       return false
     } finally {
       isLoading.value = false
@@ -118,7 +125,7 @@ export function useFileAccess() {
   const logout = () => {
     isAuthenticated.value = false
     isAdmin.value = false
-    
+
     // Очищаем localStorage при выходе
     localStorage.removeItem('isAuthenticated')
     localStorage.removeItem('isAdmin')

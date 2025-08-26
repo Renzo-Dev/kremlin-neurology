@@ -7,8 +7,13 @@
           {{ isEditing ? 'Редактировать файл' : 'Добавить новый файл' }}
         </h2>
         <button class="close-button" @click="$emit('close')">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M18 6L6 18M6 6l12 12"/>
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path d="M18 6L6 18M6 6l12 12" />
           </svg>
         </button>
       </div>
@@ -29,17 +34,27 @@
               @change="handleFileSelect"
               :disabled="isEditing"
             />
-            
+
             <div v-if="!selectedFile && !isEditing" class="upload-placeholder">
-              <svg class="upload-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                <polyline points="7,10 12,15 17,10"/>
-                <line x1="12" y1="15" x2="12" y2="3"/>
+              <svg
+                class="upload-icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                <polyline points="7,10 12,15 17,10" />
+                <line x1="12" y1="15" x2="12" y2="3" />
               </svg>
-              <p class="upload-text">Нажмите для выбора файла или перетащите сюда</p>
-              <p class="upload-hint">Поддерживаемые форматы: PDF, DOC, DOCX, TXT (до 50MB)</p>
+              <p class="upload-text">
+                Нажмите для выбора файла или перетащите сюда
+              </p>
+              <p class="upload-hint">
+                Поддерживаемые форматы: PDF, DOC, DOCX, TXT (до 50MB)
+              </p>
             </div>
-            
+
             <div v-else-if="selectedFile" class="file-info">
               <div class="file-icon">
                 {{ getFileTypeIcon(selectedFile.name) }}
@@ -54,8 +69,13 @@
                 @click="removeFile"
                 :title="`Удалить файл ${selectedFile?.name}`"
               >
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M18 6L6 18M6 6l12 12"/>
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path d="M18 6L6 18M6 6l12 12" />
                 </svg>
               </button>
             </div>
@@ -86,7 +106,9 @@
             placeholder="Введите имена авторов"
             required
           />
-          <div v-if="errors.authors" class="form-error">{{ errors.authors }}</div>
+          <div v-if="errors.authors" class="form-error">
+            {{ errors.authors }}
+          </div>
         </div>
 
         <!-- Категория -->
@@ -95,12 +117,16 @@
           <div class="category-selector">
             <select v-model="formData.category" class="form-select">
               <option value="">Выберите категорию</option>
-              <option v-for="category in predefinedCategories" :key="category" :value="category">
+              <option
+                v-for="category in predefinedCategories"
+                :key="category"
+                :value="category"
+              >
                 {{ category }}
               </option>
               <option value="custom">Другая категория</option>
             </select>
-            
+
             <input
               v-if="formData.category === 'custom'"
               v-model="formData.customCategory"
@@ -109,7 +135,9 @@
               placeholder="Введите название категории"
             />
           </div>
-          <div v-if="errors.category" class="form-error">{{ errors.category }}</div>
+          <div v-if="errors.category" class="form-error">
+            {{ errors.category }}
+          </div>
         </div>
 
         <!-- Описание -->
@@ -122,8 +150,6 @@
             rows="3"
           ></textarea>
         </div>
-
-
 
         <!-- Кнопки действий -->
         <div class="modal-actions">
@@ -148,26 +174,26 @@ export default {
   props: {
     file: {
       type: Object,
-      default: null
+      default: null,
     },
     isEditing: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   emits: ['close', 'save'],
   setup(props, { emit }) {
     const fileInput = ref(null)
-    
+
     // Состояние формы
     const formData = ref({
       title: '',
       authors: '',
       category: '',
       customCategory: '',
-      description: ''
+      description: '',
     })
-    
+
     const selectedFile = ref(null)
     const isSubmitting = ref(false)
     const errors = ref({})
@@ -182,7 +208,7 @@ export default {
       'Презентации',
       'Отчеты',
       'Протоколы',
-      'Учебные материалы'
+      'Учебные материалы',
     ]
 
     // Вычисляемые свойства
@@ -194,7 +220,7 @@ export default {
     })
 
     // Методы
-    const handleFileSelect = (event) => {
+    const handleFileSelect = event => {
       const file = event.target.files[0]
       if (file) {
         // Проверка размера файла (50MB)
@@ -202,19 +228,20 @@ export default {
           fileError.value = 'Файл слишком большой. Максимальный размер: 50MB'
           return
         }
-        
+
         // Проверка типа файла
         const allowedTypes = ['.pdf', '.doc', '.docx', '.txt']
         const fileExtension = '.' + file.name.split('.').pop().toLowerCase()
-        
+
         if (!allowedTypes.includes(fileExtension)) {
-          fileError.value = 'Неподдерживаемый тип файла. Разрешены: PDF, DOC, DOCX, TXT'
+          fileError.value =
+            'Неподдерживаемый тип файла. Разрешены: PDF, DOC, DOCX, TXT'
           return
         }
-        
+
         selectedFile.value = file
         fileError.value = ''
-        
+
         // Автозаполнение названия если пустое
         if (!formData.value.title || formData.value.title.trim() === '') {
           const fileNameWithoutExtension = file.name.replace(/\.[^/.]+$/, '')
@@ -226,15 +253,15 @@ export default {
     const removeFile = () => {
       // Сохраняем ссылку на файл перед удалением
       const wasFileSelected = !!selectedFile.value
-      
+
       selectedFile.value = null
       if (fileInput.value) {
         fileInput.value.value = ''
       }
-      
+
       // Очищаем ошибки файла
       fileError.value = ''
-      
+
       // Сбрасываем название файла если оно было автозаполнено
       if (wasFileSelected && formData.value.title) {
         formData.value.title = ''
@@ -243,88 +270,95 @@ export default {
 
     const validateForm = () => {
       errors.value = {}
-      
+
       // Проверка названия
       if (!formData.value.title || !formData.value.title.trim()) {
         errors.value.title = 'Название файла обязательно'
       }
-      
+
       // Проверка авторов
       if (!formData.value.authors || !formData.value.authors.trim()) {
         errors.value.authors = 'Авторы обязательны'
       }
-      
+
       // Проверка файла (только при добавлении)
       if (!props.isEditing && !selectedFile.value) {
         fileError.value = 'Выберите файл для загрузки'
         return false
       }
-      
+
       // Проверка пользовательской категории
-      if (formData.value.category === 'custom' && (!formData.value.customCategory || !formData.value.customCategory.trim())) {
+      if (
+        formData.value.category === 'custom' &&
+        (!formData.value.customCategory ||
+          !formData.value.customCategory.trim())
+      ) {
         errors.value.category = 'Введите название категории'
       }
-      
+
       const hasErrors = Object.keys(errors.value).length > 0
       const hasFileError = !!fileError.value
-      
+
       return !hasErrors && !hasFileError
     }
 
     const handleSubmit = async () => {
-      
       if (!validateForm()) {
         return
       }
-      
+
       isSubmitting.value = true
-      
+
       try {
         const fileData = {
           ...formData.value,
           category: finalCategory.value,
-          file: selectedFile.value
+          file: selectedFile.value,
         }
-        
+
         // При редактировании добавляем fileName
         if (props.isEditing && props.file) {
           fileData.fileName = props.file.fileName
         }
-        
+
         emit('save', fileData)
       } catch (error) {
-        
       } finally {
         isSubmitting.value = false
       }
     }
 
-    const handleOverlayClick = (event) => {
+    const handleOverlayClick = event => {
       if (event.target.classList.contains('file-modal-overlay')) {
         emit('close')
       }
     }
 
-    const getFileTypeIcon = (fileName) => {
+    const getFileTypeIcon = fileName => {
       const ext = fileName.split('.').pop()?.toLowerCase()
       switch (ext) {
-        case 'pdf': return '📄'
-        case 'doc': case 'docx': return '📝'
-        case 'txt': return '📃'
-        default: return '📁'
+        case 'pdf':
+          return '📄'
+        case 'doc':
+        case 'docx':
+          return '📝'
+        case 'txt':
+          return '📃'
+        default:
+          return '📁'
       }
     }
 
-    const formatFileSize = (size) => {
+    const formatFileSize = size => {
       const units = ['B', 'KB', 'MB', 'GB']
       let value = size
       let unitIndex = 0
-      
+
       while (value >= 1024 && unitIndex < units.length - 1) {
         value /= 1024
         unitIndex++
       }
-      
+
       return `${value.toFixed(1)} ${units[unitIndex]}`
     }
 
@@ -336,11 +370,14 @@ export default {
           authors: props.file.authors || '',
           category: props.file.category || '',
           customCategory: '',
-          description: props.file.description || ''
+          description: props.file.description || '',
         }
-        
+
         // Если категория не в списке предопределенных, устанавливаем как custom
-        if (props.file.category && !predefinedCategories.includes(props.file.category)) {
+        if (
+          props.file.category &&
+          !predefinedCategories.includes(props.file.category)
+        ) {
           formData.value.category = 'custom'
           formData.value.customCategory = props.file.category
         }
@@ -351,19 +388,19 @@ export default {
     watch(() => props.file, initializeForm, { immediate: true })
 
     // Обработка drag & drop
-    const handleDragOver = (event) => {
+    const handleDragOver = event => {
       event.preventDefault()
       event.currentTarget.classList.add('drag-over')
     }
 
-    const handleDragLeave = (event) => {
+    const handleDragLeave = event => {
       event.currentTarget.classList.remove('drag-over')
     }
 
-    const handleDrop = (event) => {
+    const handleDrop = event => {
       event.preventDefault()
       event.currentTarget.classList.remove('drag-over')
-      
+
       const files = event.dataTransfer.files
       if (files.length > 0) {
         const file = files[0]
@@ -447,14 +484,14 @@ export default {
   align-items: center;
   padding: 1.5rem 2rem;
   border-bottom: 1px solid #e2e8f0;
-  
+
   .modal-title {
     font-size: 1.5rem;
     font-weight: 600;
     color: #2d3748;
     margin: 0;
   }
-  
+
   .close-button {
     width: 40px;
     height: 40px;
@@ -466,11 +503,11 @@ export default {
     align-items: center;
     justify-content: center;
     transition: all 0.3s ease;
-    
+
     &:hover {
       background: rgba(113, 128, 150, 0.2);
     }
-    
+
     svg {
       width: 20px;
       height: 20px;
@@ -492,7 +529,7 @@ export default {
   font-weight: 600;
   color: #2d3748;
   margin-bottom: 0.5rem;
-  
+
   &.required::after {
     content: ' *';
     color: #e53e3e;
@@ -508,13 +545,13 @@ export default {
   border-radius: 8px;
   font-size: 1rem;
   transition: all 0.3s ease;
-  
+
   &:focus {
     outline: none;
     border-color: #667eea;
     box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
   }
-  
+
   &::placeholder {
     color: #a0aec0;
   }
@@ -539,17 +576,17 @@ export default {
   text-align: center;
   transition: all 0.3s ease;
   position: relative;
-  
+
   &:hover {
     border-color: #667eea;
     background: rgba(102, 126, 234, 0.02);
   }
-  
+
   &.drag-over {
     border-color: #667eea;
     background: rgba(102, 126, 234, 0.05);
   }
-  
+
   &.has-file {
     border-color: #48bb78;
     background: rgba(72, 187, 120, 0.02);
@@ -573,13 +610,13 @@ export default {
     color: #a0aec0;
     margin: 0 auto 1rem;
   }
-  
+
   .upload-text {
     font-size: 1.1rem;
     color: #4a5568;
     margin: 0 0 0.5rem 0;
   }
-  
+
   .upload-hint {
     font-size: 0.9rem;
     color: #718096;
@@ -591,28 +628,28 @@ export default {
   display: flex;
   align-items: center;
   gap: 1rem;
-  
+
   .file-icon {
     font-size: 2rem;
   }
-  
+
   .file-details {
     flex: 1;
     text-align: left;
-    
+
     .file-name {
       font-weight: 600;
       color: #2d3748;
       margin: 0 0 0.25rem 0;
     }
-    
+
     .file-size {
       font-size: 0.9rem;
       color: #718096;
       margin: 0;
     }
   }
-  
+
   .remove-file-button {
     width: 32px;
     height: 32px;
@@ -626,12 +663,12 @@ export default {
     transition: all 0.3s ease;
     position: relative;
     z-index: 10;
-    
+
     &:hover {
       background: rgba(245, 101, 101, 0.2);
       z-index: 15;
     }
-    
+
     svg {
       width: 16px;
       height: 16px;
@@ -644,17 +681,15 @@ export default {
 .category-selector {
   display: flex;
   gap: 1rem;
-  
+
   .form-select {
     flex: 1;
   }
-  
+
   .custom-category-input {
     flex: 1;
   }
 }
-
-
 
 // Кнопки действий
 .modal-actions {
@@ -680,7 +715,7 @@ export default {
 .cancel-button {
   background: rgba(113, 128, 150, 0.1);
   color: #4a5568;
-  
+
   &:hover {
     background: rgba(113, 128, 150, 0.2);
   }
@@ -689,12 +724,12 @@ export default {
 .save-button {
   background: linear-gradient(135deg, #48bb78, #38a169);
   color: white;
-  
+
   &:hover:not(:disabled) {
     transform: translateY(-1px);
     box-shadow: 0 4px 15px rgba(72, 187, 120, 0.3);
   }
-  
+
   &:disabled {
     opacity: 0.6;
     cursor: not-allowed;
@@ -713,8 +748,12 @@ export default {
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 // Адаптивность
@@ -723,21 +762,21 @@ export default {
     margin: 1rem;
     max-height: calc(100vh - 2rem);
   }
-  
+
   .modal-header,
   .modal-form {
     padding: 1rem;
   }
-  
+
   .modal-actions {
     flex-direction: column;
-    
+
     .cancel-button,
     .save-button {
       width: 100%;
     }
   }
-  
+
   .category-selector {
     flex-direction: column;
   }
