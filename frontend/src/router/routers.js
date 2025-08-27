@@ -56,6 +56,12 @@ export const routers = [
     component: () => import('@/pages/Conferences.vue'),
   },
   {
+    path: '/conference/:year',
+    name: 'ConferenceDetail',
+    component: () => import('@/pages/ConferenceDetail.vue'),
+    props: true,
+  },
+  {
     path: '/young-neurologists',
     name: 'YoungNeurologists',
     component: () => import('@/pages/YoungNeurologists.vue'),
