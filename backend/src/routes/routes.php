@@ -5,7 +5,7 @@ require_once __DIR__ . '/../controllers/CatalogController.php';
 require_once __DIR__ . '/../controllers/FileController.php';
 require_once __DIR__ . '/../services/AuthService.php';
 require_once __DIR__ . '/../services/CatalogService.php';
-require_once __DIR__ . '/../utils/cors.php';
+// require_once __DIR__ . '/../utils/cors.php'; // Отключаем, так как CORS обрабатывается в respondHandler
 require_once __DIR__ . '/../utils/respondHandler.php';
 require_once __DIR__ . '/../middleware/MiddlewareManager.php';
 
@@ -35,6 +35,19 @@ try {
     $fileController = new FileController($catalogService);
 
     switch (true) {
+        // === CORS PREFLIGHT - обработка OPTIONS запросов ===
+        case $method === 'OPTIONS':
+            // Отправляем CORS заголовки для preflight запросов
+            $origin = $_SERVER['HTTP_ORIGIN'] ?? '*';
+            header("Access-Control-Allow-Origin: $origin");
+            header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
+            header('Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With');
+            header('Access-Control-Allow-Credentials: true');
+            header('Access-Control-Max-Age: 86400'); // 24 часа
+            http_response_code(200);
+            exit();
+            break;
+            
         case $request === '/api/auth' && $method === 'POST':
             AuthController::login();
             break;
