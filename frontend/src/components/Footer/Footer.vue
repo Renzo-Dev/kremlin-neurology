@@ -16,10 +16,10 @@
           <div class="footer-section">
             <h3 class="footer-title">Разделы сайта</h3>
             <ul class="footer-links">
-              <li><a href="/education">Образование</a></li>
-              <li><a href="/research">Научная работа</a></li>
-              <li><a href="/conferences">Конференции</a></li>
-              <li><a href="/news">Новости</a></li>
+                             <li><a href="/education">Образование</a></li>
+               <li><a href="/research">Научная работа</a></li>
+
+               <li><a href="/news">Новости</a></li>
               <li><a href="/library">Библиотека</a></li>
               <li><a href="/young-neurologists">Молодые неврологи</a></li>
             </ul>

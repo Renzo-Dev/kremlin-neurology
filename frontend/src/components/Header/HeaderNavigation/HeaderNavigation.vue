@@ -102,43 +102,27 @@
         </router-link>
       </li>
 
-      <li class="header-navigation__item">
-        <router-link to="/clients" exact class="header-navigation__link">
-          <svg
-            class="header-navigation__icon"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-          >
-            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-            <circle cx="9" cy="7" r="4" />
-            <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
-            <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-          </svg>
-          <span class="header-navigation__text">Клиентская база</span>
-        </router-link>
-      </li>
+             <li class="header-navigation__item">
+         <router-link to="/clients" exact class="header-navigation__link">
+           <svg
+             class="header-navigation__icon"
+             viewBox="0 0 24 24"
+             fill="none"
+             stroke="currentColor"
+             stroke-width="2"
+           >
+             <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+             <circle cx="9" cy="7" r="4" />
+             <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+             <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+           </svg>
+           <span class="header-navigation__text">Клиентская база</span>
+         </router-link>
+       </li>
 
-      <li class="header-navigation__item">
-        <router-link to="/conferences" exact class="header-navigation__link">
-          <svg
-            class="header-navigation__icon"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-          >
-            <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z" />
-            <path d="M19 10v2a7 7 0 0 1-14 0v-2" />
-            <line x1="12" y1="19" x2="12" y2="23" />
-            <line x1="8" y1="23" x2="16" y2="23" />
-          </svg>
-          <span class="header-navigation__text">Ежегодные конференции</span>
-        </router-link>
-      </li>
 
-      <li class="header-navigation__item">
+
+       <li class="header-navigation__item">
         <router-link
           to="/young-neurologists"
           exact

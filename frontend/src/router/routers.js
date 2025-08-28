@@ -35,6 +35,7 @@ export const routers = [
     name: 'Clients',
     component: () => import('@/pages/Clients.vue'),
   },
+
   {
     path: '/gkb51',
     name: 'ГКБ51ДЗМ',
@@ -50,17 +51,7 @@ export const routers = [
     name: 'КБ1Волынская',
     component: () => import('@/pages/КБ1Волынская.vue'),
   },
-  {
-    path: '/conferences',
-    name: 'Conferences',
-    component: () => import('@/pages/Conferences.vue'),
-  },
-  {
-    path: '/conference/:year',
-    name: 'ConferenceDetail',
-    component: () => import('@/pages/ConferenceDetail.vue'),
-    props: true,
-  },
+
   {
     path: '/young-neurologists',
     name: 'YoungNeurologists',
@@ -71,6 +62,7 @@ export const routers = [
     name: 'News',
     component: () => import('@/pages/News.vue'),
   },
+
   {
     path: '/contacts',
     name: 'Contacts',
