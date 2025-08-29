@@ -8,7 +8,7 @@ require_once __DIR__ . '/../middleware/DeleteFileValidationMiddleware.php';
 
 class MiddlewareManager
 {
-    private $middlewares = [];
+    private $middlewares = array();
     private $request;
 
     public function __construct()
@@ -22,50 +22,50 @@ class MiddlewareManager
     private function initializeMiddlewares()
     {
         // Правила валидации для разных маршрутов
-        $authValidationRules = [
-            'password' => [
-                ['type' => 'required', 'message' => 'Пароль обязателен'],
-                ['type' => 'minLength', 'value' => 3, 'message' => 'Пароль должен содержать минимум 3 символа'],
-                ['type' => 'maxLength', 'value' => 50, 'message' => 'Пароль не должен превышать 50 символов']
-            ]
-        ];
+        $authValidationRules = array(
+            'password' => array(
+                array('type' => 'required', 'message' => 'Пароль обязателен'),
+                array('type' => 'minLength', 'value' => 3, 'message' => 'Пароль должен содержать минимум 3 символа'),
+                array('type' => 'maxLength', 'value' => 50, 'message' => 'Пароль не должен превышать 50 символов')
+            )
+        );
 
         // Валидация POST запросов перенесена в FileController
 
-        $catalogDeleteValidationRules = [
-            'fileName' => [
-                ['type' => 'required', 'message' => 'Имя файла обязательно'],
-                ['type' => 'minLength', 'value' => 1, 'message' => 'Имя файла не может быть пустым'],
-                ['type' => 'maxLength', 'value' => 255, 'message' => 'Имя файла слишком длинное'],
-                ['type' => 'regex', 'pattern' => '/^[a-zA-Z0-9._\-\s]+$/', 'message' => 'Имя файла содержит недопустимые символы']
-            ]
-        ];
+        $catalogDeleteValidationRules = array(
+            'fileName' => array(
+                array('type' => 'required', 'message' => 'Имя файла обязательно'),
+                array('type' => 'minLength', 'value' => 1, 'message' => 'Имя файла не может быть пустым'),
+                array('type' => 'maxLength', 'value' => 255, 'message' => 'Имя файла слишком длинное'),
+                array('type' => 'regex', 'pattern' => '/^[a-zA-Z0-9._\-\s]+$/', 'message' => 'Имя файла содержит недопустимые символы')
+            )
+        );
 
-        $catalogUpdateValidationRules = [
-            'fileName' => [
-                ['type' => 'required', 'message' => 'Имя файла обязательно'],
-                ['type' => 'minLength', 'value' => 1, 'message' => 'Имя файла не может быть пустым'],
-                ['type' => 'maxLength', 'value' => 255, 'message' => 'Имя файла слишком длинное'],
-                ['type' => 'regex', 'pattern' => '/^[a-zA-Z0-9._\-\s]+$/', 'message' => 'Имя файла содержит недопустимые символы']
-            ],
-            'title' => [
-                ['type' => 'required', 'message' => 'Название файла обязательно'],
-                ['type' => 'minLength', 'value' => 2, 'message' => 'Название должно содержать минимум 2 символов'],
-                ['type' => 'maxLength', 'value' => 255, 'message' => 'Название не должно превышать 255 символов']
-            ],
-            'authors' => [
-                ['type' => 'required', 'message' => 'Авторы обязательны'],
-                ['type' => 'minLength', 'value' => 2, 'message' => 'Имена авторов должны содержать минимум 2 символа']
-            ]
-        ];
+        $catalogUpdateValidationRules = array(
+            'fileName' => array(
+                array('type' => 'required', 'message' => 'Имя файла обязательно'),
+                array('type' => 'minLength', 'value' => 1, 'message' => 'Имя файла не может быть пустым'),
+                array('type' => 'maxLength', 'value' => 255, 'message' => 'Имя файла слишком длинное'),
+                array('type' => 'regex', 'pattern' => '/^[a-zA-Z0-9._\-\s]+$/', 'message' => 'Имя файла содержит недопустимые символы')
+            ),
+            'title' => array(
+                array('type' => 'required', 'message' => 'Название файла обязательно'),
+                array('type' => 'minLength', 'value' => 2, 'message' => 'Название должно содержать минимум 2 символов'),
+                array('type' => 'maxLength', 'value' => 255, 'message' => 'Название не должно превышать 255 символов')
+            ),
+            'authors' => array(
+                array('type' => 'required', 'message' => 'Авторы обязательны'),
+                array('type' => 'minLength', 'value' => 2, 'message' => 'Имена авторов должны содержать минимум 2 символа')
+            )
+        );
 
         // Регистрируем middleware в правильном порядке
-        $this->middlewares = [
+        $this->middlewares = array(
             new PrivateAccessMiddleware(),                    // 1. Проверка приватных параметров (первым!)
             new AuthMiddleware(false),                       // 2. Обычная аутентификация
             new DeleteFileValidationMiddleware(),            // 3. Валидация DELETE запросов (только fileName)
             new ValidationMiddleware($catalogUpdateValidationRules)  // 4. Валидация PUT запросов обновления каталога
-        ];
+        );
     }
 
     /**
@@ -109,14 +109,14 @@ class MiddlewareManager
      */
     private function prepareRequest($route, $method)
     {
-        $request = [
+        $request = array(
             'route' => $route,
             'method' => $method,
             'get' => $_GET,
             'post' => $_POST,
             'files' => $_FILES,
-            'json' => []
-        ];
+            'json' => array()
+        );
 
         // Добавляем JSON данные если есть
         if ($method === 'POST' || $method === 'PUT' || $method === 'DELETE') {

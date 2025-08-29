@@ -372,8 +372,10 @@
 
 <script>
 import FileModal from '@/components/admin/FileModal/FileModal.vue'
+import { useFileAccess } from '@/composables/library/useFileAccess'
 import { ApiService } from '@/services/apiService'
 import { computed, onMounted, ref, watch } from 'vue'
+import { useRouter } from 'vue-router'
 
 export default {
   name: 'AdminPanel',
@@ -381,6 +383,7 @@ export default {
     FileModal,
   },
   setup() {
+    const router = useRouter()
     const apiService = new ApiService()
 
     // Дополнительная проверка прав доступа
@@ -389,8 +392,8 @@ export default {
       const isAdmin = localStorage.getItem('isAdmin') === 'true'
 
       if (!isAuthenticated || !isAdmin) {
-        // Если нет прав - перенаправляем на библиотеку
-        window.location.href = '/library'
+        // Если нет прав - перенаправляем на библиотеку через роутер
+        router.push('/library')
         return false
       }
       return true
@@ -707,16 +710,17 @@ export default {
     }
 
     const goBack = () => {
-      window.history.back()
+      router.back()
     }
 
     const handleLogout = () => {
       // Очищаем localStorage
-      localStorage.removeItem('isAuthenticated')
-      localStorage.removeItem('isAdmin')
+      // Вызываем logout для сброса состояния доступа
+      // (чистим глобальные reactive-переменные и localStorage)
+      useFileAccess().logout()
 
-      // Перенаправляем на библиотеку
-      window.location.href = '/library'
+      // Перенаправляем на библиотеку через роутер
+      router.push('/library')
     }
 
     const getFileTypeIcon = fileName => {

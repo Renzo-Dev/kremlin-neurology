@@ -38,13 +38,13 @@ try {
         // === CORS PREFLIGHT - обработка OPTIONS запросов ===
         case $method === 'OPTIONS':
             // Отправляем CORS заголовки для preflight запросов
-            $origin = $_SERVER['HTTP_ORIGIN'] ?? '*';
+            $origin = isset($_SERVER['HTTP_ORIGIN']) ? $_SERVER['HTTP_ORIGIN'] : '*';
             header("Access-Control-Allow-Origin: $origin");
             header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
             header('Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With');
             header('Access-Control-Allow-Credentials: true');
             header('Access-Control-Max-Age: 86400'); // 24 часа
-            http_response_code(200);
+            header('HTTP/1.1 200 OK');
             exit();
             break;
             
@@ -85,17 +85,17 @@ try {
         // === УПРАВЛЕНИЕ ФАЙЛАМИ (только приватный каталог) ===
         
         // Добавление файла в приватный каталог (требует аутентификации)
-        case $request === '/api/catalog' && $method === 'POST':
+        case strpos($request, '/api/catalog') === 0 && $method === 'POST':
             $fileController->saveFile();
             break;
             
         // Удаление файла из приватного каталога (требует аутентификации)
-        case $request === '/api/catalog' && $method === 'DELETE':
+        case strpos($request, '/api/catalog') === 0 && $method === 'DELETE':
             $fileController->deleteFile();
             break;
             
         // Обновление файла в приватном каталоге (требует аутентификации)
-        case $request === '/api/catalog/update' && $method === 'PUT':
+        case strpos($request, '/api/catalog/update') === 0 && $method === 'PUT':
             $fileController->updateFile();
             break;
         

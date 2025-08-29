@@ -7,6 +7,10 @@ class CatalogService
 {
     private $publicCatalogPath;
     private $privateCatalogPath;
+    
+    // Временные свойства для сортировки (для совместимости с PHP 5.3)
+    private $sortField;
+    private $sortDirection;
 
     public function __construct()
     {
@@ -21,7 +25,7 @@ class CatalogService
      * @param string $type - 'public' или 'private'
      * @return array - каталог, сгруппированный по авторам
      */
-    public function getCatalog(string $type = 'public'): array
+    public function getCatalog($type = 'public')
     {
         try {
             // Определяем путь к файлу каталога
@@ -41,15 +45,18 @@ class CatalogService
     // === ДОПОЛНИТЕЛЬНЫЕ МЕТОДЫ ===
 
     /** Получает каталог по конкретному автору */
-    public function getCatalogByAuthor(string $author, string $type = 'public'): array
+    public function getCatalogByAuthor($author, $type = 'public')
     {
         try {
             $catalogPath = $this->getCatalogPath($type);
             $catalog = $this->loadCatalogFromFile($catalogPath);
             
-            $filteredCatalog = array_filter($catalog, function($item) use ($author) {
-                return stripos($item['authors'], $author) !== false;
-            });
+            $filteredCatalog = array();
+            foreach ($catalog as $item) {
+                if (stripos($item['authors'], $author) !== false) {
+                    $filteredCatalog[] = $item;
+                }
+            }
             
             return array_values($filteredCatalog);
             
@@ -59,7 +66,7 @@ class CatalogService
     }
 
     /** Получает каталог с пагинацией и поиском */
-    public function getCatalogPaginated(int $page = 1, int $limit = 20, string $type = 'public', array $filters = []): array
+    public function getCatalogPaginated($page = 1, $limit = 20, $type = 'public', $filters = array())
     {
         try {
             $catalogPath = $this->getCatalogPath($type);
@@ -77,17 +84,17 @@ class CatalogService
             // Группируем по авторам для совместимости с frontend
             $groupedItems = $this->groupCatalogByAuthorFirstLetter($items);
             
-            return [
+            return array(
                 'items' => $groupedItems,
-                'pagination' => [
+                'pagination' => array(
                     'currentPage' => $page,
                     'totalPages' => $totalPages,
                     'totalItems' => $totalItems,
                     'itemsPerPage' => $limit,
                     'hasNextPage' => $page < $totalPages,
                     'hasPrevPage' => $page > 1
-                ]
-            ];
+                )
+            );
             
         } catch (Exception $e) {
             throw new Exception('Error getting paginated catalog: ' . $e->getMessage(), $e->getCode());
@@ -99,21 +106,21 @@ class CatalogService
      * @param array $params - все параметры в одном запросе
      * @return array - каталог с пагинацией
      */
-    public function getCatalogWithFilters(array $params): array
+    public function getCatalogWithFilters($params)
     {
         try {
-            $type = $params['type'] ?? 'public';
-            $page = $params['page'] ?? 1;
-            $limit = $params['limit'] ?? 20;
+            $type = isset($params['type']) ? $params['type'] : 'public';
+            $page = isset($params['page']) ? $params['page'] : 1;
+            $limit = isset($params['limit']) ? $params['limit'] : 20;
             
             $catalogPath = $this->getCatalogPath($type);
             $catalog = $this->loadCatalogFromFile($catalogPath);
             
             // Применяем фильтры
-            $filteredCatalog = $this->applyAdvancedFilters($catalog, $params['filters'] ?? []);
+            $filteredCatalog = $this->applyAdvancedFilters($catalog, isset($params['filters']) ? $params['filters'] : array());
             
             // Применяем сортировку
-            $sortedCatalog = $this->applySorting($filteredCatalog, $params['sorting'] ?? []);
+            $sortedCatalog = $this->applySorting($filteredCatalog, isset($params['sorting']) ? $params['sorting'] : array());
             
             // Сначала применяем пагинацию к плоскому массиву
             $totalItems = count($sortedCatalog);
@@ -123,19 +130,19 @@ class CatalogService
             $paginatedItems = array_slice($sortedCatalog, $offset, $limit);
             
             // Затем применяем группировку к пагинированным данным
-            $groupedCatalog = $this->applyGrouping($paginatedItems, $params['grouping'] ?? []);
+            $groupedCatalog = $this->applyGrouping($paginatedItems, isset($params['grouping']) ? $params['grouping'] : array());
             
-            return [
+            return array(
                 'items' => $groupedCatalog,
-                'pagination' => [
+                'pagination' => array(
                     'currentPage' => $page,
                     'totalPages' => $totalPages,
                     'totalItems' => $totalItems,
                     'itemsPerPage' => $limit,
                     'hasNextPage' => $page < $totalPages,
                     'hasPrevPage' => $page > 1
-                ]
-            ];
+                )
+            );
             
         } catch (Exception $e) {
             throw new Exception('Error getting catalog with filters: ' . $e->getMessage(), $e->getCode());
@@ -145,7 +152,7 @@ class CatalogService
     // === МЕТОДЫ УПРАВЛЕНИЯ (только для приватного каталога) ===
 
     /** Добавляет новый файл в приватный каталог */
-    public function addFileToCatalog(array $fileData): bool
+    public function addFileToCatalog($fileData)
     {
         try {
             // Файлы добавляются только в приватный каталог
@@ -157,15 +164,15 @@ class CatalogService
             }
 
             // Добавляем новую запись
-            $catalog[] = [
+            $catalog[] = array(
                 'title' => $fileData['title'],
                 'authors' => $fileData['authors'],
                 'fileName' => $fileData['fileName'],
                 'uploadDate' => date('Y-m-d H:i:s'),
-                'fileSize' => $fileData['fileSize'] ?? null,
-                'category' => $fileData['category'] ?? null,
-                'description' => $fileData['description'] ?? null
-            ];
+                'fileSize' => isset($fileData['fileSize']) ? $fileData['fileSize'] : null,
+                'category' => isset($fileData['category']) ? $fileData['category'] : null,
+                'description' => isset($fileData['description']) ? $fileData['description'] : null
+            );
 
             $this->saveCatalogToFile($catalog, $this->privateCatalogPath);
             
@@ -177,7 +184,7 @@ class CatalogService
     }
 
     /** Удаляет файл из приватного каталога */
-    public function removeFileFromCatalog(string $fileName): bool
+    public function removeFileFromCatalog($fileName)
     {
         try {
             $catalog = $this->loadCatalogFromFile($this->privateCatalogPath);
@@ -187,9 +194,13 @@ class CatalogService
             }
 
             // Удаляем запись
-            $catalog = array_filter($catalog, function($item) use ($fileName) {
-                return $item['fileName'] !== $fileName;
-            });
+            $filteredCatalog = array();
+            foreach ($catalog as $item) {
+                if ($item['fileName'] !== $fileName) {
+                    $filteredCatalog[] = $item;
+                }
+            }
+            $catalog = $filteredCatalog;
 
             $this->saveCatalogToFile(array_values($catalog), $this->privateCatalogPath);
             return true;
@@ -200,7 +211,7 @@ class CatalogService
     }
 
     /** Обновляет файл в приватном каталоге */
-    public function updateFileInCatalog(array $updateData): bool
+    public function updateFileInCatalog($updateData)
     {
         try {
             $catalog = $this->loadCatalogFromFile($this->privateCatalogPath);
@@ -221,7 +232,7 @@ class CatalogService
             // Обновляем данные файла
             $catalog[$fileIndex]['title'] = $updateData['title'];
             $catalog[$fileIndex]['authors'] = $updateData['authors'];
-            $catalog[$fileIndex]['category'] = $updateData['category'] ?? null;
+            $catalog[$fileIndex]['category'] = isset($updateData['category']) ? $updateData['category'] : null;
             $catalog[$fileIndex]['description'] = $updateData['description'];
             $catalog[$fileIndex]['updatedAt'] = date('Y-m-d H:i:s');
             
@@ -236,7 +247,7 @@ class CatalogService
     }
 
     /** Получает информацию о файле */
-    public function getFileInfo(string $fileName, string $type = 'public'): ?array
+    public function getFileInfo($fileName, $type = 'public')
     {
         try {
             $catalogPath = $this->getCatalogPath($type);
@@ -256,7 +267,7 @@ class CatalogService
     }
 
     /** Проверяет существование файла в каталоге */
-    public function fileExists(string $fileName, string $type = 'public'): bool
+    public function fileExists($fileName, $type = 'public')
     {
         try {
             $catalogPath = $this->getCatalogPath($type);
@@ -268,7 +279,7 @@ class CatalogService
     }
 
     /** Получает размер каталога */
-    public function getCatalogSize(string $type = 'public'): int
+    public function getCatalogSize($type = 'public')
     {
         try {
             $catalogPath = $this->getCatalogPath($type);
@@ -280,10 +291,10 @@ class CatalogService
     }
 
     /** Очищает приватный каталог (удаляет все записи) */
-    public function clearPrivateCatalog(): bool
+    public function clearPrivateCatalog()
     {
         try {
-            $this->saveCatalogToFile([], $this->privateCatalogPath);
+            $this->saveCatalogToFile(array(), $this->privateCatalogPath);
             return true;
         } catch (Exception $e) {
             throw new Exception('Error clearing private catalog: ' . $e->getMessage(), $e->getCode());
@@ -291,13 +302,13 @@ class CatalogService
     }
 
     /** Получает список уникальных категорий из приватного каталога */
-    public function getCategories(): array
+    public function getCategories()
     {
         try {
             $catalog = $this->loadCatalogFromFile($this->privateCatalogPath);
             
             // Извлекаем все категории
-            $categories = [];
+            $categories = array();
             foreach ($catalog as $item) {
                 if (isset($item['category']) && !empty($item['category'])) {
                     $categories[] = $item['category'];
@@ -320,7 +331,7 @@ class CatalogService
     /**
      * Определяет путь к файлу каталога по типу
      */
-    private function getCatalogPath(string $type): string
+    private function getCatalogPath($type)
     {
         switch (strtolower($type)) {
             case 'public':
@@ -333,26 +344,26 @@ class CatalogService
     }
 
     /** Загружает каталог из файла */
-    private function loadCatalogFromFile(string $catalogPath): array
+    private function loadCatalogFromFile($catalogPath)
     {
         if (!file_exists($catalogPath)) {
-            return [];
+            return array();
         }
 
         $json = file_get_contents($catalogPath);
         $catalog = json_decode($json, true);
 
         if (!is_array($catalog)) {
-            return [];
+            return array();
         }
 
         return $catalog;
     }
 
     /** Сохраняет каталог в файл */
-    private function saveCatalogToFile(array $catalog, string $catalogPath): void
+    private function saveCatalogToFile($catalog, $catalogPath)
     {
-        $json = json_encode($catalog, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+        $json = json_encode($catalog);
         
         if (file_put_contents($catalogPath, $json) === false) {
             throw new Exception('Failed to save catalog to file', 500);
@@ -360,7 +371,7 @@ class CatalogService
     }
 
     /** Проверяет существование файла в каталоге */
-    private function fileExistsInCatalog(string $fileName, array $catalog): bool
+    private function fileExistsInCatalog($fileName, $catalog)
     {
         foreach ($catalog as $item) {
             if ($item['fileName'] === $fileName) {
@@ -371,15 +382,15 @@ class CatalogService
     }
 
     /** Группирует каталог по первой букве фамилии автора */
-    private function groupCatalogByAuthorFirstLetter(array $catalog): array
+    private function groupCatalogByAuthorFirstLetter($catalog)
     {
-        $groupedCatalog = [];
+        $groupedCatalog = array();
 
         foreach ($catalog as $file) {
-            $fileLetter = mb_strtoupper(mb_substr($file['authors'], 0, 1, 'UTF-8'), 'UTF-8');
+            $fileLetter = strtoupper(substr($file['authors'], 0, 1));
             
             if (!isset($groupedCatalog[$fileLetter])) {
-                $groupedCatalog[$fileLetter] = [];
+                $groupedCatalog[$fileLetter] = array();
             }
             
             $file['type'] = $this->getFileType($file['fileName']);
@@ -391,181 +402,178 @@ class CatalogService
     }
 
     /** Определяет тип файла по расширению */
-    private function getFileType(string $filename): string
+    private function getFileType($filename)
     {
         $ext = strtolower(pathinfo($filename, PATHINFO_EXTENSION));
         
         if ($ext === 'pdf') return 'pdf';
-        if (in_array($ext, ['doc', 'docx', 'rtf'])) return 'word';
-        if (in_array($ext, ['zip', 'rar', '7z'])) return 'archive';
-        if (in_array($ext, ['jpg', 'jpeg', 'png', 'gif'])) return 'image';
+        if (in_array($ext, array('doc', 'docx', 'rtf'))) return 'word';
+        if (in_array($ext, array('zip', 'rar', '7z'))) return 'archive';
+        if (in_array($ext, array('jpg', 'jpeg', 'png', 'gif'))) return 'image';
         
         return 'other';
     }
 
     /** Применяет фильтры к каталогу */
-    private function applyFilters(array $catalog, array $filters): array
+    private function applyFilters($catalog, $filters)
     {
         if (empty($filters)) {
             return $catalog;
         }
 
-        return array_filter($catalog, function($item) use ($filters) {
+        $filteredCatalog = array();
+        foreach ($catalog as $item) {
+            $includeItem = true;
+            
             // Поиск по названию
             if (isset($filters['search']) && !empty($filters['search'])) {
                 $search = strtolower($filters['search']);
-                $title = strtolower($item['title'] ?? '');
-                $authors = strtolower($item['authors'] ?? '');
-                $description = strtolower($item['description'] ?? '');
+                $title = strtolower(isset($item['title']) ? $item['title'] : '');
+                $authors = strtolower(isset($item['authors']) ? $item['authors'] : '');
+                $description = strtolower(isset($item['description']) ? $item['description'] : '');
                 
                 if (strpos($title, $search) === false && 
                     strpos($authors, $search) === false && 
                     strpos($description, $search) === false) {
-                    return false;
+                    $includeItem = false;
                 }
             }
             
             // Фильтр по автору
-            if (isset($filters['author']) && !empty($filters['author'])) {
+            if ($includeItem && isset($filters['author']) && !empty($filters['author'])) {
                 $author = strtolower($filters['author']);
-                $itemAuthors = strtolower($item['authors'] ?? '');
+                $itemAuthors = strtolower(isset($item['authors']) ? $item['authors'] : '');
                 if (strpos($itemAuthors, $author) === false) {
-                    return false;
+                    $includeItem = false;
                 }
             }
             
             // Фильтр по типу файла
-            if (isset($filters['fileType']) && !empty($filters['fileType'])) {
+            if ($includeItem && isset($filters['fileType']) && !empty($filters['fileType'])) {
                 $fileType = strtolower($filters['fileType']);
-                $fileName = strtolower($item['fileName'] ?? '');
+                $fileName = strtolower(isset($item['fileName']) ? $item['fileName'] : '');
                 if (strpos($fileName, $fileType) === false) {
-                    return false;
+                    $includeItem = false;
                 }
             }
             
-            return true;
-        });
+            if ($includeItem) {
+                $filteredCatalog[] = $item;
+            }
+        }
+        
+        return $filteredCatalog;
     }
 
     /**
      * Применяет расширенные фильтры к каталогу
      */
-    private function applyAdvancedFilters(array $catalog, array $filters): array
+    private function applyAdvancedFilters($catalog, $filters)
     {
         if (empty($filters)) {
             return $catalog;
         }
 
-        return array_filter($catalog, function($item) use ($filters) {
+        $filteredCatalog = array();
+        foreach ($catalog as $item) {
+            $includeItem = true;
+            
             // Поиск по названию, авторам, описанию
             if (isset($filters['search']) && !empty($filters['search'])) {
                 $search = strtolower($filters['search']);
-                $title = strtolower($item['title'] ?? '');
-                $authors = strtolower($item['authors'] ?? '');
-                $description = strtolower($item['description'] ?? '');
+                $title = strtolower(isset($item['title']) ? $item['title'] : '');
+                $authors = strtolower(isset($item['authors']) ? $item['authors'] : '');
+                $description = strtolower(isset($item['description']) ? $item['description'] : '');
                 
                 if (strpos($title, $search) === false && 
                     strpos($authors, $search) === false && 
                     strpos($description, $search) === false) {
-                    return false;
+                    $includeItem = false;
                 }
             }
             
             // Фильтр по автору
-            if (isset($filters['author']) && !empty($filters['author'])) {
+            if ($includeItem && isset($filters['author']) && !empty($filters['author'])) {
                 $author = strtolower($filters['author']);
-                $itemAuthors = strtolower($item['authors'] ?? '');
+                $itemAuthors = strtolower(isset($item['authors']) ? $item['authors'] : '');
                 if (strpos($itemAuthors, $author) === false) {
-                    return false;
+                    $includeItem = false;
                 }
             }
             
             // Фильтр по типу файла
-            if (isset($filters['fileType']) && !empty($filters['fileType'])) {
+            if ($includeItem && isset($filters['fileType']) && !empty($filters['fileType'])) {
                 $fileType = strtolower($filters['fileType']);
-                $fileName = strtolower($item['fileName'] ?? '');
+                $fileName = strtolower(isset($item['fileName']) ? $item['fileName'] : '');
                 if (strpos($fileName, $fileType) === false) {
-                    return false;
+                    $includeItem = false;
                 }
             }
             
             // Фильтр по категории
-            if (isset($filters['category']) && !empty($filters['category'])) {
+            if ($includeItem && isset($filters['category']) && !empty($filters['category'])) {
                 $category = strtolower($filters['category']);
-                $itemCategory = strtolower($item['category'] ?? '');
+                $itemCategory = strtolower(isset($item['category']) ? $item['category'] : '');
                 if (strpos($itemCategory, $category) === false) {
-                    return false;
+                    $includeItem = false;
                 }
             }
             
             // Фильтр по размеру файла
-            if (isset($filters['minSize']) && !empty($filters['minSize'])) {
-                if (($item['fileSize'] ?? 0) < $filters['minSize']) {
-                    return false;
+            if ($includeItem && isset($filters['minSize']) && !empty($filters['minSize'])) {
+                if ((isset($item['fileSize']) ? $item['fileSize'] : 0) < $filters['minSize']) {
+                    $includeItem = false;
                 }
             }
             
-            if (isset($filters['maxSize']) && !empty($filters['maxSize'])) {
-                if (($item['fileSize'] ?? 0) > $filters['maxSize']) {
-                    return false;
+            if ($includeItem && isset($filters['maxSize']) && !empty($filters['maxSize'])) {
+                if ((isset($item['fileSize']) ? $item['fileSize'] : 0) > $filters['maxSize']) {
+                    $includeItem = false;
                 }
             }
             
             // Фильтр по дате
-            if (isset($filters['dateFrom']) && !empty($filters['dateFrom'])) {
-                $itemDate = strtotime($item['uploadDate'] ?? '');
+            if ($includeItem && isset($filters['dateFrom']) && !empty($filters['dateFrom'])) {
+                $itemDate = strtotime(isset($item['uploadDate']) ? $item['uploadDate'] : '');
                 $fromDate = strtotime($filters['dateFrom']);
                 if ($itemDate < $fromDate) {
-                    return false;
+                    $includeItem = false;
                 }
             }
             
-            if (isset($filters['dateTo']) && !empty($filters['dateTo'])) {
-                $itemDate = strtotime($item['uploadDate'] ?? '');
+            if ($includeItem && isset($filters['dateTo']) && !empty($filters['dateTo'])) {
+                $itemDate = strtotime(isset($item['uploadDate']) ? $item['uploadDate'] : '');
                 $toDate = strtotime($filters['dateTo']);
                 if ($itemDate > $toDate) {
-                    return false;
+                    $includeItem = false;
                 }
             }
             
-            return true;
-        });
+            if ($includeItem) {
+                $filteredCatalog[] = $item;
+            }
+        }
+        
+        return $filteredCatalog;
     }
 
     /**
      * Применяет сортировку к каталогу
      */
-    private function applySorting(array $catalog, array $sorting): array
+    private function applySorting($catalog, $sorting)
     {
         if (empty($sorting) || empty($sorting['field'])) {
             return $catalog;
         }
 
         $field = $sorting['field'];
-        $direction = $sorting['direction'] ?? 'asc';
+        $direction = isset($sorting['direction']) ? $sorting['direction'] : 'asc';
 
-        usort($catalog, function($a, $b) use ($field, $direction) {
-            $valueA = $a[$field] ?? '';
-            $valueB = $b[$field] ?? '';
-
-            // Специальная обработка для дат
-            if ($field === 'uploadDate') {
-                $valueA = strtotime($valueA);
-                $valueB = strtotime($valueB);
-            }
-            
-            // Специальная обработка для размера файла
-            if ($field === 'fileSize') {
-                $valueA = (int)$valueA;
-                $valueB = (int)$valueB;
-            }
-
-            if ($direction === 'asc') {
-                return $valueA <=> $valueB;
-            } else {
-                return $valueB <=> $valueA;
-            }
-        });
+        // Создаем временные свойства для сортировки
+        $this->sortField = $field;
+        $this->sortDirection = $direction;
+        
+        usort($catalog, array($this, 'compareCatalogItems'));
 
         return $catalog;
     }
@@ -573,7 +581,7 @@ class CatalogService
     /**
      * Применяет группировку к каталогу
      */
-    private function applyGrouping(array $catalog, array $grouping): array
+    private function applyGrouping($catalog, $grouping)
     {
         if (empty($grouping) || empty($grouping['by']) || $grouping['by'] === 'none') {
             // Если группировка не указана или 'none', возвращаем плоский массив
@@ -581,31 +589,31 @@ class CatalogService
         }
 
         $groupBy = $grouping['by'];
-        $groupedCatalog = [];
+        $groupedCatalog = array();
 
         foreach ($catalog as $file) {
             $groupKey = '';
             
             switch ($groupBy) {
                 case 'author':
-                    $groupKey = mb_strtoupper(mb_substr($file['authors'] ?? '', 0, 1, 'UTF-8'), 'UTF-8');
+                    $groupKey = strtoupper(substr(isset($file['authors']) ? $file['authors'] : '', 0, 1));
                     break;
                 case 'category':
-                    $groupKey = $file['category'] ?? 'Без категории';
+                    $groupKey = isset($file['category']) ? $file['category'] : 'Без категории';
                     break;
                 case 'type':
-                    $groupKey = $this->getFileType($file['fileName'] ?? '');
+                    $groupKey = $this->getFileType(isset($file['fileName']) ? $file['fileName'] : '');
                     break;
                 case 'date':
-                    $date = new DateTime($file['uploadDate'] ?? '');
-                    $groupKey = $date->format('Y-m');
+                    $uploadDate = isset($file['uploadDate']) ? $file['uploadDate'] : '';
+                    $groupKey = date('Y-m', strtotime($uploadDate));
                     break;
                 default:
                     $groupKey = 'Все файлы';
             }
             
             if (!isset($groupedCatalog[$groupKey])) {
-                $groupedCatalog[$groupKey] = [];
+                $groupedCatalog[$groupKey] = array();
             }
             
             $groupedCatalog[$groupKey][] = $file;
@@ -615,5 +623,36 @@ class CatalogService
         ksort($groupedCatalog);
         
         return $groupedCatalog;
+    }
+    
+    /**
+     * Метод сравнения для usort (совместимость с PHP 5.3)
+     */
+    private function compareCatalogItems($a, $b)
+    {
+        $valueA = isset($a[$this->sortField]) ? $a[$this->sortField] : '';
+        $valueB = isset($b[$this->sortField]) ? $b[$this->sortField] : '';
+
+        // Специальная обработка для дат
+        if ($this->sortField === 'uploadDate') {
+            $valueA = strtotime($valueA);
+            $valueB = strtotime($valueB);
+        }
+        
+        // Специальная обработка для размера файла
+        if ($this->sortField === 'fileSize') {
+            $valueA = (int)$valueA;
+            $valueB = (int)$valueB;
+        }
+
+        if ($this->sortDirection === 'asc') {
+            if ($valueA < $valueB) return -1;
+            if ($valueA > $valueB) return 1;
+            return 0;
+        } else {
+            if ($valueB < $valueA) return -1;
+            if ($valueB > $valueA) return 1;
+            return 0;
+        }
     }
 }

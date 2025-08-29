@@ -25,27 +25,27 @@ class RateLimiter
     {
         // Проверяем блокировку IP
         if ($this->isIpBlocked($ip)) {
-            return [
+            return array(
                 'allowed' => false,
                 'message' => 'IP заблокирован из-за превышения лимита попыток входа',
                 'retry_after' => $this->getBlockExpiry($ip)
-            ];
+            );
         }
         
         // Проверяем количество неудачных попыток
         $attempts = $this->getAuthAttempts($ip);
-        $failedAttempts = $attempts[$ip]['count'] ?? 0;
+        $failedAttempts = isset($attempts[$ip]['count']) ? $attempts[$ip]['count'] : 0;
         
         // Если уже превышен лимит неудачных попыток
         if ($failedAttempts >= 5) {
-            return [
+            return array(
                 'allowed' => false,
                 'message' => 'Превышено количество попыток входа. Попробуйте позже.',
                 'retry_after' => $this->getRetryAfterTime($ip)
-            ];
+            );
         }
         
-        return ['allowed' => true];
+        return array('allowed' => true);
     }
     
     /**
@@ -67,14 +67,14 @@ class RateLimiter
         $maxUploads = 20; // Максимум 20 загрузок в день
         
         if ($_SESSION['uploads_today'] >= $maxUploads) {
-            return [
+            return array(
                 'allowed' => false,
                 'message' => 'Достигнут лимит загрузок на сегодня (20 файлов)',
                 'retry_after' => 'tomorrow'
-            ];
+            );
         }
         
-        return ['allowed' => true];
+        return array('allowed' => true);
     }
     
     /**
@@ -97,14 +97,14 @@ class RateLimiter
         
         if ($_SESSION['downloads_hour'] >= $maxDownloads) {
             $retryAfter = $_SESSION['downloads_reset'] - time();
-            return [
+            return array(
                 'allowed' => false,
                 'message' => 'Достигнут лимит скачиваний в час (30 файлов)',
                 'retry_after' => $retryAfter
-            ];
+            );
         }
         
-        return ['allowed' => true];
+        return array('allowed' => true);
     }
     
     /**
@@ -113,11 +113,11 @@ class RateLimiter
     public function incrementFailedAuthAttempts($ip)
     {
         $attempts = $this->getAuthAttempts($ip);
-        $attempts[$ip] = [
-            'count' => ($attempts[$ip]['count'] ?? 0) + 1,
-            'first_attempt' => $attempts[$ip]['first_attempt'] ?? time(),
+        $attempts[$ip] = array(
+            'count' => (isset($attempts[$ip]['count']) ? $attempts[$ip]['count'] : 0) + 1,
+            'first_attempt' => isset($attempts[$ip]['first_attempt']) ? $attempts[$ip]['first_attempt'] : time(),
             'last_attempt' => time()
-        ];
+        );
         
         // Блокируем IP после 5 неудачных попыток в течение 15 минут
         if ($attempts[$ip]['count'] >= 5 && 
@@ -146,11 +146,14 @@ class RateLimiter
     private function getAuthAttempts($ip)
     {
         if (!file_exists($this->authAttemptsFile)) {
-            return [];
+            return array();
         }
         
         $data = file_get_contents($this->authAttemptsFile);
-        $attempts = json_decode($data, true) ?: [];
+        $attempts = json_decode($data, true);
+        if (!$attempts) {
+            $attempts = array();
+        }
         
         // Очищаем старые попытки (старше 15 минут)
         foreach ($attempts as $ipAddr => $info) {
@@ -206,11 +209,12 @@ class RateLimiter
     private function getBlockedIps()
     {
         if (!file_exists($this->blockedFile)) {
-            return [];
+            return array();
         }
         
         $data = file_get_contents($this->blockedFile);
-        return json_decode($data, true) ?: [];
+        $result = json_decode($data, true);
+        return $result ? $result : array();
     }
     
     /**

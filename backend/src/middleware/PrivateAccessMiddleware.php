@@ -15,12 +15,12 @@ class PrivateAccessMiddleware extends Middleware
         if (isset($request['get']['type']) && $request['get']['type'] === 'private') {
             // Если запрашивается приватный тип, проверяем аутентификацию
             if (!AuthService::getAuthenticated()) {
-                return [
+                return array(
                     'success' => false,
                     'error' => 'Unauthorized access',
                     'message' => 'Требуется аутентификация для доступа к приватным данным',
                     'code' => 401
-                ];
+                );
             }
         }
 
@@ -30,9 +30,9 @@ class PrivateAccessMiddleware extends Middleware
     public function shouldRun($route, $method)
     {
         // Применяем к GET запросам, которые могут содержать приватные параметры
-        $routesWithPrivateParams = [
-            '/api/catalog/paginated' => ['GET']  // Пагинация с type параметром
-        ];
+        $routesWithPrivateParams = array(
+            '/api/catalog/paginated' => array('GET')  // Пагинация с type параметром
+        );
 
         return isset($routesWithPrivateParams[$route]) && in_array($method, $routesWithPrivateParams[$route]);
     }

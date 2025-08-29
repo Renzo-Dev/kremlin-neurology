@@ -12,11 +12,11 @@ class FileService
     {
         $this->privatePath = __DIR__ . '/../data/private/';
         $this->publicPath = __DIR__ . '/../data/public/';
-        $this->allowedTypes = ['pdf', 'doc', 'docx', 'txt']; // Соответствует frontend
+        $this->allowedTypes = array('pdf', 'doc', 'docx', 'txt'); // Соответствует frontend
         $this->maxFileSize = 50 * 1024 * 1024; // 50MB (соответствует frontend)
         
         // Убираем автоматическое создание директорий
-        // this->ensureDirectoriesExist();
+        // $this->ensureDirectoriesExist();
     }
 
     // === СКАЧИВАНИЕ ФАЙЛОВ ===
@@ -83,7 +83,7 @@ class FileService
     /**
      * Сохраняет загруженный файл
      */
-    public function saveUploadedFile(array $file, string $title, string $authors): array
+    public function saveUploadedFile($file, $title, $authors)
     {
         try {
             // Валидация файла
@@ -92,11 +92,21 @@ class FileService
             // Создаем директории только при необходимости
             $this->ensureDirectoriesExist();
             
-            // Генерируем уникальное имя файла
-            $fileName = $this->generateUniqueFileName($file['name'], $title);
+            // Используем оригинальное имя файла
+            $fileName = $file['name'];
             
-            // Создаем путь для сохранения (по умолчанию в приватную папку)
+            // Проверяем, существует ли файл с таким именем
             $filePath = $this->privatePath . $fileName;
+            $counter = 1;
+            
+            // Если файл существует, добавляем номер к имени
+            while (file_exists($filePath)) {
+                $nameWithoutExt = pathinfo($file['name'], PATHINFO_FILENAME);
+                $extension = pathinfo($file['name'], PATHINFO_EXTENSION);
+                $fileName = $nameWithoutExt . '_' . $counter . '.' . $extension;
+                $filePath = $this->privatePath . $fileName;
+                $counter++;
+            }
             
             // Перемещаем файл
             if (!move_uploaded_file($file['tmp_name'], $filePath)) {
@@ -107,7 +117,7 @@ class FileService
             $actualFileSize = filesize($filePath);
             
             // Получаем информацию о файле
-            $fileInfo = [
+            $fileInfo = array(
                 'fileName' => $fileName,
                 'originalName' => $file['name'],
                 'filePath' => $filePath,
@@ -117,7 +127,7 @@ class FileService
                 'authors' => $authors,
                 'uploadDate' => date('Y-m-d H:i:s'),
                 'mimeType' => $file['type']
-            ];
+            );
             
             return $fileInfo;
 
@@ -131,7 +141,7 @@ class FileService
     /**
      * Удаляет файл
      */
-    public function deleteFile(string $fileName): bool
+    public function deleteFile($fileName)
     {
         try {
             // Сначала пробуем удалить из приватной папки
@@ -163,7 +173,7 @@ class FileService
     /**
      * Перемещает файл в публичную папку
      */
-    public function moveToPublic($fileName): bool
+    public function moveToPublic($fileName)
     {
         $privatePath = $this->privatePath . $fileName;
         $publicPath = $this->publicPath . $fileName;
@@ -186,7 +196,7 @@ class FileService
     /**
      * Перемещает файл в приватную папку
      */
-    public function moveToPrivate($fileName): bool
+    public function moveToPrivate($fileName)
     {
         $publicPath = $this->publicPath . $fileName;
         $privatePath = $this->privatePath . $fileName;
@@ -209,7 +219,7 @@ class FileService
     /**
      * Получает информацию о файле
      */
-    public function getFileInfo(string $fileName): array
+    public function getFileInfo($fileName)
     {
         try {
             // Сначала ищем в приватной папке
@@ -225,7 +235,7 @@ class FileService
             $fileInfo = pathinfo($filePath);
             $stats = stat($filePath);
             
-            return [
+            return array(
                 'fileName' => $fileName,
                 'filePath' => $filePath,
                 'fileSize' => $stats['size'],
@@ -236,7 +246,7 @@ class FileService
                 'isPublic' => $this->isFilePublic($fileName),
                 'isReadable' => is_readable($filePath),
                 'isWritable' => is_writable($filePath)
-            ];
+            );
 
         } catch (Exception $e) {
             throw new Exception('Error getting file info: ' . $e->getMessage(), $e->getCode());
@@ -248,12 +258,12 @@ class FileService
     /**
      * Получает размер хранилища
      */
-    public function getStorageSize(): array
+    public function getStorageSize()
     {
         try {
             $totalSize = 0;
             $fileCount = 0;
-            $typeStats = [];
+            $typeStats = array();
             
             // Подсчитываем приватные файлы
             $privateFiles = glob($this->privatePath . '*');
@@ -264,7 +274,7 @@ class FileService
                     $fileCount++;
                     
                     $extension = strtolower(pathinfo($file, PATHINFO_EXTENSION));
-                    $typeStats[$extension] = ($typeStats[$extension] ?? 0) + $size;
+                    $typeStats[$extension] = (isset($typeStats[$extension]) ? $typeStats[$extension] : 0) + $size;
                 }
             }
             
@@ -277,16 +287,16 @@ class FileService
                     $fileCount++;
                     
                     $extension = strtolower(pathinfo($file, PATHINFO_EXTENSION));
-                    $typeStats[$extension] = ($typeStats[$extension] ?? 0) + $size;
+                    $typeStats[$extension] = (isset($typeStats[$extension]) ? $typeStats[$extension] : 0) + $size;
                 }
             }
             
-            return [
+            return array(
                 'totalSize' => $totalSize,
                 'totalSizeFormatted' => $this->formatBytes($totalSize),
                 'fileCount' => $fileCount,
                 'typeStats' => $typeStats
-            ];
+            );
 
         } catch (Exception $e) {
             throw new Exception('Error getting storage size: ' . $e->getMessage(), $e->getCode());
@@ -296,7 +306,7 @@ class FileService
     /**
      * Проверяет, является ли файл публичным
      */
-    public function isFilePublic($fileName): bool
+    public function isFilePublic($fileName)
     {
         return file_exists($this->publicPath . $fileName);
     }
@@ -304,7 +314,7 @@ class FileService
     /**
      * Проверяет существование файла
      */
-    public function fileExists($filePath): bool
+    public function fileExists($filePath)
     {
         return file_exists($filePath);
     }
@@ -314,7 +324,7 @@ class FileService
     /**
      * Создает необходимые директории
      */
-    private function ensureDirectoriesExist(): void
+    private function ensureDirectoriesExist()
     {
         if (!is_dir($this->privatePath)) {
             mkdir($this->privatePath, 0755, true);
@@ -328,7 +338,7 @@ class FileService
     /**
      * Валидирует загруженный файл
      */
-    private function validateUploadedFile(array $file): void
+    private function validateUploadedFile($file)
     {
         if ($file['error'] !== UPLOAD_ERR_OK) {
             throw new Exception('File upload error: ' . $file['error'], 400);
@@ -345,61 +355,39 @@ class FileService
         }
     }
 
-    /**
-     * Генерирует уникальное имя файла
-     */
-    private function generateUniqueFileName(string $originalName, string $title): string
-    {
-        $extension = $this->getFileExtension($originalName);
-        $sanitizedTitle = $this->sanitizeFileName($title);
-        $timestamp = time();
-        $random = uniqid();
-        
-        return $sanitizedTitle . '_' . $timestamp . '_' . $random . '.' . $extension;
-    }
+
 
     /**
      * Получает расширение файла
      */
-    private function getFileExtension(string $fileName): string
+    private function getFileExtension($fileName)
     {
         return strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
     }
 
-    /**
-     * Санитизирует имя файла
-     */
-    private function sanitizeFileName(string $fileName): string
-    {
-        // Убираем специальные символы, оставляем только буквы, цифры и пробелы
-        $sanitized = preg_replace('/[^a-zA-Z0-9\s]/', '', $fileName);
-        // Заменяем пробелы на подчеркивания
-        $sanitized = str_replace(' ', '_', $sanitized);
-        // Ограничиваем длину
-        return substr($sanitized, 0, 50);
-    }
+
 
     /**
      * Получает MIME тип по расширению
      */
-    private function getMimeType(string $extension): string
+    private function getMimeType($extension)
     {
-        $mimeTypes = [
+        $mimeTypes = array(
             'pdf' => 'application/pdf',
             'doc' => 'application/msword',
             'docx' => 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
             'txt' => 'text/plain'
-        ];
+        );
         
-        return $mimeTypes[$extension] ?? 'application/octet-stream';
+        return isset($mimeTypes[$extension]) ? $mimeTypes[$extension] : 'application/octet-stream';
     }
 
     /**
      * Форматирует размер файла
      */
-    private function formatBytes(int $bytes, int $precision = 2): string
+    private function formatBytes($bytes, $precision = 2)
     {
-        $units = ['B', 'KB', 'MB', 'GB'];
+        $units = array('B', 'KB', 'MB', 'GB');
         
         for ($i = 0; $bytes > 1024 && $i < count($units) - 1; $i++) {
             $bytes /= 1024;

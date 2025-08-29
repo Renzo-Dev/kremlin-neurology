@@ -4,10 +4,10 @@
 interface ValidatorInterface
 {
     /** Валидирует данные и возвращает результат */
-    public function validate(array $data): ValidationResult;
+    public function validate($data);
     
     /** Проверяет, применим ли валидатор к маршруту */
-    public function canValidate(string $route, string $method): bool;
+    public function canValidate($route, $method);
 }
 
 /** Результат валидации с ошибками и данными */
@@ -17,24 +17,24 @@ class ValidationResult
     private $errors;
     private $validatedData;
 
-    public function __construct(bool $isValid, array $errors = [], array $validatedData = [])
+    public function __construct($isValid, $errors = array(), $validatedData = array())
     {
         $this->isValid = $isValid;
         $this->errors = $errors;
         $this->validatedData = $validatedData;
     }
 
-    public function isValid(): bool
+    public function isValid()
     {
         return $this->isValid;
     }
 
-    public function getErrors(): array
+    public function getErrors()
     {
         return $this->errors;
     }
 
-    public function getValidatedData(): array
+    public function getValidatedData()
     {
         return $this->validatedData;
     }

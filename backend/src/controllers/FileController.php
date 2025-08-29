@@ -38,7 +38,7 @@ class FileController
             // Проверяем rate limiting для скачиваний
             $rateLimiter = new RateLimiter();
             $downloadLimitCheck = $rateLimiter->checkDownloadLimit();
-            
+
             if (!$downloadLimitCheck['allowed']) {
                 respondHandler::respond(array(
                     'error' => 'Rate limit exceeded',
@@ -47,9 +47,9 @@ class FileController
                 ), 429);
                 return;
             }
-            
+
             $data = json_decode(file_get_contents('php://input'), true);
-            
+
             if (empty($data['fileName'])) {
                 throw new Exception('File name is required', 400);
             }
@@ -60,10 +60,10 @@ class FileController
             } else {
                 $this->getFileService()->getPublicFile($fileName);
             }
-            
+
             // Увеличиваем счетчик скачиваний
             $rateLimiter->incrementDownloadCount();
-            
+
         } catch (Exception $e) {
             respondHandler::respond(array(
                 'error' => 'File download error',
@@ -81,12 +81,12 @@ class FileController
             // Проверяем rate limiting для загрузок
             $rateLimiter = new RateLimiter();
             $uploadLimitCheck = $rateLimiter->checkUploadLimit();
-            
+
             if (!$uploadLimitCheck['allowed']) {
                 ResponseService::error('Rate limit exceeded', $uploadLimitCheck['message'], 429);
                 return;
             }
-            
+
             // Проверяем, загружен ли файл
             if (!isset($_FILES['file']) || $_FILES['file']['error'] !== UPLOAD_ERR_OK) {
                 error_log("File validation failed:");
@@ -95,15 +95,15 @@ class FileController
                     error_log("File error code: " . $_FILES['file']['error']);
                     error_log("File details: " . print_r($_FILES['file'], true));
                 }
-                
+
                 // Возвращаем ошибку валидации в правильном формате
-                respondHandler::respond([
+                respondHandler::respond(array(
                     'error' => 'Validation failed',
                     'message' => 'Ошибка валидации данных',
-                    'errors' => [
-                        'file' => ['Файл обязателен для загрузки']
-                    ]
-                ], 400);
+                    'errors' => array(
+                        'file' => array('Файл обязателен для загрузки')
+                    )
+                ), 400);
                 return;
             }
 
@@ -111,22 +111,22 @@ class FileController
             error_log("=== FileController::saveFile DEBUG ===");
             error_log("POST data: " . print_r($_POST, true));
             error_log("FILES data: " . print_r($_FILES, true));
-            
+
             // Проверяем обязательные поля
             if (empty($_POST['title']) || empty($_POST['authors'])) {
                 error_log("Required fields validation failed");
-                error_log("Title: '" . ($_POST['title'] ?? 'NOT SET') . "'");
-                error_log("Authors: '" . ($_POST['authors'] ?? 'NOT SET') . "'");
-                
+                error_log("Title: '" . (isset($_POST['title']) ? $_POST['title'] : 'NOT SET') . "'");
+                error_log("Authors: '" . (isset($_POST['authors']) ? $_POST['authors'] : 'NOT SET') . "'");
+
                 // Возвращаем ошибку валидации в правильном формате
-                respondHandler::respond([
+                respondHandler::respond(array(
                     'error' => 'Validation failed',
                     'message' => 'Ошибка валидации данных',
-                    'errors' => [
-                        'title' => empty($_POST['title']) ? ['Название файла обязательно'] : [],
-                        'authors' => empty($_POST['authors']) ? ['Авторы обязательны'] : []
-                    ]
-                ], 400);
+                    'errors' => array(
+                        'title' => empty($_POST['title']) ? array('Название файла обязательно') : array(),
+                        'authors' => empty($_POST['authors']) ? array('Авторы обязательны') : array()
+                    )
+                ), 400);
                 return;
             }
 
@@ -138,24 +138,24 @@ class FileController
             );
 
             // Добавляем запись в каталог
-            $catalogData = [
+            $catalogData = array(
                 'fileName' => $fileInfo['fileName'],
                 'title' => $_POST['title'],
                 'authors' => $_POST['authors'],
                 'fileSize' => $fileInfo['fileSize'],
-                'category' => $_POST['category'] ?? null,
-                'description' => $_POST['description'] ?? null
-            ];
+                'category' => isset($_POST['category']) ? $_POST['category'] : null,
+                'description' => isset($_POST['description']) ? $_POST['description'] : null
+            );
 
             $this->catalogService->addFileToCatalog($catalogData);
 
             // Увеличиваем счетчик загрузок
             $rateLimiter->incrementUploadCount();
 
-            ResponseService::success([
+            ResponseService::success(array(
                 'message' => 'File saved successfully',
                 'fileInfo' => $fileInfo
-            ]);
+            ));
 
         } catch (Exception $e) {
             ResponseService::errorFromException($e, 'Error saving file');
@@ -166,10 +166,18 @@ class FileController
     public function deleteFile()
     {
         try {
-            $rawInput = file_get_contents('php://input');
-            $data = json_decode($rawInput, true);
-            $fileName = $data['fileName'] ?? '';
-
+            if (isset($_GET['fileName'])) {
+                $fileName = $_GET['fileName'];
+            } else {
+                // 2️⃣ Если в query нет → пробуем достать JSON из тела запроса
+                $rawData = file_get_contents("php://input");
+                if (!empty($rawData)) {
+                    $json = json_decode($rawData, true);
+                    if (isset($json['fileName'])) {
+                        $fileName = $json['fileName'];
+                    }
+                }
+            }
             if (empty($fileName)) {
                 ResponseService::badRequest('File name is required');
                 return;
@@ -177,13 +185,13 @@ class FileController
 
             // Удаляем из каталога
             $this->catalogService->removeFileFromCatalog($fileName);
-            
+
             // Удаляем файл с диска через FileService
             $this->getFileService()->deleteFile($fileName);
 
-            ResponseService::success([
+            ResponseService::success(array(
                 'message' => 'File deleted successfully'
-            ]);
+            ));
 
         } catch (Exception $e) {
             ResponseService::errorFromException($e, 'Error deleting file');
@@ -195,9 +203,11 @@ class FileController
     {
         try {
             $rawInput = file_get_contents('php://input');
-            
+            var_dump($_POST);
+            exjt;
+
             $data = json_decode($rawInput, true);
-            
+
             if (json_last_error() !== JSON_ERROR_NONE) {
                 ResponseService::badRequest('Invalid JSON data');
                 return;
@@ -205,53 +215,53 @@ class FileController
 
             // Проверяем обязательные поля
             if (empty($data['fileName'])) {
-                respondHandler::respond([
+                respondHandler::respond(array(
                     'error' => 'Validation failed',
                     'message' => 'Ошибка валидации данных',
-                    'errors' => [
-                        'fileName' => ['Имя файла обязательно']
-                    ]
-                ], 400);
+                    'errors' => array(
+                        'fileName' => array('Имя файла обязательно')
+                    )
+                ), 400);
                 return;
             }
 
             if (empty($data['title'])) {
-                respondHandler::respond([
+                respondHandler::respond(array(
                     'error' => 'Validation failed',
                     'message' => 'Ошибка валидации данных',
-                    'errors' => [
-                        'title' => ['Название файла обязательно']
-                    ]
-                ], 400);
+                    'errors' => array(
+                        'title' => array('Название файла обязательно')
+                    )
+                ), 400);
                 return;
             }
 
             if (empty($data['authors'])) {
-                respondHandler::respond([
+                respondHandler::respond(array(
                     'error' => 'Validation failed',
                     'message' => 'Ошибка валидации данных',
-                    'errors' => [
-                        'authors' => ['Авторы обязательны']
-                    ]
-                ], 400);
+                    'errors' => array(
+                        'authors' => array('Авторы обязательны')
+                    )
+                ), 400);
                 return;
             }
 
             // Обновляем запись в каталоге
-            $updateData = [
+            $updateData = array(
                 'fileName' => $data['fileName'],
                 'title' => $data['title'],
                 'authors' => $data['authors'],
-                'category' => $data['category'] ?? null,
-                'description' => $data['description'] ?? null
-            ];
-            
+                'category' => isset($data['category']) ? $data['category'] : null,
+                'description' => isset($data['description']) ? $data['description'] : null
+            );
+
             $this->catalogService->updateFileInCatalog($updateData);
 
-            ResponseService::success([
+            ResponseService::success(array(
                 'message' => 'File updated successfully',
                 'updatedData' => $updateData
-            ]);
+            ));
 
         } catch (Exception $e) {
             ResponseService::errorFromException($e, 'Error updating file');
@@ -263,7 +273,7 @@ class FileController
     {
         try {
             $data = json_decode(file_get_contents('php://input'), true);
-            $fileName = $data['fileName'] ?? '';
+            $fileName = isset($data['fileName']) ? $data['fileName'] : '';
 
             if (empty($fileName)) {
                 ResponseService::badRequest('File name is required');
@@ -283,12 +293,12 @@ class FileController
     {
         try {
             $storageStats = $this->getFileService()->getStorageSize();
-            $catalogStats = [
+            $catalogStats = array(
                 'catalogSize' => $this->catalogService->getCatalogSize(),
                 'publicFiles' => count($this->catalogService->getPublicCatalog()),
                 'privateFiles' => count($this->catalogService->getPrivateCatalog())
-            ];
-            
+            );
+
             $combinedStats = array_merge($storageStats, $catalogStats);
             ResponseService::success($combinedStats);
 

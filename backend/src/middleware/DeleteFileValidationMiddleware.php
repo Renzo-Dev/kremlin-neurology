@@ -8,40 +8,40 @@ require_once __DIR__ . '/Middleware.php';
  */
 class DeleteFileValidationMiddleware extends Middleware
 {
-    private $rules = [
-        'fileName' => [
-            ['type' => 'required', 'message' => 'Имя файла обязательно'],
-            ['type' => 'minLength', 'value' => 1, 'message' => 'Имя файла не может быть пустым'],
-            ['type' => 'maxLength', 'value' => 255, 'message' => 'Имя файла слишком длинное'],
-            ['type' => 'regex', 'pattern' => '/^[a-zA-Z0-9._\-\s]+$/', 'message' => 'Имя файла содержит недопустимые символы']
-        ]
-    ];
+    private $rules = array(
+        'fileName' => array(
+            array('type' => 'required', 'message' => 'Имя файла обязательно'),
+            array('type' => 'minLength', 'value' => 1, 'message' => 'Имя файла не может быть пустым'),
+            array('type' => 'maxLength', 'value' => 255, 'message' => 'Имя файла слишком длинное'),
+            array('type' => 'regex', 'pattern' => '/^[a-zA-Z0-9._\-\s]+$/', 'message' => 'Имя файла содержит недопустимые символы')
+        )
+    );
 
     public function handle($request)
     {
-        $errors = [];
+        $errors = array();
         $data = $this->getRequestData($request);
 
         foreach ($this->rules as $field => $fieldRules) {
             foreach ($fieldRules as $rule) {
                 $validationResult = $this->validateField($field, $rule, $data);
                 if ($validationResult !== true) {
-                    if (!isset($errors[$field])) {
-                        $errors[$field] = [];
-                    }
+                                    if (!isset($errors[$field])) {
+                    $errors[$field] = array();
+                }
                     $errors[$field][] = $validationResult;
                 }
             }
         }
 
         if (!empty($errors)) {
-            return [
+            return array(
                 'success' => false,
                 'error' => 'Validation failed',
                 'errors' => $errors,
                 'message' => 'Ошибка валидации данных',
                 'code' => 400
-            ];
+            );
         }
 
         return true;
@@ -54,25 +54,25 @@ class DeleteFileValidationMiddleware extends Middleware
         switch ($rule['type']) {
             case 'required':
                 if (empty($value) && $value !== '0') {
-                    return $rule['message'] ?? "Поле '{$field}' обязательно";
+                    return isset($rule['message']) ? $rule['message'] : "Поле '{$field}' обязательно";
                 }
                 break;
 
             case 'minLength':
                 if (!empty($value) && strlen($value) < $rule['value']) {
-                    return $rule['message'] ?? "Поле '{$field}' должно содержать минимум {$rule['value']} символов";
+                    return isset($rule['message']) ? $rule['message'] : "Поле '{$field}' должно содержать минимум {$rule['value']} символов";
                 }
                 break;
 
             case 'maxLength':
                 if (!empty($value) && strlen($value) > $rule['value']) {
-                    return $rule['message'] ?? "Поле '{$field}' не должно превышать {$rule['value']} символов";
+                    return isset($rule['message']) ? $rule['message'] : "Поле '{$field}' не должно превышать {$rule['value']} символов";
                 }
                 break;
 
             case 'regex':
                 if (!empty($value) && !preg_match($rule['pattern'], $value)) {
-                    return $rule['message'] ?? "Поле '{$field}' имеет недопустимый формат";
+                    return isset($rule['message']) ? $rule['message'] : "Поле '{$field}' имеет недопустимый формат";
                 }
                 break;
         }
@@ -82,7 +82,7 @@ class DeleteFileValidationMiddleware extends Middleware
 
     private function getRequestData($request)
     {
-        $data = [];
+        $data = array();
         
         // JSON данные
         if (isset($request['json'])) {

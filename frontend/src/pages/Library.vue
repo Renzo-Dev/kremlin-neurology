@@ -86,6 +86,7 @@ import { useFileDownload } from '@/composables/library/useFileDownload'
 import { useLibraryMode } from '@/composables/library/useLibraryMode'
 import { ApiService } from '@/services/apiService'
 import { computed, onMounted, ref, watch } from 'vue'
+import { useRouter } from 'vue-router'
 
 export default {
   name: 'Library',
@@ -96,6 +97,7 @@ export default {
     FileFilters,
   },
   setup() {
+    const router = useRouter()
     const { libraryMode, isPrivateMode } = useLibraryMode()
     const { hasAccess, openPasswordModal, isAdmin } = useFileAccess()
     const { downloadFile } = useFileDownload()
@@ -291,8 +293,8 @@ export default {
     }
 
     const goToAdminPanel = () => {
-      // Переход на админ панель
-      window.location.href = '/admin'
+      // Переход на админ панель через роутер
+      router.push('/admin')
     }
 
     // Метод для определения типа файла по расширению

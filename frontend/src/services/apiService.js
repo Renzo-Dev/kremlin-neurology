@@ -1,7 +1,8 @@
 // API сервис для взаимодействия с backend
 export class ApiService {
   constructor() {
-    this.baseUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000/api'
+    // this.baseUrl = 'http://localhost:5000/api'
+    this.baseUrl = `${window.location.origin}/api`
   }
 
   // Базовый метод для HTTP запросов
@@ -288,9 +289,11 @@ export class ApiService {
   }
 
   async deleteFile(fileName) {
-    return this.request('/catalog', {
+    return this.request(`/catalog?fileName=${encodeURIComponent(fileName)}`, {
       method: 'DELETE',
-      body: JSON.stringify({ fileName }),
+      headers: {
+        Accept: 'application/json',
+      },
     })
   }
 }

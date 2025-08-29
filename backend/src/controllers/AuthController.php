@@ -14,7 +14,7 @@ class AuthController
         try {
             // Проверяем rate limiting
             $rateLimiter = new RateLimiter();
-            $clientIp = $_SERVER['REMOTE_ADDR'] ?? 'unknown';
+            $clientIp = isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : 'unknown';
             $rateLimitCheck = $rateLimiter->checkAuthLimit($clientIp);
             
             if (!$rateLimitCheck['allowed']) {

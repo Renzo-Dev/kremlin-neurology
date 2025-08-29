@@ -1,6 +1,7 @@
 import { useLibraryMode } from '@/composables/library/useLibraryMode'
 import { ApiService } from '@/services/apiService'
 import { computed, ref } from 'vue'
+import { useRouter } from 'vue-router'
 
 // Shared state для всех компонентов
 const isAuthenticated = ref(false)
@@ -19,6 +20,7 @@ if (typeof window !== 'undefined') {
 export function useFileAccess() {
   const { switchToPrivate } = useLibraryMode()
   const apiService = new ApiService()
+  const router = useRouter()
 
   const hasAccess = computed(() => isAuthenticated.value)
 
@@ -57,9 +59,9 @@ export function useFileAccess() {
 
         closePasswordModal()
 
-        // Если админ - переходим на админ панель, иначе на приватную библиотеку
+        // Если админ - переходим на админ панель через роутер, иначе на приватную библиотеку
         if (response.isAdmin) {
-          window.location.href = '/admin'
+          router.push('/admin')
         } else {
           // Автоматически переключаемся на приватную библиотеку
           switchToPrivate()

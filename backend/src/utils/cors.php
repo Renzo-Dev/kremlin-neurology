@@ -2,7 +2,7 @@
 // РАЗРАБОТКА: Упрощенные CORS настройки для разработки
 // ПРОДАКШЕН: Замените этот файл на cors.prod.php или измените настройки
 
-$origin = $_SERVER['HTTP_ORIGIN'] ?? '';
+$origin = isset($_SERVER['HTTP_ORIGIN']) ? $_SERVER['HTTP_ORIGIN'] : '';
 
 // Для отладки
 error_log("CORS: Requested origin: " . $origin);

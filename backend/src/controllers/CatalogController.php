@@ -36,23 +36,24 @@ class CatalogController
     }
 
     /** Получает каталог с фильтрацией по автору */
-    public function getCatalogByAuthor(string $author)
+    public function getCatalogByAuthor($author)
     {
         try {
-            if (empty(trim($author))) {
+            $trimmedAuthor = trim($author);
+            if (empty($trimmedAuthor)) {
                 ResponseService::badRequest('Author name is required');
                 return;
             }
 
             // Получаем тип каталога из GET параметра, по умолчанию 'public'
-            $type = $_GET['type'] ?? 'public';
+            $type = isset($_GET['type']) ? $_GET['type'] : 'public';
             
-            if (!in_array($type, ['public', 'private'])) {
+            if (!in_array($type, array('public', 'private'))) {
                 ResponseService::badRequest('Invalid catalog type. Use "public" or "private"');
                 return;
             }
 
-            $catalog = $this->catalogService->getCatalogByAuthor($author, $type);
+            $catalog = $this->catalogService->getCatalogByAuthor($trimmedAuthor, $type);
             ResponseService::success($catalog);
         } catch (Exception $e) {
             ResponseService::errorFromException($e, 'Error loading catalog by author');
@@ -74,9 +75,9 @@ class CatalogController
             }
 
             // Получаем тип каталога из GET параметра, по умолчанию 'public'
-            $type = $_GET['type'] ?? 'public';
+            $type = isset($_GET['type']) ? $_GET['type'] : 'public';
             
-            if (!in_array($type, ['public', 'private'])) {
+            if (!in_array($type, array('public', 'private'))) {
                 ResponseService::error('Invalid catalog type. Use "public" or "private"', 'Invalid catalog type', 400);
                 return;
             }
@@ -91,7 +92,7 @@ class CatalogController
             }
 
             // Собираем фильтры
-            $filters = [];
+            $filters = array();
             if (isset($_GET['search']) && !empty($_GET['search'])) {
                 $filters['search'] = $_GET['search'];
             }
@@ -122,7 +123,7 @@ class CatalogController
             }
 
             // Валидация обязательных параметров
-            if (!isset($input['type']) || !in_array($input['type'], ['public', 'private'])) {
+            if (!isset($input['type']) || !in_array($input['type'], array('public', 'private'))) {
                 ResponseService::badRequest('Invalid catalog type. Use "public" or "private"');
                 return;
             }
@@ -137,8 +138,8 @@ class CatalogController
             }
 
             // Валидация пагинации
-            $page = $input['page'] ?? 1;
-            $limit = $input['limit'] ?? 20;
+            $page = isset($input['page']) ? $input['page'] : 1;
+            $limit = isset($input['limit']) ? $input['limit'] : 20;
             
             if ($page < 1 || $limit < 1 || $limit > 100) {
                 ResponseService::badRequest('Invalid pagination parameters. Page must be >= 1, limit must be 1-100');

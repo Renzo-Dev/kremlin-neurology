@@ -16,22 +16,22 @@ class AuthMiddleware extends Middleware
     {
         // Проверяем аутентификацию
         if (!AuthService::getAuthenticated()) {
-            return [
+            return array(
                 'success' => false,
                 'error' => 'Unauthorized access',
                 'message' => 'Требуется аутентификация',
                 'code' => 401
-            ];
+            );
         }
 
         // Если требуется админ, проверяем права
         if ($this->requireAdmin && !AuthService::getAdminAuthenticated()) {
-            return [
+            return array(
                 'success' => false,
                 'error' => 'Insufficient permissions',
                 'message' => 'Требуются права администратора',
                 'code' => 403
-            ];
+            );
         }
 
         return true;
@@ -42,12 +42,12 @@ class AuthMiddleware extends Middleware
         // ПРОСТАЯ ЛОГИКА: только защищенные маршруты требуют аутентификации
         
         // Защищенные маршруты (требуют аутентификации)
-        $protectedRoutes = [
-            '/api/catalog' => ['POST', 'DELETE'],              // Управление файлами
-            '/api/privateDownload' => ['POST'],                // Скачивание приватных файлов
-            '/api/catalog/private' => ['GET'],                 // Приватный каталог
-            '/api/file/info' => ['POST']                       // Информация о файле
-        ];
+        $protectedRoutes = array(
+            '/api/catalog' => array('POST', 'DELETE'),              // Управление файлами
+            '/api/privateDownload' => array('POST'),                // Скачивание приватных файлов
+            '/api/catalog/private' => array('GET'),                 // Приватный каталог
+            '/api/file/info' => array('POST')                       // Информация о файле
+        );
 
         // Если маршрут в списке защищенных - требуем аутентификацию
         if (isset($protectedRoutes[$route]) && in_array($method, $protectedRoutes[$route])) {
