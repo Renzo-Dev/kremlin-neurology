@@ -10,6 +10,31 @@ export const routers = [
     component: () => import('@/pages/Education.vue'),
   },
   {
+    path: '/education/ordinatura',
+    name: 'Ordinatura',
+    component: () => import('@/pages/Education/Ordinatura.vue'),
+  },
+  {
+    path: '/education/aspirantura',
+    name: 'Aspirantura',
+    component: () => import('@/pages/Education/Aspirantura.vue'),
+  },
+  {
+    path: '/education/professional-retraining',
+    name: 'ProfessionalRetraining',
+    component: () => import('@/pages/Education/ProfessionalRetraining.vue'),
+  },
+  {
+    path: '/education/certification-cycles',
+    name: 'CertificationCycles',
+    component: () => import('@/pages/Education/CertificationCycles.vue'),
+  },
+  {
+    path: '/education/thematic-improvement',
+    name: 'ThematicImprovement',
+    component: () => import('@/pages/Education/ThematicImprovement.vue'),
+  },
+  {
     path: '/history',
     name: 'History',
     component: () => import('@/pages/History.vue'),
