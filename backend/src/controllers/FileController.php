@@ -202,58 +202,58 @@ class FileController
     public function updateFile()
     {
         try {
-            $rawInput = file_get_contents('php://input');
-            var_dump($_POST);
-            exjt;
-
-            $data = json_decode($rawInput, true);
-
-            if (json_last_error() !== JSON_ERROR_NONE) {
-                ResponseService::badRequest('Invalid JSON data');
-                return;
+            // Логируем входящие данные для диагностики
+            error_log("=== updateFile DEBUG ===");
+            error_log("GET params: " . print_r($_GET, true));
+            error_log("Raw input: " . file_get_contents("php://input"));
+            
+            // Получаем данные из query string как в deleteFile
+            if (isset($_GET['fileName']) && isset($_GET['title']) && isset($_GET['authors'])) {
+                $fileName = $_GET['fileName'];
+                $title = $_GET['title'];
+                $authors = $_GET['authors'];
+                $category = isset($_GET['category']) ? $_GET['category'] : null;
+                $description = isset($_GET['description']) ? $_GET['description'] : null;
+                
+                error_log("Data from GET: fileName=$fileName, title=$title, authors=$authors");
+            } else {
+                // Fallback: пробуем достать из JSON тела запроса
+                $rawData = file_get_contents("php://input");
+                if (!empty($rawData)) {
+                    $json = json_decode($rawData, true);
+                    if (isset($json['fileName']) && isset($json['title']) && isset($json['authors'])) {
+                        $fileName = $json['fileName'];
+                        $title = $json['title'];
+                        $authors = $json['authors'];
+                        $category = isset($json['category']) ? $json['category'] : null;
+                        $description = isset($json['description']) ? $json['description'] : null;
+                        
+                        error_log("Data from JSON: fileName=$fileName, title=$title, authors=$authors");
+                    } else {
+                        error_log("Missing required fields in JSON: " . print_r($json, true));
+                        ResponseService::badRequest('Required fields missing in JSON body');
+                        return;
+                    }
+                } else {
+                    error_log("No data received - neither GET nor JSON body");
+                    ResponseService::badRequest('No data received - please provide fileName, title, and authors');
+                    return;
+                }
             }
 
-            // Проверяем обязательные поля
-            if (empty($data['fileName'])) {
-                respondHandler::respond(array(
-                    'error' => 'Validation failed',
-                    'message' => 'Ошибка валидации данных',
-                    'errors' => array(
-                        'fileName' => array('Имя файла обязательно')
-                    )
-                ), 400);
-                return;
-            }
-
-            if (empty($data['title'])) {
-                respondHandler::respond(array(
-                    'error' => 'Validation failed',
-                    'message' => 'Ошибка валидации данных',
-                    'errors' => array(
-                        'title' => array('Название файла обязательно')
-                    )
-                ), 400);
-                return;
-            }
-
-            if (empty($data['authors'])) {
-                respondHandler::respond(array(
-                    'error' => 'Validation failed',
-                    'message' => 'Ошибка валидации данных',
-                    'errors' => array(
-                        'authors' => array('Авторы обязательны')
-                    )
-                ), 400);
+            // Проверяем существование файла в каталоге
+            if (!$this->catalogService->fileExists($fileName, 'private')) {
+                ResponseService::badRequest('File not found in catalog');
                 return;
             }
 
             // Обновляем запись в каталоге
             $updateData = array(
-                'fileName' => $data['fileName'],
-                'title' => $data['title'],
-                'authors' => $data['authors'],
-                'category' => isset($data['category']) ? $data['category'] : null,
-                'description' => isset($data['description']) ? $data['description'] : null
+                'fileName' => $fileName,
+                'title' => $title,
+                'authors' => $authors,
+                'category' => $category,
+                'description' => $description
             );
 
             $this->catalogService->updateFileInCatalog($updateData);

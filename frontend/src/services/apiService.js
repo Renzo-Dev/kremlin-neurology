@@ -273,18 +273,17 @@ export class ApiService {
 
   // Обновление существующего файла
   async updateFile(fileData) {
-    // Для обновления отправляем только метаданные (без файла)
-    const updateData = {
+    // Создаем query string как в deleteFile
+    const params = new URLSearchParams({
       fileName: fileData.fileName,
       title: fileData.title,
       authors: fileData.authors,
-      category: fileData.category || null,
-      description: fileData.description || null,
-    }
+      category: fileData.category || '',
+      description: fileData.description || '',
+    })
 
-    return this.request('/catalog/update', {
+    return this.request(`/catalog/update?${params}`, {
       method: 'PUT',
-      body: JSON.stringify(updateData),
     })
   }
 
