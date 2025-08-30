@@ -5,7 +5,7 @@
 $origin = isset($_SERVER['HTTP_ORIGIN']) ? $_SERVER['HTTP_ORIGIN'] : '';
 
 // Для отладки
-error_log("CORS: Requested origin: " . $origin);
+// error_log("CORS: Requested origin: " . $origin);
 
 // РАЗРАБОТКА: Разрешаем все origins для удобства разработки
 // ПРОДАКШЕН: Ограничьте только разрешенными доменами

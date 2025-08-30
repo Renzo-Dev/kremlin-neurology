@@ -13,8 +13,6 @@
 </template>
 
 <script>
-
-
 export default {
   name: 'ScrollToTop',
   data() {
@@ -55,13 +53,13 @@ export default {
         if (start === null) start = currentTime
         const timeElapsed = currentTime - start
         const progress = Math.min(timeElapsed / duration, 1)
-        
+
         // Используем более плавную функцию easing для лучшего эффекта
         const easedProgress = this.easeOutCubic(progress)
-        const currentPosition = startPosition - (startPosition * easedProgress)
-        
+        const currentPosition = startPosition - startPosition * easedProgress
+
         window.scrollTo(0, currentPosition)
-        
+
         if (progress < 1) {
           requestAnimationFrame(animation)
         }
@@ -69,7 +67,7 @@ export default {
 
       requestAnimationFrame(animation)
     },
-    
+
     // Добавляем собственную функцию easing для более плавного движения
     easeOutCubic(t) {
       return 1 - Math.pow(1 - t, 3)

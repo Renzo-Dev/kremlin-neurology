@@ -11,8 +11,7 @@ class AuthService
                 session_start();
             }
         } catch (Exception $e) {
-            // Handle exception (e.g., log it)
-            error_log('Error starting session: ' . $e->getMessage());
+            // Handle exception silently
         }
     }
 
@@ -23,8 +22,7 @@ class AuthService
             $_SESSION['authenticated'] = true;
             $_SESSION['expires_at'] = time() + 3600; // Set session expiration time (1 hour)
         } catch (Exception $exception) {
-            // Handle exception (e.g., log it)
-            error_log('Error setting authenticated session: ' . $exception->getMessage());
+            // Handle exception silently
         }
     }
 
@@ -34,8 +32,7 @@ class AuthService
             self::setAuthenticated();
             $_SESSION['is_admin'] = true;
         } catch (Exception $exception) {
-            // Handle exception (e.g., log it)
-            error_log('Error setting admin authenticated session: ' . $exception->getMessage());
+            // Handle exception silently
         }
     }
 
@@ -54,8 +51,7 @@ class AuthService
             }
             return false; // User is not authenticated
         } catch (Exception $exception) {
-            // Handle exception (e.g., log it)
-            error_log('Error checking authenticated session: ' . $exception->getMessage());
+            // Handle exception silently
             return false;
         }
     }
@@ -69,8 +65,7 @@ class AuthService
             }
             return false; // User is not admin
         } catch (Exception $exception) {
-            // Handle exception (e.g., log it)
-            error_log('Error checking admin authenticated session: ' . $exception->getMessage());
+            // Handle exception silently
             return false;
         }
     }
@@ -90,8 +85,7 @@ class AuthService
             }
             session_destroy(); // Destroy the session
         } catch (Exception $exception) {
-            // Handle exception (e.g., log it)
-            error_log('Error destroying session: ' . $exception->getMessage());
+            // Handle exception silently
         }
     }
 }

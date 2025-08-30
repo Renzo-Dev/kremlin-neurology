@@ -177,7 +177,6 @@ export default {
             response.message || 'Ошибка загрузки категорий'
         }
       } catch (error) {
-        console.error('Error loading categories:', error)
         categoriesError.value = 'Не удалось загрузить категории'
       } finally {
         isLoadingCategories.value = false

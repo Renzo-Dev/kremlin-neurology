@@ -89,12 +89,6 @@ class FileController
 
             // Проверяем, загружен ли файл
             if (!isset($_FILES['file']) || $_FILES['file']['error'] !== UPLOAD_ERR_OK) {
-                error_log("File validation failed:");
-                error_log("FILES['file'] exists: " . (isset($_FILES['file']) ? 'yes' : 'no'));
-                if (isset($_FILES['file'])) {
-                    error_log("File error code: " . $_FILES['file']['error']);
-                    error_log("File details: " . print_r($_FILES['file'], true));
-                }
 
                 // Возвращаем ошибку валидации в правильном формате
                 respondHandler::respond(array(
@@ -107,16 +101,8 @@ class FileController
                 return;
             }
 
-            // Логируем все POST данные
-            error_log("=== FileController::saveFile DEBUG ===");
-            error_log("POST data: " . print_r($_POST, true));
-            error_log("FILES data: " . print_r($_FILES, true));
-
             // Проверяем обязательные поля
             if (empty($_POST['title']) || empty($_POST['authors'])) {
-                error_log("Required fields validation failed");
-                error_log("Title: '" . (isset($_POST['title']) ? $_POST['title'] : 'NOT SET') . "'");
-                error_log("Authors: '" . (isset($_POST['authors']) ? $_POST['authors'] : 'NOT SET') . "'");
 
                 // Возвращаем ошибку валидации в правильном формате
                 respondHandler::respond(array(
@@ -202,11 +188,6 @@ class FileController
     public function updateFile()
     {
         try {
-            // Логируем входящие данные для диагностики
-            error_log("=== updateFile DEBUG ===");
-            error_log("GET params: " . print_r($_GET, true));
-            error_log("Raw input: " . file_get_contents("php://input"));
-            
             // Получаем данные из query string как в deleteFile
             if (isset($_GET['fileName']) && isset($_GET['title']) && isset($_GET['authors'])) {
                 $fileName = $_GET['fileName'];
@@ -214,8 +195,6 @@ class FileController
                 $authors = $_GET['authors'];
                 $category = isset($_GET['category']) ? $_GET['category'] : null;
                 $description = isset($_GET['description']) ? $_GET['description'] : null;
-                
-                error_log("Data from GET: fileName=$fileName, title=$title, authors=$authors");
             } else {
                 // Fallback: пробуем достать из JSON тела запроса
                 $rawData = file_get_contents("php://input");
@@ -228,14 +207,11 @@ class FileController
                         $category = isset($json['category']) ? $json['category'] : null;
                         $description = isset($json['description']) ? $json['description'] : null;
                         
-                        error_log("Data from JSON: fileName=$fileName, title=$title, authors=$authors");
                     } else {
-                        error_log("Missing required fields in JSON: " . print_r($json, true));
                         ResponseService::badRequest('Required fields missing in JSON body');
                         return;
                     }
                 } else {
-                    error_log("No data received - neither GET nor JSON body");
                     ResponseService::badRequest('No data received - please provide fileName, title, and authors');
                     return;
                 }

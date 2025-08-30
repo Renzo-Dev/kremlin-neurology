@@ -77,27 +77,18 @@ class MiddlewareManager
     public function run($route, $method)
     {
         $this->request = $this->prepareRequest($route, $method);
-        
-        error_log("MiddlewareManager: Processing route: $route, method: $method");
 
         foreach ($this->middlewares as $middleware) {
             $middlewareClass = get_class($middleware);
-            error_log("MiddlewareManager: Checking $middlewareClass");
             
             if ($middleware->shouldRun($route, $method)) {
-                error_log("MiddlewareManager: Running $middlewareClass");
                 $result = $middleware->handle($this->request);
                 
                 if ($result !== true) {
-                    error_log("MiddlewareManager: $middlewareClass returned error: " . json_encode($result));
                     return $result;
                 }
-            } else {
-                error_log("MiddlewareManager: Skipping $middlewareClass");
             }
         }
-
-        error_log("MiddlewareManager: All middleware passed successfully");
         return true;
     }
 
