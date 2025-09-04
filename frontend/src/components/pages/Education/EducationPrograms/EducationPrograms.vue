@@ -43,14 +43,18 @@
           </div>
         </div>
 
-        <div class="program-card" @click="navigateToProgram('professional-retraining')">
+        <div
+          class="program-card"
+          @click="navigateToProgram('professional-retraining')"
+        >
           <div class="card-header">
             <div class="program-icon">📋</div>
             <h3 class="program-title">Профессиональная переподготовка</h3>
           </div>
           <div class="card-content">
             <p class="program-description">
-              504 часа и более для получения новой специальности. Базовые цены на 2013 год.
+              504 часа и более для получения новой специальности. Базовые цены
+              на 2013 год.
             </p>
             <div class="program-details">
               <span class="detail-item">504+ часов</span>
@@ -63,7 +67,10 @@
           </div>
         </div>
 
-        <div class="program-card" @click="navigateToProgram('certification-cycles')">
+        <div
+          class="program-card"
+          @click="navigateToProgram('certification-cycles')"
+        >
           <div class="card-header">
             <div class="program-icon">⭐</div>
             <h3 class="program-title">Сертификационные циклы</h3>
@@ -82,26 +89,6 @@
             <span class="learn-more">Подробнее →</span>
           </div>
         </div>
-
-        <div class="program-card" @click="navigateToProgram('thematic-improvement')">
-          <div class="card-header">
-            <div class="program-icon">📚</div>
-            <h3 class="program-title">Тематическое усовершенствование</h3>
-          </div>
-          <div class="card-content">
-            <p class="program-description">
-              Специализированные курсы по актуальным вопросам неврологии
-            </p>
-            <div class="program-details">
-              <span class="detail-item">72 часа</span>
-              <span class="detail-item">Очно-заочная</span>
-              <span class="detail-item">Сертификат</span>
-            </div>
-          </div>
-          <div class="card-footer">
-            <span class="learn-more">Подробнее →</span>
-          </div>
-        </div>
       </div>
     </div>
   </section>
@@ -113,15 +100,14 @@ export default {
   methods: {
     navigateToProgram(program) {
       const routes = {
-        'ordinatura': '/education/ordinatura',
-        'aspirantura': '/education/aspirantura',
+        ordinatura: '/education/ordinatura',
+        aspirantura: '/education/aspirantura',
         'professional-retraining': '/education/professional-retraining',
         'certification-cycles': '/education/certification-cycles',
-        'thematic-improvement': '/education/thematic-improvement'
-      };
-      
+      }
+
       if (routes[program]) {
-        this.$router.push(routes[program]);
+        this.$router.push(routes[program])
       }
     },
   },

@@ -57,19 +57,6 @@
               <span class="format">Очно-заочная</span>
             </div>
           </router-link>
-
-          <router-link
-            to="/education/thematic-improvement"
-            class="program-card"
-          >
-            <div class="program-icon">⚡</div>
-            <h3>Тематическое усовершенствование</h3>
-            <p>Специализированные курсы по актуальным вопросам неврологии</p>
-            <div class="program-details">
-              <span class="duration">72 часа</span>
-              <span class="format">Очно-заочная</span>
-            </div>
-          </router-link>
         </div>
       </div>
     </div>

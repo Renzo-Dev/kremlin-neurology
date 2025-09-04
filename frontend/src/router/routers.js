@@ -30,11 +30,6 @@ export const routers = [
     component: () => import('@/pages/Education/CertificationCycles.vue'),
   },
   {
-    path: '/education/thematic-improvement',
-    name: 'ThematicImprovement',
-    component: () => import('@/pages/Education/ThematicImprovement.vue'),
-  },
-  {
     path: '/history',
     name: 'History',
     component: () => import('@/pages/History.vue'),
